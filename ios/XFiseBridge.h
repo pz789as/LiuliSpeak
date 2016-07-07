@@ -21,6 +21,11 @@
 #define SPEECH_RECOG @"2"  //评测中
 #define SPEECH_STOP @"3" //停止
 
+#define PCM_TOTALTIME @"0"//总时间
+#define PCM_CURRENTTIME @"1"//当前时间
+#define PCM_PLAYOVER @"2"//播放完毕
+#define PCM_ERROR @"3"//错误信息
+
 @interface XFiseBridge : NSObject<RCTBridgeModule>
 
 -(void)start:(NSDictionary*) infos;
@@ -28,9 +33,11 @@
 -(void)cancel;
 -(void)iseCallback:(NSString*)code result:(NSString*) result;
 -(void)iseVolume:(NSString*)volume;
--(void)playCallback:(NSString*)status;
+-(void)playCallback:(NSString*)status msg:(NSString*)msg;
+-(void)initPcm:(NSDictionary*) infos;
 -(void)playPcm;
 -(void)stopPcm;
+-(void)getPcmCurrentTime;
 
 @property (nonatomic, retain)XunfeiISE* xunfei;
 

@@ -17,7 +17,7 @@
 					"en": "Hello",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_0.mp3",
+					"mp3": "dialog0_0_0.mp3",
 				},{
 					"cn": {
 						"words":"我_叫_李小龙。",
@@ -26,7 +26,7 @@
 					"en": "You have a meal not",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_1.mp3",
+					"mp3": "dialog0_0_1.mp3",
 				},{
 					"cn": {
 						"words":"你_是_哪国_人？",
@@ -35,7 +35,7 @@
 					"en": "What would you like to eat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_2.mp3",
+					"mp3": "dialog0_0_2.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -44,7 +44,7 @@
 					"en": "You are so fat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -53,7 +53,7 @@
 					"en": "You are so fat too!",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},
 			]
 		},{
@@ -68,7 +68,7 @@
 					"en": "Hello",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_0.mp3",
+					"mp3": "dialog0_0_0.mp3",
 				},{
 					"cn": {
 						"words":"我_叫_李小龙。",
@@ -77,7 +77,7 @@
 					"en": "You have a meal not",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_1.mp3",
+					"mp3": "dialog0_0_1.mp3",
 				},{
 					"cn": {
 						"words":"你_是_哪国_人？",
@@ -86,7 +86,7 @@
 					"en": "What would you like to eat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_2.mp3",
+					"mp3": "dialog0_0_2.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -95,16 +95,7 @@
 					"en": "You are so fat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat too!",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},
 			]
 		},{
@@ -119,7 +110,7 @@
 					"en": "Hello",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_0.mp3",
+					"mp3": "dialog0_0_0.mp3",
 				},{
 					"cn": {
 						"words":"我_叫_李小龙。",
@@ -128,7 +119,7 @@
 					"en": "You have a meal not",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_1.mp3",
+					"mp3": "dialog0_0_1.mp3",
 				},{
 					"cn": {
 						"words":"你_是_哪国_人？",
@@ -137,7 +128,7 @@
 					"en": "What would you like to eat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_2.mp3",
+					"mp3": "dialog0_0_2.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -146,16 +137,7 @@
 					"en": "You are so fat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat too!",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},
 			]
 		},{
@@ -170,7 +152,7 @@
 					"en": "Hello",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_0.mp3",
+					"mp3": "dialog0_0_0.mp3",
 				},{
 					"cn": {
 						"words":"我_叫_李小龙。",
@@ -179,7 +161,7 @@
 					"en": "You have a meal not",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_1.mp3",
+					"mp3": "dialog0_0_1.mp3",
 				},{
 					"cn": {
 						"words":"你_是_哪国_人？",
@@ -188,7 +170,7 @@
 					"en": "What would you like to eat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_2.mp3",
+					"mp3": "dialog0_0_2.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -197,7 +179,7 @@
 					"en": "You are so fat",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},{
 					"cn": {
 						"words":"我_是_中国_人。",
@@ -206,7 +188,7 @@
 					"en": "You are so fat too!",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_3.mp3",
+					"mp3": "dialog0_0_3.mp3",
 				},
 			]
 		},

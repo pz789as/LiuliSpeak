@@ -11,22 +11,23 @@ import {
 import {
     Consts,
     Scenes,
+    getAudioFilePath,
 } from '../Constant';
 
 import {
     styles,
 } from '../Styles';
 
+
 import Practice from '../Components/C_Practice';
 
 class P_Practice extends Component {
-    play_k = 0;
-    showKind = 2;
-    speedKind = 2;
-    gold = 0;
-
     constructor(props) {
         super(props);
+        this.play_k = 0;
+        this.showKind = 2;
+        this.speedKind = 2;
+        this.gold = 0;
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
@@ -149,9 +150,13 @@ class P_Practice extends Component {
 
     startRecord(i){
         var testText = this.props.dialogData[i].cn.words;
+        var fileName = getAudioFilePath(this.props.lessonID, this.props.courseID, i);
         testText = testText.replace(/_/g, "");
         // console.log(testText + " " + i + " " + this.props.dialogData[i].Category);
-        this.props.App.StartISE(testText, this.props.dialogData[i].Category, this.callback.bind(this));
+        this.props.App.StartISE(testText, 
+                this.props.dialogData[i].Category, 
+                this.callback.bind(this),
+                fileName);
     }
     stopRecord(i){
         this.props.App.Cancel();

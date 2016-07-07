@@ -144,15 +144,16 @@ export default class App extends Component {
 
 
 
-  StartISE(msg, category, callback){
+  StartISE(msg, category, callback, fileName){
     this.category = category;
-    this.Start(msg, category);
+    this.Start(msg, category, fileName);
     this.pingceBack = callback;
   }
-  Start(msg, category){
+  Start(msg, category, fileName){
     if (this.speechStatus == XFiseBridge.SPEECH_STOP){
       // this.setState({tips:'正在倾听...'});
       var startInfo = {
+        SAMPLE_RATE:'16000',
         TEXT_ENCODING : 'utf-8',
         ISE_RESULT_TYPE : 'xml',
         VAD_BOS : '5000',//静音超时时间，即用户多长时间不说话则当做超时处理vad_bos 毫秒 ms
@@ -162,7 +163,7 @@ export default class App extends Component {
         ISE_RESULT_LEVEL : 'complete',
         SPEECH_TIMEOUT : '10000',//录音超时，录音达到时限时自动触发vad，停止录音，默认-1（无超时）
         TEXT : msg,//需要评测的内容
-        ISE_AUDIO_PATH: 'ise.pcm',
+        ISE_AUDIO_PATH: fileName,
       };
       XFiseBridge.start(startInfo);
     }else if (this.speechStatus == XFiseBridge.SPEECH_WORK){
@@ -216,6 +217,12 @@ export default class App extends Component {
       console.log(data.result);
     }
   }
+  InitPcm(filePath){
+    var initInfo = {
+      FILE_PATH: filePath,
+    };
+    XFiseBridge.initPcm(initInfo);
+  }
   PlayPcm(){
     XFiseBridge.playPcm();
   }
@@ -223,104 +230,54 @@ export default class App extends Component {
     XFiseBridge.stopPcm();
   }
   playCallback(data){
-    if (data.status == '4'){
-      console.log('play over!');
+    if (data.status == XFiseBridge.PCM_TOTALTIME){
+      console.log('total time:' + data.msg);
+    }else if (data.status == XFiseBridge.PCM_PLAYOVER){
+      console.log('play over! ' + data.msg);
+    }else if (data.status == XFiseBridge.PCM_CURRENTTIME){
+      console.log('current time:' + data.msg);
+    }else if (data.status == XFiseBridge.PCM_ERROR){
+      console.log('pcm error:' + data.msg);
     }
   }
 
   resultParse(result){
     var obj = eval('(' + result + ')');
-    // var textResult = result;
     var isLost = false;
     var pointCount = 0;//总点数 = 字数X3；3表示声母，韵母，声调。详细规则可以再探讨
     var lostPoint = 0;
-    // textResult = '评测内容：' + obj.content + '， 总分：' + obj.total_score;
     if (this.category == 'read_syllable'){
       var syllable = obj.sentences[0].words[0].syllables[0];
       pointCount += 3;
       lostPoint += 3;
-
-      // textResult += ('， 声母得分:' + syllable.shengmu.wpp);
-      // textResult += ('， 韵母得分:'+ syllable.yunmu.wpp);
-      // textResult += ('， 声调得分:' + syllable.yunmu.tgpp + '\n');
-      // textResult += ('评测结果:');
       if (Math.abs(syllable.shengmu.wpp) > 2){
-        // textResult += '声母';
-        // isLost = true;
         lostPoint--;
       }
       if (Math.abs(syllable.yunmu.wpp) > 2){
-        // if (isLost){
-        //   textResult += '、韵母';
-        // }else {
-        //   textResult += '韵母'
-        // }
-        // isLost = true;
         lostPoint--;
       }
       if (Math.abs(syllable.yunmu.tgpp) > 1){
-        // if (isLost){
-        //   textResult += '、声调';
-        // }else {
-        //   textResult += '声调'
-        // }
-        // isLost = true;
         lostPoint--;
       }
-      // if (isLost){
-      //   textResult += '读的不好';
-      // }else {
-      //   textResult += '读的很标准';
-      // }
     }else if(this.category == 'read_word') {
       var word = obj.sentences[0].words[0];
-      // var tmpLost;
       for(var idx=0;idx<word.syllables.length;idx++) {
         var syllable = word.syllables[idx];
         if (syllable.pDpMessage == '正常') {
-          // textResult += ('\n' + syllable.content);
-          // tmpLost = false;
           pointCount += 3;
           lostPoint += 3;
-          // textResult += ('， 声:' + syllable.shengmu.wpp);
-          // textResult += ('， 韵:'+ syllable.yunmu.wpp);
-          // textResult += ('， 调:' + syllable.yunmu.tgpp);
-          // textResult += ('， 结果:');
           if (Math.abs(syllable.shengmu.wpp) > 2){
-            // textResult += '声母';
-            // tmpLost = true;
             lostPoint--;
           }
           if (Math.abs(syllable.yunmu.wpp) > 2){
-            // if (tmpLost){
-              // textResult += '、韵母';
-            // }else {
-              // textResult += '韵母'
-            // }
-            // tmpLost = true;
             lostPoint--;
           }
           if (Math.abs(syllable.yunmu.tgpp) > 1.6){
-            // if (tmpLost){
-              // textResult += '、声调';
-            // }else {
-              // textResult += '声调'
-            // }
-            // tmpLost = true;
             lostPoint--;
           }
-          // if (tmpLost){
-            // textResult += '读的不好';
-            // isLost = true;
-          // }else {
-            // textResult += '读的很标准';
-          // }
         }else if (syllable.pDpMessage == '漏读'){
-          // textResult += ('\n' + syllable.content);
           pointCount += 3;
-          // textResult += ('， 声:0， 韵:0， 调:0， 结果:' + syllable.pDpMessage);
         }else {
-          // textResult += ('\n此处朗读有' + syllable.pDpMessage + '现象！');
           if (syllable.pDpMessage == '增读') {
             lostPoint -= 1;
           }else if (syllable.pDpMessage == '回读') {
@@ -334,54 +291,23 @@ export default class App extends Component {
       var sentence = obj.sentences[0];
       for (var j=0;j<sentence.words.length;j++){
         var word = sentence.words[j];
-        // textResult += ('\n' + word.content);
-        // textResult += (': ' + word.pDpMessage);
         for(var idx=0;idx<word.syllables.length;idx++) {
           var syllable = word.syllables[idx];
           if (syllable.pDpMessage == '正常') {
-            // textResult += ('\n  ' + syllable.content);
-            // tmpLost = false;
             pointCount += 3;
             lostPoint += 3;
-            // textResult += ('， 声:' + syllable.shengmu.wpp);
-            // textResult += ('， 韵:'+ syllable.yunmu.wpp);
-            // textResult += ('， 调:' + syllable.yunmu.tgpp);
-            // textResult += ('， 结果:');
             if (Math.abs(syllable.shengmu.wpp) > 2){
-              // textResult += '声母';
-              // tmpLost = true;
               lostPoint--;
             }
             if (Math.abs(syllable.yunmu.wpp) > 2){
-              // if (tmpLost){
-              //   textResult += '、韵母';
-              // }else {
-              //   textResult += '韵母'
-              // }
-              // tmpLost = true;
               lostPoint--;
             }
             if (Math.abs(syllable.yunmu.tgpp) > 1){
-              // if (tmpLost){
-              //   textResult += '、声调';
-              // }else {
-              //   textResult += '声调'
-              // }
-              // tmpLost = true;
               lostPoint--;
             }
-            // if (tmpLost){
-            //   textResult += '读的不好';
-            //   isLost = true;
-            // }else {
-            //   textResult += '读的很标准';
-            // }
           }else if (syllable.pDpMessage == '漏读'){
-            // textResult += ('\n  ' + syllable.content);
             pointCount += 3;
-            // textResult += ('， 声:0， 韵:0， 调:0， 结果:' + syllable.pDpMessage);
           }else {
-            // textResult += ('\n  此处朗读有' + syllable.pDpMessage + '现象！');
             if (syllable.pDpMessage == '增读') {
               lostPoint -= 1;
             }else if (syllable.pDpMessage == '回读') {

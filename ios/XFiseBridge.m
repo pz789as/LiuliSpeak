@@ -38,6 +38,12 @@ RCT_EXPORT_METHOD(cancel)
   [_xunfei cancelEvaluator];
 }
 
+RCT_EXPORT_METHOD(initPcm:(NSDictionary*) infos)
+{
+  NSString* filePath = [RCTConvert NSString:@"FILE_PATH"];
+  [_xunfei initPcm:filePath];
+}
+
 RCT_EXPORT_METHOD(playPcm)
 {
   [_xunfei playPcm];
@@ -47,6 +53,12 @@ RCT_EXPORT_METHOD(stopPcm)
 {
   [_xunfei stopPcm];
 }
+
+RCT_EXPORT_METHOD(getPcmCurrentTime)
+{
+  [_xunfei getPcmCurrentTime];
+}
+
 
 -(NSDictionary*) constantsToExport
 {
@@ -60,6 +72,11 @@ RCT_EXPORT_METHOD(stopPcm)
            @"SPEECH_WORK":@"1",
            @"SPEECH_RECOG":@"2",
            @"SPEECH_STOP":@"3",
+           
+           @"PCM_TOTALTIME":@"0",//总时间
+           @"PCM_CURRENTTIME":@"1",//当前时间
+           @"PCM_PLAYOVER":@"2",//播放完
+           @"PCM_ERROR":@"3"//错误信息
            };
 }
 
@@ -91,12 +108,13 @@ RCT_EXPORT_METHOD(stopPcm)
           }];
 }
 
--(void)playCallback:(NSString*)status
+-(void)playCallback:(NSString*)status msg:(NSString*)msg
 {
   [_bridge.eventDispatcher
    sendDeviceEventWithName:@"playCallback"
    body:@{
-          @"status":status
+          @"status":status,
+          @"msg":msg
           }];
 }
 

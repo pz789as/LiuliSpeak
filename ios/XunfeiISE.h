@@ -24,6 +24,8 @@
 -(void)cancelEvaluator;
 -(void)playPcm;
 -(void)stopPcm;
+-(void)initPcm:(NSString*) filePath;
+-(void)getPcmCurrentTime;
 
 
 @property (nonatomic,retain)XFiseBridge* xunfeiReact;

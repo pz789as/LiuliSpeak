@@ -27,7 +27,6 @@ class P_Menu extends Component {
   constructor(props){
     super(props);
     this.realPractices = new Array();
-    this.courseIdx = 0;
     this.state = {
       listDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
@@ -59,9 +58,16 @@ class P_Menu extends Component {
   }
   selectListItem(rowID, kind){
     this.courseIdx = rowID;
+    var pageIdx = Scenes.PRACTICE;
     if (kind == 0) {
-      this.props.GotoPage(Consts.NAVI_PUSH, Scenes.PRACTICE, {dialogData:this.realPractices[rowID].contents});
+      pageIdx = Scenes.PRACTICE;
     }
+    this.props.GotoPage(Consts.NAVI_PUSH, pageIdx, 
+        {
+          dialogData: this.realPractices[rowID].contents,
+          lessonID: this.props.lessonID,
+          courseID: rowID,
+        });
   }
   render() {
     return (

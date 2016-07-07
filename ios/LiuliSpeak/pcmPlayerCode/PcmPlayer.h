@@ -55,6 +55,11 @@
 - (void)playAt:(double)start endAt:(double)end;
 
 /**
+ 获取当前播放进度
+ **/
+-(double)getCurrentTime;
+
+/**
  是否在播放状态
  ****/
 @property (nonatomic,assign) BOOL isPlaying;

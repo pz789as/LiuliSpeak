@@ -54,8 +54,7 @@
   [_evaluatorIns setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
   
   //设置评测采样率
-  //  [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"SAMPLE_RATE"]] forKey:[IFlySpeechConstant SAMPLE_RATE]];
-  [_evaluatorIns setParameter:@"16000" forKey:[IFlySpeechConstant SAMPLE_RATE]];
+  [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"SAMPLE_RATE"]] forKey:[IFlySpeechConstant SAMPLE_RATE]];
   //设置评测题目编码，如果是utf-8格式，请添加bom头，添加方式可参考demo
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"TEXT_ENCODING"]] forKey:[IFlySpeechConstant TEXT_ENCODING]];
   //设置评测题目结果格式，目前仅支持xml
@@ -108,14 +107,20 @@
   [_xunfeiReact iseCallback:CB_CODE_STATUS result:SPEECH_STOP];
 }
 
+-(void)initPcm:(NSString*) filePath
+{
+  NSString* tmpPath = filePath;
+  if (tmpPath == nil) {
+    tmpPath = [[NSString alloc] initWithFormat:@"%@",
+               [_pcmFilePath stringByAppendingPathComponent:[RCTConvert NSString:_dicInfos[@"ISE_AUDIO_PATH"]]]];
+  }
+  _pcmPlayer = [[PcmPlayer alloc] initWithFilePath:tmpPath
+                                        sampleRate:[[RCTConvert NSString:_dicInfos[@"SAMPLE_RATE"]] longLongValue]];
+  _pcmPlayer.delegate = self;
+}
+
 -(void)playPcm
 {
-  
-  NSString* FilePath = [[NSString alloc] initWithFormat:@"%@",
-                  [_pcmFilePath stringByAppendingPathComponent:[RCTConvert NSString:_dicInfos[@"ISE_AUDIO_PATH"]]]];
-  
-  _pcmPlayer = [[PcmPlayer alloc] initWithFilePath:FilePath sampleRate:16000];
-  _pcmPlayer.delegate = self;
   [_pcmPlayer play];
 }
 
@@ -127,6 +132,11 @@
   _pcmPlayer = nil;
 }
 
+-(void)getPcmCurrentTime
+{
+  [_xunfeiReact playCallback:PCM_CURRENTTIME
+                        msg:[NSString stringWithFormat:@"%f",[_pcmPlayer getCurrentTime]]];
+}
 
 
 #pragma mark - IFlySpeechEvaluatorDelegate
@@ -217,7 +227,15 @@
 #pragma mark - PcmPlayerDelegate
 //播放音频结束
 -(void)onPlayCompleted {
-  [_xunfeiReact playCallback:@"4"];
+  [_xunfeiReact playCallback:PCM_PLAYOVER msg:@"0"];
+}
+
+-(void)totalTime:(double)time{
+  [_xunfeiReact playCallback:PCM_TOTALTIME msg:[NSString stringWithFormat:@"%f",time]];
+}
+
+-(void)onPcmError:(NSString*)error{
+  [_xunfeiReact playCallback:PCM_ERROR msg:error];
 }
 
 @end

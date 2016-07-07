@@ -30,7 +30,6 @@ export default class P_Main extends Component {
   constructor(props){
     super(props);
     this.realCourseList = new Array();
-    this.courseIdx = 0;
     this.state = {
       courseListDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
@@ -38,9 +37,12 @@ export default class P_Main extends Component {
     };
   }
   selectListItem(rowID){
-    this.courseIdx = rowID;
     console.log(rowID);
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, {lessonData:lesson1.practices});
+    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, 
+        {
+          lessonData:lesson1.practices,
+          lessonID: rowID,
+        });
   }
   componentWillMount(){
     for(var i=0;i<5;i++){
