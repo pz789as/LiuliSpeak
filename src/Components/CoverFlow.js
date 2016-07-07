@@ -65,7 +65,6 @@ class CoverFlow extends Component {
 		} else {
 			// 竖直移动
 			this.state.translate.setValue(0 - (this.move-dy));
-			console.log('move: '+(0-(this.move-dy)));
 		}
 	}
 	// 松开
