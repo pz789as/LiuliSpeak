@@ -34,7 +34,7 @@ class C_LessonMenu extends Component {
   constructor(props){
     super(props);
     this.state = {
-      moveY: new Animated.Value(0),
+      moveY: new Animated.Value(minUnit * 32),
       showIdx: 0,
     };
   }
@@ -56,8 +56,7 @@ class C_LessonMenu extends Component {
         <CoverFlow style={[styles.fill, {alignItems:'center'}, ming.cardHoriziontal]}
                 frameSpace={minUnit * 80} 
                 SelectId={this.state.showIdx}
-                getSelectIndex={this.moveIndex.bind(this)}
-                >
+                getSelectIndex={this.moveIndex.bind(this)}>
           {this.drawList()}
         </CoverFlow>
         {this.drawMoreMenu()}
