@@ -21,7 +21,7 @@ import {
 */
 
 class CoverFlow extends Component {
-	move = 0;
+	old = 0;
 	constructor(props) {
 	  	super(props);
 	
@@ -34,15 +34,37 @@ class CoverFlow extends Component {
 	static propTypes = {
 		frameSpace: React.PropTypes.number,
 		horizontal: React.PropTypes.bool,
-		getSelectIndex: React.PropTypes.func,	//得到当前位置
 		SelectId: React.PropTypes.number,
+		getSelectIndex: React.PropTypes.func,	//得到当前位置
+
+		// Animation Config
+		overshootSpringConfig: React.PropTypes.any,
+		momentumDecayConfig: React.PropTypes.any,
+		// springOriginConfig: React.PropTypes.any,
+		directionLockDistance: React.PropTypes.number,
+		overshootReductionFactor: React.PropTypes.number,
 	};
 	static defaultProps = {
 		style: {},			//背景
 		frameSpace: 200,	//每个元素的宽带
 		horizontal: true,	//是否水平显示
 		SelectId: 0,
-		getSelectIndex: (num)=>{console.log('SelectId: '+num)}
+		getSelectIndex: (num)=>{console.log('SelectId: '+num)},
+
+		// Animation Config
+		overshootSpringConfig: {
+			friction: 7,
+			tension: 40
+		},
+		momentumDecayConfig: {
+			deceleration: 0.993
+		},
+		// springOriginConfig: {
+		// 	friction: 7,
+		// 	tension: 40
+		// },
+		overshootReductionFactor: 3,
+		directionLockDistance: 10,
 	};
 	// 手势处理
 	componentWillMount() {
@@ -50,25 +72,42 @@ class CoverFlow extends Component {
 		this._panResponder = PanResponder.create({
       		onStartShouldSetPanResponder: ()=>true,
       		onMoveShouldSetPanResponder: ()=>true,
-      		onPanResponderGrant: this.panResponderStart,
+      		onPanResponderGrant: this.panResponderStart.bind(this),
       		onPanResponderMove: this.panResponderMove.bind(this),
       		onPanResponderRelease: this.panResponderRelease.bind(this),
     	});
 	}
 	panResponderStart() {
+		var anim = this.state.translate;
+		this.old = anim._value;
 	}
 	// 移动中
 	panResponderMove(evt, {dx, dy, vx, vy}) {
+		var anim = this.state.translate;
 		if (this.props.horizontal) {
 			// 水平移动
-			this.state.translate.setValue(0 - (this.move-dx));
+			var val = this.old + dx;
 		} else {
 			// 竖直移动
-			this.state.translate.setValue(0 - (this.move-dy));
+			var val = this.old + dy;
 		}
+
+		var {
+			children,
+			frameSpace,
+		} = this.props;
+		var min = 0-(children.length-1)*frameSpace;
+		var max = 0;
+		if (val > max) {
+			val = max + (val - max) / this.props.overshootReductionFactor;
+		}
+		if (val < min) {
+			val = min - (min - val) / this.props.overshootReductionFactor;
+		}
+		this.state.translate.setValue(val);
 	}
 	// 松开
-	panResponderRelease(evt, {dx, dy, vx, vy}) {
+	panResponderRelease(evt, {vx, vy}) {
 		var {
 			children,
 			frameSpace,
@@ -76,31 +115,105 @@ class CoverFlow extends Component {
 			SelectId,
 		} = this.props;
 
-		if (horizontal) {
-			// 水平移动
-			this.move -= dx+vx*frameSpace;
+		var anim = this.state.translate;
+		var min = 0-(children.length-1)*frameSpace;
+		var max = 0;
+		var velocity = vx;
+		if (!horizontal) velocity = vy;
+
+		anim.flattenOffset();
+		// 结束时的处理
+		if (anim._value < min) {
+			Animated.spring(anim, {
+				...this.props.overshootSpringConfig,
+				toValue: min,
+				velocity,
+			}).start();
+		} else if (anim._value > max) {
+			Animated.spring(anim, {
+				...this.props.overshootSpringConfig,
+				toValue: max,
+				velocity,
+			}).start();
 		} else {
-			// 竖直移动
-			this.move -= dy+vy*frameSpace;
+			var endX = this.momentumCenter(anim._value, velocity, frameSpace);
+			// var _num = anim._value%frameSpace;
+			// if (_num < frameSpace/2) {
+			// 	endX - frameSpace;
+			// } else {
+			// 	endX
+			// }
+			endX = Math.max(endX, min);
+			endX = Math.min(endX, max);
+			var bounds = [endX - frameSpace / 2, endX + frameSpace / 2];
+			var endV = this.velocityAtBounds(anim._value, velocity, bounds);
+
+			this._listener = anim.addListener(({
+				value
+			}) => {
+				if (value > bounds[0] && value < bounds[1]) {
+					Animated.spring(anim, {
+						toValue: endX,
+						velocity: endV,
+					}).start();
+				}
+			});
+
+			console.log('EndX: '+endX+"\tV: "+velocity+'\tValue: '+anim._value);
+
+			Animated.decay(anim, {
+				...this.props.momentumDecayConfig,
+				velocity,
+			}).start(() => {
+				anim.removeListener(this._listener);
+			});
 		}
-		// 范围判断，超出显示范围的处理
-		var min = 0;
-		var max = (children.length-1)*frameSpace;
-		if (this.move < min) {
-			this.move = min;
-		} else if (this.move > max) {
-			this.move = max;
+	}
+	// 保证中心位置
+	closestCenter(x, spacing) {
+		var plus = (x % spacing) < spacing / 2 ? 0 : spacing;
+		return Math.floor(x / spacing) * spacing + plus;
+	}
+	// 确定结束位置
+	momentumCenter(x0, vx, spacing) {
+		var t = 0;
+		var deceleration = this.props.momentumDecayConfig.deceleration || 0.997;
+		var x1 = x0;
+		var x = x1;
+
+		while (true) {
+			t += 16;
+			x = x0 + (vx / (1 - deceleration)) *
+				(1 - Math.exp(-(1 - deceleration) * t));
+			if (Math.abs(x - x1) < 0.1) {
+				x1 = x;
+				break;
+			}
+			x1 = x;
 		}
-		// 偏移处理，移动距离为framespace的倍数
-		var _num = this.move%frameSpace;
-		this.move -= _num;
-		if (_num > frameSpace/2) {
-			this.move += frameSpace;
+		return this.closestCenter(x1, spacing);
+	}
+	// 结束速度
+	velocityAtBounds(x0, vx, bounds) {
+		var t = 0;
+		var deceleration = this.props.momentumDecayConfig.deceleration || 0.997;
+		var x1 = x0;
+		var x = x1;
+		var vf;
+		while (true) {
+			t += 16;
+			x = x0 + (vx / (1 - deceleration)) *
+				(1 - Math.exp(-(1 - deceleration) * t));
+			vf = (x - x1) / 16;
+			if (x > bounds[0] && x < bounds[1]) {
+				break;
+			}
+			if (Math.abs(vf) < 0.1) {
+				break;
+			}
+			x1 = x;
 		}
-		// 返回当前选中位置
-		SelectId = this.move/frameSpace;
-		this.props.getSelectIndex(SelectId);
-		this.changeAnimated(this.move);
+		return vf;
 	}
 
 	render() {
