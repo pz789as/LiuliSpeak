@@ -25,7 +25,6 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 export default class App extends Component {
   constructor(props){
     super(props);
-    console.log("dayin");
     this.listener = null;
     this.volumeListener = null;
     // this.pcmListener = null;
