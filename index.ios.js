@@ -15,7 +15,7 @@ import App from './src/App';
 class LiuliSpeak extends Component {
   render() {
     return (
-      <App />
+      <App></App>
     );
   }
 }
