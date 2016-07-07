@@ -1,0 +1,63 @@
+[
+	{
+		"Key": 1.0,
+		"Msg": "天",
+		"Category":"read_syllable",
+	}, {
+		"Key": 5.0,
+		"Msg": "热烈",
+		"Category":"read_word",
+	}, {
+		"Key": 9.0,
+		"Msg": "今天天气很不错。",
+		"Category":"read_sentence",
+	}, {
+		"Key": 2.0,
+		"Msg": "河",
+		"Category":"read_syllable",
+	}, {
+		"Key": 7.0,
+		"Msg": "历史",
+		"Category":"read_word",
+	}, {
+		"Key": 10.0,
+		"Msg": "昨天是星期天。",
+		"Category":"read_sentence",
+	}, {
+		"Key": 3.0,
+		"Msg": "东",
+		"Category":"read_syllable",
+	}, {
+		"Key": 6.0,
+		"Msg": "中文",
+		"Category":"read_word",
+	}, {
+		"Key": 8.0,
+		"Msg": "卓别林是世界闻名的喜剧大师。",
+		"Category":"read_sentence",
+	}, {
+		"Key": 4.0,
+		"Msg": "家",
+		"Category":"read_syllable",
+	}, {
+		"Key": 11.0,
+		"Msg": "意义",
+		"Category":"read_word",
+	}, {
+		"Key": 12.0,
+		"Msg": "没有人不爱惜他的生命，但很少人珍视他的时间。",
+		"Category":"read_sentence",
+	}, {
+		"Key": 15.0,
+		"Msg": "水",
+		"Category":"read_syllable",
+	}, {
+		"Key": 14.0,
+		"Msg": "桌子",
+		"Category":"read_word",
+	}, {
+		"Key": 13.0,
+		"Msg": "桌子上有水果和点心，还有一瓶水和两个鸡蛋。",
+		"Category":"read_sentence",
+	}
+]
