@@ -136,7 +136,6 @@ class CoverFlow extends Component {
 				velocity,
 			}).start();
 		} else {
-			console.log("End!");
 			var endX = this.momentumCenter(anim._value, velocity, frameSpace);
 			endX = Math.max(endX, min);
 			endX = Math.min(endX, max);
@@ -154,20 +153,23 @@ class CoverFlow extends Component {
 				}
 			});
 
-			console.log('EndX: '+endX+"\tV: "+Math.abs(velocity)+'\tValue: '+anim._value);
-
 			Animated.decay(anim, {
 				...this.props.momentumDecayConfig,
 				velocity,
 			}).start(() => {
 				anim.removeListener(this._listener);
 			});
+
+			// SelectId = 0-(endX/frameSpace);
+			// this.props.getSelectIndex(SelectId);
 		}
 	}
 	// 保证中心位置
 	closestCenter(x, spacing) {
-		var plus = (x % spacing) < spacing / 2 ? 0 : spacing;
-		return Math.floor(x / spacing) * spacing + plus;
+		var plus = (Math.abs(x % spacing)) < spacing / 2 ? 0 : spacing;
+		var endX = (parseInt(x / spacing)) * spacing - plus;
+		// return Math.floor(x / spacing) * spacing + plus;
+		return endX;
 	}
 	// 确定结束位置
 	momentumCenter(x0, vx, spacing) {
