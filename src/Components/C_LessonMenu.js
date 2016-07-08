@@ -26,17 +26,20 @@ import {
   ScreenWidth,
   ScreenHeight,
   minUnit,
+  UtilStyles,
 } from '../Styles';
 
 let MinWidth = 1/PixelRatio.get();
 
 import ShowNum from './ShowNum';
 
+var MoreMsgH = minUnit*49;
 class C_LessonMenu extends Component {
   constructor(props){
     super(props);
     this.state = {
-      moveY: new Animated.Value(minUnit * 32),
+      moreH: new Animated.Value(0),
+      moveY: new Animated.Value(0),
       showIdx: 0,
     };
   }
@@ -47,7 +50,7 @@ class C_LessonMenu extends Component {
         <View style={[ming.menuTop, styles.horizontalList]}>
           <IconButton icon={ImageRes.ic_close} onPress={this.props.onClose}/>
           <Text style={{fontSize:16,color:'white'}}>课程名称</Text>
-          <IconButton icon={ImageRes.more} onPress={this.props.onMore}/>
+          <IconButton icon={ImageRes.more} onPress={this.AnimatedInt.bind(this)}/>
         </View>
         <View style={{alignItems:'center'}}>
           {/*<Text style={{fontSize:16,color:'white'}}>
@@ -68,9 +71,6 @@ class C_LessonMenu extends Component {
   }
   moveIndex(select){
     this.refs.ShowNum.setSelect(select);
-    // this.setState({
-    //   showIdx: select,
-    // });
   }
   drawList(){
     var array = [];
@@ -86,49 +86,42 @@ class C_LessonMenu extends Component {
     return array;
   }
   drawMoreMenu(){
-    var moveInStyle={
-      transform:[{
-        translateY: this.state.moveY,
-      }],
-    };
-    if (this.props.blnMoreMenu){
-      return (<TouchableWithoutFeedback onPress={this.AnimatedOut.bind(this)}>
-            <View style={ming.moreMenu}>
-              <Animated.View style={moveInStyle}>
-                <View style={ming.upMenu}>
-                  <TouchableOpacity style={ming.touchFont} onPress={this.props.gotoMorePage}>
-                    <Text style={ming.menuFont}>详情</Text>
-                  </TouchableOpacity>
-                  <View style={ming.upMenuLine} />
-                  <TouchableOpacity style={ming.touchFont}>
-                    <Text style={ming.menuFont}>下载全部关卡</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={ming.downMenu}>
-                  <TouchableOpacity style={ming.touchFont} onPress={this.AnimatedOut.bind(this)}>
-                    <Text style={ming.menuFont}>取消</Text>
-                  </TouchableOpacity>
-                </View>
-              </Animated.View>
+      return (
+        <Animated.View style={[ming.shade, {height:this.state.moreH}]} >
+          <TouchableOpacity style={styles.fill} onPress={this.AnimatedOut.bind(this)} >
+          </TouchableOpacity>
+          <Animated.View style={[ming.moreMenu, {transform:[{translateY: this.state.moveY}]}]}>
+            <View style={ming.upMenu}>
+              <TouchableOpacity style={[ming.buttonMenu, styles.center, ming.menuLine]} onPress={this.props.gotoMorePage} activeOpacity={0.5} >
+                <Text style={ming.menuFont}>详情</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={()=>{}} activeOpacity={0.5} >
+                <Text style={ming.menuFont}>下载全部关卡</Text>
+              </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
+            <View style={ming.downMenu}>
+              <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={this.AnimatedOut.bind(this)} activeOpacity={0.5} >
+                <Text style={ming.menuFont}>取消</Text>
+              </TouchableOpacity>
+            </View>
+          </Animated.View>
+        </Animated.View>
       );
-    }
   }
   gotoLesson(rowID, kind){
     this.props.selectListItem(rowID, kind);
   }
   AnimatedInt() {
-    this.state.moveY.setValue(minUnit * 32);
+    this.state.moreH.setValue(ScreenHeight);
     Animated.timing(this.state.moveY, {
-			toValue: 0,
+			toValue: -MoreMsgH,
 		}).start();
   }
   AnimatedOut(){
     Animated.timing(this.state.moveY, {
-			toValue: minUnit * 32,
+			toValue: 0,
 		}).start(()=>{
-      this.props.cancelMore();
+      this.state.moreH.setValue(0);
     });
   }
 }
@@ -151,52 +144,45 @@ const ming = StyleSheet.create({
   cardHoriziontal:{
     marginHorizontal: minUnit*10,
   },
+  shade: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    width: ScreenWidth,
+    backgroundColor: 'rgba(10,10,10,0.5)'
+  },
   moreMenu:{
     position:'absolute',
-    top:0,
-    left:0, 
-    width:ScreenWidth, 
-    height:ScreenHeight, 
-    backgroundColor:'rgba(10,10,10,0.5)',
+    left:minUnit*2, 
+    top:ScreenHeight,
+    width:ScreenWidth - minUnit*4,
+    height:MoreMsgH,
   },
   upMenu:{
-    position:'absolute',
-    top: ScreenHeight - minUnit * 32,
-    left: minUnit * 2,
-    width: ScreenWidth - minUnit * 4,
-    height: minUnit * 20,
+    height: minUnit * 30,
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor:'#808080',
     borderRadius: 10,
-    alignItems:'center',
-    justifyContent:'space-around',
-    paddingVertical: minUnit * 1,
+    marginBottom: minUnit*2,
   },
   downMenu:{
-    position: 'absolute',
-    top: ScreenHeight - minUnit * 11,
-    left: minUnit * 2,
-    width: ScreenWidth - minUnit * 4,
-    height: minUnit * 10,
+    height: minUnit * 15,
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor:'#808080',
     borderRadius: 10,
-    alignItems:'center',
-    justifyContent:'center',
+    marginBottom: minUnit*2,
   },
-  upMenuLine:{
-    width: ScreenWidth - minUnit * 4,
-    height: 1,
-    backgroundColor: '#A0A0A0',
+  buttonMenu: {
+    height: minUnit*15,
   },
-  touchFont:{
-    alignItems:'center',
-    width: ScreenWidth - minUnit * 4,
+  menuLine:{
+    borderBottomWidth: 1,
+    borderColor: '#767575'
   },
   menuFont:{
-    fontSize: minUnit * 5,
+    fontSize: minUnit * 7,
     backgroundColor:'rgba(10,10,10,0)',
   },
 });
