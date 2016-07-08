@@ -30,6 +30,8 @@ import {
 
 let MinWidth = 1/PixelRatio.get();
 
+import ShowNum from './ShowNum';
+
 class C_LessonMenu extends Component {
   constructor(props){
     super(props);
@@ -48,9 +50,10 @@ class C_LessonMenu extends Component {
           <IconButton icon={ImageRes.more} onPress={this.props.onMore}/>
         </View>
         <View style={{alignItems:'center'}}>
-          <Text style={{fontSize:16,color:'white'}}>
+          {/*<Text style={{fontSize:16,color:'white'}}>
             {parseInt(this.state.showIdx + 1)}/{parseInt(this.props.CardNum)}
-          </Text>
+          </Text>*/}
+          <ShowNum select={0} all={this.props.CardNum} ref={'ShowNum'} />
         </View>
         {/*中间课程显示，选择不同的打开方式*/}
         <CoverFlow style={[styles.fill, {alignItems:'center'}, ming.cardHoriziontal]}
@@ -64,9 +67,10 @@ class C_LessonMenu extends Component {
     );
   }
   moveIndex(select){
-    this.setState({
-      showIdx: select,
-    });
+    this.refs.ShowNum.setSelect(select);
+    // this.setState({
+    //   showIdx: select,
+    // });
   }
   drawList(){
     var array = [];

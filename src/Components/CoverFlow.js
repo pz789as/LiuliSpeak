@@ -120,7 +120,7 @@ class CoverFlow extends Component {
 		var max = 0;
 		var velocity = vx;
 		if (!horizontal) velocity = vy;
-
+		var endX = 0;
 		anim.flattenOffset();
 		// 结束时的处理
 		if (anim._value < min) {
@@ -129,14 +129,16 @@ class CoverFlow extends Component {
 				toValue: min,
 				velocity,
 			}).start();
+			endX = min;
 		} else if (anim._value > max) {
 			Animated.spring(anim, {
 				...this.props.overshootSpringConfig,
 				toValue: max,
 				velocity,
 			}).start();
+			endX = max;
 		} else {
-			var endX = this.momentumCenter(anim._value, velocity, frameSpace);
+			endX = this.momentumCenter(anim._value, velocity, frameSpace);
 			endX = Math.max(endX, min);
 			endX = Math.min(endX, max);
 			var bounds = [endX - frameSpace / 2, endX + frameSpace / 2];
@@ -150,6 +152,18 @@ class CoverFlow extends Component {
 						toValue: endX,
 						velocity: endV,
 					}).start();
+				} else if (value < min) {
+					Animated.spring(anim, {
+						...this.props.overshootSpringConfig,
+						toValue: min,
+						endV,
+					}).start();
+				} else if (value > max) {
+					Animated.spring(anim, {
+						...this.props.overshootSpringConfig,
+						toValue: max,
+						endV,
+					}).start();
 				}
 			});
 
@@ -159,10 +173,9 @@ class CoverFlow extends Component {
 			}).start(() => {
 				anim.removeListener(this._listener);
 			});
-
-			// SelectId = 0-(endX/frameSpace);
-			// this.props.getSelectIndex(SelectId);
 		}
+		SelectId = -(endX/frameSpace);
+		this.props.getSelectIndex(SelectId);
 	}
 	// 保证中心位置
 	closestCenter(x, spacing) {
@@ -257,6 +270,10 @@ const styles = StyleSheet.create({
 	},
 	horizontal: {
 		flexDirection: 'row',
+	},
+	text: {
+		alignItems: 'center',
+		height: 50,
 	}
 });
 
