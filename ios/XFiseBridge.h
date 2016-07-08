@@ -37,7 +37,7 @@
 -(void)initPcm:(NSDictionary*) infos;
 -(void)playPcm;
 -(void)stopPcm;
--(void)getPcmCurrentTime;
+-(void)pausePcm;
 
 @property (nonatomic, retain)XunfeiISE* xunfei;
 

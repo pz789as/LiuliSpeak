@@ -73,6 +73,8 @@
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"SPEECH_TIMEOUT"]] forKey:[IFlySpeechConstant SPEECH_TIMEOUT]];
 
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"ISE_AUDIO_PATH"]] forKey:[IFlySpeechConstant ISE_AUDIO_PATH]];
+  
+//  [_evaluatorIns setParameter:@"utf-8" forKey:[IFlySpeechConstant RESULT_ENCODING]];
 }
 
 -(void)startEvaluator:(NSDictionary *)infos iseBridge:(XFiseBridge*)iseBridge
@@ -107,16 +109,23 @@
   [_xunfeiReact iseCallback:CB_CODE_STATUS result:SPEECH_STOP];
 }
 
--(void)initPcm:(NSString*) filePath
+-(BOOL)initPcm:(NSString*) filePath rate:(long)rate
 {
   NSString* tmpPath = filePath;
   if (tmpPath == nil) {
     tmpPath = [[NSString alloc] initWithFormat:@"%@",
                [_pcmFilePath stringByAppendingPathComponent:[RCTConvert NSString:_dicInfos[@"ISE_AUDIO_PATH"]]]];
+  }else{
+    tmpPath = [[NSString alloc] initWithFormat:@"%@",
+               [_pcmFilePath stringByAppendingPathComponent:filePath]];
   }
-  _pcmPlayer = [[PcmPlayer alloc] initWithFilePath:tmpPath
-                                        sampleRate:[[RCTConvert NSString:_dicInfos[@"SAMPLE_RATE"]] longLongValue]];
+  
+  _pcmPlayer = [[PcmPlayer alloc] initWithFilePath:tmpPath sampleRate:rate];
+  if (_pcmPlayer == nil){
+    return NO;
+  }
   _pcmPlayer.delegate = self;
+  return YES;
 }
 
 -(void)playPcm
@@ -132,10 +141,19 @@
   _pcmPlayer = nil;
 }
 
--(void)getPcmCurrentTime
+-(void)pausePcm
 {
-  [_xunfeiReact playCallback:PCM_CURRENTTIME
-                        msg:[NSString stringWithFormat:@"%f",[_pcmPlayer getCurrentTime]]];
+  [_pcmPlayer pause];
+}
+
+-(double)getPcmLong
+{
+  return [_pcmPlayer getLong];
+}
+
+-(double)getPcmCurrentTime
+{
+  return [_pcmPlayer getCurrentTime];
 }
 
 
@@ -228,14 +246,6 @@
 //播放音频结束
 -(void)onPlayCompleted {
   [_xunfeiReact playCallback:PCM_PLAYOVER msg:@"0"];
-}
-
--(void)totalTime:(double)time{
-  [_xunfeiReact playCallback:PCM_TOTALTIME msg:[NSString stringWithFormat:@"%f",time]];
-}
-
--(void)onPcmError:(NSString*)error{
-  [_xunfeiReact playCallback:PCM_ERROR msg:error];
 }
 
 @end

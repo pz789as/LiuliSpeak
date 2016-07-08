@@ -10,6 +10,7 @@
 #import "RCTEventDispatcher.h"
 #import "RCTConvert.h"
 #import "XunfeiISE.h"
+#import "RCTUtils.h"
 
 @implementation XFiseBridge
 
@@ -40,8 +41,11 @@ RCT_EXPORT_METHOD(cancel)
 
 RCT_EXPORT_METHOD(initPcm:(NSDictionary*) infos)
 {
-  NSString* filePath = [RCTConvert NSString:@"FILE_PATH"];
-  [_xunfei initPcm:filePath];
+  NSString* filePath = [RCTConvert NSString:infos[@"FILE_PATH"]];
+  NSString* rate = [RCTConvert NSString:infos[@"SAMPLE_RATE"]];
+  long value = [rate intValue];
+  
+  [_xunfei initPcm:filePath rate:value];
 }
 
 RCT_EXPORT_METHOD(playPcm)
@@ -54,11 +58,34 @@ RCT_EXPORT_METHOD(stopPcm)
   [_xunfei stopPcm];
 }
 
-RCT_EXPORT_METHOD(getPcmCurrentTime)
+RCT_EXPORT_METHOD(pausePcm)
 {
-  [_xunfei getPcmCurrentTime];
+  [_xunfei pausePcm];
 }
 
+RCT_REMAP_METHOD(getPcmCurrentTime,
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  resolve([[NSNumber alloc]initWithDouble:[_xunfei getPcmCurrentTime]]);
+}
+
+RCT_REMAP_METHOD(initPcm2,
+                 infos:(NSDictionary*)infos
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  NSString* filePath = [RCTConvert NSString:infos[@"FILE_PATH"]];
+  NSString* rate = [RCTConvert NSString:infos[@"SAMPLE_RATE"]];
+  long value = [rate intValue];
+  
+  BOOL ret = [_xunfei initPcm:filePath rate:value];
+  if (ret){
+    resolve([[NSNumber alloc]initWithDouble:[_xunfei getPcmLong]]);
+  }else{
+    reject(@"1", @"文件不存在或数据为空", nil);
+  }
+}
 
 -(NSDictionary*) constantsToExport
 {
@@ -86,6 +113,7 @@ RCT_EXPORT_METHOD(getPcmCurrentTime)
 {
   self = [super init];
   _xunfei = [[XunfeiISE alloc] init];
+  _xunfei.xunfeiReact = self;
   return self;
 }
 

@@ -101,7 +101,9 @@ class P_Practice extends Component {
                     getGold={this.getGold.bind(this)}
                     dialogData={this.props.dialogData}
                     startRecord={this.startRecord.bind(this)}
-                    stopRecord={this.stopRecord.bind(this)}/>
+                    stopRecord={this.stopRecord.bind(this)}
+                    lessonID={this.props.lessonID}
+                    courseID={this.props.courseID}/>
                 {this.state.touch.blnTouch && <View style={{position:"absolute",top:this.state.touch.ty - 10, left:this.state.touch.tx - 10,
                         width:20,height:20,borderRadius:10,backgroundColor:'#ff000031',}}/>}
             </View>
@@ -169,10 +171,13 @@ class P_Practice extends Component {
         if (data == 'error') {//返回错误
             this.stopRecordAuto();
         }else if (data == 'volume') {//返回音量
-            console.log(num);
+            // console.log(num);
             this.refs.practice.recordVolume(num);
+        }else if (data == 'stop') {
+            this.stopRecordAuto();
         }else {//正确获得结果之后
             console.log(data, num);
+            this.stopRecordAuto();
         }
     }
 }

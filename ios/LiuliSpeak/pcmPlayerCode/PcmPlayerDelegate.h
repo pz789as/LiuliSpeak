@@ -18,7 +18,5 @@
 
 //播放音频结束
 -(void)onPlayCompleted;
--(void)totalTime:(double)time;
--(void)onPcmError:(NSString*)error;
 
 @end

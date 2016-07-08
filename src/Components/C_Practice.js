@@ -40,6 +40,10 @@ import {
 } from '../Styles';
 
 import {
+    getAudioFilePath,
+} from '../Constant';
+
+import {
   ImageRes
 } from '../Resources';
 
@@ -194,6 +198,7 @@ class c_practice extends Component {
 					<ListItem itemWordCN={this.props.dialogData[i].cn} 
 							itemWordEN={this.props.dialogData[i].en} 
 							audio={this.props.dialogData[i].mp3}
+							recAudio={getAudioFilePath(this.props.lessonID,this.props.courseID,i)}
 							startRecord={this.startRecord.bind(this, i)}
 							stopRecord={this.stopRecord.bind(this, i)}
 							itemShowType={this.state.showKind}

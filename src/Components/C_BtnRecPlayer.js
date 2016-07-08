@@ -12,12 +12,16 @@ import ReactNative, {
     Image,
     Animated,
     PixelRatio,
+    NativeModules,
 }from 'react-native'
 import {
     ImageRes
 } from '../Resources';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
-import Sound from 'react-native-sound';
+
+var XFiseBridge = NativeModules.XFiseBridge;
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
@@ -27,6 +31,7 @@ var btnSize = radioSize + 4;
 export default class BtnPlayerRecording extends Component {
     constructor(props) {
         super(props);
+        this.pcmListener = null;
         // 初始状态
         this.state = {
             playerState: 0,//0:等待播放,1:播放中,2暂停播放
@@ -50,39 +55,6 @@ export default class BtnPlayerRecording extends Component {
     blnReady = false;
     blnPlay = false;
     blnStop = false;
-    handleInitDialog = (error)=>{
-        if(error !=null){
-            console.log('failed to load the sound! ', error.message);
-        }else{
-            this.setState({
-                audioCurrentTime : 0,
-                audioTimes : this.dialogSound.getDuration(),
-            })
-            // console.log('success to load the sound', this.dialogSound.getDuration());
-            this.blnReady = true;
-            if (this.blnPlay) {
-                this.playerAudio();
-                this.blnPlay = false;
-            }
-        }
-    }
-    initDialog = ()=> {
-        var locFile = '/Users/guojicheng/Desktop/ReactNative/Projects/LiuliSpeak/sound/';
-        // locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/MasterPiece/sound/'
-        var path = locFile + this.props.audioName;
-        // this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
-        // path = './sound/' + this.props.audioName;//Sound.CACHES  Sound.DOCUMENT Sound.LIBRARY Sound.MAIN_BUNDLE
-        this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
-    }
-    initRecord = ()=> {//..临时写的一个,后面真播放录音时由郭去处理
-        var locFile = '/Users/guojicheng/Desktop/ReactNative/Projects/LiuliSpeak/sound/';
-        // var locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/MasterPiece/sound/';
-        // var path = locFile + this.props.recordName;
-        console.log(Sound.CACHES);
-        var path = locFile + this.props.audioName;
-        this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
-        // this.dialogSound = new Sound('ise.pcm', Sound.CACHES, this.handleInitDialog.bind(this));
-    }
 
     playerAudio = ()=> {//开始播放声音
         if (!this.blnReady) {
@@ -93,16 +65,15 @@ export default class BtnPlayerRecording extends Component {
             playerState: 1,
         });
         this.blnStop = false;
-        // this.dialogSound.setRate(0.6);
-        this.dialogSound.play(this.audioPlayerEnd);
-        this.time=setInterval(this.getNowTime,100);
+        this.PlayPcm();
+        this.time=setInterval(this.getNowTime, 100);
     }
 
     pauseAudio = ()=> {//暂停播放声音
         this.setState({
             playerState: 2,
         });
-        this.dialogSound.pause();
+        this.PausePcm();
         clearInterval(this.time);
     }
 
@@ -123,7 +94,7 @@ export default class BtnPlayerRecording extends Component {
                 playerState: 0,
                 audioCurrentTime:0,//..解决再次播放进度条不归零问题
             });
-            this.dialogSound.stop();
+            this.StopPcm();
             clearInterval(this.time);
             this.blnStop = true;
         }
@@ -136,23 +107,72 @@ export default class BtnPlayerRecording extends Component {
         }
     }
     getNowTime = ()=> {
-        this.dialogSound.getCurrentTime((time)=>{
-            if (this.blnStop) return;
-            this.setState({audioCurrentTime:time});
-        })
+        this.GetCurrentTime();
     }
 
     getProgressValue = ()=> {//获取播放进度
-        this.dialogSound.getCurrentTime(this.getNowTime);
         return this.state.audioCurrentTime / this.state.audioTimes;
     }
-    
-    componentWillMount() {
-        if (this.props.playerType == 0) {//根据playerType 属性值判断这个按钮是播放音频还是播放录音,调用不同的初始化函数
-            this.initDialog();
-        } else {
-            this.initRecord();
+    async GetCurrentTime(){
+        try{
+            var ret = await XFiseBridge.getPcmCurrentTime();
+
+            // console.log('current time:' + ret);
+            if (this.blnStop) return;
+            this.setState({audioCurrentTime: ret});
+        }catch(error){
+            console.log("GetCurrentTime", error);
         }
+    }
+    async InitPcm(filePath){
+        var initInfo = {
+            FILE_PATH: filePath,
+            SAMPLE_RATE: '16000',
+        };
+        try{
+            var ret = await XFiseBridge.initPcm2(initInfo);
+            
+            // console.log('total time:' + ret);
+
+            this.setState({
+                audioCurrentTime : 0,
+                audioTimes : ret,
+            });
+            this.blnReady = true;
+            if (this.blnPlay) {
+                this.playerAudio();
+                this.blnPlay = false;
+            }
+        }catch(error){
+            console.log('InitPcm', error);
+        }
+    }
+    PlayPcm(){
+        XFiseBridge.playPcm();
+    }
+    StopPcm(){
+        XFiseBridge.stopPcm();
+    }
+    PausePcm(){
+        XFiseBridge.pausePcm();
+    }
+    playCallback(data){
+        if (data.status == XFiseBridge.PCM_TOTALTIME){
+            
+        }else if (data.status == XFiseBridge.PCM_PLAYOVER){
+            console.log('play over! ' + data.msg);
+            this.audioPlayerEnd();
+        }else if (data.status == XFiseBridge.PCM_CURRENTTIME){
+            
+        }else if (data.status == XFiseBridge.PCM_ERROR){
+            
+        }
+    }
+    
+    componentDidMount() {
+        this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
+        this.InitPcm(this.props.audioName);
+
         if (this.props.blnAnimate) {
             Animated.timing(this.state.scaleAnim, {
                 toValue: 1,
@@ -164,9 +184,7 @@ export default class BtnPlayerRecording extends Component {
     }
 
     componentWillUnmount() {
-        if (this.dialogSound) {
-            this.dialogSound.release();//释放掉音频
-        }
+        this.pcmListener.remove();
         clearInterval(this.time);
     }
     drawBtnPlayAudio=()=>{ //0:等待播放,1:播放中,2暂停播放

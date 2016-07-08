@@ -47,10 +47,14 @@ typedef struct Wavehead
 
 -(id)initWithFilePath:(NSString *)path sampleRate:(long)sample
 {
+  NSData *audioData = [NSData dataWithContentsOfFile:path];
+  if (audioData == nil){
+    return nil;
+  }
+  
   self = [super init];
   
   if (self) {
-    NSData *audioData = [NSData dataWithContentsOfFile:path];
     [self writeWaveHead:audioData sampleRate:sample];
   }
   return self;
@@ -141,26 +145,31 @@ typedef struct Wavehead
   self.pcmData = [[NSMutableData alloc]initWithBytes:&waveHead length:sizeof(waveHead)];
   [self.pcmData appendData:audioData];
   
-  NSError *err = [[NSError alloc]init];
+//  NSError *err = [[NSError alloc]init];
+  NSError *err = [[NSError alloc]initWithDomain:@"" code:1 userInfo:nil];
   self.player = [[AVAudioPlayer alloc]initWithData:self.pcmData error:&err];
   if (err)
   {
     NSLog(@"%@",err.localizedDescription);
-    if (_delegate){
-      [_delegate onPcmError:err.localizedDescription];
-    }
+//    [_delegate onPcmError:err.localizedDescription];
   }
+  
   self.player.delegate = self;
+  self.isPauseing = NO;
   [self.player prepareToPlay];
   if ([self.pcmData length] > 44){
-    if (_delegate){
-      [_delegate totalTime:self.player.duration];
-    }
+//    [_delegate totalTime:self.player.duration];
   }
 }
 
 - (void)play
 {
+  if (self.isPauseing) {
+    self.isPauseing = NO;
+    [self.player play];
+    return;
+  }
+  
   [self stop];
   
   self.isPlaying = YES;
@@ -177,11 +186,16 @@ typedef struct Wavehead
   else
   {
     self.isPlaying = NO;
-    if (_delegate){
-      [_delegate onPcmError:@"音频数据为空"];
-    }
   }
   
+}
+
+-(void)pause
+{
+  if (self.isPlaying){
+    self.isPauseing = YES;
+    [self.player pause];
+  }
 }
 
 - (void)stop

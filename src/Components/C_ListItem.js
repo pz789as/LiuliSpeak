@@ -20,6 +20,8 @@ import BtnPlayer from './C_BtnPlayer';
 import BtnRecord from './C_BtnRecording';
 import BtnQuestion from './C_BtnQuestion';
 import Sentence from './C_Sentence';
+import BtnRecPlayer from './C_BtnRecPlayer';
+
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
@@ -75,7 +77,7 @@ export default class ListItem extends Component {
     }
     callPlayStop = ()=> {
         this.refs.btnPlay.stopAudio();
-        this.refs.btnPlayRecord.stopAudio();
+        this.refs.btnRecPlay.stopAudio();
     }
     getScoreViewColor = function () {//通过当前分数获取 "分数"背景色
         let color = 'white';
@@ -189,8 +191,8 @@ export default class ListItem extends Component {
                                    playEnd={this.props.playend} ref={'btnPlay'}/>
                         <BtnRecord blnAnimate={true} animateDialy={100} startRecord={this.props.startRecord}
                                 ref={'btnRecord'} stopRecord={this.props.stopRecord}/>
-                        <BtnPlayer blnAnimate={true} animateDialy={150} playerType={1} audioName={this.props.audio}
-                                ref={'btnPlayRecord'}/>
+                        <BtnRecPlayer blnAnimate={true} animateDialy={150} playerType={1} audioName={this.props.recAudio}
+                                ref={'btnRecPlay'}/>
                         <BtnQuestion blnAnimate={true} animateDialy={200}/>
                     </View>}
                    

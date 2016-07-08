@@ -44,6 +44,13 @@
 - (void)stop;
 
 
+
+/**
+ 暂停播放
+ ****/
+-(void)pause;
+
+
 /**
  得到声音的详细信息
  ****/
@@ -63,6 +70,7 @@
  是否在播放状态
  ****/
 @property (nonatomic,assign) BOOL isPlaying;
+@property (nonatomic,assign) BOOL isPauseing;
 
 @property (nonatomic, assign) id <PcmPlayerDelegate> delegate;
 

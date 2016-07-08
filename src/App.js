@@ -189,7 +189,10 @@ export default class App extends Component {
   iseCallback(data){
     if (data.code == XFiseBridge.CB_CODE_RESULT){
       // this.setState({tips:'点击话筒开始说话'});
-      this.resultParse(data.result);
+      // this.resultParse(data.result);
+      if (this.pingceBack){
+        this.pingceBack(data, 0);
+      }
       this.speechStatus = XFiseBridge.SPEECH_STOP;
     }
     else if (data.code == XFiseBridge.CB_CODE_ERROR){
@@ -208,38 +211,43 @@ export default class App extends Component {
         // this.setState({tips:'正在倾听...'});
       }else if (data.result == XFiseBridge.SPEECH_STOP){
         // this.setState({tips:'点击话筒开始说话'});
+        if (this.pingceBack) {
+          this.pingceBack('stop', 0);
+        }
       }else if (data.result == XFiseBridge.SPEECH_RECOG){
         // this.setState({tips:'正在分析...'});
       }
       this.speechStatus = data.result;
     }
     else {
-      console.log(data.result);
+      console.log('传回其他参数', data.result);
+      this.pingceBack('error', 0);
+      this.speechStatus = XFiseBridge.SPEECH_STOP;
     }
   }
-  InitPcm(filePath){
-    var initInfo = {
-      FILE_PATH: filePath,
-    };
-    XFiseBridge.initPcm(initInfo);
-  }
-  PlayPcm(){
-    XFiseBridge.playPcm();
-  }
-  StopPcm(){
-    XFiseBridge.stopPcm();
-  }
-  playCallback(data){
-    if (data.status == XFiseBridge.PCM_TOTALTIME){
-      console.log('total time:' + data.msg);
-    }else if (data.status == XFiseBridge.PCM_PLAYOVER){
-      console.log('play over! ' + data.msg);
-    }else if (data.status == XFiseBridge.PCM_CURRENTTIME){
-      console.log('current time:' + data.msg);
-    }else if (data.status == XFiseBridge.PCM_ERROR){
-      console.log('pcm error:' + data.msg);
-    }
-  }
+  // InitPcm(filePath){
+  //   var initInfo = {
+  //     FILE_PATH: filePath,
+  //   };
+  //   XFiseBridge.initPcm(initInfo);
+  // }
+  // PlayPcm(){
+  //   XFiseBridge.playPcm();
+  // }
+  // StopPcm(){
+  //   XFiseBridge.stopPcm();
+  // }
+  // playCallback(data){
+  //   if (data.status == XFiseBridge.PCM_TOTALTIME){
+  //     console.log('total time:' + data.msg);
+  //   }else if (data.status == XFiseBridge.PCM_PLAYOVER){
+  //     console.log('play over! ' + data.msg);
+  //   }else if (data.status == XFiseBridge.PCM_CURRENTTIME){
+  //     console.log('current time:' + data.msg);
+  //   }else if (data.status == XFiseBridge.PCM_ERROR){
+  //     console.log('pcm error:' + data.msg);
+  //   }
+  // }
 
   resultParse(result){
     var obj = eval('(' + result + ')');
