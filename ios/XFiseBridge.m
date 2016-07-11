@@ -39,15 +39,6 @@ RCT_EXPORT_METHOD(cancel)
   [_xunfei cancelEvaluator];
 }
 
-RCT_EXPORT_METHOD(initPcm:(NSDictionary*) infos)
-{
-  NSString* filePath = [RCTConvert NSString:infos[@"FILE_PATH"]];
-  NSString* rate = [RCTConvert NSString:infos[@"SAMPLE_RATE"]];
-  long value = [rate intValue];
-  
-  [_xunfei initPcm:filePath rate:value];
-}
-
 RCT_EXPORT_METHOD(playPcm)
 {
   [_xunfei playPcm];
@@ -70,7 +61,7 @@ RCT_REMAP_METHOD(getPcmCurrentTime,
   resolve([[NSNumber alloc]initWithDouble:[_xunfei getPcmCurrentTime]]);
 }
 
-RCT_REMAP_METHOD(initPcm2,
+RCT_REMAP_METHOD(initPcm,
                  infos:(NSDictionary*)infos
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)

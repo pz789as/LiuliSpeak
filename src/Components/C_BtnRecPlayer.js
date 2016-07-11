@@ -130,7 +130,7 @@ export default class BtnPlayerRecording extends Component {
             SAMPLE_RATE: '16000',
         };
         try{
-            var ret = await XFiseBridge.initPcm2(initInfo);
+            var ret = await XFiseBridge.initPcm(initInfo);
             
             // console.log('total time:' + ret);
 
