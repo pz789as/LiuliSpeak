@@ -34,12 +34,40 @@ export default class Word extends Component {
         panX:PropTypes.number,
         panY:PropTypes.number,
     };
-    arrSyllable = [];
+    //arrSyllable = [];
     myLayout = null;
     componentWillMount() {
-        this.setArrSyllable();
-    }    
-    
+        //this.setArrSyllable();
+    }
+    setPingce(arrScore){        
+        var strWord = this.props.words;
+        var strPinYin = this.props.pinyins;
+        var wordLength = strWord.length - this.getPunctuationCount(strWord);
+        var pinyinArr = strPinYin.split(" "); //字符'_'分词 字符' '区分拼音
+        if(wordLength != pinyinArr.length){
+            console.log("词汇中的字数与拼音数据中不符");
+        }else{
+            var punctuationCount=0;
+            var index = 0;
+            for(var i=0;i<strWord.length;i++){
+                if(PUNCTUATION.indexOf(strWord[i])>=0){
+                    punctuationCount+=1;//跳过标点符号
+                }else{
+                    //..console.log("第"+i+"个汉字的评测情况:"+strWord[i]+":"+arrScore.slice(index,index+1));
+                    if(arrScore == "error"){                        
+                        this.refs["syllable"+i].setPingce("error");
+                    }else{
+                        console.log("这里竟然会执行")
+                        this.refs["syllable"+i].setPingce(arrScore.slice(index,index+1));
+                    }
+
+                    index += 1;
+                    //this.arrSyllable.push(<Syllable style={[styles.syllable]} word={strWord[i]} pinyin={pinyinArr[i-punctuationCount]} key={i}/>);
+                }
+            }
+        }
+    }
+    /*
     setArrSyllable=()=>{
         var strWord = this.props.words;
         var strPinYin = this.props.pinyins;
@@ -58,6 +86,30 @@ export default class Word extends Component {
                 }
             }
         }
+    }//因为要给<Syllable>添加 ref,所以只能以draw形式显示  */
+    drawArrSyllable=()=>{
+        var arrSyllable = []
+        var strWord = this.props.words;
+        var strPinYin = this.props.pinyins;
+        var wordLength = strWord.length - this.getPunctuationCount(strWord);
+        var pinyinArr = strPinYin.split(" "); //字符'_'分词 字符' '区分拼音
+        if(wordLength != pinyinArr.length){
+            console.log("词汇中的字数与拼音数据中不符");
+        }else{
+            var punctuationCount=0;
+            var index = 0;
+            for(var i=0;i<strWord.length;i++){
+                if(PUNCTUATION.indexOf(strWord[i])>=0){
+                    arrSyllable.push(<Syllable style={[styles.syllable]} word={strWord[i]} pinyin={' '} key={i}/>);
+                    punctuationCount+=1;//跳过标点符号
+                }else{
+                    arrSyllable.push(<Syllable ref={"syllable"+index} style={[styles.syllable]} word={strWord[i]}
+                                                    pinyin={pinyinArr[i-punctuationCount]} key={i}/>);
+                    index += 1;
+                }
+            }
+        }
+        return arrSyllable;
     }
     getPunctuationCount=(str)=>{
         var length=str.length;
@@ -120,7 +172,7 @@ export default class Word extends Component {
         return (
             <View style={[this.props.style,styles.wordContene,this.state.blnSelect&&{backgroundColor:'#C5D6E6'}]}
                   onLayout={this._onLayout.bind(this)}>
-                {this.arrSyllable}
+                {this.drawArrSyllable()}
             </View>
 
         );
@@ -131,6 +183,7 @@ const styles = StyleSheet.create({
     wordContene: {//主背景
         flexDirection:'row',
         //borderBottomWidth:1,
+        
     },
     syllable:{
         marginHorizontal:0*fontSize,

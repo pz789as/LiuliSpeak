@@ -5,7 +5,9 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    Text,
     PanResponder,
+    InteractionManager,
 } from 'react-native';
 
 import {
@@ -31,6 +33,7 @@ class P_Practice extends Component {
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
+
         }
     }
 
@@ -83,7 +86,8 @@ class P_Practice extends Component {
         this.refs.practice.setMoveEnd();
     }
 
-    render() {
+
+    render() {         
         return (
             <View {...this._panResponder.panHandlers} style={{flex:1}} >
                 <Practice
@@ -169,6 +173,8 @@ class P_Practice extends Component {
     callback(data, num){
         // console.log(data, num);
         if (data == 'error') {//返回错误
+            var pcResult = {blnSuccess:false,score:'0',syllableScore:'',errorMsg:num};
+            this.refs.practice.pingceResult(pcResult);
             this.stopRecordAuto();
         }else if (data == 'volume') {//返回音量
             // console.log(num);
@@ -176,7 +182,11 @@ class P_Practice extends Component {
         }else if (data == 'stop') {
             this.stopRecordAuto();
         }else {//正确获得结果之后
-            console.log(data, num);
+            //..console.log("获得正确结果",data, num);
+            var pcResult = {blnSuccess:true,score:num,syllableScore:data};
+            console.log("检查pcResult.syllable:",pcResult.syllableScore);
+            this.refs.practice.pingceResult(pcResult);
+
             this.stopRecordAuto();
         }
     }

@@ -25,12 +25,11 @@ import BtnRecPlayer from './C_BtnRecPlayer';
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26)
+var fontSize = parseInt(totalWidth / 26);
 var spacing = fontSize * 1;//内容之间的间距
 
 export default class ListItem extends Component {
     height = 0;
-
     constructor(props) {
         super(props);
         // 初始状态
@@ -153,7 +152,9 @@ export default class ListItem extends Component {
         } else {
             return (
                 <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
-                    <Image style={styles.badImage} source={ImageRes.icon_bad}/>
+                    <Image style={styles.badImage} source={ImageRes.icon_bad}>
+                    <Text style={{fontSize:fontSize/2,color:'#F0FFE7'}}>{this.state.score}</Text>{/*唐7-12*/}
+                    </Image>
                 </View>
             );
         }
@@ -161,12 +162,32 @@ export default class ListItem extends Component {
 
     setRecordButtonVolume(volume){
         this.refs.btnRecord.setVolume(volume);
-    }
-
+    }     
+    
     stopRecordAuto(){
         this.refs.btnRecord.stopRecordAuto();
     }
-
+    setPingceResult(result){//唐7-11
+        //..console.log("运行C_listITEM 的 setPingceResult:"+result.blnSuccess + result.score+result.syllableScore);syllableScore
+        const {blnSuccess,score,syllableScore,errorMsg} = result;
+        if(blnSuccess){
+            this.refs.mySentence.setPingce(syllableScore);
+            var rndScore = Math.min(95,score) - 3 + parseInt(Math.random()*6);
+            if(syllableScore < 60){ //如果没及格,就别给随机分数了
+                rndScore = syllableScore;
+            }
+            this.setState({score:rndScore});
+        }else{
+            if(errorMsg == 0){
+                console.log("未知的异常");
+            }else{
+                console.log("讯飞返回的错误代码:",errorMsg);
+            }
+            this.refs.mySentence.setPingce("error");
+            this.setState({score:0});
+        }
+        
+    }
     render() {
         const {itemIndex, itemWordCN, itemWordEN, itemShowType, itemBlnSelect} = this.props;//获取属性值
 
@@ -178,6 +199,7 @@ export default class ListItem extends Component {
                 </View>
                 <View style={styles.contentView} onLayout={this._onLayoutContentView.bind(this)}>
                     {/*当属性showType不为只显示英文时,显示这个text*/}
+
                     {(itemShowType != 1) &&
                     <Sentence ref="mySentence" style={styles.textWordCN} words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
@@ -185,6 +207,7 @@ export default class ListItem extends Component {
                     {/*当属性showType不为只显示中文时,显示这个text*/}
                     {(itemShowType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
+                    
                     {itemBlnSelect &&
                     <View style={styles.operateView}>
                         <BtnPlayer blnAnimate={true} animateDialy={0} playerType={0} audioName={this.props.audio}
@@ -195,7 +218,7 @@ export default class ListItem extends Component {
                                 ref={'btnRecPlay'}/>
                         <BtnQuestion blnAnimate={true} animateDialy={200}/>
                     </View>}
-                   
+                     
                 </View>
 
                 <View style={styles.rightView}>
@@ -212,7 +235,6 @@ export default class ListItem extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     container: {//主背景
         flexDirection: 'row',
@@ -224,19 +246,19 @@ const styles = StyleSheet.create({
     },
     leftView: {
         //backgroundColor:'blue',
-        width: 3.5 * fontSize,
+        width: 3 * fontSize,//唐7-12
         alignItems: 'center',
         marginBottom: spacing,
     },
     contentView: {//中间的内容栏
         //backgroundColor:'yellow',
-        width: totalWidth - fontSize * 7,
+        width: totalWidth - fontSize * 6,//唐7-12
         justifyContent: 'space-between',
         paddingRight: 0.5 * fontSize,
     },
     rightView: {//右侧的信息栏,显示分数和金币信息的
         //backgroundColor:'blue',
-        width: 3.5 * fontSize,
+        width: 3 * fontSize,//唐7-12
         alignItems: 'center',
         marginBottom: spacing,
     },
@@ -272,7 +294,8 @@ const styles = StyleSheet.create({
     badImage: {
         width: fontSize * 2.5,
         height: fontSize * 2.5,
-
+        alignItems: 'center',//唐7-12
+        justifyContent: 'center',//唐7-12
     },
     coinView: {//金币背景
         position: 'absolute',

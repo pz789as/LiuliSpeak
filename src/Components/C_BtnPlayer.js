@@ -66,9 +66,9 @@ export default class BtnPlayerRecording extends Component {
             }
         }
     }
-    initDialog = ()=> {
+    initDialog = ()=> {        
         var locFile = '/Users/guojicheng/Desktop/ReactNative/Projects/LiuliSpeak/sound/';
-        // locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/MasterPiece/sound/'
+        locFile = '/Users/tangweishu/Desktop/mywork3/RNWork/LiuliSpeak/sound/'
         var path = locFile + this.props.audioName;
         // this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
         // path = './sound/' + this.props.audioName;//Sound.CACHES  Sound.DOCUMENT Sound.LIBRARY Sound.MAIN_BUNDLE

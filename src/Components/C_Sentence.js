@@ -39,7 +39,30 @@ export default class Sentence extends Component {
         touch: PropTypes.object,
     };
     wordCount = 0;//记录一下这句话中有多少组词汇
-     
+
+    setPingce(arrScore){
+        var strWord = this.props.words;
+        var strPinYin = this.props.pinyins;
+        var wordArr = strWord.split("_");
+        var pinyinArr = strPinYin.split("_"); //字符'_'分词 字符' '区分拼音
+        if (wordArr.length != pinyinArr.length) {
+            console.log("句子的词汇数与拼音数据中不符");
+        } else {
+            var index = 0;
+            for (var i = 0; i < wordArr.length; i++) {
+                var length = wordArr[i].length;
+                //..console.log("第"+i+"个词的评测情况:"+ wordArr[i]+":"+arrScore.slice(index,index+length));
+                 
+                if(arrScore == "error"){                     
+                    this.refs["word"+i].setPingce("error");
+                }else{
+                    this.refs["word"+i].setPingce(arrScore.slice(index,index+length));
+                }
+                
+                index += length;
+            }
+        }
+    }
     drawArrWords = ()=> {
         var arrWords = [];
         var strWord = this.props.words;
@@ -136,5 +159,6 @@ const styles = StyleSheet.create({
     },
     word: {
         marginHorizontal: 0.3 * fontSize,
+        marginBottom:0.5*fontSize,//唐7-12 解决句子换行显示垂直方向挤在一块的问题
     }
 })

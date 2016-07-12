@@ -39,6 +39,7 @@ export default class BtnPlayerRecording extends Component {
         blnAnimate: PropTypes.bool,//是否有出现动画
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
         startRecord: PropTypes.func,
+        stopRecord:PropTypes.func,
     };
 
     _onPress = ()=> {//发送点击事件
@@ -58,6 +59,7 @@ export default class BtnPlayerRecording extends Component {
             state = 0;
             this.setState({
                 recordState: state,
+                recordVolum: 0,//唐7-12
             });
         }
     }
@@ -88,13 +90,21 @@ export default class BtnPlayerRecording extends Component {
         // }
     }
     setVolume(volume){
-        var v = volume / 100;
+        //..console.log("record volume:",volume);
+        volume += 12 + parseInt(Math.random()*5) ;
+        var v = volume / 50;
         if (this.state.recordState == 0){
             v = 0;
         }
         v = v > 1 ? 1: v;
         this.setState({
             recordVolum: v,
+        });
+    }
+    
+    recordEnd(){
+        this.setState({
+            recordVolum: 0,
         });
     }
     render() {
@@ -111,9 +121,9 @@ export default class BtnPlayerRecording extends Component {
                         </View>*/}
                         {this.drawBtnRecord()}
                         {this.state.playerState != 0 &&
-                        <Progress.Circle style={styles.progress} thickness={2} 
+                        <Progress.Circle style={styles.progress} thickness={5}
                                         borderWidth={0} progress={this.state.recordVolum}
-                                         size={btnSize-2} color="#3FA214"/>
+                                         size={btnSize-2} color="#3FA214" animated={true}/>
                         }
                     </View>
                 </TouchableOpacity>

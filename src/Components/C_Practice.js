@@ -230,7 +230,7 @@ class c_practice extends Component {
 		this.props.startRecord(i);
 	}
 	stopRecord(i){
-		this.props.stopRecord(i);
+		this.props.stopRecord(i);		 
 	}
 	stopRecordAuto(){
 		this.refs[this.state.select].stopRecordAuto();
@@ -238,6 +238,11 @@ class c_practice extends Component {
 	recordVolume(volume){
 		this.refs[this.state.select].setRecordButtonVolume(volume);
 	}
+	
+	pingceResult(result){//唐 7-11
+		this.refs[this.state.select].setPingceResult(result);
+	}
+	
 	// 播放结束（主要处理下方按钮中的整体播放，根据是否整体播放，决定是否播放下一条）
 	playEnd() {
 		if (this.state.blnPlay) {

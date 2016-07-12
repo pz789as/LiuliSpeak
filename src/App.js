@@ -142,8 +142,6 @@ export default class App extends Component {
     this._navigator.pop();
   }
 
-
-
   StartISE(msg, category, callback, fileName){
     this.category = category;
     this.Start(msg, category, fileName);
@@ -187,12 +185,16 @@ export default class App extends Component {
       }
   }
   iseCallback(data){
+    if(data.code != XFiseBridge.CB_CODE_RESULT){
+      console.log("--data--:",data);
+    }
     if (data.code == XFiseBridge.CB_CODE_RESULT){
       // this.setState({tips:'点击话筒开始说话'});
-      // this.resultParse(data.result);
-      if (this.pingceBack){
-        this.pingceBack(data, 0);
-      }
+
+      this.resultParse(data.result);//录音结束返回结果数据
+      //if (this.pingceBack){
+        //this.pingceBack(data, 0);
+      //}
       this.speechStatus = XFiseBridge.SPEECH_STOP;
     }
     else if (data.code == XFiseBridge.CB_CODE_ERROR){
@@ -200,26 +202,27 @@ export default class App extends Component {
       // console.log(data.result);
       if (this.pingceBack) {
         // var arr = data.result.split('_');
-        this.pingceBack('error', 0);
+        this.pingceBack('error', data.result); //返回评测异常错误
+
       }
       this.speechStatus = XFiseBridge.SPEECH_STOP;
     }
-    else if (data.code == XFiseBridge.CB_CODE_STATUS){
-      if (data.result == XFiseBridge.SPEECH_START){
+    else if (data.code == XFiseBridge.CB_CODE_STATUS){//正在录音
+      if (data.result == XFiseBridge.SPEECH_START){//已经开始
         // this.setState({tips:'正在倾听...'});
-      }else if (data.result == XFiseBridge.SPEECH_WORK){
+      }else if (data.result == XFiseBridge.SPEECH_WORK){//工作中...
         // this.setState({tips:'正在倾听...'});
-      }else if (data.result == XFiseBridge.SPEECH_STOP){
+      }else if (data.result == XFiseBridge.SPEECH_STOP){//手动停止
         // this.setState({tips:'点击话筒开始说话'});
         if (this.pingceBack) {
           this.pingceBack('stop', 0);
         }
-      }else if (data.result == XFiseBridge.SPEECH_RECOG){
+      }else if (data.result == XFiseBridge.SPEECH_RECOG){//识别中...
         // this.setState({tips:'正在分析...'});
       }
       this.speechStatus = data.result;
     }
-    else {
+    else {//..真的是未知的错误
       console.log('传回其他参数', data.result);
       this.pingceBack('error', 0);
       this.speechStatus = XFiseBridge.SPEECH_STOP;
@@ -249,24 +252,30 @@ export default class App extends Component {
   //   }
   // }
 
-  resultParse(result){
+  resultParse(result){ //唐7-11
     var obj = eval('(' + result + ')');
     var isLost = false;
     var pointCount = 0;//总点数 = 字数X3；3表示声母，韵母，声调。详细规则可以再探讨
     var lostPoint = 0;
+    var syllablesScore=[];//每个字的评测情况     
     if (this.category == 'read_syllable'){
       var syllable = obj.sentences[0].words[0].syllables[0];
       pointCount += 3;
       lostPoint += 3;
+      var temPoint = "111";
       if (Math.abs(syllable.shengmu.wpp) > 2){
+        tmpPoint[0] = '0';
         lostPoint--;
       }
       if (Math.abs(syllable.yunmu.wpp) > 2){
+        tmpPoint[1] = '0';
         lostPoint--;
       }
       if (Math.abs(syllable.yunmu.tgpp) > 1){
+        tmpPoint[2] = '0';
         lostPoint--;
       }
+      syllablesScore.push(tmpPoint);
     }else if(this.category == 'read_word') {
       var word = obj.sentences[0].words[0];
       for(var idx=0;idx<word.syllables.length;idx++) {
@@ -274,17 +283,29 @@ export default class App extends Component {
         if (syllable.pDpMessage == '正常') {
           pointCount += 3;
           lostPoint += 3;
+          var temPoint = "";
           if (Math.abs(syllable.shengmu.wpp) > 2){
+            tmpPoint.concat('0');
             lostPoint--;
+          }else{
+            tmpPoint.concat('1');
           }
           if (Math.abs(syllable.yunmu.wpp) > 2){
+            tmpPoint.concat('0');
             lostPoint--;
+          }else{
+            tmpPoint.concat('1');
           }
           if (Math.abs(syllable.yunmu.tgpp) > 1.6){
+            tmpPoint.concat('0');
             lostPoint--;
+          }else{
+            tmpPoint.concat('1');
           }
+          syllablesScore.push(tmpPoint);
         }else if (syllable.pDpMessage == '漏读'){
           pointCount += 3;
+          syllablesScore.push('000');
         }else {
           if (syllable.pDpMessage == '增读') {
             lostPoint -= 1;
@@ -295,7 +316,7 @@ export default class App extends Component {
           }
         }
       }
-    }else if (this.category == 'read_sentence') {
+    }else if (this.category === 'read_sentence') {
       var sentence = obj.sentences[0];
       for (var j=0;j<sentence.words.length;j++){
         var word = sentence.words[j];
@@ -304,16 +325,29 @@ export default class App extends Component {
           if (syllable.pDpMessage == '正常') {
             pointCount += 3;
             lostPoint += 3;
+            var tmpPoint = '';
             if (Math.abs(syllable.shengmu.wpp) > 2){
+
               lostPoint--;
+              tmpPoint =tmpPoint.concat('0');
+            }else{
+              tmpPoint =tmpPoint.concat('1');
             }
             if (Math.abs(syllable.yunmu.wpp) > 2){
+              tmpPoint =tmpPoint.concat('0');
               lostPoint--;
+            }else{
+              tmpPoint =tmpPoint.concat('1');
             }
             if (Math.abs(syllable.yunmu.tgpp) > 1){
+              tmpPoint =tmpPoint.concat('0');
               lostPoint--;
+            }else{
+              tmpPoint =tmpPoint.concat('1');
             }
+            syllablesScore.push(tmpPoint);
           }else if (syllable.pDpMessage == '漏读'){
+            syllablesScore.push('000');
             pointCount += 3;
           }else {
             if (syllable.pDpMessage == '增读') {
@@ -330,9 +364,9 @@ export default class App extends Component {
 
     if (lostPoint < 0) lostPoint = 0;
     var score = lostPoint / pointCount * 100;
-    console.log("score: " + score);
-
-    this.pingceBack(obj, score);
+    console.log("评测分数: " + score);
+    console.log("每个汉字情况:"+syllablesScore);
+    this.pingceBack(syllablesScore,parseInt(score));
 
     // this.setState({
     //   result:textResult,
