@@ -23,6 +23,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		902261771D34C4BE0058296E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 902261751D34C4B50058296E /* libRNFS.a */; };
 		902BF0F41D2636ED00F6A9BE /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 902BF0F31D2636DE00F6A9BE /* libRNSound.a */; };
 		902BF0FB1D26371900F6A9BE /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 902BF0FA1D26370900F6A9BE /* libART.a */; };
 		905011051D20F4BF00DFACF6 /* XunfeiISE.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011031D20F4BF00DFACF6 /* XunfeiISE.m */; };
@@ -131,6 +132,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		902261741D34C4B50058296E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 902261651D34C4B40058296E /* RNFS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RNFS;
+		};
 		902BF0F21D2636DE00F6A9BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 902BF0E41D2636DE00F6A9BE /* RNSound.xcodeproj */;
@@ -169,6 +177,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		902261651D34C4B40058296E /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		902BF0E41D2636DE00F6A9BE /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		902BF0F51D26370900F6A9BE /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		905011021D20F4BF00DFACF6 /* XunfeiISE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XunfeiISE.h; sourceTree = "<group>"; };
@@ -227,6 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				902261771D34C4BE0058296E /* libRNFS.a in Frameworks */,
 				902BF0FB1D26371900F6A9BE /* libART.a in Frameworks */,
 				9050112E1D20F62900DFACF6 /* CoreLocation.framework in Frameworks */,
 				9050112C1D20F61F00DFACF6 /* CoreTelephony.framework in Frameworks */,
@@ -369,6 +379,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				902261651D34C4B40058296E /* RNFS.xcodeproj */,
 				902BF0F51D26370900F6A9BE /* ART.xcodeproj */,
 				902BF0E41D2636DE00F6A9BE /* RNSound.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -411,6 +422,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* LiuliSpeak.app */,
 				00E356EE1AD99517003FC87E /* LiuliSpeakTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		902261661D34C4B40058296E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				902261751D34C4B50058296E /* libRNFS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -603,6 +622,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 902261661D34C4B40058296E /* Products */;
+					ProjectRef = 902261651D34C4B40058296E /* RNFS.xcodeproj */;
+				},
+				{
 					ProductGroup = 902BF0E51D2636DE00F6A9BE /* Products */;
 					ProjectRef = 902BF0E41D2636DE00F6A9BE /* RNSound.xcodeproj */;
 				},
@@ -684,6 +707,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		902261751D34C4B50058296E /* libRNFS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFS.a;
+			remoteRef = 902261741D34C4B50058296E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		902BF0F31D2636DE00F6A9BE /* libRNSound.a */ = {
@@ -838,6 +868,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../React/**",
 				);
 				INFOPLIST_FILE = LiuliSpeak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -868,6 +899,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../React/**",
 				);
 				INFOPLIST_FILE = LiuliSpeak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
