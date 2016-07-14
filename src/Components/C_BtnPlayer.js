@@ -61,7 +61,7 @@ export default class BtnPlayerRecording extends Component {
         locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/LiuliSpeak/sound/'
         var path = locFile + this.props.audioName;
         console.log("this.props.audioName:", this.props.audioName);
-        this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
+        this.dialogSound = new Sound(this.props.audioName, Sound.DOCUMENT, this.handleInitDialog.bind(this));
     }
     releaseDialog = ()=> {
         clearInterval(this.time);

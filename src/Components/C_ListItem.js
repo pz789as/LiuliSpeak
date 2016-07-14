@@ -19,6 +19,7 @@ import {
 
 import {
     getAudioFilePath,
+    getMp3FilePath,
 } from '../Constant';
 
 import BtnPlayer from './C_BtnPlayer';
@@ -439,7 +440,8 @@ export default class ListItem extends Component {
                          <BtnPlayer blnAnimate={true} animateDialy={0} playerType={0} audioName={this.props.audio}
                          playEnd={this.props.playend} ref={'btnPlay'}/>
                          */}
-                        <BtnPlayer blnAnimate={true} animateDialy={0} audioName={this.props.audio}
+                        <BtnPlayer blnAnimate={true} animateDialy={0} 
+                                   audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + this.props.audio}
                                    btnCallBack={this._callBackBtnPlayer.bind(this)} rate={1} ref={'btnPlay'} />
                         <BtnRecord blnAnimate={true} animateDialy={100} startRecord={this.startRecord.bind(this)}
                                    ref={'btnRecord'} btnCallBack={this._callbackRecord.bind(this)} />

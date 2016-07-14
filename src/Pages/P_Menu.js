@@ -79,6 +79,7 @@ class P_Menu extends Component {
           blnMoreMenu={this.state.blnMoreMenu}
           cancelMore={this.cancelMore.bind(this)}
           gotoMorePage={this.gotoMorePage.bind(this)}
+          lessonID={this.props.lessonID}
           ref={'menu'} />
     );
   }

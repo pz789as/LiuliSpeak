@@ -23,9 +23,16 @@ let Scenes = {//界面的index，主要是宏定义，方便跳转到对应的sc
 let getAudioFilePath = function(lessonID, courseID, dailogID){
     return "rec" + lessonID + "_" + courseID + "_" + dailogID + ".pcm";
 };
+let getMp3FilePath = function(lessonID, courseID) {
+    return '/lesson' + lessonID + '/course' + courseID;
+};
+
+let serverUrl = 'http://192.169.1.19:8080';
 
 module.exports = {
     Scenes,
     Consts,
     getAudioFilePath,
+    serverUrl,
+    getMp3FilePath,
 }

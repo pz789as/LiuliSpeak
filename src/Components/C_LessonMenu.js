@@ -79,8 +79,8 @@ class C_LessonMenu extends Component {
       var course = this.props.listDataSource.getRowData(0,i);
       array.push(<LessonCard onStart={this.gotoLesson.bind(this)} 
           rowID={i}
-          titleCN={course.titleCN}
-          titleEN={course.titleEN}
+          course={course}
+          lessonID={this.props.lessonID}
           key={i} />);
     }
     return array;

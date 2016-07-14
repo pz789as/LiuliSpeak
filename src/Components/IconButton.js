@@ -26,6 +26,8 @@ import {
 	PixelRatio,
 } from 'react-native';
 
+import * as Progress from 'react-native-progress';
+
 import Dimensions from 'Dimensions';
 var screenWidth = Dimensions.get('window').width;
 
@@ -41,8 +43,15 @@ class IconButton extends Component {
 		super(props);
 
 		this.state = {
-			icon_k: 0
+			icon_k: 0,
+			progress: 0,
 		};
+	}
+	setProgross(v){
+		if (v > 1) v = 1;
+		this.setState({
+			progress: v,
+		});
 	}
 	render() {
 		return (
@@ -83,6 +92,26 @@ class IconButton extends Component {
 					</Text>
 				</View>
 			);
+		} else if (this.props.progress){
+			return (
+				<View style={[styles.center, styles.button, this.props.buttonStyle?this.props.buttonStyle:{}]}
+							onLayout={(event)=>{this.pw = event.nativeEvent.layout.width;}} >
+					<Progress.Bar style={{flex:1}}
+						progress={this.state.progress}
+						unfilledColor='#C0C0C000'
+						color='rgb(99,205,92)'
+						borderWidth={0}
+						borderRadius={height/2}
+						width={this.pw}
+						height={height}/>
+					
+					<View style={[styles.newFont,styles.center]}>
+						<Text style={[styles.font, this.props.fontStyle?this.props.fontStyle:{}]}>
+							{this.props.text?this.props.text:''}
+						</Text>
+					</View>
+				</View>
+			);
 		} else {
 			return (
 				<View style={[styles.center, styles.button, this.props.buttonStyle?this.props.buttonStyle:{}]}>
@@ -93,6 +122,19 @@ class IconButton extends Component {
 			);
 		}
 	}
+	// componentDidMount(){
+	// 	this.updatep = setInterval(this.updateProgress.bind(this), 1000);
+	// }
+	// updateProgress(){
+	// 	var v = (this.state.progress + 0.1) % 1;
+	// 	console.log(v);
+	// 	this.setState({
+	// 		progress: v,
+	// 	});
+	// }
+	// componentWillUnmount(){
+	// 	this.updatep && clearInterval(this.updatep);
+	// }
 	setImage() {
 		if (typeof(this.props.icon) == 'number') {
 			return this.props.icon;
@@ -123,7 +165,15 @@ const styles = StyleSheet.create({
 	font: {
 		fontSize: minUnit*6,
 		color: '#F2FEF5',
-	}
+	},
+	newFont:{
+		position:'absolute',
+		left:0,
+		top:0,
+		right:0,
+		bottom:0,
+		backgroundColor:'#0000'
+	},
 });
 
 

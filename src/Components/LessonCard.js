@@ -10,6 +10,13 @@ import {
 	Text,
 } from 'react-native';
 
+var fs = require('react-native-fs');
+
+import {
+  serverUrl,
+  getMp3FilePath,
+} from '../Constant';
+
 import Dimensions from 'Dimensions';
 let ScreenWidth = Dimensions.get('window').width;
 let ScreenHeight = Dimensions.get('window').height;
@@ -20,41 +27,108 @@ var height = ScreenHeight*0.7;
 import IconButton from './IconButton';
 
 class LessonCard extends Component {
-  render() {
-    return (
-      <View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
-      	  {/*上方图片*/}
-	      <View style={[styles.top, styles.border]}>
-	      </View>
-	      {/*选项，标题，介绍等*/}
-	      <View style={[styles.msg, styles.border]}>
-					<View style={styles.titleView}>
-						<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
-						<Text style={styles.lessonTitleCN}>{this.props.titleCN}</Text>
-					</View>
-					<View style={styles.buttonView}>
-						<IconButton	onPress={this.onPress1.bind(this)} 
-								buttonStyle={styles.buttonStyle} 
-								text={'修炼'} />
-						<IconButton	onPress={this.onPress2.bind(this)} 
-								buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
-								text={'闯关'} />
-					</View>
-	      </View>
-		  {/*下方其他信息*/}
-	      <View style={[styles.bottom, styles.border]}>
-	      </View>
-      </View>
-    );
-  }
+	render() {
+		return (
+		<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
+			{/*上方图片*/}
+			<View style={[styles.top, styles.border]}>
+			</View>
+			{/*选项，标题，介绍等*/}
+			<View style={[styles.msg, styles.border]}>
+						<View style={styles.titleView}>
+							<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
+							<Text style={styles.lessonTitleCN}>{this.props.course.titleCN}</Text>
+						</View>
+						<View style={styles.buttonView}>
+							<IconButton	onPress={this.onPress1.bind(this)} 
+									buttonStyle={styles.buttonStyle} 
+									text={'修炼'}
+									progress={0}
+									ref={'download'} />
+							<IconButton	onPress={this.onPress2.bind(this)} 
+									buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
+									text={'闯关'}/>
+						</View>
+			</View>
+			{/*下方其他信息*/}
+			<View style={[styles.bottom, styles.border]}>
+			</View>
+		</View>
+		);
+	}
 	onPress1(){
-		this.props.onStart(parseInt(this.props.rowID), 0);
+		var path = fs.DocumentDirectoryPath + getMp3FilePath(this.props.lessonID,this.props.rowID);
+		this.checkMp3(path);
 	}
 	onPress2(){
 		this.props.onStart(parseInt(this.props.rowID), 1);
 	}
 	onPress3(){
 		this.props.onStart(parseInt(this.props.rowID), 2);
+	}
+	checkMp3(path){
+		fs.exists(path)
+		.then((result)=>{
+			if (result) {//路径存在
+				this.props.onStart(parseInt(this.props.rowID), 0);
+			}else{
+				this.makeDir(path);
+			}
+		})
+		.catch((err)=>{
+			console.log(err);
+		});
+	}
+	makeDir(path){
+		fs.mkdir(path)
+		.then((result)=>{
+			if (result[0]){
+				this.downLoadMp3(path);
+			}else{
+				console.log(result);
+			}
+		})
+		.catch((err)=>{
+			console.log(err);
+		});
+	}
+	downLoadMp3(path){
+		var course = this.props.course;
+		var allIdx = course.contents.length;
+		var idx = 0;
+		// var tmpDown = false;
+		for(var idx=0;idx<allIdx;idx++){
+			// if (!tmpDown){
+				// tmpDown = true;
+				var localPath = path + '/' + course.contents[idx].mp3;
+				var fromUrl = serverUrl + '/Other/LiuliSpeak/Lessons/lesson' + 
+								(parseInt(this.props.lessonID)+1) + '_mp3/' + course.contents[idx].mp3;
+				console.log(fromUrl);
+				console.log(localPath);
+				fs.downloadFile({
+					fromUrl: fromUrl,
+					toFile: localPath,
+				})
+				.then((response)=>{
+					if (response.statusCode == 200){//下载成功
+						idx++;
+						this.refs.download.setProgross(idx/allIdx);
+						console.log(idx);
+						// tmpDown = false;
+						if (idx == allIdx){
+							this.props.onStart(parseInt(this.props.rowID), 0);
+						}
+					}else{
+						console.log(response);
+						// tmpDown = false;
+					}
+				})
+				.catch((err)=>{
+					console.log(err);
+					// tmpDown = false;
+				});
+			// }
+		}
 	}
 }
 

@@ -11,8 +11,8 @@
 			"contents":[
 				{
 					"cn": {
-						"words":"你_叫_什么？",
-						"pinyins": "ni_jiao_shen me"
+						"words":"让_我们_先来_热热身，_准备_畅游_在_英语_流利说_的_海洋_里_吧！",
+						"pinyins": "rang_wo men_xian lai_re re shen_zhun bei_chang you_zai_ying yu_liu li shuo_de_hai yang_li_ba"
 						},
 					"en": "Hello",
 					"Category":"read_sentence",
@@ -53,7 +53,7 @@
 					"en": "You are so fat too!",
 					"Category":"read_sentence",
 					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
+					"mp3": "dialog0_0_4.mp3",
 				},
 			]
 		},{

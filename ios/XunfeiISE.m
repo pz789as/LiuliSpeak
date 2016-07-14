@@ -55,24 +55,34 @@
   
   //设置评测采样率
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"SAMPLE_RATE"]] forKey:[IFlySpeechConstant SAMPLE_RATE]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant SAMPLE_RATE]]);
   //设置评测题目编码，如果是utf-8格式，请添加bom头，添加方式可参考demo
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"TEXT_ENCODING"]] forKey:[IFlySpeechConstant TEXT_ENCODING]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant TEXT_ENCODING]]);
   //设置评测题目结果格式，目前仅支持xml
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"ISE_RESULT_TYPE"]] forKey:[IFlySpeechConstant ISE_RESULT_TYPE]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant ISE_RESULT_TYPE]]);
   //设置评测前端点超时，默认5000ms
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"VAD_BOS"]] forKey:[IFlySpeechConstant VAD_BOS]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant VAD_BOS]]);
   //设置评测后端点超时，默认1800ms
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"VAD_EOS"]] forKey:[IFlySpeechConstant VAD_EOS]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant VAD_EOS]]);
   //设置评测前端点 评测题型，可选值：read_syllable（单字，汉语专有）、read_word（词语）、read_sentence（句子）
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"ISE_CATEGORY"]] forKey:[IFlySpeechConstant ISE_CATEGORY]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant ISE_CATEGORY]]);
   //设置评测语言，可选值：en_us（英语）、zh_cn（汉语）
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"LANGUAGE"]] forKey:[IFlySpeechConstant LANGUAGE]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant LANGUAGE]]);
   //设置评测结果级别，可选值：plain（仅英文）、complete，默认为complete
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"ISE_RESULT_LEVEL"]] forKey:[IFlySpeechConstant ISE_RESULT_LEVEL]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant ISE_RESULT_LEVEL]]);
   //设置评测超时，录音超时，录音达到时限时自动触发vad，停止录音，默认-1（无超时）
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"SPEECH_TIMEOUT"]] forKey:[IFlySpeechConstant SPEECH_TIMEOUT]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant SPEECH_TIMEOUT]]);
 
   [_evaluatorIns setParameter:[RCTConvert NSString:infos[@"ISE_AUDIO_PATH"]] forKey:[IFlySpeechConstant ISE_AUDIO_PATH]];
+  NSLog(@"%@", [_evaluatorIns parameterForKey:[IFlySpeechConstant ISE_AUDIO_PATH]]);
   
 //  [_evaluatorIns setParameter:@"utf-8" forKey:[IFlySpeechConstant RESULT_ENCODING]];
 }
@@ -89,6 +99,7 @@
   Byte bomHeader[] = {0xEF, 0xBB, 0xBF};
   buffer = [NSMutableData dataWithBytes:bomHeader length:sizeof(bomHeader)];
   [buffer appendData:[[RCTConvert NSString:infos[@"TEXT"]] dataUsingEncoding:NSUTF8StringEncoding]];
+  NSLog(@"%@", [RCTConvert NSString:infos[@"TEXT"]]);
   //  [buffer appendData:[@"你好" dataUsingEncoding:NSUTF8StringEncoding]];
   
   //开始录音评测
@@ -215,13 +226,14 @@
     if(strResults){
       showText = [showText stringByAppendingString:strResults];
     }
+    
+    self.resultXml = showText;
+    //      NSLog(@"%@",showText);
+    ISEResultXmlParser* parser = [[ISEResultXmlParser alloc] init];
+    parser.delegate = self;
+    [parser parserXml:self.resultXml];
     if (isLast){
-      self.resultXml = showText;
-      //      NSLog(@"%@",showText);
       
-      ISEResultXmlParser* parser = [[ISEResultXmlParser alloc] init];
-      parser.delegate = self;
-      [parser parserXml:self.resultXml];
     }
   }else{
     if (isLast){

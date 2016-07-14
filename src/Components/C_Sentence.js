@@ -40,7 +40,7 @@ export default class Sentence extends Component {
     };
     wordCount = 0;//记录一下这句话中有多少组词汇
 
-    setPingce(arrScore){
+    setPingce = (arrScore)=>{
         var strWord = this.props.words;
         strWord = strWord.replace(/[，。！？；“”‘’：]/g, "");
         var strPinYin = this.props.pinyins;
