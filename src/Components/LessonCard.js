@@ -95,39 +95,43 @@ class LessonCard extends Component {
 	downLoadMp3(path){
 		var course = this.props.course;
 		var allIdx = course.contents.length;
-		var idx = 0;
-		// var tmpDown = false;
-		for(var idx=0;idx<allIdx;idx++){
-			// if (!tmpDown){
-				// tmpDown = true;
-				var localPath = path + '/' + course.contents[idx].mp3;
-				var fromUrl = serverUrl + '/Other/LiuliSpeak/Lessons/lesson' + 
-								(parseInt(this.props.lessonID)+1) + '_mp3/' + course.contents[idx].mp3;
-				console.log(fromUrl);
-				console.log(localPath);
-				fs.downloadFile({
-					fromUrl: fromUrl,
-					toFile: localPath,
-				})
-				.then((response)=>{
-					if (response.statusCode == 200){//下载成功
-						idx++;
-						this.refs.download.setProgross(idx/allIdx);
-						console.log(idx);
-						// tmpDown = false;
-						if (idx == allIdx){
-							this.props.onStart(parseInt(this.props.rowID), 0);
-						}
-					}else{
-						console.log(response);
-						// tmpDown = false;
+		var goIdx = 0;
+		var tmpLen = [];
+		var intIdx = 0;
+		for(var idx=0; idx < allIdx; idx++){
+			var localPath = path + '/' + course.contents[idx].mp3;
+			var fromUrl = serverUrl + '/Other/LiuliSpeak/Lessons/lesson' + 
+							(parseInt(this.props.lessonID)+1) + '_mp3/' + course.contents[idx].mp3;
+			console.log(fromUrl);
+			console.log(localPath);
+			fs.downloadFile({
+				fromUrl: fromUrl,
+				toFile: localPath,
+				begin: (result)=>{
+					tmpLen[result.jobId] = 0;
+				},
+				progress: (result)=>{
+					goIdx += (result.bytesWritten - tmpLen[result.jobId])/result.contentLength;
+					tmpLen[result.jobId] = result.bytesWritten;
+					console.log(goIdx);
+					this.refs.download.setProgross(goIdx/allIdx);
+				},
+			})
+			.then((response)=>{
+				if (response.statusCode == 200){//下载成功
+					intIdx++;
+					// this.refs.download.setProgross(goIdx/allIdx);
+					// console.log(goIdx);
+					if (intIdx == allIdx){
+						this.props.onStart(parseInt(this.props.rowID), 0);
 					}
-				})
-				.catch((err)=>{
-					console.log(err);
-					// tmpDown = false;
-				});
-			// }
+				}else{
+					console.log(response);
+				}
+			})
+			.catch((err)=>{
+				console.log(err);
+			});
 		}
 	}
 }
