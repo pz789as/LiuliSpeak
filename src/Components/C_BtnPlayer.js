@@ -29,130 +29,134 @@ export default class BtnPlayerRecording extends Component {
         super(props);
         // 初始状态
         this.state = {
-            playerState: 0,//0:等待播放,1:播放中,2暂停播放
+            playerStatus: 0,//0:等待播放,1:播放中,2暂停播放
             scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
-            audioCurrentTime:0,//当前时间
-            audioTimes:0,//音频总时间
+            progress: 0,//进度条
         };
+        this.dialogSound = null;
+        this.time = null;
+        this.audioCurrentTime = 0;//当前时间
+        this.audioTimes = 0;//音频总时间
     }
 
     static defaultProps = {
         blnAnimate: PropTypes.bool,//是否有出现动画
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
-        playerType: PropTypes.oneOf([0, 1]),//播放的类型:0:音频 1:录音
         audioName: PropTypes.string,//音频文件名
-        recordName: PropTypes.string,//录音文件名
-        playEnd:PropTypes.func,
+        btnCallBack: PropTypes.func,
+        rate: PropTypes.number,
     };
 
-    dialogSound = null;//定义一个播放对象
-    time = null;
-    blnReady = false;
-    blnPlay = false;
-    blnStop = false;
-    handleInitDialog = (error)=>{
-        if(error !=null){
+    handleInitDialog = (error)=> {
+        if (error != null) {
             console.log('failed to load the sound! ', error.message);
-        }else{
-            this.setState({
-                audioCurrentTime : 0,
-                audioTimes : this.dialogSound.getDuration(),
-            })
-            // console.log('success to load the sound', this.dialogSound.getDuration());
-            this.blnReady = true;
-            if (this.blnPlay) {
-                this.playerAudio();
-                this.blnPlay = false;
-            }
+        } else {
+            console.log('success to load the sound');
+            this.audioCurrentTime = 0;
+            this.audioTimes = this.dialogSound.getDuration();
         }
     }
-    initDialog = ()=> {        
+    initDialog = ()=> {
         var locFile = '/Users/guojicheng/Desktop/ReactNative/Projects/LiuliSpeak/sound/';
-        locFile = '/Users/tangweishu/Desktop/mywork3/RNWork/LiuliSpeak/sound/'
+        locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/LiuliSpeak/sound/'
         var path = locFile + this.props.audioName;
-        // this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
-        // path = './sound/' + this.props.audioName;//Sound.CACHES  Sound.DOCUMENT Sound.LIBRARY Sound.MAIN_BUNDLE
+        console.log("this.props.audioName:", this.props.audioName);
         this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
     }
-    initRecord = ()=> {//..临时写的一个,后面真播放录音时由郭去处理
-        var locFile = '/Users/guojicheng/Desktop/ReactNative/Projects/LiuliSpeak/sound/';
-        // var locFile = '/Users/tangweishu/Desktop/mywork3/React-Native/MasterPiece/sound/';
-        // var path = locFile + this.props.recordName;
-        console.log(Sound.CACHES);
-        var path = locFile + this.props.audioName;
-        this.dialogSound = new Sound(path, '', this.handleInitDialog.bind(this));
-        // this.dialogSound = new Sound('ise.pcm', Sound.CACHES, this.handleInitDialog.bind(this));
+    releaseDialog = ()=> {
+        clearInterval(this.time);
+        this.stopAudio();
+        if (this.dialogSound) {
+            this.dialogSound.release();//释放掉音频
+        }
     }
 
     playerAudio = ()=> {//开始播放声音
-        if (!this.blnReady) {
-            this.blnPlay = true;
-            return;
-        }
         this.setState({
-            playerState: 1,
+            playerStatus: 1,
         });
-        this.blnStop = false;
-        // this.dialogSound.setRate(0.6);
-        this.dialogSound.play(this.audioPlayerEnd);
-        this.time=setInterval(this.getNowTime,100);
+        /*this.props.btnCallBack(1);
+         this.dialogSound.setRate(this.props.rate);
+         this.dialogSound.play(this.audioPlayerEnd);
+         this.time=setInterval(this.getNowTime.bind(this),100);*/ //..状态到1时调用
     }
 
     pauseAudio = ()=> {//暂停播放声音
+
+
         this.setState({
-            playerState: 2,
+            playerStatus: 2,
         });
-        this.dialogSound.pause();
-        clearInterval(this.time);
+        /*this.props.btnCallBack(2)
+         this.dialogSound.pause();
+         clearInterval(this.time);*/ //..状态到2时调用
     }
 
     audioPlayerEnd = ()=> {//声音播放完毕时调用
-        this.setState({
-            playerState: 0,
-            audioCurrentTime:0,//..解决再次播放进度条不归零问题
-        });
+
         clearInterval(this.time);
-        if (this.props.playerType == 0){
-            this.props.playEnd();
-        }
-        this.blnStop = true;
+        this.time = null;
+        this.setState({
+            playerStatus: 0,
+            progress: 0,//..解决再次播放进度条不归零问题
+        });
+        /*
+         this.props.btnCallBack(0)
+         clearInterval(this.time);
+         */ //..状态到0时调用
     }
     stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
-        if (this.state.playerState != 0) {//只有当已经启动播放后 此函数才起作用
-            this.setState({
-                playerState: 0,
-                audioCurrentTime:0,//..解决再次播放进度条不归零问题
-            });
-            this.dialogSound.stop();
+        if (this.state.playerStatus != 0) {//只有当已经启动播放后 此函数才起作用
+
             clearInterval(this.time);
-            this.blnStop = true;
+            this.time = null;
+            this.dialogSound.stop();
+            this.setState({
+                playerStatus: 0,
+                progress: 0,//..解决再次播放进度条不归零问题
+            });
+            /*
+             clearInterval(this.time);
+             this.props.btnCallBack(0)
+             */ //..状态到0时调用
         }
     }
-    _onPress = ()=> {//发送点击事件
-        if (this.state.playerState != 1) {
+
+    replayAudio = ()=> {//父组件中,接收到自动播放指令时,当前的item会调用这个播放函数
+        if(this.state.playerStatus == 0){
+            this.playerAudio();
+        }else if(this.state.playerStatus == 1){
+            this.dialogSound.setCurrentTime(0);
+        }else{
+            this.playerAudio();
+        }
+    }
+
+    _onPress = ()=> {//发送点击事件        
+        if (this.state.playerStatus != 1) {
             this.playerAudio();
         } else {
             this.pauseAudio();
         }
     }
-    getNowTime = ()=> {
-        this.dialogSound.getCurrentTime((time)=>{
-            if (this.blnStop) return;
-            this.setState({audioCurrentTime:time});
-        })
+
+    getNowTime = ()=> { //获取当前播放时间,当获取成功后,设置进度条数值
+
+        this.dialogSound.getCurrentTime(
+            (time)=> {
+                //console.log("setState 4", this.props.audioName, this.blnRelease);
+                if (!this.blnRelease) {
+                    this.audioCurrentTime = time;
+                    this.setState({progress: this.audioCurrentTime / this.audioTimes});
+                }else{
+                    console.log("要了亲命了,到底咋回事");
+                }
+            })
     }
 
-    getProgressValue = ()=> {//获取播放进度
-        this.dialogSound.getCurrentTime(this.getNowTime);
-        return this.state.audioCurrentTime / this.state.audioTimes;
-    }
-    
     componentWillMount() {
-        if (this.props.playerType == 0) {//根据playerType 属性值判断这个按钮是播放音频还是播放录音,调用不同的初始化函数
-            this.initDialog();
-        } else {
-            this.initRecord();
-        }
+        this.blnRelease = false;
+        this.initDialog();
         if (this.props.blnAnimate) {
             Animated.timing(this.state.scaleAnim, {
                 toValue: 1,
@@ -160,57 +164,52 @@ export default class BtnPlayerRecording extends Component {
                 delay: this.props.animateDialy
             }).start();
         }
-        this.blnReady = false;
+    }
+
+    componentDidUpdate(preProps, preStates) {
+        if (preStates.playerStatus == this.state.playerStatus) return;
+        if (this.state.playerStatus == 0) {
+            this.props.btnCallBack(0)
+        } else if (this.state.playerStatus == 1) {
+            this.props.btnCallBack(1);
+            this.dialogSound.setRate(this.props.rate);
+            this.dialogSound.play(this.audioPlayerEnd);
+            this.time = setInterval(this.getNowTime.bind(this), 100);
+        } else if (this.state.playerStatus == 2) {
+            this.props.btnCallBack(2);
+            clearInterval(this.time);
+            this.dialogSound.pause();
+        }
     }
 
     componentWillUnmount() {
-        if (this.dialogSound) {
-            this.dialogSound.release();//释放掉音频
-        }
-        clearInterval(this.time);
+
+        this.blnRelease = true;
+        //console.log("是不是在这里被release", this.props.audioName, this.blnRelease);
+        this.releaseDialog();
     }
-    drawBtnPlayAudio=()=>{ //0:等待播放,1:播放中,2暂停播放
-        if(this.state.playerState == 0){
-            return(<Image style={styles.btnImg} source = {ImageRes.btn_play}/>);
-        }else if(this.state.playerState == 1){
-            return(<Image style={styles.btnImg} source = {ImageRes.btn_pause}/>);
-        }else{
-            return(<Image style={styles.btnImg} source = {ImageRes.btn_playing}/>);
-        }
-    }
-    drawBtnPlayRecord=()=>{
-        if(this.state.playerState == 0){
-            return(
-                <View style={styles.radio} overflow="hidden">
-                    <Image style={[styles.btnImg,]} source={ImageRes.default_avatar}/>
-                    <Image style={[styles.btnImg,{position:"absolute",left:0,top:0}]} source={ImageRes.icon_play_light_m}/>
-                </View> );
-        }else if(this.state.playerState == 1){
-            return(
-                <View style={styles.radio} overflow="hidden">
-                    <Image style={[styles.btnImg,]}source={ImageRes.default_avatar}/>
-                    <Image style={[styles.btnImg,{position:"absolute",left:0,top:0}]} source={ImageRes.icon_pause_light_m}/>
-                </View> );
-        }else{
-            return(
-                <View style={styles.radio} overflow="hidden">
-                    <Image style={[styles.btnImg,]}source={ImageRes.default_avatar}/>
-                    <Image style={[styles.btnImg,{position:"absolute",left:0,top:0}]} source={ImageRes.icon_play_light_m}/>
-                </View> );
+
+    drawBtnPlayAudio = ()=> { //0:等待播放,1:播放中,2暂停播放
+        if (this.state.playerStatus == 0) {
+            return (<Image style={styles.btnImg} source={ImageRes.btn_play}/>);
+        } else if (this.state.playerStatus == 1) {
+            return (<Image style={styles.btnImg} source={ImageRes.btn_pause}/>);
+        } else {
+            return (<Image style={styles.btnImg} source={ImageRes.btn_playing}/>);
         }
     }
+
     render() {
         return (
             <Animated.View style={{transform:[{scale:this.state.scaleAnim}]}}>
                 <TouchableOpacity onPress={this._onPress.bind(this)} activeOpacity={1}>
                     {/*上一句是为了仿流利说把点击效果取消,没有Touchwihtout是方便日后修改*/}
                     <View style={[styles.container]}>
-                        {this.state.playerState != 0 &&
+                        {this.state.playerStatus != 0 && this.state.progress > 0 &&
                         <Progress.Circle style={styles.progress} thickness={1} borderWidth={0}
-                                         progress={this.getProgressValue()} size={btnSize} color="#4ACE35"/>
+                                         progress={this.state.progress} size={btnSize} color="#4ACE35"/>
                         }
-
-                        {this.props.playerType!=1?this.drawBtnPlayAudio():this.drawBtnPlayRecord()}
+                        {this.drawBtnPlayAudio()}
                     </View>
                 </TouchableOpacity>
             </Animated.View>
@@ -218,15 +217,13 @@ export default class BtnPlayerRecording extends Component {
     }
 }
 
-
-
 const styles = StyleSheet.create({
     container: {//主背景
         width: btnSize,
         height: btnSize,
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: fontSize/2,
+        marginHorizontal: fontSize / 2,
         //backgroundColor:'#00000035'
     },
     progress: {
@@ -239,12 +236,11 @@ const styles = StyleSheet.create({
         height: radioSize,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:'#CCCCCC',
+        backgroundColor: '#CCCCCC',
         borderRadius: (radioSize / 2),
     },
-    btnImg:{
+    btnImg: {
         width: radioSize,
         height: radioSize,
     },
-
 })

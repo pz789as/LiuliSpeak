@@ -42,6 +42,7 @@ export default class Sentence extends Component {
 
     setPingce(arrScore){
         var strWord = this.props.words;
+        strWord = strWord.replace(/[，。！？；“”‘’：]/g, "");
         var strPinYin = this.props.pinyins;
         var wordArr = strWord.split("_");
         var pinyinArr = strPinYin.split("_"); //字符'_'分词 字符' '区分拼音
@@ -52,7 +53,7 @@ export default class Sentence extends Component {
             for (var i = 0; i < wordArr.length; i++) {
                 var length = wordArr[i].length;
                 //..console.log("第"+i+"个词的评测情况:"+ wordArr[i]+":"+arrScore.slice(index,index+length));
-                 
+
                 if(arrScore == "error"){                     
                     this.refs["word"+i].setPingce("error");
                 }else{

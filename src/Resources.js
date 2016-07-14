@@ -38,6 +38,11 @@ let ImageRes = {
     icon_coin_l:require('../res/UI/icon_coin_l_hit.png'),
 };
 
+let ImageIcon = {
+    user1:require('../icon/user1.jpg'),
+    user2:require('../icon/user2.jpg'),
+};
+
 let ColorRes = {
     mainBottomTextNormal: '#CCC',
     mainBottomTextSelect: '#AE8',
@@ -78,4 +83,5 @@ module.exports = {
     mainBottomBarIcon,
     ImageRes,
     ColorRes,
+    ImageIcon,
 };

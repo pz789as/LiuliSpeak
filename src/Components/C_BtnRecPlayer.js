@@ -28,7 +28,7 @@ var totalHeight = Dimensions.get('window').height;
 var fontSize = parseInt(totalWidth / 26);
 var radioSize = fontSize * 4;
 var btnSize = radioSize + 4;
-export default class BtnPlayerRecording extends Component {
+export default class C_BtnRecPlayer extends Component {
     constructor(props) {
         super(props);
         this.pcmListener = null;
@@ -43,14 +43,11 @@ export default class BtnPlayerRecording extends Component {
 
     static defaultProps = {
         blnAnimate: PropTypes.bool,//是否有出现动画
-        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
-        playerType: PropTypes.oneOf([0, 1]),//播放的类型:0:音频 1:录音
-        audioName: PropTypes.string,//音频文件名
+        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值               
         recordName: PropTypes.string,//录音文件名
-        playEnd:PropTypes.func,
+        btnCallBack: PropTypes.func,
     };
 
-    dialogSound = null;//定义一个播放对象
     time = null;
     blnReady = false;
     blnPlay = false;
@@ -64,6 +61,7 @@ export default class BtnPlayerRecording extends Component {
         this.setState({
             playerState: 1,
         });
+        this.props.btnCallBack(1);
         this.blnStop = false;
         this.PlayPcm();
         this.time=setInterval(this.getNowTime, 100);
@@ -73,30 +71,30 @@ export default class BtnPlayerRecording extends Component {
         this.setState({
             playerState: 2,
         });
+        this.props.btnCallBack(2);
         this.PausePcm();
         clearInterval(this.time);
     }
 
     audioPlayerEnd = ()=> {//声音播放完毕时调用
+        clearInterval(this.time);
+        this.props.btnCallBack(0);
+        this.blnStop = true;
         this.setState({
             playerState: 0,
             audioCurrentTime:0,//..解决再次播放进度条不归零问题
         });
-        clearInterval(this.time);
-        if (this.props.playerType == 0){
-            this.props.playEnd();
-        }
-        this.blnStop = true;
     }
     stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
         if (this.state.playerState != 0) {//只有当已经启动播放后 此函数才起作用
+            this.StopPcm();
+            clearInterval(this.time);
+            this.blnStop = true;
+            this.props.btnCallBack(0);
             this.setState({
                 playerState: 0,
                 audioCurrentTime:0,//..解决再次播放进度条不归零问题
             });
-            this.StopPcm();
-            clearInterval(this.time);
-            this.blnStop = true;
         }
     }
     _onPress = ()=> {//发送点击事件
@@ -106,6 +104,15 @@ export default class BtnPlayerRecording extends Component {
             this.pauseAudio();
         }
     }
+    
+    updateFile(){
+        this.pcmListener.remove();
+        clearInterval(this.time);
+        this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
+        this.InitPcm(this.props.recordName);
+        this.blnReady = false;
+    }
+    
     getNowTime = ()=> {
         this.GetCurrentTime();
     }
@@ -116,8 +123,6 @@ export default class BtnPlayerRecording extends Component {
     async GetCurrentTime(){
         try{
             var ret = await XFiseBridge.getPcmCurrentTime();
-
-            // console.log('current time:' + ret);
             if (this.blnStop) return;
             this.setState({audioCurrentTime: ret});
         }catch(error){
@@ -129,11 +134,9 @@ export default class BtnPlayerRecording extends Component {
             FILE_PATH: filePath,
             SAMPLE_RATE: '16000',
         };
+        console.log("PCM filePath:",filePath);
         try{
             var ret = await XFiseBridge.initPcm(initInfo);
-            
-            // console.log('total time:' + ret);
-
             this.setState({
                 audioCurrentTime : 0,
                 audioTimes : ret,
@@ -171,7 +174,7 @@ export default class BtnPlayerRecording extends Component {
     
     componentDidMount() {
         this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
-        this.InitPcm(this.props.audioName);
+        this.InitPcm(this.props.recordName);
 
         if (this.props.blnAnimate) {
             Animated.timing(this.state.scaleAnim, {
@@ -187,6 +190,7 @@ export default class BtnPlayerRecording extends Component {
         this.pcmListener.remove();
         clearInterval(this.time);
     }
+    
     drawBtnPlayAudio=()=>{ //0:等待播放,1:播放中,2暂停播放
         if(this.state.playerState == 0){
             return(<Image style={styles.btnImg} source = {ImageRes.btn_play}/>);
@@ -227,16 +231,15 @@ export default class BtnPlayerRecording extends Component {
                         <Progress.Circle style={styles.progress} thickness={1} borderWidth={0}
                                          progress={this.getProgressValue()} size={btnSize} color="#4ACE35"/>
                         }
-
-                        {this.props.playerType!=1?this.drawBtnPlayAudio():this.drawBtnPlayRecord()}
+                        {this.drawBtnPlayRecord()}
                     </View>
                 </TouchableOpacity>
             </Animated.View>
         );
     }
+    
+    
 }
-
-
 
 const styles = StyleSheet.create({
     container: {//主背景
@@ -266,3 +269,4 @@ const styles = StyleSheet.create({
     },
 
 })
+

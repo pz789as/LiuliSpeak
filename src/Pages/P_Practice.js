@@ -20,6 +20,7 @@ import {
     styles,
 } from '../Styles';
 
+import Sound from 'react-native-sound'
 
 import Practice from '../Components/C_Practice';
 
@@ -33,7 +34,6 @@ class P_Practice extends Component {
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
-
         }
     }
 
@@ -87,7 +87,7 @@ class P_Practice extends Component {
     }
 
 
-    render() {         
+    render() {
         return (
             <View {...this._panResponder.panHandlers} style={{flex:1}} >
                 <Practice
@@ -104,8 +104,6 @@ class P_Practice extends Component {
                     GoldAllNum={this.getAllGold()}
                     getGold={this.getGold.bind(this)}
                     dialogData={this.props.dialogData}
-                    startRecord={this.startRecord.bind(this)}
-                    stopRecord={this.stopRecord.bind(this)}
                     lessonID={this.props.lessonID}
                     courseID={this.props.courseID}/>
                 {this.state.touch.blnTouch && <View style={{position:"absolute",top:this.state.touch.ty - 10, left:this.state.touch.tx - 10,
@@ -152,44 +150,7 @@ class P_Practice extends Component {
 
     getGold(num) {
         this.gold = num;
-    }
-
-    startRecord(i){
-        var testText = this.props.dialogData[i].cn.words;
-        var fileName = getAudioFilePath(this.props.lessonID, this.props.courseID, i);
-        testText = testText.replace(/_/g, "");
-        // console.log(testText + " " + i + " " + this.props.dialogData[i].Category);
-        this.props.App.StartISE(testText, 
-                this.props.dialogData[i].Category, 
-                this.callback.bind(this),
-                fileName);
-    }
-    stopRecord(i){
-        this.props.App.Cancel();
-    }
-    stopRecordAuto(){
-        this.refs.practice.stopRecordAuto();
-    }
-    callback(data, num){
-        // console.log(data, num);
-        if (data == 'error') {//返回错误
-            var pcResult = {blnSuccess:false,score:'0',syllableScore:'',errorMsg:num};
-            this.refs.practice.pingceResult(pcResult);
-            this.stopRecordAuto();
-        }else if (data == 'volume') {//返回音量
-            // console.log(num);
-            this.refs.practice.recordVolume(num);
-        }else if (data == 'stop') {
-            this.stopRecordAuto();
-        }else {//正确获得结果之后
-            //..console.log("获得正确结果",data, num);
-            var pcResult = {blnSuccess:true,score:num,syllableScore:data};
-            console.log("检查pcResult.syllable:",pcResult.syllableScore);
-            this.refs.practice.pingceResult(pcResult);
-
-            this.stopRecordAuto();
-        }
-    }
+    }    
 }
 
 export default P_Practice;

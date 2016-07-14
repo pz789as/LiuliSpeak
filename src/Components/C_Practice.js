@@ -40,10 +40,6 @@ import {
 } from '../Styles';
 
 import {
-    getAudioFilePath,
-} from '../Constant';
-
-import {
   ImageRes
 } from '../Resources';
 
@@ -67,11 +63,12 @@ class c_practice extends Component {
 			optionH: new Animated.Value(0),
 			showKind: this.props.showKind,
 			speedKind: this.props.speedKind,
-			blnPlay: false,
+			blnAutoplay: false,//自动播放的标志
 			playKind: 0,
 			goldNum: this.props.gold,
 			select: 0,
 		};
+
 	}
 
 	_onLayout = (event)=>{
@@ -189,8 +186,10 @@ class c_practice extends Component {
 	drawScrollView(select) {
 		var array = [];
 		for (var i=0;i<this.props.dialogData.length;i++) {
+			var dialogInfo = {lesson:this.props.lessonID,course:this.props.courseID,dIndex:i,gategory:this.props.dialogData[i].Category}
 			array.push(
 				<TouchableOpacity
+					disabled={this.state.blnAutoplay}
 					onPress={this.touchView.bind(this,i)}
 					activeOpacity={1}
 					key={i}
@@ -198,17 +197,17 @@ class c_practice extends Component {
 					<ListItem itemWordCN={this.props.dialogData[i].cn} 
 							itemWordEN={this.props.dialogData[i].en} 
 							audio={this.props.dialogData[i].mp3}
-							recAudio={getAudioFilePath(this.props.lessonID,this.props.courseID,i)}
-							startRecord={this.startRecord.bind(this, i)}
-							stopRecord={this.stopRecord.bind(this, i)}
 							itemShowType={this.state.showKind}
 							itemBlnSelect={i==select?true:false}
-							itemScore={59}
+							itemScore={0}
 							itemCoins={this.props.dialogData[i].gold}
 							ref={i}
-							playend={this.playEnd.bind(this)}							
+							playNext={this.playNext.bind(this)}
+							blnInAutoplay={this.state.blnAutoplay}
+							user = {i%2}
+							dialogInfo={dialogInfo}
 							/>
-
+					
                 </TouchableOpacity>
 				);
 		}
@@ -217,43 +216,37 @@ class c_practice extends Component {
 	// 列表中选中处理
 	touchView(_id) {
 		if (_id != this.state.select){
-			this.listItemPlayStop();
-			this.stopRecord(_id);
+			//..this.listItemPlayStop();
+			//..this.stopRecord(_id);
+
 			this.setState({
 				select: _id
 			});
 		}
 	}
-	// 开始录音
-	startRecord(i) {
-		this.listItemPlayStop();
-		this.props.startRecord(i);
+
+	componentWillUpdate(nextProps,nextState){
+		if(nextState.select != this.state.select){
+			this.refs[this.state.select]._onHiddenItem();//通知ListItem被关闭了
+			this.refs[nextState.select]._onSelectItem();//通知ListItem被选中,改变它的itemStatus值
+		}
 	}
-	stopRecord(i){
-		this.props.stopRecord(i);		 
-	}
-	stopRecordAuto(){
-		this.refs[this.state.select].stopRecordAuto();
-	}
-	recordVolume(volume){
-		this.refs[this.state.select].setRecordButtonVolume(volume);
-	}
-	
-	pingceResult(result){//唐 7-11
-		this.refs[this.state.select].setPingceResult(result);
-	}
-	
+
 	// 播放结束（主要处理下方按钮中的整体播放，根据是否整体播放，决定是否播放下一条）
-	playEnd() {
-		if (this.state.blnPlay) {
+
+	playNext() {
+		if (this.state.blnAutoplay) {
 			var index = (this.state.select+1)%this.props.dialogData.length;
 			// 单次播放的 跳出
+
+			/*
 			if (index == 0 && this.state.playKind == 0) {
 				this._onPause();
 				return;
-			}
+			}*/
+
 			this.touchView(index);
-			this.listItemPlayStart();
+			//this.listItemPlayStart();
 			this.moveScrollView();
 		}
 	}
@@ -276,13 +269,7 @@ class c_practice extends Component {
 			y: moveY
 		});
 	}
-	// 外边调用 开始播放，停止播放
-	listItemPlayStart() {
-		this.refs[this.state.select].callPlayStart();
-	}
-	listItemPlayStop() {
-		this.refs[this.state.select].callPlayStop();
-	}
+	 
 	// 金币获得
 	addGold(num) {
 		if (this.state.goldNum < this.props.GoldAllNum) {
@@ -296,7 +283,7 @@ class c_practice extends Component {
 
 	// 下方按钮显示处理
 	renderBottom() {
-		if (this.state.blnPlay) {
+		if (this.state.blnAutoplay) {
 			return (
 				<View style={[styles.bottom, styles.line]}>
 				<IconButton icon={ImageRes.pause} onPress={this._onPause.bind(this)}/>
@@ -320,17 +307,15 @@ class c_practice extends Component {
 			this._onMoreSet();
 		}
 		this.setState({
-			blnPlay: true
+			blnAutoplay: true,
 		});
-		this.listItemPlayStop();
-		this.listItemPlayStart();
-		this.props.onPlay();
+		this.refs[this.state.select]._onAutoplay();
 	}
 	_onPause() {
 		this.setState({
-			blnPlay: false
+			blnAutoplay: false
 		});
-		this.listItemPlayStop();
+		this.refs[this.state.select]._onStopAutoplay();
 	}
 	_onPlayset() {
 		if (this.state.playKind == 0) {
@@ -557,6 +542,4 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 });
-
-
 export default c_practice;
