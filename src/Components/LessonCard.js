@@ -7,7 +7,8 @@ import {
   View,
   PixelRatio,
   Image,
-	Text,
+  Text,
+  InteractionManager,
 } from 'react-native';
 
 var fs = require('react-native-fs');
@@ -29,6 +30,7 @@ import IconButton from './IconButton';
 class LessonCard extends Component {
 	constructor(props){
 		super(props);
+		this.progress = 1;
 	}
 	render() {
 		return (
@@ -46,7 +48,7 @@ class LessonCard extends Component {
 							<IconButton	onPress={this.onPress1.bind(this)} 
 									buttonStyle={styles.buttonStyle} 
 									text={'修炼'}
-									progress={1}
+									progress={this.progress}
 									ref={'download'} />
 							<IconButton	onPress={this.onPress2.bind(this)} 
 									buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
@@ -59,11 +61,17 @@ class LessonCard extends Component {
 		</View>
 		);
 	}
+	componentWillMount(){
+	}
 	componentWillUnmount(){
 		this.checkMp3Time && clearTimeout(this.checkMp3Time);
+		this.clearProgressTime && clearTimeout(this.clearProgressTime);
 		this.gotoNextTime && clearTimeout(this.gotoNextTime);
 	}
+	componentDidMount(){
+	}
 	onPress1(){
+		this.refs.download && this.refs.download.setProgross(0, true);
 		var path = fs.DocumentDirectoryPath + getMp3FilePath(this.props.lessonID,this.props.rowID);
 		console.log(path);
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
@@ -142,7 +150,7 @@ class LessonCard extends Component {
 				if (response.statusCode == 200){//下载成功
 					this.intIdx++;
 					if (this.intIdx == this.allIdx){
-						this.gotoNextTime = setTimeout(this.gotoNext.bind(this), 200);
+						this.clearProgressTime = setTimeout(this.clearProgress.bind(this), 100);
 					}
 				}else{
 					console.log(response);
@@ -160,10 +168,13 @@ class LessonCard extends Component {
 		this.goIdx += (result.bytesWritten - this.tmpLen[result.jobId])/result.contentLength;
 		this.tmpLen[result.jobId] = result.bytesWritten;
 		console.log(this.goIdx);
-		this.refs.download.setProgross(this.goIdx/this.allIdx);
+		this.refs.download.setProgross(this.goIdx/this.allIdx, true);
+	}
+	clearProgress(){
+		this.refs.download && this.refs.download.setProgross(0, false);
+		this.gotoNextTime = setTimeout(this.gotoNext.bind(this), 200);
 	}
 	gotoNext(){
-		this.refs.download.setProgross(0);
 		this.props.onStart(parseInt(this.props.rowID), 0);
 	}
 }

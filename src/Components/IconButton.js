@@ -45,12 +45,14 @@ class IconButton extends Component {
 		this.state = {
 			icon_k: 0,
 			progress: 0,
+			blnProgress: false,
 		};
 	}
-	setProgross(v){
+	setProgross(v, bln){
 		if (v > 1) v = 1;
 		this.setState({
 			progress: v,
+			blnProgress: bln,
 		});
 	}
 	render() {
@@ -93,18 +95,18 @@ class IconButton extends Component {
 				</View>
 			);
 		} else if (this.props.progress){
-			return (
-				<View style={[styles.center, styles.button, this.props.buttonStyle?this.props.buttonStyle:{}]}
-							onLayout={(event)=>{this.pw = event.nativeEvent.layout.width;}} >
-					<Progress.Bar style={{flex:1}}
+			var pg = this.state.blnProgress ? <Progress.Bar style={{flex:1}}
 						progress={this.state.progress}
 						unfilledColor='#C0C0C000'
 						color='rgb(99,205,92)'
 						borderWidth={0}
 						borderRadius={height/2}
 						width={this.pw}
-						height={height}/>
-					
+						height={height}/> : null;
+			return (
+				<View style={[styles.center, styles.button, this.props.buttonStyle?this.props.buttonStyle:{}]}
+							onLayout={(event)=>{this.pw = event.nativeEvent.layout.width;}} >
+					{pg}
 					<View style={[styles.newFont,styles.center]}>
 						<Text style={[styles.font, this.props.fontStyle?this.props.fontStyle:{}]}>
 							{this.props.text?this.props.text:''}
