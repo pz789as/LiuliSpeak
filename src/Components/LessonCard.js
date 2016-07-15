@@ -27,6 +27,9 @@ var height = ScreenHeight*0.7;
 import IconButton from './IconButton';
 
 class LessonCard extends Component {
+	constructor(props){
+		super(props);
+	}
 	render() {
 		return (
 		<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
@@ -43,7 +46,7 @@ class LessonCard extends Component {
 							<IconButton	onPress={this.onPress1.bind(this)} 
 									buttonStyle={styles.buttonStyle} 
 									text={'修炼'}
-									progress={0}
+									progress={1}
 									ref={'download'} />
 							<IconButton	onPress={this.onPress2.bind(this)} 
 									buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
@@ -56,9 +59,14 @@ class LessonCard extends Component {
 		</View>
 		);
 	}
+	componentWillUnmount(){
+		this.checkMp3Time && clearTimeout(this.checkMp3Time);
+		this.gotoNextTime && clearTimeout(this.gotoNextTime);
+	}
 	onPress1(){
 		var path = fs.DocumentDirectoryPath + getMp3FilePath(this.props.lessonID,this.props.rowID);
-		this.checkMp3(path);
+		console.log(path);
+		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
 	onPress2(){
 		this.props.onStart(parseInt(this.props.rowID), 1);
@@ -67,11 +75,30 @@ class LessonCard extends Component {
 		this.props.onStart(parseInt(this.props.rowID), 2);
 	}
 	checkMp3(path){
-		console.log(path);
 		fs.exists(path)
 		.then((result)=>{
 			if (result) {//路径存在
-				this.props.onStart(parseInt(this.props.rowID), 0);
+				var count = 0;
+				var exits = 0;
+				for(var idx=0; idx < this.props.course.contents.length; idx++){
+					fs.exists(path+'/'+this.props.course.contents[0].mp3).
+					then((resultFile)=>{
+						count++;
+						if (resultFile){//存在的文件
+							exits++;
+						}
+						if (count == this.props.course.contents.length){
+							if (exits == count){//文件都存在就可以正常跳转
+								this.props.onStart(parseInt(this.props.rowID), 0);
+							}else{//有文件不存在就要去下载
+								this.downLoadMp3(path);
+							}
+						}
+					})
+					.catch((err)=>{
+						console.log(err);
+					});
+				}
 			}else{
 				this.makeDir(path);
 			}
@@ -115,7 +142,7 @@ class LessonCard extends Component {
 				if (response.statusCode == 200){//下载成功
 					this.intIdx++;
 					if (this.intIdx == this.allIdx){
-						this.props.onStart(parseInt(this.props.rowID), 0);
+						this.gotoNextTime = setTimeout(this.gotoNext.bind(this), 200);
 					}
 				}else{
 					console.log(response);
@@ -134,6 +161,10 @@ class LessonCard extends Component {
 		this.tmpLen[result.jobId] = result.bytesWritten;
 		console.log(this.goIdx);
 		this.refs.download.setProgross(this.goIdx/this.allIdx);
+	}
+	gotoNext(){
+		this.refs.download.setProgross(0);
+		this.props.onStart(parseInt(this.props.rowID), 0);
 	}
 }
 
