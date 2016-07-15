@@ -67,6 +67,7 @@ class LessonCard extends Component {
 		this.props.onStart(parseInt(this.props.rowID), 2);
 	}
 	checkMp3(path){
+		console.log(path);
 		fs.exists(path)
 		.then((result)=>{
 			if (result) {//路径存在
@@ -93,36 +94,27 @@ class LessonCard extends Component {
 		});
 	}
 	downLoadMp3(path){
-		var course = this.props.course;
-		var allIdx = course.contents.length;
-		var goIdx = 0;
-		var tmpLen = [];
-		var intIdx = 0;
-		for(var idx=0; idx < allIdx; idx++){
-			var localPath = path + '/' + course.contents[idx].mp3;
+		this.course = this.props.course;
+		this.allIdx = this.course.contents.length;
+		this.goIdx = 0;
+		this.tmpLen = [];
+		this.intIdx = 0;
+		for(var idx=0; idx < this.allIdx; idx++){
+			var localPath = path + '/' + this.course.contents[idx].mp3;
 			var fromUrl = serverUrl + '/Other/LiuliSpeak/Lessons/lesson' + 
-							(parseInt(this.props.lessonID)+1) + '_mp3/' + course.contents[idx].mp3;
+							(parseInt(this.props.lessonID)+1) + '_mp3/' + this.course.contents[idx].mp3;
 			console.log(fromUrl);
 			console.log(localPath);
 			fs.downloadFile({
 				fromUrl: fromUrl,
 				toFile: localPath,
-				begin: (result)=>{
-					tmpLen[result.jobId] = 0;
-				},
-				progress: (result)=>{
-					goIdx += (result.bytesWritten - tmpLen[result.jobId])/result.contentLength;
-					tmpLen[result.jobId] = result.bytesWritten;
-					console.log(goIdx);
-					this.refs.download.setProgross(goIdx/allIdx);
-				},
+				begin: this.downLoadBegin.bind(this),
+				progress: this.downloadProgress.bind(this),
 			})
 			.then((response)=>{
 				if (response.statusCode == 200){//下载成功
-					intIdx++;
-					// this.refs.download.setProgross(goIdx/allIdx);
-					// console.log(goIdx);
-					if (intIdx == allIdx){
+					this.intIdx++;
+					if (this.intIdx == this.allIdx){
 						this.props.onStart(parseInt(this.props.rowID), 0);
 					}
 				}else{
@@ -133,6 +125,15 @@ class LessonCard extends Component {
 				console.log(err);
 			});
 		}
+	}
+	downLoadBegin(result){
+		this.tmpLen[result.jobId] = 0;
+	}
+	downloadProgress(result){
+		this.goIdx += (result.bytesWritten - this.tmpLen[result.jobId])/result.contentLength;
+		this.tmpLen[result.jobId] = result.bytesWritten;
+		console.log(this.goIdx);
+		this.refs.download.setProgross(this.goIdx/this.allIdx);
 	}
 }
 
