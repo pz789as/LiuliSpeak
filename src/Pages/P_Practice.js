@@ -194,7 +194,7 @@ class P_Practice extends Component {
 
     _changePlayK(kind) {
         // 播放方式 0，播放一次 1，循环播放
-        this.refs.ViewList.blnLoop(kind);
+        this.refs.ViewList.setLoop(kind);
     }
 
     _onStart() {
