@@ -225,6 +225,9 @@ class CoverFlow extends Component {
 		}
 		return vf;
 	}
+	shouldComponentUpdate(nextProps, nextState) {
+		return false;
+	}
 
 	render() {
 		var {

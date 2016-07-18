@@ -120,7 +120,7 @@ let styles = StyleSheet.create({
   },
   border:{
     borderColor:'#F25019',
-    borderWidth: 1/PixelRatio.get(),
+    borderWidth: 1,
   },
   center:{
     alignItems: 'center',
@@ -147,7 +147,7 @@ var UtilStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   border: {
-    borderWidth: 1 / PixelRatio.get(),
+    borderWidth: 3,
     borderColor: '#0D220E',
   },
   font: {
@@ -174,4 +174,5 @@ module.exports = {
     ScreenHeight,
     UtilStyles,
     minUnit,
+    MinWidth,
 };

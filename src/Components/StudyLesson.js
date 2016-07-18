@@ -18,6 +18,9 @@ let minUint = ScreenWidth/100;
 var width = minUint*80;
 var height = minUint*35; 
 class C_StudyCourse extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
   render() {
     return (
     	<View style={[styles.arrange, this.props.style? this.props.style:styles.back]}>

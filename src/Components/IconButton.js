@@ -76,6 +76,10 @@ class IconButton extends Component {
 			}
 		}
 	}
+	shouldComponentUpdate(nextProps, nextState) {
+		if (nextState != this.state) return true;
+		else return false;
+	}
 	renderButton() {
 		if (this.props.icon) {
 			return (

@@ -18,25 +18,43 @@ import {
 
 import {
     styles,
+    ScreenWidth,
+    ScreenHeight,
+    UtilStyles,
+    minUnit,
+    MinWidth,
 } from '../Styles';
 
 import Sound from 'react-native-sound'
 
-import Practice from '../Components/C_Practice';
+// import Practice from '../Components/C_Practice';
+
+import {
+    TopBar,
+    ProgressBar,
+    ViewList,
+    BottomBar,
+    ListView,
+} from '../Components/Practice';
 
 class P_Practice extends Component {
+    myLayout = null;//..
+    blnInTouch = false;//..
     constructor(props) {
         super(props);
         this.play_k = 0;
-        this.showKind = 2;
-        this.speedKind = 2;
         this.gold = 0;
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
-        }
+            blnAutoplay: false,
+            showKind: 2,
+            speedKind: 2,
+            // listDataSource: new ListView.DataSource({
+            //     rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
+            // }),
+        };
     }
-
     componentWillMount() {
         this._panResponder = null;
         this._panResponder = PanResponder.create({
@@ -59,6 +77,10 @@ class P_Practice extends Component {
                 this.onWatchEnd(event, gestureState);
             }
         });
+
+        // this.setState({
+        //   listDataSource:this.state.listDataSource.cloneWithRows(this.props.dialogData),
+        // });
     }
 
     onWatchStart = (event, gestureState)=> {
@@ -80,39 +102,99 @@ class P_Practice extends Component {
         this.levelPractice(x, y);
     }
     collisionPractice = (x, y)=> { //..
-        this.refs.practice.blnTouchPartice({tx:x, ty:y}); //将touch 对象往子组件中传递
+        this.blnTouchPartice({tx:x, ty:y}); //将touch 对象往子组件中传递
     }
     levelPractice = (x, y)=> {//..
         this.refs.practice.setMoveEnd();
     }
 
+    _onLayout = (event)=>{
+        this.myLayout = event.nativeEvent.layout;//..获取当前组件的layout
+    }
+
+    blnTouchPartice = (touch)=>{ //..
+        //判断当前的touch是否在自己的位置
+        if(this.blnInTouch){
+            if(!this.blnInRange(touch)){//如果touch在自己的位置
+                //console.log("手指离开了此区域");
+                this.blnInTouch = false;
+            }
+            this.refs.ViewList.collisionItems(touch);//判断此手势是否在当前item的"句子"子组件上
+        }else{
+            if(this.blnInRange(touch)){//如果touch在自己的位置
+                //console.log("触碰我这儿了");
+                this.refs.ViewList.collisionItems(touch);
+                this.blnInTouch = true;
+            }
+        }
+        return this.blnInTouch;
+    }
+
+    blnInRange=(touch)=>{//通过手势位置和本身位置,计算"碰撞" //..
+        var layout = this.myLayout;
+        let tx = touch.tx;
+        let ty = touch.ty;
+        if(ty > layout.y && ty < layout.y + layout.height){
+            if(tx > layout.x && tx < layout.x + layout.width){
+                return true;
+            }
+        }
+        return false;
+    }
+    setMoveEnd = ()=>{//..
+        this.blnInTouch = false;
+        for(var i=0;i<this.props.dialogData.length;i++){
+            if(this.refs[i].getTouchState()){
+                this.refs[i].setMoveEnd();
+            }
+        }
+    }
 
     render() {
         return (
-            <View {...this._panResponder.panHandlers} style={{flex:1}} >
-                <Practice
-                    ref={'practice'}
-                    onPressBack={this._onPressBack.bind(this)}
-                    onPlay={this._onPlay.bind(this)}
-                    onPause={this._onPause.bind(this)}
-                    changePlayKind={this._changePlayK.bind(this)}
-                    onStart={this._onStart.bind(this)}
-                    showKind={this.showKind}
-                    speedKind={this.speedKind}
-                    changeOption={this._changeOption.bind(this)}
-                    gold={this.gold}
-                    GoldAllNum={this.getAllGold()}
-                    getGold={this.getGold.bind(this)}
-                    dialogData={this.props.dialogData}
-                    lessonID={this.props.lessonID}
-                    courseID={this.props.courseID}/>
-                {this.state.touch.blnTouch && <View style={{position:"absolute",top:this.state.touch.ty - 10, left:this.state.touch.tx - 10,
-                        width:20,height:20,borderRadius:10,backgroundColor:'#ff000031',}}/>}
-            </View>
+            <View style={ming.container} onLayout={this._onLayout.bind(this)} {...this._panResponder.panHandlers} >
+                <TopBar onPressBack={this._onPressBack.bind(this)} />
 
+                <ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />
+
+                <ViewList blnAutoplay={this.state.blnAutoplay} dialogData={this.props.dialogData} lessonID={this.props.lessonID}
+                    courseID={this.props.courseID} showKind={this.state.showKind} ref={'ViewList'}
+                    getGold={this.getGold.bind(this)} parents={this}
+                    />
+
+                <BottomBar showKind={this.state.showKind} speedKind={this.state.speedKind}
+                    onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
+                    onStart={this._onStart.bind(this)}
+                    changePlayKind={this._changePlayK.bind(this)}
+                    changeOption={this._changeOption.bind(this)}/>
+            </View>
         );
+        // return (
+        //     <View {...this._panResponder.panHandlers} style={{flex:1}} >
+        //         <Practice
+        //             ref={'practice'}
+        //             onPressBack={this._onPressBack.bind(this)}
+        //             onPlay={this._onPlay.bind(this)}
+        //             onPause={this._onPause.bind(this)}
+        //             changePlayKind={this._changePlayK.bind(this)}
+        //             onStart={this._onStart.bind(this)}
+        //             showKind={this.showKind}
+        //             speedKind={this.speedKind}
+        //             changeOption={this._changeOption.bind(this)}
+        //             gold={this.gold}
+        //             GoldAllNum={this.getAllGold()}
+        //             getGold={this.getGold.bind(this)}
+        //             dialogData={this.props.dialogData}
+        //             lessonID={this.props.lessonID}
+        //             courseID={this.props.courseID}/>
+        //         {this.state.touch.blnTouch && <View style={{position:"absolute",top:this.state.touch.ty - 10, left:this.state.touch.tx - 10,
+        //                 width:20,height:20,borderRadius:10,backgroundColor:'#ff000031',}}/>}
+        //     </View>
+
+        // );
     }
     getAllGold(){
+        return 20;
         var sum = 0;
         for(var i=0;i<this.props.dialogData.length;i++){
             sum += this.props.dialogData[i].gold;
@@ -125,9 +207,17 @@ class P_Practice extends Component {
     }
 
     _onPlay() {
+        this.setState({
+            blnAutoplay: true
+        });
+        this.refs.ViewList.onPlay();
     }
 
     _onPause() {
+        this.setState({
+            blnAutoplay: false
+        });
+        this.refs.ViewList.onPause();
     }
 
     _changePlayK(kind) {
@@ -141,16 +231,29 @@ class P_Practice extends Component {
         // 显示，播放速度设置
         if (index == 0) {
             // 显示设置 0，中文  1，英文  2，中/英文
-            this.showKind = select;
+            this.setState({
+                showKind: select
+            });
         } else {
             // 播放速度 0，0.6x  1，1x  2，1.4x
-            this.speedKind = select;
+            this.setState({
+                speedKind: select
+            });
         }
     }
-
+    // 添加金币（this.gold保存金币数，调用progressbar的getgold更新进度条）
     getGold(num) {
-        this.gold = num;
+        this.gold += num;
+        this.refs.ProgressBar.getGold(num);
     }    
 }
+
+const ming = StyleSheet.create({
+    container: {
+        paddingTop: 20,
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+    },
+});
 
 export default P_Practice;

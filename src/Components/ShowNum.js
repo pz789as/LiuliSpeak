@@ -18,6 +18,10 @@ class ShowNum extends Component {
 			select: this.props.select+1
 		};
 	}
+	shouldComponentUpdate(nextProps, nextState) {
+		if (nextState != this.state) return true;
+		else return false;
+	}
 	render() {
 		return (
 			<Text style={styles.font}>

@@ -32,6 +32,9 @@ class LessonCard extends Component {
 		super(props);
 		this.progress = 1;
 	}
+	shouldComponentUpdate(nextProps, nextState) {
+		return false;
+	}
 	render() {
 		return (
 		<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
