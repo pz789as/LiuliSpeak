@@ -78,12 +78,11 @@ export default class ListItem extends Component {
         itemBlnSelect: PropTypes.bool,//当前的item是否被选中了
         itemScore: PropTypes.number,//从数据库中获取的分数
         itemCoins: PropTypes.number,//从数据库中获取的金币数量
-        audio: PropTypes.string,
-        playNext: PropTypes.func,//调用父组件的播放下一个的函数
-        blnInAutoplay: PropTypes.bool,//判断父组件是否在自动播放
+        audio: PropTypes.string,       
         user: PropTypes.number,//跟头像显示有关
         dialogInfo: PropTypes.object,//对话信息
         itemIndex:PropTypes.number,
+        partents:PropTypes.object,
     };
 
     playDialogAudio() {//播放音频
@@ -111,8 +110,9 @@ export default class ListItem extends Component {
             return;
         }
         this.itemStatus = ITEM_STATUS.NORMAL;
-        if (this.props.blnInAutoplay) {
-            this.props.playNext();
+        console.log("blnInAutoplay:",this.props.partents.blnAutoplay);
+        if (this.props.partents.blnAutoplay) {
+            this.props.partents.playNext();
         }
     }
 
@@ -271,9 +271,6 @@ export default class ListItem extends Component {
         if(nextProps.itemBlnSelect != this.props.itemBlnSelect){
             blnUpdate = true;
         }
-        if(nextProps.blnInAutoplay != this.props.blnInAutoplay){
-            blnUpdate = true;
-        }
 
         if(nextStates.score != this.state.score){
             blnUpdate = true;
@@ -301,10 +298,10 @@ export default class ListItem extends Component {
     }
 
     render() {
-        const {itemIndex, itemWordCN, itemWordEN, itemShowType, itemBlnSelect, blnInAutoplay, dialogInfo} = this.props;//获取属性值
+        const {itemIndex, itemWordCN, itemWordEN, itemShowType, itemBlnSelect, dialogInfo} = this.props;//获取属性值
         //console.log("Render ListIndex:",this.props.itemIndex);
         return (
-            <View pointerEvents={(blnInAutoplay || this.state.disabled)?"none":"auto"}
+            <View pointerEvents={(this.state.disabled)?"none":"auto"}
                   style={[styles.container,{backgroundColor:itemBlnSelect?'#FFFFFF':'#EBEBEB'}]}
                   onLayout={this._onLayout.bind(this)}>
                 <View style={styles.leftView}>

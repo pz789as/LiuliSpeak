@@ -145,12 +145,9 @@ class ViewList extends Component {
                           itemBlnSelect={i==this.state.select?true:false}
                           itemScore={0}
                           itemCoins={course.gold}
-                          ref={name}
-                          playNext={this.playNext.bind(this)}
-                          blnInAutoplay={this.blnAutoplay}
+                          ref={name}                          
                           user={i%2}
                           dialogInfo={dialogInfo}/>
-
             </TouchableOpacity>
         );
     }
@@ -168,7 +165,6 @@ class ViewList extends Component {
             array.push(
                 <TouchableOpacity
                     onLayout={this._onLayoutItem.bind(this,i)}
-                    disabled={this.blnAutoplay}
                     onPress={this.touchView.bind(this,i)}
                     activeOpacity={1}
                     overflow={'hidden'}
@@ -180,12 +176,11 @@ class ViewList extends Component {
                               itemBlnSelect={i==select?true:false}
                               itemScore={0}
                               itemCoins={this.props.dialogData[i].gold}
-                              ref={i}
-                              playNext={this.playNext.bind(this)}
-                              blnInAutoplay={this.blnAutoplay}
+                              ref={i}                               
                               user={i%2}
                               dialogInfo={dialogInfo}
                               itemIndex={i}
+                              partents = {this}
                     />
 
                 </TouchableOpacity>
@@ -195,7 +190,11 @@ class ViewList extends Component {
     }
 
     // 列表中选中处理
-    touchView(_id) {
+    touchView(_id,blnTouch=true) {
+        if(blnTouch){
+            if(this.blnAutoplay)return;
+        }
+
         if (_id != this.state.select) {
             this.setState({
                 select: _id
@@ -218,13 +217,14 @@ class ViewList extends Component {
 
             // 是否循环播放处理
             if (index == 0) {
-                if (this.blnLoop == false) {
+                console.log("blnLoop:",this.blnLoop);
+                if (this.blnLoop == 0) {
                     this.onPause();
                     return;
                 }
             }
             // 单次播放的 跳出
-            this.touchView(index);
+            this.touchView(index,false);
         }
     }
 
