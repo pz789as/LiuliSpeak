@@ -126,10 +126,11 @@ class BottomBar extends Component {
 	}
 	// 播放设置（单次/循环）
 	_onPlayset() {
+		var index = (this.state.playKind+1)%2;
 		this.setState({
-			playKind: (this.state.playKind+1)%2
+			playKind: index
 		});
-		this.props.changePlayKind(this.state.playKind);
+		this.props.changePlayKind(index);
 	}
 	// 开始闯关
 	_onStart() {

@@ -165,7 +165,7 @@ class P_Practice extends Component {
                     onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
                     onStart={this._onStart.bind(this)}
                     changePlayKind={this._changePlayK.bind(this)}
-                    changeOption={this._changeOption.bind(this)}/>
+                    changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />
             </View>
         );        
     }
@@ -192,8 +192,13 @@ class P_Practice extends Component {
         // this.refs.ViewList.onPause();
     }
 
+    changePause() {
+        this.refs.BottomBar._onPause();
+    }
+
     _changePlayK(kind) {
         // 播放方式 0，播放一次 1，循环播放
+        console.log("kind: "+kind);
         this.refs.ViewList.setLoop(kind);
     }
 

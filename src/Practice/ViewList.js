@@ -214,12 +214,13 @@ class ViewList extends Component {
     playNext() {
         if (this.blnAutoplay) {
             var index = (this.state.select + 1) % this.props.dialogData.length;
+            console.log(this);
 
             // 是否循环播放处理
             if (index == 0) {
-                console.log("blnLoop:",this.blnLoop);
                 if (this.blnLoop == 0) {
                     this.onPause();
+                    this.props.parents.changePause();
                     return;
                 }
             }
