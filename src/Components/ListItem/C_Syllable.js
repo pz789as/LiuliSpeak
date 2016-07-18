@@ -38,6 +38,7 @@ export default class Syllable extends Component {
         //解析 strWords 与 strPinyin ,字符'_'分词 字符' '区分拼音
     }
     setPingce(score){
+        console.log("Syllable setPingce:",score);
         var zeroCount = 0;
         var tmpCol = "#434343";//默认颜色值
         if(score == "error"){
@@ -61,6 +62,7 @@ export default class Syllable extends Component {
         }else{
             tmpCol = '#49CD36';
         }
+        console.log("syllable color:",tmpCol);
         this.setState({score:score,color:tmpCol});
 
         /*
@@ -74,11 +76,11 @@ export default class Syllable extends Component {
         //..console.log("汉字评测:"+this.props.word +":"+ score);
     }
     render() {
+        //console.log("Render Syllable");
         return (
             <View style={[this.props.style,styles.syllableContent]}>
                     <Text style={[styles.pinyin,{color:this.state.color}]}>{this.props.pinyin}</Text>
                     <Text style={[styles.word,{color:this.state.color}]}>{this.props.word}</Text>
-                {/*<Text style={{fontSize:fontSize/2}}>{this.state.score}</Text>*/}
             </View>
         );
     }

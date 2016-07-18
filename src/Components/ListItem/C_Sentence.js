@@ -41,6 +41,7 @@ export default class Sentence extends Component {
     wordCount = 0;//记录一下这句话中有多少组词汇
 
     setPingce = (arrScore)=>{
+        console.log("Sentence setPingce:",arrScore);
         var strWord = this.props.words;
         strWord = strWord.replace(/[，。！？；“”‘’：]/g, "");
         var strPinYin = this.props.pinyins;
@@ -142,7 +143,12 @@ export default class Sentence extends Component {
         }
     }
 
-    render() {        
+    shouldComponentUpdate(nextProps,nextStates) {
+        return false;
+    }
+
+    render() {
+        //console.log("Render Sentence");
         return (
             <View onLayout={this._onLayout.bind(this)}
                   style={[this.props.style,styles.container,this.state.blnSelect&&{backgroundColor:'#C5D6E6'}] }>

@@ -168,30 +168,7 @@ class P_Practice extends Component {
                     changePlayKind={this._changePlayK.bind(this)}
                     changeOption={this._changeOption.bind(this)}/>
             </View>
-        );
-        // return (
-        //     <View {...this._panResponder.panHandlers} style={{flex:1}} >
-        //         <Practice
-        //             ref={'practice'}
-        //             onPressBack={this._onPressBack.bind(this)}
-        //             onPlay={this._onPlay.bind(this)}
-        //             onPause={this._onPause.bind(this)}
-        //             changePlayKind={this._changePlayK.bind(this)}
-        //             onStart={this._onStart.bind(this)}
-        //             showKind={this.showKind}
-        //             speedKind={this.speedKind}
-        //             changeOption={this._changeOption.bind(this)}
-        //             gold={this.gold}
-        //             GoldAllNum={this.getAllGold()}
-        //             getGold={this.getGold.bind(this)}
-        //             dialogData={this.props.dialogData}
-        //             lessonID={this.props.lessonID}
-        //             courseID={this.props.courseID}/>
-        //         {this.state.touch.blnTouch && <View style={{position:"absolute",top:this.state.touch.ty - 10, left:this.state.touch.tx - 10,
-        //                 width:20,height:20,borderRadius:10,backgroundColor:'#ff000031',}}/>}
-        //     </View>
-
-        // );
+        );        
     }
     getAllGold(){
         return 20;

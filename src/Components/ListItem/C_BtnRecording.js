@@ -16,7 +16,7 @@ import ReactNative, {
 }from 'react-native'
 import {
     ImageRes
-} from '../Resources';
+} from '../../Resources'
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
 var XFiseBridge = NativeModules.XFiseBridge;
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
@@ -48,7 +48,7 @@ export default class BtnRecording extends Component {
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
         startRecord: PropTypes.func,
         //stopRecord: PropTypes.func,
-        btnCallBack: PropTypes.func,
+        btnCallback: PropTypes.func,
          
     };
 
@@ -59,17 +59,17 @@ export default class BtnRecording extends Component {
 
     _releaseRecordListener = ()=> {
         this.listener.remove();
+        this.listener = null;
         this.volumeListener.remove();
-        // this.pcmListener.remove();
+        this.volumeListener = null;
     }
 
     _onPress = ()=> {//发送点击事件      
         if(this.state.recordState == 0){
-            this.props.startRecord();
+            this.props.btnCallback("record");
         }else if(this.state.recordState == 1){
-            this.stopRecord();
-        }
-        console.log("btnRecord props:", this.props);        
+            this.props.btnCallback("stop");
+        }              
     }
 
     componentWillMount() {
@@ -78,7 +78,7 @@ export default class BtnRecording extends Component {
                 toValue: 1,
                 duration: 300,
                 delay: this.props.animateDialy,
-            }).start();
+            }).start(()=>{this.props.btnCallback("AnimOver")});
         }
         this.listener = RCTDeviceEventEmitter.addListener('iseCallback', this.iseCallback.bind(this));
         this.volumeListener = RCTDeviceEventEmitter.addListener('iseVolume', this.iseVolume.bind(this));
@@ -98,6 +98,7 @@ export default class BtnRecording extends Component {
     }
 
     setProgress(volume) {//设置当前的音量progress
+        if(this.volumeListener == null) return;
         volume += 12 + parseInt(Math.random() * 5);
         var v = volume / 50;
         if (this.state.recordState == 0) {
@@ -110,7 +111,7 @@ export default class BtnRecording extends Component {
     }
 
     recordEnd() {//录音结束时调用
-        console.log("手动停止录音");
+        //..console.log("手动停止录音");
         var state = this.state.recordState;
         if (state == 1) {
             state = 0;
@@ -119,6 +120,21 @@ export default class BtnRecording extends Component {
                 progress: 0,//唐7-12
             });
         }
+    }
+
+    shouldComponentUpdate(nextProps,nextStates) {
+        var blnUpdate = false;
+
+        if(nextStates.recordState != this.state.recordState){
+            blnUpdate = true;
+        }
+        if(nextStates.scaleAnim != this.state.scaleAnim){
+            blnUpdate = true;
+        }
+        if(nextStates.progress != this.state.progress){
+            blnUpdate = true;
+        }
+        return blnUpdate;
     }
 
     render() {
@@ -195,18 +211,18 @@ export default class BtnRecording extends Component {
         console.log("iseCallback:", data.code, XFiseBridge.CB_CODE_RESULT);
         if (data.code == XFiseBridge.CB_CODE_RESULT) {
             console.log("录音结束,返回结果,调用 this.resultParse");
-            this.resultParse(data.result);//录音结束返回结果数据去前端解析,并调用btnCallBack将结果给父组件
+            this.resultParse(data.result);//录音结束返回结果数据去前端解析,并调用btnCallback将结果给父组件
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
         else if (data.code == XFiseBridge.CB_CODE_ERROR) {
-            this.props.btnCallBack('error',data.result);//返回讯飞给的评测异常错误
+            this.props.btnCallback('error',data.result);//返回讯飞给的评测异常错误
             this.recordEnd();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
         else if (data.code == XFiseBridge.CB_CODE_STATUS) {//正在录音
             if (data.result == XFiseBridge.SPEECH_START) {//已经开始
                 this.setState({recordState: 1});
-                this.props.btnCallBack('status',1);//通知父组件开始录音了
+                this.props.btnCallback('status',1);//通知父组件开始录音了
             } else if (data.result == XFiseBridge.SPEECH_WORK) {//工作中...
 
             } else if (data.result == XFiseBridge.SPEECH_STOP) {//手动停止
@@ -220,7 +236,7 @@ export default class BtnRecording extends Component {
         else {//..真的是未知的错误
             console.log('传回其他参数', data.result);
             this.recordEnd();
-            this.props.btnCallBack('error',0);//返回未知的错误
+            this.props.btnCallback('error',0);//返回未知的错误
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
     }
@@ -339,7 +355,7 @@ export default class BtnRecording extends Component {
         var score = lostPoint / pointCount * 100;
         console.log("评测分数: " + score);
         console.log("每个汉字情况:" + syllablesScore);
-        this.props.btnCallBack(syllablesScore, parseInt(score));
+        this.props.btnCallback("result",{syllableScore:syllablesScore,sentenctScore: parseInt(score)});
 
     }
 }

@@ -39,7 +39,8 @@ export default class Word extends Component {
     componentWillMount() {
         //this.setArrSyllable();
     }
-    setPingce(arrScore){        
+    setPingce(arrScore){
+        console.log("Word setPingce:",arrScore);
         var strWord = this.props.words;
         var strPinYin = this.props.pinyins;
         var wordLength = strWord.length - this.getPunctuationCount(strWord);
@@ -57,7 +58,6 @@ export default class Word extends Component {
                     if(arrScore == "error"){                        
                         this.refs["syllable"+i].setPingce("error");
                     }else{
-                        console.log("这里竟然会执行")
                         this.refs["syllable"+i].setPingce(arrScore.slice(index,index+1));
                     }
 

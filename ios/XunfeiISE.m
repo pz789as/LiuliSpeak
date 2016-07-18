@@ -122,6 +122,9 @@
 
 -(BOOL)initPcm:(NSString*) filePath rate:(long)rate
 {
+  if(_pcmPlayer != nil){
+    _pcmPlayer = nil;
+  }
   NSString* tmpPath = filePath;
   if (tmpPath == nil) {
     tmpPath = [[NSString alloc] initWithFormat:@"%@",
@@ -149,7 +152,7 @@
   if (_pcmPlayer){
     [_pcmPlayer stop];
   }
-  _pcmPlayer = nil;
+  //_pcmPlayer = nil;
 }
 
 -(void)pausePcm

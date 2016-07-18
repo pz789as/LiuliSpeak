@@ -16,7 +16,7 @@ import ReactNative, {
 }from 'react-native'
 import {
     ImageRes
-} from '../Resources';
+} from '../../Resources';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
 
 var XFiseBridge = NativeModules.XFiseBridge;
@@ -32,12 +32,13 @@ export default class C_BtnRecPlayer extends Component {
     constructor(props) {
         super(props);
         this.pcmListener = null;
+        this.audioCurrentTime = 0;
+        this.audioTime = 0;
         // 初始状态
         this.state = {
             playerState: 0,//0:等待播放,1:播放中,2暂停播放
             scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
-            audioCurrentTime:0,//当前时间
-            audioTimes:0,//音频总时间
+            progress:0,
         };
     }
 
@@ -45,86 +46,74 @@ export default class C_BtnRecPlayer extends Component {
         blnAnimate: PropTypes.bool,//是否有出现动画
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值               
         recordName: PropTypes.string,//录音文件名
-        btnCallBack: PropTypes.func,
+        btnCallback: PropTypes.func,
     };
 
     time = null;
-    blnReady = false;
-    blnPlay = false;
-    blnStop = false;
 
     playerAudio = ()=> {//开始播放声音
-        if (!this.blnReady) {
-            this.blnPlay = true;
-            return;
-        }
-        this.setState({
-            playerState: 1,
-        });
-        this.props.btnCallBack(1);
-        this.blnStop = false;
         this.PlayPcm();
         this.time=setInterval(this.getNowTime, 100);
+        this.setState({
+            playerState: 1,
+            progress:0,
+        });
     }
 
     pauseAudio = ()=> {//暂停播放声音
+        this.PausePcm();
+        clearInterval(this.time);
+        this.time = null;
         this.setState({
             playerState: 2,
         });
-        this.props.btnCallBack(2);
-        this.PausePcm();
-        clearInterval(this.time);
     }
 
     audioPlayerEnd = ()=> {//声音播放完毕时调用
+        if(this.time == null)return;
         clearInterval(this.time);
-        this.props.btnCallBack(0);
-        this.blnStop = true;
+        this.time = null;
+        this.props.btnCallback("over");
         this.setState({
             playerState: 0,
-            audioCurrentTime:0,//..解决再次播放进度条不归零问题
+            progress:0,//..解决再次播放进度条不归零问题
         });
     }
     stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
         if (this.state.playerState != 0) {//只有当已经启动播放后 此函数才起作用
             this.StopPcm();
             clearInterval(this.time);
-            this.blnStop = true;
-            this.props.btnCallBack(0);
+            this.time = null;
             this.setState({
                 playerState: 0,
-                audioCurrentTime:0,//..解决再次播放进度条不归零问题
+                progress:0,//..解决再次播放进度条不归零问题
             });
         }
     }
     _onPress = ()=> {//发送点击事件
         if (this.state.playerState != 1) {
-            this.playerAudio();
+            this.props.btnCallback("play");
         } else {
-            this.pauseAudio();
+            this.props.btnCallback("pause");
         }
     }
     
     updateFile(){
         this.pcmListener.remove();
-        clearInterval(this.time);
         this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
         this.InitPcm(this.props.recordName);
-        this.blnReady = false;
     }
     
     getNowTime = ()=> {
         this.GetCurrentTime();
     }
 
-    getProgressValue = ()=> {//获取播放进度
-        return this.state.audioCurrentTime / this.state.audioTimes;
-    }
     async GetCurrentTime(){
         try{
-            var ret = await XFiseBridge.getPcmCurrentTime();
-            if (this.blnStop) return;
-            this.setState({audioCurrentTime: ret});
+            this.audioCurrentTime = await XFiseBridge.getPcmCurrentTime();
+            if (this.time == null) return;
+            this.setState({progress:this.audioCurrentTime/this.audioTime});
+
         }catch(error){
             console.log("GetCurrentTime", error);
         }
@@ -137,15 +126,8 @@ export default class C_BtnRecPlayer extends Component {
         console.log("PCM filePath:",filePath);
         try{
             var ret = await XFiseBridge.initPcm(initInfo);
-            this.setState({
-                audioCurrentTime : 0,
-                audioTimes : ret,
-            });
-            this.blnReady = true;
-            if (this.blnPlay) {
-                this.playerAudio();
-                this.blnPlay = false;
-            }
+            this.audioCurrentTime = 0;
+            this.audioTime  = ret;
         }catch(error){
             console.log('InitPcm', error);
         }
@@ -181,14 +163,29 @@ export default class C_BtnRecPlayer extends Component {
                 toValue: 1,
                 duration: 300,
                 delay: this.props.animateDialy
-            }).start();
+            }).start(()=>{this.props.btnCallback("AnimOver")});
         }
-        this.blnReady = false;
     }
 
     componentWillUnmount() {
         this.pcmListener.remove();
         clearInterval(this.time);
+        this.time = null;
+    }
+
+    shouldComponentUpdate(nextProps,nextStates) {
+        var blnUpdate = false;
+
+        if(nextStates.playerState != this.state.playerState){
+            blnUpdate = true;
+        }
+        if(nextStates.scaleAnim != this.state.scaleAnim){
+            blnUpdate = true;
+        }
+        if(nextStates.progress != this.state.progress){
+            blnUpdate = true;
+        }
+        return blnUpdate;
     }
     
     drawBtnPlayAudio=()=>{ //0:等待播放,1:播放中,2暂停播放
@@ -222,14 +219,15 @@ export default class C_BtnRecPlayer extends Component {
         }
     }
     render() {
+        console.log("Render BtnRecPlayer");
         return (
             <Animated.View style={{transform:[{scale:this.state.scaleAnim}]}}>
-                <TouchableOpacity onPress={this._onPress.bind(this)} activeOpacity={1}>
+                <TouchableOpacity onPress={this._onPress.bind(this)} activeOpacity={0.5}>
                     {/*上一句是为了仿流利说把点击效果取消,没有Touchwihtout是方便日后修改*/}
                     <View style={[styles.container]}>
                         {this.state.playerState != 0 &&
-                        <Progress.Circle style={styles.progress} thickness={1} borderWidth={0}
-                                         progress={this.getProgressValue()} size={btnSize} color="#4ACE35"/>
+                        <Progress.Circle style={styles.progress} thickness={2} borderWidth={0}
+                                         progress={this.state.progress} size={btnSize+4} color="#4ACE35"/>
                         }
                         {this.drawBtnPlayRecord()}
                     </View>
@@ -243,8 +241,8 @@ export default class C_BtnRecPlayer extends Component {
 
 const styles = StyleSheet.create({
     container: {//主背景
-        width: btnSize,
-        height: btnSize,
+        width: btnSize+4,
+        height: btnSize+4,
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: fontSize/2,
