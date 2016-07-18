@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Animated,
+  InteractionManager,
 } from 'react-native';
 
 import {
@@ -40,8 +41,15 @@ class C_LessonMenu extends Component {
     this.state = {
       moreH: new Animated.Value(0),
       moveY: new Animated.Value(0),
-      showIdx: 0,
+      blnDraw: false,
     };
+  }
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(()=>{
+      this.setState({
+        blnDraw: true,
+      });
+    });
   }
   render() {
     return (
@@ -53,15 +61,12 @@ class C_LessonMenu extends Component {
           <IconButton icon={ImageRes.more} onPress={this.AnimatedInt.bind(this)}/>
         </View>
         <View style={{alignItems:'center'}}>
-          {/*<Text style={{fontSize:16,color:'white'}}>
-            {parseInt(this.state.showIdx + 1)}/{parseInt(this.props.CardNum)}
-          </Text>*/}
           <ShowNum select={0} all={this.props.CardNum} ref={'ShowNum'} />
         </View>
         {/*中间课程显示，选择不同的打开方式*/}
         <CoverFlow style={[styles.fill, {alignItems:'center'}, ming.cardHoriziontal]}
                 frameSpace={minUnit * 80} 
-                SelectId={this.state.showIdx}
+                SelectId={0}
                 getSelectIndex={this.moveIndex.bind(this)}>
           {this.drawList()}
         </CoverFlow>
@@ -81,32 +86,34 @@ class C_LessonMenu extends Component {
           rowID={i}
           course={course}
           lessonID={this.props.lessonID}
+          waitTime={i*60}
           key={i} />);
     }
     return array;
   }
   drawMoreMenu(){
-      return (
-        <Animated.View style={[ming.shade, {height:this.state.moreH}]} >
-          <TouchableOpacity style={styles.fill} onPress={this.AnimatedOut.bind(this)} >
-          </TouchableOpacity>
-          <Animated.View style={[ming.moreMenu, {transform:[{translateY: this.state.moveY}]}]}>
-            <View style={ming.upMenu}>
-              <TouchableOpacity style={[ming.buttonMenu, styles.center, ming.menuLine]} onPress={this.props.gotoMorePage} activeOpacity={0.5} >
-                <Text style={ming.menuFont}>详情</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={()=>{}} activeOpacity={0.5} >
-                <Text style={ming.menuFont}>下载全部关卡</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={ming.downMenu}>
-              <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={this.AnimatedOut.bind(this)} activeOpacity={0.5} >
-                <Text style={ming.menuFont}>取消</Text>
-              </TouchableOpacity>
-            </View>
-          </Animated.View>
+    if (!this.state.blnDraw) return;
+    return (
+      <Animated.View style={[ming.shade, {height:this.state.moreH}]} >
+        <TouchableOpacity style={styles.fill} onPress={this.AnimatedOut.bind(this)} >
+        </TouchableOpacity>
+        <Animated.View style={[ming.moreMenu, {transform:[{translateY: this.state.moveY}]}]}>
+          <View style={ming.upMenu}>
+            <TouchableOpacity style={[ming.buttonMenu, styles.center, ming.menuLine]} onPress={this.props.gotoMorePage} activeOpacity={0.5} >
+              <Text style={ming.menuFont}>详情</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={()=>{}} activeOpacity={0.5} >
+              <Text style={ming.menuFont}>下载全部关卡</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={ming.downMenu}>
+            <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={this.AnimatedOut.bind(this)} activeOpacity={0.5} >
+              <Text style={ming.menuFont}>取消</Text>
+            </TouchableOpacity>
+          </View>
         </Animated.View>
-      );
+      </Animated.View>
+    );
   }
   gotoLesson(rowID, kind){
     this.props.selectListItem(rowID, kind);

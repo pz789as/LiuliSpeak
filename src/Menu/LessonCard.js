@@ -28,40 +28,62 @@ var height = ScreenHeight*0.7;
 import IconButton from '../Common/IconButton';
 
 class LessonCard extends Component {
+	static defaultProps = {
+	  	waitTime: 200,
+	};
 	constructor(props){
 		super(props);
 		this.progress = 1;
+		this.state = {
+	  		blnDraw: false,
+	  	};
 	}
 	shouldComponentUpdate(nextProps, nextState) {
-		return false;
+		if (nextState != this.state) return true;
+		else return false;
+	}
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(()=>{
+			this.timer = setTimeout(()=>{
+				this.setState({
+					blnDraw: true
+				});
+			},this.props.waitTime);
+		});
 	}
 	render() {
+		if (!this.state.blnDraw) {
+			return (
+				<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
+				</View>
+			);
+		}
 		return (
-		<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
-			{/*上方图片*/}
-			<View style={[styles.top, styles.border]}>
+			<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
+				{/*上方图片*/}
+				<View style={[styles.top, styles.border]}>
+				</View>
+				{/*选项，标题，介绍等*/}
+				<View style={[styles.msg, styles.border]}>
+							<View style={styles.titleView}>
+								<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
+								<Text style={styles.lessonTitleCN}>{this.props.course.titleCN}</Text>
+							</View>
+							<View style={styles.buttonView}>
+								<IconButton	onPress={this.onPress1.bind(this)} 
+										buttonStyle={styles.buttonStyle} 
+										text={'修炼'}
+										progress={this.progress}
+										ref={'download'} />
+								<IconButton	onPress={this.onPress2.bind(this)} 
+										buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
+										text={'闯关'}/>
+							</View>
+				</View>
+				{/*下方其他信息*/}
+				<View style={[styles.bottom, styles.border]}>
+				</View>
 			</View>
-			{/*选项，标题，介绍等*/}
-			<View style={[styles.msg, styles.border]}>
-						<View style={styles.titleView}>
-							<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
-							<Text style={styles.lessonTitleCN}>{this.props.course.titleCN}</Text>
-						</View>
-						<View style={styles.buttonView}>
-							<IconButton	onPress={this.onPress1.bind(this)} 
-									buttonStyle={styles.buttonStyle} 
-									text={'修炼'}
-									progress={this.progress}
-									ref={'download'} />
-							<IconButton	onPress={this.onPress2.bind(this)} 
-									buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
-									text={'闯关'}/>
-						</View>
-			</View>
-			{/*下方其他信息*/}
-			<View style={[styles.bottom, styles.border]}>
-			</View>
-		</View>
 		);
 	}
 	componentWillMount(){
@@ -70,8 +92,7 @@ class LessonCard extends Component {
 		this.checkMp3Time && clearTimeout(this.checkMp3Time);
 		this.clearProgressTime && clearTimeout(this.clearProgressTime);
 		this.gotoNextTime && clearTimeout(this.gotoNextTime);
-	}
-	componentDidMount(){
+		this.timer && clearTimeout(this.timer);
 	}
 	onPress1(){
 		this.refs.download && this.refs.download.setProgross(0, true);
