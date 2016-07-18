@@ -40,6 +40,8 @@ import {
 class P_Practice extends Component {
     myLayout = null;//..
     blnInTouch = false;//..
+    showKind = 2;
+    speedKind = 2;
     constructor(props) {
         super(props);
         this.play_k = 0;
@@ -47,9 +49,6 @@ class P_Practice extends Component {
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
-            blnAutoplay: false,
-            showKind: 2,
-            speedKind: 2,
             // listDataSource: new ListView.DataSource({
             //     rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
             // }),
@@ -157,12 +156,12 @@ class P_Practice extends Component {
 
                 <ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />
 
-                <ViewList blnAutoplay={this.state.blnAutoplay} dialogData={this.props.dialogData} lessonID={this.props.lessonID}
-                    courseID={this.props.courseID} showKind={this.state.showKind} ref={'ViewList'}
+                <ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
+                    courseID={this.props.courseID} showKind={this.showKind} ref={'ViewList'}
                     getGold={this.getGold.bind(this)} parents={this}
                     />
 
-                <BottomBar showKind={this.state.showKind} speedKind={this.state.speedKind}
+                <BottomBar showKind={this.showKind} speedKind={this.speedKind}
                     onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
                     onStart={this._onStart.bind(this)}
                     changePlayKind={this._changePlayK.bind(this)}
@@ -184,39 +183,25 @@ class P_Practice extends Component {
     }
 
     _onPlay() {
-        this.setState({
-            blnAutoplay: true
-        });
-        this.refs.ViewList.onPlay();
+        this.refs.ViewList.setAutoplay(true);
+        // this.refs.ViewList.onPlay();
     }
 
     _onPause() {
-        this.setState({
-            blnAutoplay: false
-        });
-        this.refs.ViewList.onPause();
+        this.refs.ViewList.setAutoplay(false);
+        // this.refs.ViewList.onPause();
     }
 
     _changePlayK(kind) {
         // 播放方式 0，播放一次 1，循环播放
+        this.refs.ViewList.blnLoop(kind);
     }
 
     _onStart() {
     }
 
     _changeOption(index, select) {
-        // 显示，播放速度设置
-        if (index == 0) {
-            // 显示设置 0，中文  1，英文  2，中/英文
-            this.setState({
-                showKind: select
-            });
-        } else {
-            // 播放速度 0，0.6x  1，1x  2，1.4x
-            this.setState({
-                speedKind: select
-            });
-        }
+        this.refs.ViewList.changeShow(index, select);
     }
     // 添加金币（this.gold保存金币数，调用progressbar的getgold更新进度条）
     getGold(num) {

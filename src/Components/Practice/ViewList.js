@@ -25,6 +25,8 @@ import ListItem from '../C_ListItem';
 class ViewList extends Component {
     scrollLayout = null;
     listItemLayout = null;
+    blnAutoplay = false;
+    blnLoop = false;
 
     constructor(props) {
         super(props);
@@ -36,16 +38,44 @@ class ViewList extends Component {
                     oldRow !== newRow
                 }
             }),
+            showKind: this.props.showKind,
+            speedKind: this.props.speedKind,
         };
         this.listItemLayout = [this.props.dialogData.length];
+    }
+    // 修改设置
+    changeShow(index, select) {
+        // 显示，播放速度设置
+        if (index == 0) {
+            // 显示设置 0，中文  1，英文  2，中/英文
+            this.setState({
+                showKind: select
+            });
+        } else {
+            // 播放速度 0，0.6x  1，1x  2，1.4x
+            this.setState({
+                speedKind: select
+            });
+        }
+    }
+    // 设置是否自动播放
+    setAutoplay(bln) {
+        this.blnAutoplay = bln;
+        if (bln) {
+            this.onPlay();
+        } else {
+            this.onPause();
+        }
+    }
+    // 设置是否循环播放
+    setLoop(bln) {
+        this.blnLoop = bln;
     }
 
     componentWillMount() {
         this.setState({
             listDataSource: this.state.listDataSource.cloneWithRows(this.props.dialogData),
         });
-        console.log('cn: ' + this.props.dialogData[0].cn);
-        console.log('listDataSource: ' + this.state.listDataSource);
     }
 
     _onLayoutItem = (index, event)=> {
@@ -104,7 +134,7 @@ class ViewList extends Component {
         return (
             <TouchableOpacity
                 onLayout={this._onLayoutItem.bind(this,i)}
-                disabled={this.props.blnAutoplay}
+                disabled={this.blnAutoplay}
                 onPress={this.touchView.bind(this,i)}
                 activeOpacity={1}
                 key={i}>
@@ -117,7 +147,7 @@ class ViewList extends Component {
                           itemCoins={course.gold}
                           ref={name}
                           playNext={this.playNext.bind(this)}
-                          blnInAutoplay={this.props.blnAutoplay}
+                          blnInAutoplay={this.blnAutoplay}
                           user={i%2}
                           dialogInfo={dialogInfo}/>
 
@@ -138,7 +168,7 @@ class ViewList extends Component {
             array.push(
                 <TouchableOpacity
                     onLayout={this._onLayoutItem.bind(this,i)}
-                    disabled={this.props.blnAutoplay}
+                    disabled={this.blnAutoplay}
                     onPress={this.touchView.bind(this,i)}
                     activeOpacity={1}
                     overflow={'hidden'}
@@ -152,7 +182,7 @@ class ViewList extends Component {
                               itemCoins={this.props.dialogData[i].gold}
                               ref={i}
                               playNext={this.playNext.bind(this)}
-                              blnInAutoplay={this.props.blnAutoplay}
+                              blnInAutoplay={this.blnAutoplay}
                               user={i%2}
                               dialogInfo={dialogInfo}
                               itemIndex={i}
@@ -183,8 +213,16 @@ class ViewList extends Component {
 
     // 自动播放下一条
     playNext() {
-        if (this.props.blnAutoplay) {
+        if (this.blnAutoplay) {
             var index = (this.state.select + 1) % this.props.dialogData.length;
+
+            // 是否循环播放处理
+            if (index == 0) {
+                if (this.blnLoop == false) {
+                    this.onPause();
+                    return;
+                }
+            }
             // 单次播放的 跳出
             this.touchView(index);
         }

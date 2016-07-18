@@ -33,13 +33,15 @@ class BottomBar extends Component {
 	 		blnAutoplay: false,
 	 		playKind: 0,
 	 		blnSet: false,
+	 		showKind: this.props.showKind,
+	 		speedKind: this.props.speedKind,
 	 	};
 	}
   	render() {
   		if (this.state.blnAutoplay) {
   			return (
   				<View style={[styles.container, styles.line]}>
-  					<IconButton icon={ImageRes.pause} onPress={this._onPause.bind(this)}/>
+					<IconButton icon={ImageRes.pause} onPress={this._onPause.bind(this)}/>
 					<IconButton buttonStyle={[styles.playSet, this.state.playKind==1&&styles.playSetColor]} onPress={this._onPlayset.bind(this)}
 						fontStyle={[UtilStyles.fontSmall, this.state.playKind==1&&styles.fontColor]} text={this.state.playKind?'循环播放':'单次播放'}/>
   				</View>
@@ -65,8 +67,8 @@ class BottomBar extends Component {
 						onPress={this.cancelSet.bind(this)}
 						activeOpacity={1} />
   					<View style={[styles.set, ]}>
-  						{this.renderOptionTitle(0, '切换中/英文显示', ['中','英','中/英'], this.props.showKind)}
-  						{this.renderOptionTitle(1, '变速播放', ['慢 0.6x','正常 1x','快 1.4x'], this.props.speedKind)}
+  						{this.renderOptionTitle(0, '切换中/英文显示', ['中','英','中/英'], this.state.showKind)}
+  						{this.renderOptionTitle(1, '变速播放', ['慢 0.6x','正常 1x','快 1.4x'], this.state.speedKind)}
   					</View>
   				</View>
   			);
@@ -151,6 +153,17 @@ class BottomBar extends Component {
 	// 设置选项处理
 	changeOption(_id, select) {
 		this.props.changeOption(_id, select);
+		if (_id == 0) {
+            // 显示设置 0，中文  1，英文  2，中/英文
+            this.setState({
+                showKind: select
+            });
+        } else {
+            // 播放速度 0，0.6x  1，1x  2，1.4x
+            this.setState({
+                speedKind: select
+            });
+        }
 	}
 }
 
