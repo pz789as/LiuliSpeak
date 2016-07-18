@@ -14,7 +14,7 @@ import {
 	ScreenHeight,
 	minUnit,
 	MinWidth,
-} from '../../Styles';
+} from '../Styles';
 
 import * as Progress from 'react-native-progress';
 

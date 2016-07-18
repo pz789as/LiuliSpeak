@@ -15,13 +15,13 @@ import {
 	ScreenHeight,
 	minUnit,
 	MinWidth,
-} from '../../Styles';
+} from '../Styles';
 
 import {
   	ImageRes
-} from '../../Resources';
+} from '../Resources';
 
-import IconButton from '../IconButton';
+import IconButton from '../Common/IconButton';
 
 var Height = minUnit*14;
 

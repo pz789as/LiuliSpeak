@@ -21,7 +21,7 @@ import {
   minUnit,
 } from '../Styles';
 
-import LessonMenu from '../Components/C_LessonMenu';
+import LessonMenu from '../Menu/C_LessonMenu';
 
 class P_Menu extends Component {
   constructor(props){

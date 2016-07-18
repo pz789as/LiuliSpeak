@@ -15,7 +15,7 @@ import ReactNative, {
 }from 'react-native'
 import {
     ImageRes
-} from '../../Resources';
+} from '../Resources';
 
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;

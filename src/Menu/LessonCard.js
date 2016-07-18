@@ -25,7 +25,7 @@ var minUnit = ScreenWidth/100;
 var width = minUnit*80;
 var height = ScreenHeight*0.7;
 
-import IconButton from './IconButton';
+import IconButton from '../Common/IconButton';
 
 class LessonCard extends Component {
 	constructor(props){

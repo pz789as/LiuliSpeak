@@ -23,11 +23,11 @@ import {
 
 } from '../Constant';
 
-import BtnPlayer from './ListItem/C_BtnPlayer';
-import BtnRecord from './ListItem/C_BtnRecording';
-import BtnQuestion from './ListItem/C_BtnQuestion';
-import BtnRecPlayer from './ListItem/C_BtnRecPlayer';
-import Sentence from './ListItem/C_Sentence';
+import BtnPlayer from '../ListItem/C_BtnPlayer';
+import BtnRecord from '../ListItem/C_BtnRecording';
+import BtnQuestion from '../ListItem/C_BtnQuestion';
+import BtnRecPlayer from '../ListItem/C_BtnRecPlayer';
+import Sentence from '../ListItem/C_Sentence';
 import RNFS from 'react-native-fs'
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;

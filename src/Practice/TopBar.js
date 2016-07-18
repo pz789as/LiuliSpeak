@@ -14,13 +14,13 @@ import {
 	ScreenHeight,
 	minUnit,
 	MinWidth,
-} from '../../Styles';
+} from '../Styles';
 
 import {
   ImageRes
-} from '../../Resources';
+} from '../Resources';
 
-import IconButton from '../IconButton';
+import IconButton from '../Common/IconButton';
 
 class TopBar extends Component {
 	// 添加判断是否重新render（本身状态改变时才会重新渲染）

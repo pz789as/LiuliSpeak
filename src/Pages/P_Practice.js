@@ -35,7 +35,7 @@ import {
     ViewList,
     BottomBar,
     ListView,
-} from '../Components/Practice';
+} from '../Practice';
 
 class P_Practice extends Component {
     myLayout = null;//..

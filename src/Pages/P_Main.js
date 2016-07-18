@@ -21,8 +21,8 @@ import {
   Scenes,
 } from '../Constant';
 
-import MainButtomBar from '../Components/C_MainBottomBar';
-import MainStudyView from '../Components/C_MainStudyView';
+import MainButtomBar from '../Main/C_MainBottomBar';
+import MainStudyView from '../Main/C_MainStudyView';
 
 let lesson1 = require('../../data/lesson1.json');
 

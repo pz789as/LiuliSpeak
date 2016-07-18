@@ -18,9 +18,9 @@ import {
     ScreenHeight,
     minUnit,
     MinWidth
-} from '../../Styles';
+} from '../Styles';
 
-import ListItem from '../C_ListItem';
+import ListItem from './C_ListItem';
 
 class ViewList extends Component {
     scrollLayout = null;

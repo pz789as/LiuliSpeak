@@ -17,7 +17,7 @@ import {
   ImageRes
 } from '../Resources';
 
-import IconButton from './IconButton';
+import IconButton from '../Common/IconButton';
 import LessonCard from './LessonCard';
 import CoverFlow from './CoverFlow';
 

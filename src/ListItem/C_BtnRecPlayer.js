@@ -16,7 +16,7 @@ import ReactNative, {
 }from 'react-native'
 import {
     ImageRes
-} from '../../Resources';
+} from '../Resources';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
 
 var XFiseBridge = NativeModules.XFiseBridge;
