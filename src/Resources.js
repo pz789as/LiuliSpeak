@@ -36,6 +36,8 @@ let ImageRes = {
     //--------ListItem以及子组件用的图片资源-----END-----//
     icon_coin_m:require('../res/UI/icon_coin_m.png'),
     icon_coin_l:require('../res/UI/icon_coin_l_hit.png'),
+
+    loading: require('../res/UI/loading.png'),
 };
 
 let ImageIcon = {

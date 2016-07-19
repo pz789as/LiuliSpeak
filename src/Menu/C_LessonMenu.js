@@ -46,10 +46,19 @@ class C_LessonMenu extends Component {
   }
   componentDidMount() {
     InteractionManager.runAfterInteractions(()=>{
-      this.setState({
-        blnDraw: true,
-      });
+      this.timer = setTimeout(()=>{
+        this.setState({
+          blnDraw: true,
+        });
+      },200);
     });
+  }
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state) return true;
+    else return false;
   }
   render() {
     return (

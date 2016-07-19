@@ -69,7 +69,11 @@ class P_Menu extends Component {
           courseID: rowID,
         });
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
   render() {
+    console.log("Hello Menu!");
     return (
       <LessonMenu onClose={this.onCancel.bind(this)}
           onMore={this.gotoMore.bind(this)}

@@ -37,19 +37,24 @@ class LessonCard extends Component {
 		this.state = {
 	  		blnDraw: false,
 	  	};
+	  	if (this.props.waitTime == 0) {
+	  		this.state.blnDraw = true;
+	  	}
 	}
 	shouldComponentUpdate(nextProps, nextState) {
 		if (nextState != this.state) return true;
 		else return false;
 	}
 	componentDidMount() {
-		InteractionManager.runAfterInteractions(()=>{
-			this.timer = setTimeout(()=>{
-				this.setState({
-					blnDraw: true
-				});
-			},this.props.waitTime);
-		});
+		if (this.props.waitTime > 0) {
+			InteractionManager.runAfterInteractions(()=>{
+				this.timer = setTimeout(()=>{
+					this.setState({
+						blnDraw: true
+					});
+				},this.props.waitTime);
+			});
+		}
 	}
 	render() {
 		if (!this.state.blnDraw) {

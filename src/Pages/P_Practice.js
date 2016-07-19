@@ -150,6 +150,7 @@ class P_Practice extends Component {
     }
 
     render() {
+        console.log('Hello Practice!');
         return (
             <View style={ming.container} onLayout={this._onLayout.bind(this)} {...this._panResponder.panHandlers} >
                 <TopBar onPressBack={this._onPressBack.bind(this)} />

@@ -9,7 +9,11 @@ import {
     View,
     ScrollView,
     ListView,
-    TouchableOpacity
+    TouchableOpacity,
+    InteractionManager,
+    Image,
+    Text,
+    Animated,
 } from 'react-native';
 
 import {
@@ -20,6 +24,10 @@ import {
     MinWidth
 } from '../Styles';
 
+import {
+    ImageRes,
+} from '../Resources';
+
 import ListItem from './C_ListItem';
 
 class ViewList extends Component {
@@ -27,6 +35,7 @@ class ViewList extends Component {
     listItemLayout = null;
     blnAutoplay = false;
     blnLoop = false;
+    targetNum = 1;
 
     constructor(props) {
         super(props);
@@ -40,8 +49,31 @@ class ViewList extends Component {
             }),
             showKind: this.props.showKind,
             speedKind: this.props.speedKind,
+            blnDraw: false,
+            rotate: new Animated.Value(0),
         };
         this.listItemLayout = [this.props.dialogData.length];
+        this.startAnimated();
+    }
+    startAnimated() {
+        Animated.timing(this.state.rotate,{
+            toValue: this.targetNum,
+            duration: 60,
+        }).start(()=>{
+            // this.targetNum += 1;
+            // if (this.targetNum == 16) {
+            //     this.state.rotate.setValue(0);
+            //     this.targetNum = 1;
+            // }
+            // this.startAnimated();
+        });
+    }
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(()=>{
+            this.setState({
+                blnDraw: true,
+            });
+        });
     }
     // 修改设置
     changeShow(index, select) {
@@ -57,6 +89,7 @@ class ViewList extends Component {
                 speedKind: select
             });
         }
+        console.log("changeShow!");
     }
     // 设置是否自动播放
     setAutoplay(bln) {
@@ -96,7 +129,27 @@ class ViewList extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState != this.state) return true;
+        else return false;
+    }
     render() {
+        if (!this.state.blnDraw) {
+            var rotateZ = this.state.rotate.interpolate({
+                inputRange: [0,8,16],
+                outputRange: ['0deg','180deg','360deg']
+            });
+            return (
+                <View style={styles.container}>
+                    {/*<Animated.Image
+                        style={[styles.loadImg, {transform:[{rotateZ}]}]}
+                        source={ImageRes.loading} />
+                    <Text style={styles.font}>
+                        加载中...
+                    </Text>*/}
+                </View>
+            );
+        }
         return (
             <View style={styles.container}>
                 <ScrollView
@@ -105,7 +158,6 @@ class ViewList extends Component {
                     showsVerticalScrollIndicator={false}>
                     {this.renderList(this.state.select)}
                 </ScrollView>
-
             </View>
         );
     }
@@ -141,7 +193,8 @@ class ViewList extends Component {
                 <ListItem itemWordCN={course.cn}
                           itemWordEN={course.en}
                           audio={course.mp3}
-                          itemShowType={this.props.showKind}
+                          itemShowType={this.state.showKind}
+                          itemRateType={this.state.speedKind}
                           itemBlnSelect={i==this.state.select?true:false}
                           itemScore={0}
                           itemCoins={course.gold}
@@ -231,6 +284,7 @@ class ViewList extends Component {
 
     // 控制列表移动（主要是自动播放时，根据当前选中项，判断列表是否移动）
     moveScrollView() {
+        if (this.scrollLayout == null) return;
         var layout = this.listItemLayout[this.state.select];
         if (layout.y == 0) {
             this.refs.ScrollView.scrollTo({
@@ -254,7 +308,16 @@ class ViewList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#E9E9E9'
+        backgroundColor: '#E9E9E9',
+        alignItems: 'center',
+    },
+    loadImg: {
+        width: minUnit*10,
+        height: minUnit*10,
+        marginVertical: minUnit*2,
+    },
+    font: {
+        fontSize: minUnit*5,
     }
 });
 

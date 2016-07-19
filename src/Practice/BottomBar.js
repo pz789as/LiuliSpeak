@@ -7,6 +7,7 @@ import {
   	View,
   	Text,
   	TouchableOpacity,
+  	InteractionManager,
 } from 'react-native';
 
 import {
@@ -36,6 +37,12 @@ class BottomBar extends Component {
 	 		showKind: this.props.showKind,
 	 		speedKind: this.props.speedKind,
 	 	};
+	}
+	componentDidMount() {
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		if (nextState != this.state) return true;
+		else return false;
 	}
   	render() {
   		if (this.state.blnAutoplay) {

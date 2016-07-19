@@ -94,9 +94,6 @@ class IconButton extends Component {
 					source = {
 						this.setImage()
 					}/>
-					<Text style={this.props.fontStyle?this.props.fontStyle:styles.font}>
-						{this.props.text?this.props.text:''}
-					</Text>
 				</View>
 			);
 		} else if (this.props.progress){
@@ -122,10 +119,17 @@ class IconButton extends Component {
 		} else {
 			return (
 				<View style={[styles.center, styles.button, this.props.buttonStyle?this.props.buttonStyle:{}]}>
-					<Text style={this.props.fontStyle?this.props.fontStyle:styles.font}>
-					 	{this.props.text?this.props.text:''}
-					</Text>
+					{this.renderText()}
 				</View>
+			);
+		}
+	}
+	renderText() {
+		if (this.props.text) {
+			return (
+				<Text style={this.props.fontStyle?this.props.fontStyle:styles.font}>
+				 	{this.props.text}
+				</Text>
 			);
 		}
 	}
