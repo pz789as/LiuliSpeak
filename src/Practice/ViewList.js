@@ -83,13 +83,14 @@ class ViewList extends Component {
             this.setState({
                 showKind: select
             });
+            this.onPause();
         } else {
             // 播放速度 0，0.6x  1，1x  2，1.4x
             this.setState({
                 speedKind: select
             });
+            this.onPlay();
         }
-        console.log("changeShow!");
     }
     // 设置是否自动播放
     setAutoplay(bln) {

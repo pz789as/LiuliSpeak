@@ -172,6 +172,9 @@ class BottomBar extends Component {
                 speedKind: select
             });
         }
+        this.timer = setTimeout(()=>{
+        	this.cancelSet();
+        },100);
 	}
 }
 
