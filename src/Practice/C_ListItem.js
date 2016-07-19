@@ -20,7 +20,6 @@ import {
 import {
     getAudioFilePath,
     getMp3FilePath,
-
 } from '../Constant';
 
 import BtnPlayer from '../ListItem/C_BtnPlayer';
@@ -44,6 +43,8 @@ const ITEM_STATUS = {
     PLAYRECORD: 5,//播放录音
     PAUSERECORD: 6,//暂停播放录音
 };
+
+const RATE = [0.6,1,1.4];
 
 export default class ListItem extends Component {
     height = 0;
@@ -75,6 +76,7 @@ export default class ListItem extends Component {
         itemWordCN: PropTypes.object,//中文教学内容
         itemWordEN: PropTypes.string,//教学内容的英文翻译
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
+        itemRateType: PropTypes.number,
         itemBlnSelect: PropTypes.bool,//当前的item是否被选中了
         itemScore: PropTypes.number,//从数据库中获取的分数
         itemCoins: PropTypes.number,//从数据库中获取的金币数量
@@ -271,6 +273,9 @@ export default class ListItem extends Component {
         if(nextProps.itemBlnSelect != this.props.itemBlnSelect){
             blnUpdate = true;
         }
+        if(nextProps.itemShowType != this.props.itemShowType){
+            blnUpdate = true;
+        }
 
         if(nextStates.score != this.state.score){
             blnUpdate = true;
@@ -321,7 +326,7 @@ export default class ListItem extends Component {
                         <View style={styles.operateView}>
                             <BtnPlayer blnAnimate={true} animateDialy={0}
                                        audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + this.props.audio}
-                                       btnCallback={this.callbackBtnPlay.bind(this)} rate={1} ref={'btnPlay'}/>
+                                       btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>RATE[this.props.itemRateType]} ref={'btnPlay'}/>
 
                              <BtnRecord blnAnimate={true} animateDialy={100} startRecord={this.startRecord.bind(this)}
                              ref={'btnRecord'} btnCallback={this.callbackBtnRecord.bind(this)}/>
@@ -347,7 +352,7 @@ export default class ListItem extends Component {
                 </View>}
             </View>
         );
-    }
+    } 
 
     _onLayout = (event)=> {
         this.myLayout = event.nativeEvent.layout;

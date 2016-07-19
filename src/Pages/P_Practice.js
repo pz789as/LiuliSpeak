@@ -41,7 +41,7 @@ class P_Practice extends Component {
     myLayout = null;//..
     blnInTouch = false;//..
     showKind = 2;
-    speedKind = 2;
+    speedKind = 1;
     constructor(props) {
         super(props);
         this.play_k = 0;
@@ -158,7 +158,7 @@ class P_Practice extends Component {
                 <ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />
 
                 <ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
-                    courseID={this.props.courseID} showKind={this.showKind} ref={'ViewList'}
+                    courseID={this.props.courseID} showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
                     getGold={this.getGold.bind(this)} parents={this}
                     />
 

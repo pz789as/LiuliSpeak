@@ -17,7 +17,7 @@ import {
     ImageRes
 } from '../Resources';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
-import Sound from 'react-native-sound'; 
+import Sound from 'react-native-sound';
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
@@ -46,7 +46,7 @@ export default class BtnPlayer extends Component {
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
         audioName: PropTypes.string,//音频文件名
         btnCallback: PropTypes.func,
-        rate: PropTypes.number,
+        rate:PropTypes.func,
     };
 
     handleInitDialog = (error)=> {
@@ -71,7 +71,7 @@ export default class BtnPlayer extends Component {
     }
 
     playerAudio = ()=> {//开始播放声音
-        this.dialogSound.setRate(this.props.rate);
+        this.dialogSound.setRate(this.props.rate());
         this.dialogSound.play(this.audioPlayerEnd);
         this.time = setInterval(this.getNowTime.bind(this),100);
         this.setState({

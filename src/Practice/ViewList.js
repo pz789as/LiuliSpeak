@@ -190,6 +190,7 @@ class ViewList extends Component {
                 onPress={this.touchView.bind(this,i)}
                 activeOpacity={1}
                 key={i}>
+                
                 <ListItem itemWordCN={course.cn}
                           itemWordEN={course.en}
                           audio={course.mp3}
@@ -225,7 +226,8 @@ class ViewList extends Component {
                     <ListItem itemWordCN={this.props.dialogData[i].cn}
                               itemWordEN={this.props.dialogData[i].en}
                               audio={this.props.dialogData[i].mp3}
-                              itemShowType={this.props.showKind}
+                              itemShowType={this.state.showKind}
+                              itemRateType={this.state.speedKind}
                               itemBlnSelect={i==select?true:false}
                               itemScore={0}
                               itemCoins={this.props.dialogData[i].gold}
