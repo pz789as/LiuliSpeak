@@ -41,13 +41,19 @@ export default class BtnPlayer extends Component {
         this.audioTimes = 0;//音频总时间
     }
 
-    static defaultProps = {
+    static propTypes = {
         blnAnimate: PropTypes.bool,//是否有出现动画
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
         audioName: PropTypes.string,//音频文件名
         btnCallback: PropTypes.func,
         rate:PropTypes.func,
     };
+
+    static defaultProps = {
+        blnAnimate: false,
+        rate:()=>1,
+        animateDialy:0,
+    }
 
     handleInitDialog = (error)=> {
         if (error != null) {
@@ -71,6 +77,7 @@ export default class BtnPlayer extends Component {
     }
 
     playerAudio = ()=> {//开始播放声音
+        console.log("player Rate:",this.props.rate());
         this.dialogSound.setRate(this.props.rate());
         this.dialogSound.play(this.audioPlayerEnd);
         this.time = setInterval(this.getNowTime.bind(this),100);
@@ -114,6 +121,7 @@ export default class BtnPlayer extends Component {
         if (this.state.playerStatus == 0) {
             this.playerAudio();
         } else if (this.state.playerStatus == 1) {
+            this.dialogSound.setRate(this.props.rate());
             this.dialogSound.setCurrentTime(0);
         } else {
             this.playerAudio();

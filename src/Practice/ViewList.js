@@ -89,7 +89,7 @@ class ViewList extends Component {
             this.setState({
                 speedKind: select
             });
-            this.onPlay();
+            //this.onPlay();
         }
     }
     // 设置是否自动播放
@@ -172,6 +172,10 @@ class ViewList extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         this.moveScrollView();
+        if(prevState.speedKind != this.state.speedKind){
+            console.log("Run this onPlay");
+            this.onPlay();
+        }
     }
 
     // 显示列表（listView方式）
@@ -227,8 +231,7 @@ class ViewList extends Component {
                     <ListItem itemWordCN={this.props.dialogData[i].cn}
                               itemWordEN={this.props.dialogData[i].en}
                               audio={this.props.dialogData[i].mp3}
-                              itemShowType={this.state.showKind}
-                              itemRateType={this.state.speedKind}
+                              itemShowType={this.state.showKind}                              
                               itemBlnSelect={i==select?true:false}
                               itemScore={0}
                               itemCoins={this.props.dialogData[i].gold}

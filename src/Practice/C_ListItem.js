@@ -72,11 +72,10 @@ export default class ListItem extends Component {
     myLayout = null;//记录item的位置
     contentLayout = null;//记录item中的内容部分view的位置
     blnInTouch = false;//一个标记,判断自己是否属于手势控制范围
-    static defaultProps = {
+    static propTypes = {
         itemWordCN: PropTypes.object,//中文教学内容
         itemWordEN: PropTypes.string,//教学内容的英文翻译
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
-        itemRateType: PropTypes.number,
         itemBlnSelect: PropTypes.bool,//当前的item是否被选中了
         itemScore: PropTypes.number,//从数据库中获取的分数
         itemCoins: PropTypes.number,//从数据库中获取的金币数量
@@ -85,7 +84,7 @@ export default class ListItem extends Component {
         dialogInfo: PropTypes.object,//对话信息
         itemIndex:PropTypes.number,
         partents:PropTypes.object,
-    };
+    };  
 
     playDialogAudio() {//播放音频
         if (this.itemStatus == ITEM_STATUS.RECORDING) { //如果正在录音,强制关闭录音
@@ -326,7 +325,7 @@ export default class ListItem extends Component {
                         <View style={styles.operateView}>
                             <BtnPlayer blnAnimate={true} animateDialy={0}
                                        audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + this.props.audio}
-                                       btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>RATE[this.props.itemRateType]} ref={'btnPlay'}/>
+                                       btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>RATE[this.props.partents.state.speedKind]} ref={'btnPlay'}/>
 
                              <BtnRecord blnAnimate={true} animateDialy={100} startRecord={this.startRecord.bind(this)}
                              ref={'btnRecord'} btnCallback={this.callbackBtnRecord.bind(this)}/>
@@ -367,6 +366,7 @@ export default class ListItem extends Component {
             });
         }
     }
+    
     _onLayoutContentView = (event)=> {
         this.contentLayout = event.nativeEvent.layout;//获取contentView的位置,这个是要传递给子组件"句子".
     }
