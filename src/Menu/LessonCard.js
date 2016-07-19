@@ -165,7 +165,7 @@ class LessonCard extends Component {
 		this.intIdx = 0;
 		for(var idx=0; idx < this.allIdx; idx++){
 			var localPath = path + '/' + this.course.contents[idx].mp3;
-			var fromUrl = serverUrl + '/Other/LiuliSpeak/Lessons/lesson' + 
+			var fromUrl = serverUrl + '/LiuliSpeak/Lessons/lesson' + 
 							(parseInt(this.props.lessonID)+1) + '_mp3/' + this.course.contents[idx].mp3;
 			console.log(fromUrl);
 			console.log(localPath);
