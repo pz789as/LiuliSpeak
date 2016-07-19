@@ -17,8 +17,7 @@ import {
     ImageRes
 } from '../Resources';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
-import Sound from 'react-native-sound';
-var Times = require('react-native-timer');
+import Sound from 'react-native-sound'; 
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
