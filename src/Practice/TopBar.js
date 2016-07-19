@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 		height: minUnit*11,
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderBottomWidth: 1*MinWidth,
+		borderBottomWidth: 1,
 		borderColor: '#6B7071',
 	},
 	backButton: {

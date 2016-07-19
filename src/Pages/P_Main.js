@@ -59,6 +59,9 @@ export default class P_Main extends Component {
   }
   componentWillUnmount(){
   }
+  addLesson(){
+    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});
+  }
   render() {
     return (
       <View style={styles.fill}>
@@ -66,6 +69,7 @@ export default class P_Main extends Component {
         <View style={styles.fill}>
           <MainStudyView selectListItem={this.selectListItem.bind(this)}
               courseListDataSource={this.state.courseListDataSource}
+              addLesson={this.addLesson.bind(this)}
               />
         </View>
         {/*底框*/}

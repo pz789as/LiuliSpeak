@@ -18,6 +18,7 @@ import Login from './Pages/P_Login';
 import Main from './Pages/P_Main';
 import Menu from './Pages/P_Menu';
 import Practice from './Pages/P_Practice';
+import AllLessons from './Pages/P_AllLessons';
 
 import {
     Scenes,
@@ -72,6 +73,13 @@ let SceneList = [
         name: 'Practice',
         Component: Practice,
         index: Scenes.PRACTICE,
+        configure: 0,
+        showStatusBar: true,
+    },
+    {
+        name: 'AllLessons',
+        Component: AllLessons,
+        index: Scenes.ALLLESSON,
         configure: 0,
         showStatusBar: true,
     },

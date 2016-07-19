@@ -14,6 +14,7 @@ import Dimensions from 'Dimensions';
 let ScreenWidth = Dimensions.get('window').width;
 let ScreenHeight = Dimensions.get('window').height;
 let MinWidth = 1/PixelRatio.get();
+var minUnit = ScreenWidth/100;
 
 let styles = StyleSheet.create({
   container: {
@@ -134,9 +135,70 @@ let styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  addLessonBackStyle:{
+    position: 'absolute',
+    right: minUnit * 2,
+    bottom: minUnit * 2,
+  },
+  addLessonButton:{
+    width: minUnit*26,
+    height: minUnit*10,
+    backgroundColor:'rgb(255,90,0)'
+  },
+  addLessonButtonFont:{
+    fontSize: minUnit * 4,
+    color: 'white',
+  },
+  lessonsBack:{
+    backgroundColor: '#FFFF',
+  },
+  lessonsTopBar:{
+    height: ScreenHeight * 0.1,
+    borderColor: '#CCC',
+    borderBottomWidth: 1,
+  },
+  lessonsTopStyle:{
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: ScreenWidth * 0.03,
+    marginTop: 20,
+  },
+  lessonsTopSearchCancel:{
+    backgroundColor:'#0000', 
+    width:50,
+  },
+  lessonsTopSearchView:{
+    width: minUnit * 60,
+    height: minUnit * 10,
+    borderRadius: minUnit * 2,
+    backgroundColor: '#EEE',
+    marginRight: minUnit,
+    alignItems: 'center',
+    flexDirection:'row',
+  },
+  lessonsTopSearchIconStyle:{
+    width: minUnit * 9,
+    height: minUnit * 9,
+  },
+  lessonsTopInputStyle:{
+    flex:1,
+  },
+  waitingBack:{
+    width: minUnit * 26,
+    height: minUnit * 26,
+    borderRadius: minUnit * 4,
+    backgroundColor: '#888',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  waitingImageStyle:{
+    width: minUnit * 15,
+    height: minUnit * 15,
+  },
 });
 
-var minUnit = ScreenWidth/100;
 var UtilStyles = StyleSheet.create({
   back: {
     flex: 1,

@@ -28,6 +28,7 @@ import {
 
 import StudyTopBar from './C_StudyTopBar';
 import StudyLesson from './StudyLesson';
+import IconButton from '../Common/IconButton';
 
 export default class C_MainStudyView extends Component {
   constructor(props){
@@ -51,6 +52,11 @@ export default class C_MainStudyView extends Component {
             style={[styles.fill, ]}
             dataSource={this.props.courseListDataSource} />
         </View>
+        <IconButton style={styles.addLessonBackStyle}
+            buttonStyle={styles.addLessonButton}
+            text={' + 添加课程'}
+            fontStyle={styles.addLessonButtonFont}
+            onPress={this.props.addLesson}/>
       </View>
     );
   }

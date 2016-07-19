@@ -34,11 +34,29 @@ let ImageRes = {
     icon_play_light_m:require('../res/UI/icon_play_light_m.png'),
     icon_coin_s:require('../res/UI/icon_coin_s.png'),
     //--------ListItem以及子组件用的图片资源-----END-----//
+
     icon_coin_m:require('../res/UI/icon_coin_m.png'),
     icon_coin_l:require('../res/UI/icon_coin_l_hit.png'),
-
     loading: require('../res/UI/loading.png'),
+
+    //--------all lessons图片资源-----------------//
+    icon_store_search:require('../res/UI/icon_store_search.png'),
+    //--------all lessons图片资源------END--------//
+
+    block_loading00: require('../res/Waiting/block_loading00.png'),
+    block_loading01: require('../res/Waiting/block_loading01.png'),
+    block_loading02: require('../res/Waiting/block_loading02.png'),
+    block_loading03: require('../res/Waiting/block_loading03.png'),
+    block_loading04: require('../res/Waiting/block_loading04.png'),
+    block_loading05: require('../res/Waiting/block_loading05.png'),
+    block_loading06: require('../res/Waiting/block_loading06.png'),
+    block_loading07: require('../res/Waiting/block_loading07.png'),
+    block_loading08: require('../res/Waiting/block_loading08.png'),
+    block_loading09: require('../res/Waiting/block_loading09.png'),
+    block_loading10: require('../res/Waiting/block_loading10.png'),
+    block_loading11: require('../res/Waiting/block_loading11.png'),
 };
+
 
 let ImageIcon = {
     user1:require('../icon/user1.jpg'),
