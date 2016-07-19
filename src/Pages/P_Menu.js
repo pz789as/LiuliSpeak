@@ -61,6 +61,8 @@ class P_Menu extends Component {
     var pageIdx = Scenes.PRACTICE;
     if (kind == 0) {
       pageIdx = Scenes.PRACTICE;
+    }else if(kind == 1){
+      pageIdx = Scenes.EXAM;
     }
     this.props.GotoPage(Consts.NAVI_PUSH, pageIdx, 
         {

@@ -19,7 +19,7 @@ import Main from './Pages/P_Main';
 import Menu from './Pages/P_Menu';
 import Practice from './Pages/P_Practice';
 import AllLessons from './Pages/P_AllLessons';
-
+import Exam from './Pages/P_Exam';
 import {
     Scenes,
 } from './Constant';
@@ -80,6 +80,13 @@ let SceneList = [
         name: 'AllLessons',
         Component: AllLessons,
         index: Scenes.ALLLESSON,
+        configure: 0,
+        showStatusBar: true,
+    },
+    {
+        name: 'Exam',
+        Component: Exam,
+        index: Scenes.EXAM,
         configure: 0,
         showStatusBar: true,
     },
