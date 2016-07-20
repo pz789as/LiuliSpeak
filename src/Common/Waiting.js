@@ -54,7 +54,7 @@ export default class Waiting extends Component {
   }
   render() {
     return (
-      <View style={[styles.fill, styles.center]}>
+      <View style={[styles.waitingAllBack, styles.center]}>
         <View style={styles.waitingBack}>
           <Image style={styles.waitingImageStyle}
             source={listWaitRes[this.state.waitIdx]} />

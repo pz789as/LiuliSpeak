@@ -20,6 +20,8 @@ import Menu from './Pages/P_Menu';
 import Practice from './Pages/P_Practice';
 import AllLessons from './Pages/P_AllLessons';
 import Exam from './Pages/P_Exam';
+import LessonList from './Pages/P_LessonList';
+
 import {
     Scenes,
 } from './Constant';
@@ -90,6 +92,13 @@ let SceneList = [
         configure: 0,
         showStatusBar: true,
     },
+    {
+        name: 'LessonList',
+        Component: LessonList,
+        index: Scenes.LESSONLIST,
+        configure: 0,
+        showStatusBar: true,
+    }
 ];
 
 module.exports = SceneList;

@@ -185,6 +185,14 @@ let styles = StyleSheet.create({
   lessonsTopInputStyle:{
     flex:1,
   },
+  waitingAllBack:{
+    position:'absolute',
+    top:0,
+    left:0,
+    width: ScreenWidth,
+    height: ScreenHeight,
+    // backgroundColor:'black',
+  },
   waitingBack:{
     width: minUnit * 26,
     height: minUnit * 26,
@@ -196,6 +204,49 @@ let styles = StyleSheet.create({
   waitingImageStyle:{
     width: minUnit * 15,
     height: minUnit * 15,
+  },
+  kindBoardView:{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent:'space-around',
+    alignItems: 'center',
+    padding: minUnit,
+    backgroundColor: 'white',
+  },
+  kindBoardItemView:{
+    width: minUnit * 24,
+    height: minUnit * 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  kindBoardItemIcon:{
+    width: minUnit*14,
+    height: minUnit*14,
+    borderRadius: minUnit*7,
+  },
+  lesssonsScrollView:{
+    width: ScreenWidth,
+    height: ScreenHeight * 0.9,
+  },
+  boardLine:{
+    width: ScreenWidth + MinWidth * 2,
+    height: minUnit * 4,
+    borderWidth: MinWidth,
+    borderColor:'rgb(240,240,240)',
+    backgroundColor: 'rgb(220,220,220)',
+  },
+  boardUpLine:{
+    borderTopWidth: MinWidth,
+    borderColor: 'rgb(240,240,240)',
+  },
+  boardDownLine:{
+    borderBottomWidth: MinWidth,
+    borderColor: 'rgb(240,240,240)',
+  },
+  lessonsBoardView:{
+    justifyContent:'center',
+    alignItems: 'center',
+    padding: minUnit * 4,
   },
 });
 

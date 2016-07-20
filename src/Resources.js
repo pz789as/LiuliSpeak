@@ -41,6 +41,7 @@ let ImageRes = {
 
     //--------all lessons图片资源-----------------//
     icon_store_search:require('../res/UI/icon_store_search.png'),
+    ic_chevron_right:require('../res/UI/ic_chevron_right.png'),
     //--------all lessons图片资源------END--------//
 
     block_loading00: require('../res/Waiting/block_loading00.png'),
@@ -99,9 +100,103 @@ let mainBottomBarIcon = [
     },
 ];
 
+let kindList = [
+  {color:'rgb(253,155,80)',name:'影视视频'},
+  {color:'rgb(108,176,241)',name:'商务职场'},
+  {color:'rgb(253,103,104)',name:'日常会话'},
+  {color:'rgb(67,184,124)',name:'旅游出行'},
+  {color:'rgb(38,196,189)',name:'五花八门'},
+  {color:'rgb(121,112,204)',name:'校园生活'},
+  {color:'rgb(85,154,143)',name:'经典教材'},
+  {color:'rgb(90,194,164)',name:'文化百科'},
+  {color:'rgb(189,189,189)',name:'更多'},
+];
+
+let lessonList = [
+    {
+        title: '懂你中文',
+        secondTitle: '查看课程',
+        index: 0,
+        kind: 1,
+        lessons:[
+            {
+                title:'懂你中文',
+                oldPrice: 199,
+                newPrice: 99,
+                detail:'这里是懂你的中文，让你看中文电视剧甩掉字幕~~',
+            },
+        ],
+    },
+    {
+        title: '最新课程',
+        secondTitle: '查看更多',
+        index: 1,
+        kind: 2,
+        lessons:[
+            {title:'长发公主',},
+            {title:'泰山归来',},
+            {title:'胖妹也穿比基尼',},
+            {title:'实习生',},
+            {title:'创意广告大赏',},
+            {title:'38被动语态2-新概念英语',},
+            {title:'联合利华',},
+            {title:'克扣奖金就辞职！',},
+            {title:'黑客军团',},
+            {title:'雷神',},
+            {title:'委婉说“大姨妈”',},
+            {title:'英国新首相上任',},
+            {title:'龙猫',}
+        ],
+    },
+    {
+        title: '推荐课程',
+        secondTitle: '查看更多',
+        index: 2,
+        kind: 3,
+        lessons:[
+            {title:'灰姑娘',},
+            {title:'哆啦A梦',},
+            {title:'夏天必备防晒霜',},
+            {title:'超体',},
+            {title:'阿凡达',},
+            {title:'心怀好奇，创意无限',},
+            {title:'龙猫',},
+            {title:'和莎莫的500天',},
+            {title:'驯龙高手',},
+            {title:'钢铁侠',},
+            {title:'蜘蛛侠',},
+            {title:'创意广告大赏',},
+            {title:'钢铁侠 小罗伯特·唐尼',}
+        ],
+    },
+    {
+        title: '猜你喜欢',
+        secondTitle: '查看更多',
+        index: 3,
+        kind: 3,
+        lessons:[
+            {title:'好莱坞变色龙约翰尼·德普',},
+            {title:'蚁人',},
+            {title:'抖森在，阳光就在',},
+            {title:'自然在说话',},
+            {title:'如何应对种族歧视',},
+            {title:'NBA全明星',},
+            {title:'赫敏长大啦',},
+            {title:'美队 克里斯·埃文斯',},
+            {title:'钱包丢了怎么办？',},
+            {title:'闪电侠',},
+            {title:'警惕旅游陷阱',},
+            {title:'火星救援',},
+            {title:'愤怒的小鸟',}
+        ],
+    }
+];
+
 module.exports = {
     mainBottomBarIcon,
     ImageRes,
     ColorRes,
     ImageIcon,
+    kindList,
+    lessonList,
 };

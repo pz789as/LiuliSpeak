@@ -9,13 +9,10 @@ import {
   View,
   Text,
   Image,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native';
 
 import {
   styles,
-  ScreenWidth,
 } from '../Styles';
 
 import {
@@ -23,17 +20,23 @@ import {
   Scenes,
 } from '../Constant';
 
-export default class C_AllLessonsBody extends Component {
+export default class P_LessonList extends Component {
   constructor(props){
     super(props);
   }
   componentWillMount(){
+    setTimeout(this.GotoLogin.bind(this), 3000);
   }
   componentWillUnmount(){
+  }
+  GotoLogin(){
+    this.props.PopPage();
   }
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.welcome}>中文说</Text>
+        <Text style={styles.instructions}>开启中文之旅</Text>
       </View>
     );
   }
