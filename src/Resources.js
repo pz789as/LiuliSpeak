@@ -60,6 +60,7 @@ let ImageRes = {
 
 
 let ImageIcon = {
+    user0:require('../icon/user0.png'),
     user1:require('../icon/user1.jpg'),
     user2:require('../icon/user2.jpg'),
 };
