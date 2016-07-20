@@ -63,6 +63,7 @@ export default class P_AllLessons extends Component {
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
       freshType: LessonListKind.REFRESH,
       listKind: kind,
+      mainTitle: kindList[kind].name,
     });
   }
   lessonOnSelected(list, idx){
@@ -70,6 +71,7 @@ export default class P_AllLessons extends Component {
        this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
          listData: list,
          freshType: LessonListKind.NOREFRESH,
+         mainTitle: list.title,
        });
      }else{
        console.log('list:' + list, 'idx:'+ idx, list.lessons[idx])

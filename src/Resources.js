@@ -44,6 +44,8 @@ let ImageRes = {
     ic_chevron_right:require('../res/UI/ic_chevron_right.png'),
     //--------all lessons图片资源------END--------//
 
+    icon_newcourse: require('../res/UI/icon_newcourse.png'),
+
     block_loading00: require('../res/Waiting/block_loading00.png'),
     block_loading01: require('../res/Waiting/block_loading01.png'),
     block_loading02: require('../res/Waiting/block_loading02.png'),

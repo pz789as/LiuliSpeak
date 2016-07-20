@@ -10,18 +10,25 @@ import {
   Text,
   Image,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
 
 import {
   styles,
   ScreenWidth,
+  minUnit,
+  UtilStyles,
 } from '../Styles';
 
 import {
   Consts,
   Scenes,
 } from '../Constant';
+
+import {
+  ImageRes
+} from '../Resources';
+
+import IconButton from '../Common/IconButton'; 
 
 export default class C_LessonListTop extends Component {
   constructor(props){
@@ -33,7 +40,11 @@ export default class C_LessonListTop extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.lessonsTopStyle, styles.line]}>
+        <IconButton	icon={ImageRes.ic_back} 
+            onPress={this.props.onPressBack}/>
+        <Text style={UtilStyles.font}>{this.props.mainTitle}</Text>
+        <View style={{width: minUnit * 10}}/>
       </View>
     );
   }
