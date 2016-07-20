@@ -56,11 +56,13 @@ export default class ListItem extends Component {
             score: this.props.itemScore,
             coins: this.props.itemCoins,
             blnLow: false,
-            disabled: (this.props.itemBlnSelect),
+            disabled: (this.props.itemIndex == 0),
+            blnSelect:(this.props.itemIndex == 0),
+            showType:this.props.itemShowType,//默认的显示类型由属性传递
             blnHaveRecord: false,
         };
         this.blnPcmPlayAnim = true;//用一个变量记录播放录音按钮在render时是否有动画,用在录音从无到有时,后面两个按钮跳过动画直接显示
-        if (this.props.itemBlnSelect) {
+        if (this.props.itemIndex == 0) {
             this.itemStatus = ITEM_STATUS.NORMAL;
         } else {
             this.itemStatus = ITEM_STATUS.HIDDEN;
@@ -76,7 +78,6 @@ export default class ListItem extends Component {
         itemWordCN: PropTypes.object,//中文教学内容
         itemWordEN: PropTypes.string,//教学内容的英文翻译
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
-        itemBlnSelect: PropTypes.bool,//当前的item是否被选中了
         itemScore: PropTypes.number,//从数据库中获取的分数
         itemCoins: PropTypes.number,//从数据库中获取的金币数量
         audio: PropTypes.string,       
@@ -269,13 +270,21 @@ export default class ListItem extends Component {
 
     shouldComponentUpdate(nextProps, nextStates) {
         var blnUpdate = false;
-        if(nextProps.itemBlnSelect != this.props.itemBlnSelect){
+        /*if(nextProps.itemBlnSelect != this.props.itemBlnSelect){
             blnUpdate = true;
         }
         if(nextProps.itemShowType != this.props.itemShowType){
             blnUpdate = true;
+        }*/
+
+        if(nextStates != this.state){
+            blnUpdate = true;
         }
 
+        /*
+        if(nextStates.blnSelect != this.state.blnSelect){
+            blnUpdate = true;
+        }
         if(nextStates.score != this.state.score){
             blnUpdate = true;
         }
@@ -290,7 +299,7 @@ export default class ListItem extends Component {
         }
         if(nextStates.blnHaveRecord != this.state.blnHaveRecord){
             blnUpdate = true;
-        }
+        }*/
         /*
         if(blnUpdate){
             console.log("nowProps:",this.props);
@@ -302,11 +311,11 @@ export default class ListItem extends Component {
     }
 
     render() {
-        const {itemIndex, itemWordCN, itemWordEN, itemShowType, itemBlnSelect, dialogInfo} = this.props;//获取属性值
-        //console.log("Render ListIndex:",this.props.itemIndex);
+        const {itemIndex, itemWordCN, itemWordEN, itemShowType, dialogInfo} = this.props;//获取属性值
+        console.log("Render ListIndex:",this.props.itemIndex);
         return (
             <View pointerEvents={(this.state.disabled)?"none":"auto"}
-                  style={[styles.container,{backgroundColor:itemBlnSelect?'#FFFFFF':'#EBEBEB'}]}
+                  style={[styles.container,{backgroundColor:this.state.blnSelect?'#FFFFFF':'#EBEBEB'}]}
                   onLayout={this._onLayout.bind(this)}>
                 <View style={styles.leftView}>
                     <Image style={styles.iconImage} source={this.userIcon}/>
@@ -321,7 +330,7 @@ export default class ListItem extends Component {
                     {/*当属性showType不为只显示中文时,显示这个text*/}
                     {(itemShowType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
-                    {itemBlnSelect &&
+                    {this.state.blnSelect &&
                         <View style={styles.operateView}>
                             <BtnPlayer blnAnimate={true} animateDialy={0}
                                        audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + this.props.audio}
@@ -366,7 +375,7 @@ export default class ListItem extends Component {
             });
         }
     }
-    
+
     _onLayoutContentView = (event)=> {
         this.contentLayout = event.nativeEvent.layout;//获取contentView的位置,这个是要传递给子组件"句子".
     }
@@ -491,12 +500,21 @@ export default class ListItem extends Component {
 
     _onSelectItem = ()=> {//选中item时调用
         //this.blnPcmPlayAnim = true;//用一个变量记录播放录音按钮在render时是否有动画,用在录音从无到有时,后面两个按钮跳过动画直接显示
+        console.log("_onSelectItem:",this.props.itemIndex);
         this.itemStatus = ITEM_STATUS.NORMAL;
-        this.setState({disabled: true});
+        this.setState({disabled: true,blnSelect:true});
     }
 
     _onHiddenItem = ()=> {//item由选中到非选中时调用
+        console.log("_onHiddenItem:",this.props.itemIndex);
         this.itemStatus = ITEM_STATUS.HIDDEN;
+        this.setState({blnSelect:false});
+    }
+
+    _onChangeShowType = (type)=>{
+        if(this.state.showType != type){
+            this.setState({showType:type});
+        }
     }
 
     _onPreviousPage = ()=>{//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数

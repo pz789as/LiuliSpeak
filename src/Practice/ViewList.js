@@ -210,8 +210,6 @@ class ViewList extends Component {
                           itemWordEN={course.en}
                           audio={course.mp3}
                           itemShowType={this.state.showKind}
-                          itemRateType={this.state.speedKind}
-                          itemBlnSelect={i==this.state.select?true:false}
                           itemScore={0}
                           itemCoins={course.gold}
                           ref={(ref)=>{this.arrayList.push(ref)}}
