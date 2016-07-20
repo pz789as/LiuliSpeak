@@ -124,7 +124,7 @@ class ViewList extends Component {
                 w: this.listItemLayout[i].width,
                 h: this.listItemLayout[i].height,
             };
-            if (this.refs[i].blnTouchItem(touch, colLayout)) {
+            if (this.arrayList[i].blnTouchItem(touch, colLayout)) {
                 break;
             }
         }
@@ -151,22 +151,30 @@ class ViewList extends Component {
                 </View>
             );
         }
+        console.log('render ViewList!');
         return (
             <View style={styles.container}>
-                <ScrollView
+                <ListView
+                  onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
+                  ref={'ScrollView'}
+                  style={{flex: 1,}}
+                  dataSource={this.state.listDataSource}
+                  renderRow={this.renderListFrame.bind(this)} />
+                
+                {/*<ScrollView
                     onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
                     ref={'ScrollView'}
                     showsVerticalScrollIndicator={false}>
                     {this.renderList(this.state.select)}
-                </ScrollView>
+                </ScrollView>*/}
             </View>
         );
     }
 
     componentWillUpdate(nextProps, nextState) {
         if (nextState.select != this.state.select) {
-            this.refs[this.state.select]._onHiddenItem();//通知ListItem被关闭了
-            this.refs[nextState.select]._onSelectItem();//通知ListItem被选中,改变它的itemStatus值
+            this.arrayList[this.state.select]._onHiddenItem();//通知ListItem被关闭了
+            this.arrayList[nextState.select]._onSelectItem();//通知ListItem被选中,改变它的itemStatus值
         }
     }
 
@@ -180,6 +188,7 @@ class ViewList extends Component {
 
     // 显示列表（listView方式）
     renderListFrame(course, sectionID, rowID) {
+        console.log('renderListFrame!');
         var i = rowID;
         var dialogInfo = {
             lesson: this.props.lessonID,
@@ -187,7 +196,8 @@ class ViewList extends Component {
             dIndex: i,
             gategory: course.Category
         };
-        var name = 'listItem' + rowID;
+        this.arrayList = [];
+        console.log('Hello renderListFrame!');
         return (
             <TouchableOpacity
                 onLayout={this._onLayoutItem.bind(this,i)}
@@ -204,48 +214,14 @@ class ViewList extends Component {
                           itemBlnSelect={i==this.state.select?true:false}
                           itemScore={0}
                           itemCoins={course.gold}
-                          ref={name}                          
+                          ref={(ref)=>{this.arrayList.push(ref)}}
                           user={i%2}
-                          dialogInfo={dialogInfo}/>
+                          dialogInfo={dialogInfo}
+                          itemIndex={Number(i)}
+                          partents={this}
+                          />
             </TouchableOpacity>
         );
-    }
-
-    // 显示列表
-    renderList(select) {
-        var array = [];
-        for (var i = 0; i < this.props.dialogData.length; i++) {
-            var dialogInfo = {
-                lesson: this.props.lessonID,
-                course: this.props.courseID,
-                dIndex: i,
-                gategory: this.props.dialogData[i].Category
-            }
-            array.push(
-                <TouchableOpacity
-                    onLayout={this._onLayoutItem.bind(this,i)}
-                    onPress={this.touchView.bind(this,i)}
-                    activeOpacity={1}
-                    overflow={'hidden'}
-                    key={i}>
-                    <ListItem itemWordCN={this.props.dialogData[i].cn}
-                              itemWordEN={this.props.dialogData[i].en}
-                              audio={this.props.dialogData[i].mp3}
-                              itemShowType={this.state.showKind}                              
-                              itemBlnSelect={i==select?true:false}
-                              itemScore={0}
-                              itemCoins={this.props.dialogData[i].gold}
-                              ref={i}                               
-                              user={i%2}
-                              dialogInfo={dialogInfo}
-                              itemIndex={i}
-                              partents = {this}
-                    />
-
-                </TouchableOpacity>
-            );
-        }
-        return array;
     }
 
     // 列表中选中处理
@@ -259,14 +235,15 @@ class ViewList extends Component {
                 select: _id
             });
         }
+        console.log("touchView!");
     }
 
     onPlay() {
-        this.refs[this.state.select]._onAutoplay();
+        this.arrayList[this.state.select]._onAutoplay();
     }
 
     onPause() {
-        this.refs[this.state.select]._onStopAutoplay();
+        this.arrayList[this.state.select]._onStopAutoplay();
     }
 
     // 自动播放下一条
