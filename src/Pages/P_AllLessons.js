@@ -74,7 +74,10 @@ export default class P_AllLessons extends Component {
          mainTitle: list.title,
        });
      }else{
-       console.log('list:' + list, 'idx:'+ idx, list.lessons[idx])
+      //  console.log('list:' + list, 'idx:'+ idx, list.lessons[idx])
+      this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
+        lesson: list.lessons[idx],
+      });
      }
   }
   render() {

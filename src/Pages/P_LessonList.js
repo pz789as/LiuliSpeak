@@ -67,11 +67,14 @@ export default class P_LessonList extends Component {
     this.props.PopPage();
   }
   onSelectLesson(index){
-    console.log('select lesson: ' + index, this.props.listData[index]);
+    // console.log('select lesson: ' + index, this.props.listData[index]);
+    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
+      lesson: this.props.listData[index],
+    });
   }
   render() {
     return (
-      <View style={[styles.fill, styles.lessonsBack]}>
+      <View style={[styles.fill, {backgroundColor: '#EEE'}]}>
         <View style={styles.studyTopBar}>
           <ListTop mainTitle={this.props.mainTitle}
             onPressBack={this.onPressBack.bind(this)}/>
@@ -85,7 +88,7 @@ export default class P_LessonList extends Component {
       return <Waiting />;
     }else{
       return (
-        <View style={[styles.fill, {backgroundColor: '#DDD'}]}>
+        <View style={[styles.fill, {backgroundColor: '#EEE'}]}>
           <ListView dataSource={this.state.lessonDataSource}
             renderRow={this.renderRow.bind(this)}
             style={styles.fill} />

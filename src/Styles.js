@@ -86,6 +86,7 @@ let styles = StyleSheet.create({
     height: ScreenHeight * 0.1,
     borderColor: '#CCC',
     borderBottomWidth: 1,
+    backgroundColor: 'white',
   },
   studyTopView:{
     flex:1,

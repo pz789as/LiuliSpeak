@@ -21,6 +21,7 @@ let Scenes = {//界面的index，主要是宏定义，方便跳转到对应的sc
     ALLLESSON: 7,
     EXAM: 8,
     LESSONLIST: 9,
+    LESSONINFO: 10,
 };
 
 let LessonListKind={
