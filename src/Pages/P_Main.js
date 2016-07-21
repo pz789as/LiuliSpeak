@@ -62,6 +62,9 @@ export default class P_Main extends Component {
   addLesson(){
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
   render() {
     return (
       <View style={styles.fill}>
