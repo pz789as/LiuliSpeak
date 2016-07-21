@@ -41,7 +41,7 @@ export default class P_LessonList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      blnLoading: props.freshType == LessonListKind.REFRESH ? true : false,
+      blnLoading: props.freshType == Consts.REFRESH ? true : false,
       lessonDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
@@ -50,7 +50,7 @@ export default class P_LessonList extends Component {
   componentWillMount(){
   }
   componentDidMount(){
-    if (this.props.freshType == LessonListKind.REFRESH) {
+    if (this.props.freshType == Consts.REFRESH) {
       InteractionManager.runAfterInteractions(()=>{
         this.getlessons = setTimeout(this.getLessonListData.bind(this), 1500);
       });

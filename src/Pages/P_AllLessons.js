@@ -22,7 +22,6 @@ import {
   Consts,
   Scenes,
   serverUrl,
-  LessonListKind,
 } from '../Constant';
 
 import {
@@ -61,7 +60,7 @@ export default class P_AllLessons extends Component {
   kindOnSelected(kind){
     console.log('selected kind ', kindList[kind]);
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
-      freshType: LessonListKind.REFRESH,
+      freshType: Consts.REFRESH,
       listKind: kind,
       mainTitle: kindList[kind].name,
     });
@@ -70,13 +69,18 @@ export default class P_AllLessons extends Component {
      if (idx == -1) {//查看更多，也就是跳转到该类的列表里面去，人为的在里面控制传出来的值
        this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
          listData: list.lessons,
-         freshType: LessonListKind.NOREFRESH,
+         freshType: Consts.NOREFRESH,
          mainTitle: list.title,
        });
      }else{
       //  console.log('list:' + list, 'idx:'+ idx, list.lessons[idx])
+      var configure = Consts.PushFromRight;
+      if (idx % 3 < 2) {
+        configure = Consts.FloatFromBottom;
+      }
       this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
         lesson: list.lessons[idx],
+        configure: configure,
       });
      }
   }

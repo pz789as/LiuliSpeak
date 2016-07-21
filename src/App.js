@@ -35,28 +35,28 @@ export default class App extends Component {
   configureScene(route, routeStack){
     let configure = Navigator.SceneConfigs.PushFromRight;
     switch(route.configure){
-      case 1:
+      case Consts.FloatFromLeft:
         configure = Navigator.SceneConfigs.FloatFromLeft;
         break;
-      case 2:
+      case Consts.FloatFromBottom:
         configure = Navigator.SceneConfigs.FloatFromBottom;
         break;
-      case 3:
+      case Consts.FloatFromBottomAndroid:
         configure = Navigator.SceneConfigs.FloatFromBottomAndroid;
         break;
-      case 4:
+      case Consts.FadeAndroid:
         configure = Navigator.SceneConfigs.FadeAndroid;
         break;
-      case 5:
+      case Consts.HorizontalSwipeJump:
         configure = Navigator.SceneConfigs.HorizontalSwipeJump;
         break;
-      case 6:
+      case Consts.HorizontalSwipeJumpFromRight:
         configure = Navigator.SceneConfigs.HorizontalSwipeJumpFromRight;
         break;
-      case 7:
+      case Consts.VerticalUpSwipeJump:
         configure = Navigator.SceneConfigs.VerticalUpSwipeJump;
         break;
-      case 8:
+      case Consts.VerticalDownSwipeJump:
         configure = Navigator.SceneConfigs.VerticalDownSwipeJump;
         break;
     }
@@ -89,6 +89,10 @@ export default class App extends Component {
     params.GotoPage = this.GotoPage.bind(this);
     params.PopPage = this.PopPage.bind(this);
     params.App = this;
+    var configureType = SceneList[index].configure;
+    if (params.configure && params.configure >= Consts.PushFromRight){
+      configureType = params.configure;
+    }
     this.setState({
       appStatus: index,
     });
@@ -97,7 +101,7 @@ export default class App extends Component {
         Component: SceneList[index].Component,
         name: SceneList[index].name,
         index: SceneList[index].index,
-        configure: SceneList[index].configure,
+        configure: configureType,
         params: params,
       });
     }else if (kind == Consts.NAVI_PUSH){
@@ -105,7 +109,7 @@ export default class App extends Component {
         Component: SceneList[index].Component,
         name: SceneList[index].name,
         index: SceneList[index].index,
-        configure: SceneList[index].configure,
+        configure: configureType,
         params: params,
       });
     }else if (kind == Consts.NAVI_RESET) {
@@ -113,7 +117,7 @@ export default class App extends Component {
         Component: SceneList[index].Component,
         name: SceneList[index].name,
         index: SceneList[index].index,
-        configure: SceneList[index].configure,
+        configure: configureType,
         params: params,
       });
     }

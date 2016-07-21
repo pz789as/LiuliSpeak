@@ -35,8 +35,7 @@ export default class P_LessonInfo extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>中文说</Text>
-        <Text style={styles.instructions}>开启中文之旅</Text>
+        <Text style={styles.welcome}>{this.props.lesson.title}详情</Text>
       </View>
     );
   }
