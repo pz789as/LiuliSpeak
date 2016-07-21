@@ -53,20 +53,8 @@ class ViewList extends Component {
             rotate: new Animated.Value(0),
         };
         this.listItemLayout = [this.props.dialogData.length];
-        this.startAnimated();
-    }
-    startAnimated() {
-        Animated.timing(this.state.rotate,{
-            toValue: this.targetNum,
-            duration: 60,
-        }).start(()=>{
-            // this.targetNum += 1;
-            // if (this.targetNum == 16) {
-            //     this.state.rotate.setValue(0);
-            //     this.targetNum = 1;
-            // }
-            // this.startAnimated();
-        });
+
+        this.arrayList = [];
     }
     componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{
@@ -151,10 +139,10 @@ class ViewList extends Component {
                 </View>
             );
         }
-        console.log('render ViewList!');
         return (
             <View style={styles.container}>
                 <ListView
+                  initialListSize={1}
                   onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
                   ref={'ScrollView'}
                   style={{flex: 1,}}
@@ -188,7 +176,7 @@ class ViewList extends Component {
 
     // 显示列表（listView方式）
     renderListFrame(course, sectionID, rowID) {
-        console.log('renderListFrame!');
+        // console.log('renderListFrame!');
         var i = rowID;
         var dialogInfo = {
             lesson: this.props.lessonID,
@@ -196,8 +184,6 @@ class ViewList extends Component {
             dIndex: i,
             gategory: course.Category
         };
-        this.arrayList = [];
-        console.log('Hello renderListFrame!');
         return (
             <TouchableOpacity
                 onLayout={this._onLayoutItem.bind(this,i)}
@@ -233,7 +219,6 @@ class ViewList extends Component {
                 select: _id
             });
         }
-        console.log("touchView!");
     }
 
     onPlay() {
@@ -248,7 +233,6 @@ class ViewList extends Component {
     playNext() {
         if (this.blnAutoplay) {
             var index = (this.state.select + 1) % this.props.dialogData.length;
-            console.log(this);
 
             // 是否循环播放处理
             if (index == 0) {

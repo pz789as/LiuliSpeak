@@ -180,6 +180,7 @@ class P_Practice extends Component {
     }
 
     _onPressBack() {
+        this._onPause();
         this.props.PopPage();
     }
 
