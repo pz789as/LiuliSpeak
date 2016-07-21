@@ -20,17 +20,16 @@ let Scenes = {//界面的index，主要是宏定义，方便跳转到对应的sc
     PRACTICE: 6,
     ALLLESSON: 7,
     EXAM:8,
-    LESSONLIST: 9,
-};
-
-let LessonListKind = {
-    NOREFRESH: 0,//不刷新，推荐，猜你喜欢，最新课程都是不刷新的
-    REFRESH: 1,//刷新，主要是从分类里面进入列表需要刷新，并且还有筛选和排序
 };
 
 let getAudioFilePath = function(lessonID, courseID, dailogID){
     return "rec" + lessonID + "_" + courseID + "_" + dailogID + ".pcm";
 };
+
+let getExamFilePath = function(lessonID, courseID, dailogID){
+    return "exam" + lessonID + "_" + courseID + "_" + dailogID + ".pcm";
+};
+
 let getMp3FilePath = function(lessonID, courseID) {
     return '/lesson' + lessonID + '/course' + courseID;
 };
@@ -41,7 +40,7 @@ module.exports = {
     Scenes,
     Consts,
     getAudioFilePath,
+    getExamFilePath,
     serverUrl,
     getMp3FilePath,
-    LessonListKind,
 }
