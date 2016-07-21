@@ -15,6 +15,10 @@ import {
 
 import {
   styles,
+  ScreenWidth,
+  ScreenHeight,
+  minUnit,
+  MinWidth,
 } from '../Styles';
 
 import {
@@ -27,8 +31,8 @@ import {
 } from '../Resources';
 
 import StudyTopBar from './C_StudyTopBar';
-import StudyLesson from './StudyLesson';
 import IconButton from '../Common/IconButton';
+import CardItem from '../Common/CardItem';
 
 export default class C_MainStudyView extends Component {
   constructor(props){
@@ -64,9 +68,43 @@ export default class C_MainStudyView extends Component {
     return (
       <TouchableOpacity activeOpacity={0.5} onPress={()=>{this.props.selectListItem(rowID)}}>
         <View style={[styles.fill, styles.studySpacing]}>
-          <StudyLesson image={ImageRes.me_icon_normal} name={course.name} msg={course.msg} time={course.time}/>
+          <CardItem image={ImageRes.me_icon_normal}
+            renderData={course}
+            renderRight={this.renderRight.bind(this)}/>
         </View>
       </TouchableOpacity>
+    );
+  }
+  renderRight(data){
+    var message = {
+      margin: 10*MinWidth,
+      padding: 20*MinWidth,
+      flex: 1,
+    };
+    var name = {
+      fontSize: minUnit*6,
+      color: '#11171D',
+    };
+    var tips = {
+      fontSize: minUnit*4,
+      color: '#53686A',
+    };
+    var time = {
+      fontSize: minUnit*3,
+      color: '#000000',
+    };
+    return (
+      <View style={message}>
+        <Text style={name}>
+          {data.name}
+        </Text>
+        <Text style={tips}>
+          {data.msg}
+        </Text>
+        <Text style={time}>
+          {data.time}
+        </Text>
+      </View>
     );
   }
 };
