@@ -27,10 +27,14 @@ export default class Syllable extends Component {
         };
     }
 
-    static defaultProps = {
+    static propTypes = {
         word: PropTypes.string,
         pinyin: PropTypes.string,
-        style:PropTypes.object,
+        style:PropTypes.number,
+    };
+    
+    static defaultProps = {
+        style:0,
     };
 
     componentWillMount() {

@@ -21,7 +21,7 @@ import Word from './C_Word'
 var Dimensions = require('Dimensions');
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26)
+var fontSize = parseInt(totalWidth / 26);
 
 //..const PUNCTUATION = [',','','','“','”'];//标点符号集(中文符号)
 
@@ -32,11 +32,15 @@ export default class Sentence extends Component {
         this.state = {};
     }
 
-    static defaultProps = {
+    static propTypes = {
         words: PropTypes.string,
         pinyins: PropTypes.string,
-        style: PropTypes.object,
+        style: PropTypes.number,
         touch: PropTypes.object,
+    };
+    static defaultProps = {
+        style:0,
+        touch:null,
     };
     wordCount = 0;//记录一下这句话中有多少组词汇
 
@@ -144,6 +148,14 @@ export default class Sentence extends Component {
     }
 
     shouldComponentUpdate(nextProps,nextStates) {
+        if(nextProps.words != this.props.words){
+            //console.log("Sentenct Props is change");
+            return true;
+        }
+        if(nextStates != this.state){
+            //console.log("Sentenct State is change");
+            return true;
+        }
         return false;
     }
 

@@ -35,21 +35,29 @@ export default class BtnRecording extends Component {
         this.state = {
             recordState: 0,//0:等待录音,1:录音中,2计算成绩
             progress: 0,//录音音量
-            scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
+            scaleAnim: this.props.blnScaleAnimate ? new Animated.Value(0) : new Animated.Value(1),
+            opacityAnim:this.props.blnOpacityAnimate?new Animated.Value(0) : new Animated.Value(1),
         };
         this.listener = null;
         this.volumeListener = null;
         this.speechStatus = XFiseBridge.SPEECH_STOP;
         this.btnDisabled = false;
+
     }
 
-    static defaultProps = {
-        blnAnimate: PropTypes.bool,//是否有出现动画
-        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
-        startRecord: PropTypes.func,
-        //stopRecord: PropTypes.func,
+    static propTypes = {
+        blnScaleAnimate: PropTypes.bool,//是否有出现动画
+        blnOpacityAnimate:PropTypes.bool,//是否有出现动画
+        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值              
         btnCallback: PropTypes.func,
-         
+
+    };
+    
+    static defaultProps = {
+        blnScaleAnimate:false,
+        animateDialy:0,
+        blnOpacityAnimate:false,
+        
     };
 
     componentWillUnmount() {
@@ -73,7 +81,7 @@ export default class BtnRecording extends Component {
     }
 
     componentWillMount() {
-        if (this.props.blnAnimate) {
+        if (this.props.blnScaleAnimate) {
             Animated.timing(this.state.scaleAnim, {
                 toValue: 1,
                 duration: 300,
@@ -82,7 +90,6 @@ export default class BtnRecording extends Component {
         }
         this.listener = RCTDeviceEventEmitter.addListener('iseCallback', this.iseCallback.bind(this));
         this.volumeListener = RCTDeviceEventEmitter.addListener('iseVolume', this.iseVolume.bind(this));
-        // this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
     }
 
     drawBtnRecord = ()=> {//0:等待录音,1:录音中,2手动停止录音
@@ -108,6 +115,10 @@ export default class BtnRecording extends Component {
         this.setState({
             progress: v,
         });
+    }
+    
+    setOpacityAnim = (toValue)=>{
+        Animated.timing(this.state.opacityAnim,{toValue:toValue,duration:300}).start(()=>{this.props.btnCallback("AnimOver")})
     }
 
     recordEnd() {//录音结束时调用
@@ -139,7 +150,7 @@ export default class BtnRecording extends Component {
 
     render() {
         return (
-            <Animated.View style={{transform:[{scale:this.state.scaleAnim}]}}>
+            <Animated.View style={{transform:[{scale:this.state.scaleAnim}],opacity:this.state.opacityAnim}}>
                 <TouchableOpacity onPress={this._onPress} activeOpacity={0.5}>
                     {/*上一句是为了仿流利说把点击效果取消,没有Touchwihtout是方便日后修改*/}
                     <View style={[styles.container]}>
@@ -160,6 +171,9 @@ export default class BtnRecording extends Component {
     }
 
     StartISE(msg, category, fileName) {
+        console.log("ISE msg:",msg);
+        console.log("ISE category:",category);
+        console.log("ISE fileName:",fileName);
         this.category = category;
         this.startRecord(msg, category, fileName);
     }
@@ -201,7 +215,7 @@ export default class BtnRecording extends Component {
             XFiseBridge.cancel();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
-    }
+    }    
 
     iseVolume(data) {//接收到讯飞引擎传来的录音音量
         this.setProgress(parseInt(data.volume));
@@ -222,7 +236,7 @@ export default class BtnRecording extends Component {
         else if (data.code == XFiseBridge.CB_CODE_STATUS) {//正在录音
             if (data.result == XFiseBridge.SPEECH_START) {//已经开始
                 this.setState({recordState: 1});
-                this.props.btnCallback('status',1);//通知父组件开始录音了
+                //..this.props.btnCallback('status',1);//通知父组件开始录音了
             } else if (data.result == XFiseBridge.SPEECH_WORK) {//工作中...
 
             } else if (data.result == XFiseBridge.SPEECH_STOP) {//手动停止

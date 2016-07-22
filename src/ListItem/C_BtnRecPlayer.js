@@ -42,11 +42,16 @@ export default class C_BtnRecPlayer extends Component {
         };
     }
 
-    static defaultProps = {
+    static propTypes = {
         blnAnimate: PropTypes.bool,//是否有出现动画
         animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值               
         recordName: PropTypes.string,//录音文件名
         btnCallback: PropTypes.func,
+    };
+    
+    static defaultProps = {
+        blnAnimate:false,
+        animateDialy:0,
     };
 
     time = null;

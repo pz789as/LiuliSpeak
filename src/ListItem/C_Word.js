@@ -27,14 +27,20 @@ export default class Word extends Component {
         };
     }
 
-    static defaultProps = {
+    static propTypes = {
         words:PropTypes.string,
         pinyins:PropTypes.string,
-        style:PropTypes.object,
+        style:PropTypes.number,
         panX:PropTypes.number,
         panY:PropTypes.number,
     };
-    //arrSyllable = [];
+
+    static defaultProps = {
+        style:0,
+        panX:0,
+        panY:0,
+    };
+
     myLayout = null;
     componentWillMount() {
         //this.setArrSyllable();
@@ -92,7 +98,7 @@ export default class Word extends Component {
         var strWord = this.props.words;
         var strPinYin = this.props.pinyins;
         var wordLength = strWord.length - this.getPunctuationCount(strWord);
-        var pinyinArr = strPinYin.split(" "); //字符'_'分词 字符' '区分拼音
+        var pinyinArr = strPinYin.split(" "); //字符'_'分词 字符' '区分拼音        
         if(wordLength != pinyinArr.length){
             console.log("词汇中的字数与拼音数据中不符");
         }else{
@@ -100,10 +106,10 @@ export default class Word extends Component {
             var index = 0;
             for(var i=0;i<strWord.length;i++){
                 if(PUNCTUATION.indexOf(strWord[i])>=0){
-                    arrSyllable.push(<Syllable style={[styles.syllable]} word={strWord[i]} pinyin={' '} key={i}/>);
+                    arrSyllable.push(<Syllable style={styles.syllable} word={strWord[i]} pinyin={' '} key={i}/>);
                     punctuationCount+=1;//跳过标点符号
                 }else{
-                    arrSyllable.push(<Syllable ref={"syllable"+index} style={[styles.syllable]} word={strWord[i]}
+                    arrSyllable.push(<Syllable ref={"syllable"+index} style={styles.syllable} word={strWord[i]}
                                                     pinyin={pinyinArr[i-punctuationCount]} key={i}/>);
                     index += 1;
                 }

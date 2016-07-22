@@ -44,6 +44,10 @@ let ImageRes = {
     ic_chevron_right:require('../res/UI/ic_chevron_right.png'),
     //--------all lessons图片资源------END--------//
 
+    //--------Exam 图片资源----------------------//
+    circle_btn_pause_26:require('../res/UI/circle_btn_pause_26.png'),
+    //--------Exam 图片资源-------END-----------//
+
     icon_newcourse: require('../res/UI/icon_newcourse.png'),
     icon_store_diamond: require('../res/UI/icon_store_diamond.png'),
 
