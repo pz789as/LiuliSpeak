@@ -45,7 +45,7 @@ class C_LessonMenu extends Component {
     };
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState != this.state && nextProps != this.props) return true;
+    if (nextState != this.state || nextProps != this.props) return true;
     return false;
   }
   componentDidMount() {

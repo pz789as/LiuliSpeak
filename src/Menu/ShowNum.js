@@ -19,8 +19,8 @@ class ShowNum extends Component {
 		};
 	}
 	shouldComponentUpdate(nextProps, nextState) {
-		if (nextState != this.state) return true;
-		else return false;
+		if (nextState != this.state || nextProps != this.props) return true;
+		return false;
 	}
 	render() {
 		return (
