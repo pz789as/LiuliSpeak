@@ -41,7 +41,7 @@ export default class P_LessonList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      blnLoading: props.freshType == Consts.REFRESH ? true : false,
+      blnLoading: true,
       lessonDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
@@ -55,13 +55,21 @@ export default class P_LessonList extends Component {
         this.getlessons = setTimeout(this.getLessonListData.bind(this), 1500);
       });
     }else {
-      this.setState({
-        lessonDataSource:this.state.lessonDataSource.cloneWithRows(this.props.listData),
+      InteractionManager.runAfterInteractions(()=>{
+        this.showList = setTimeout(this.showListInfo.bind(this), 500);
       });
     }
   }
   componentWillUnmount(){
     this.getlessons && clearTimeout(this.getlessons);
+  }
+  showListInfo(){
+    this.setState({
+        lessonDataSource:this.state.lessonDataSource.cloneWithRows(this.props.listData),
+      });
+    this.setState({
+      blnLoading: false,
+    });
   }
   onPressBack(){
     this.props.PopPage();
@@ -88,7 +96,10 @@ export default class P_LessonList extends Component {
     }else{
       return (
         <View style={[styles.fill, {backgroundColor: '#EEE'}]}>
-          <ListView dataSource={this.state.lessonDataSource}
+          <ListView initialListSize={1}
+            pageSize={1}
+            scrollRenderAheadDistance={minUnit}
+            dataSource={this.state.lessonDataSource}
             renderRow={this.renderRow.bind(this)}
             style={styles.fill} />
         </View>
@@ -97,7 +108,7 @@ export default class P_LessonList extends Component {
   }
   renderRow(lesson, sectionID, rowID){
     return (
-      <TouchableOpacity activeOpacity={0.5} onPress={this.onSelectLesson.bind(this, rowID)}>
+      <TouchableOpacity onPress={this.onSelectLesson.bind(this, rowID)}>
         <View style={[styles.fill, styles.studySpacing]}>
           <CardItem image={ImageRes.me_icon_normal}
             renderData={lesson}
