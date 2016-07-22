@@ -33,7 +33,7 @@ import {
   ImageRes,
 } from '../Resources';
 
-import ListTop from '../LessonList/C_LessonListTop';
+import PageTop from '../Common/PageTop';
 import Waiting from '../Common/Waiting';
 import CardItem from '../Common/CardItem';
 
@@ -67,7 +67,6 @@ export default class P_LessonList extends Component {
     this.props.PopPage();
   }
   onSelectLesson(index){
-    // console.log('select lesson: ' + index, this.props.listData[index]);
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
       lesson: this.props.listData[index],
     });
@@ -76,7 +75,7 @@ export default class P_LessonList extends Component {
     return (
       <View style={[styles.fill, {backgroundColor: '#EEE'}]}>
         <View style={styles.studyTopBar}>
-          <ListTop mainTitle={this.props.mainTitle}
+          <PageTop mainTitle={this.props.mainTitle}
             onPressBack={this.onPressBack.bind(this)}/>
         </View>
         {this.drawBody()}

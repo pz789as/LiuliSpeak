@@ -28,12 +28,16 @@ import {
   ImageRes
 } from '../Resources';
 
-import IconButton from '../Common/IconButton'; 
+import IconButton from './IconButton'; 
 
 export default class C_LessonListTop extends Component {
   constructor(props){
     super(props);
   }
+  static propTypes = {
+		onPressBack: React.PropTypes.func.isRequired,
+    mainTitle: React.PropTypes.string.isRequired,
+	};
   componentWillMount(){
   }
   componentWillUnmount(){
@@ -43,7 +47,9 @@ export default class C_LessonListTop extends Component {
       <View style={[styles.lessonsTopStyle, styles.line]}>
         <IconButton	icon={ImageRes.ic_back} 
             onPress={this.props.onPressBack}/>
-        <Text style={UtilStyles.font}>{this.props.mainTitle}</Text>
+        <Text style={this.props.titleStyle ? this.props.titleStyle : UtilStyles.font}>
+          {this.props.mainTitle}
+        </Text>
         <View style={{width: minUnit * 10}}/>
       </View>
     );

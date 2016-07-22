@@ -72,10 +72,9 @@ export default class P_AllLessons extends Component {
          freshType: Consts.NOREFRESH,
          mainTitle: list.title,
        });
-     }else{
-      //  console.log('list:' + list, 'idx:'+ idx, list.lessons[idx])
-      var configure = Consts.PushFromRight;
-      if (idx % 3 < 2) {
+     }else{//选中某一个课程查看详情
+      var configure = Consts.PushFromRight; 
+      if (idx % 3 < 2) { //根据位置不同，跳转的方式有一些区别
         configure = Consts.FloatFromBottom;
       }
       this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
@@ -122,7 +121,6 @@ export default class P_AllLessons extends Component {
   async getAllLessons(){
     try{
       let response = await fetch(serverUrl + '/LiuliSpeak/getAllLessons.jsp');
-      console.log(response);
       if (response.ok == false){
         var title = '出错';
         var msg = '未知错误，请稍后再试！';
@@ -134,52 +132,32 @@ export default class P_AllLessons extends Component {
           msg = '服务器出错，请稍后再试！';
         }
         Alert.alert(title, msg, [
-          {text: '刷新', onPress:()=>{
-            this.getAllLessons();
-          }},
-          {text: '取消', onPress:()=>{
-            this.setState({
-              blnLoading: false,
-            });
-          }},
+          {text: '刷新', onPress:()=>{ this.getAllLessons();}},
+          {text: '取消', onPress:()=>{ this.setState({ blnLoading: false,});}},
         ]);
       } else {
         response.text()
         .then((text)=>{
-          this.setState({
-            blnLoading: false,
-          });
+          //得到最终结果
+          this.setState({ blnLoading: false,});
           var result = text.replace(/[\r\n\t]/g,'');
-          var obj = JSON.parse(result);
+          var obj = eval('(' + result + ')');
           console.log(obj);
+          //-----------------
         })
         .catch((error)=>{
-          this.setState({
-            blnLoading: false,
-          });
-          console.log(error);
+          this.setState({ blnLoading: false,});
           Alert.alert('数据出错', msg, [
-            {text: '刷新', onPress:()=>{
-              this.getAllLessons();
-            }},
-            {text: '取消', onPress:()=>{
-              this.setState({
-                blnLoading: false,
-              });
-            }},
+            {text: '刷新', onPress:()=>{ this.getAllLessons();}},
+            {text: '取消', onPress:()=>{ this.setState({blnLoading: false,});}},
           ]);
         });
       }
     }catch(error){
-      console.log(error);
-      this.setState({
-        blnLoading: false,
-      });
+      this.setState({ blnLoading: false,});
       Alert.alert('访问出错', '服务器忙或网络有问题，请稍后再试！', [
-        {text:'重新连接', onPress:()=>{
-          this.setState({
-            blnLoading: true,
-          });
+        {text:'重新连接', onPress:()=>{ 
+          this.setState({ blnLoading: true,});
           this.getAllLessons();
         }},
         {text:'取消'},

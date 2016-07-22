@@ -23,6 +23,10 @@ import {
   Scenes,
 } from '../Constant';
 
+import {
+  ImageRes,
+} from '../Resources';
+
 export default class C_KindBoard extends Component {
   constructor(props){
     super(props);
@@ -44,7 +48,9 @@ export default class C_KindBoard extends Component {
           <View style={[
             styles.kindBoardItemIcon, 
             {backgroundColor: this.props.kindList[idx].color}
-            ]}/>
+            ]}>
+            <Image source={ImageRes.me_icon_normal} style={styles.kindBoardItemImage}/>
+          </View>
           <Text style={{fontSize: minUnit * 3, marginTop: minUnit * 2}}>
             {this.props.kindList[idx].name}
           </Text>

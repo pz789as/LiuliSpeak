@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  StyleSheet,
   View,
   Text,
   Image,
@@ -46,32 +47,13 @@ export default class C_LessonBoard extends Component {
   render() {
     return (
       <View style={styles.lessonsBoardView}>
-        <View style={{
-          width: ScreenWidth - minUnit * 10,
-          flexDirection:'row', 
-          justifyContent:'space-between',
-          alignItems: 'center',
-        }}>
-          <Text style={{
-            fontSize: minUnit * 5,
-            color: 'black',
-            fontWeight: 'bold',
-          }}>{this.props.boardData.title}</Text>
+        <View style={ss.titleView}>
+          <Text style={ss.titleStyle}>{this.props.boardData.title}</Text>
           <TouchableOpacity onPress={this.lessonOnSelected.bind(this, -1)}
-            style={{
-              flexDirection:'row',
-              alignItems:'center',
-              justifyContent:'center',
-            }}>
-            <Text style={{
-              fontSize: minUnit * 3,
-              color: 'rgb(30,30,30)',
-            }}>{this.props.boardData.secondTitle}</Text>
+            style={ss.moreView}>
+            <Text style={ss.moreText}>{this.props.boardData.secondTitle}</Text>
             <Image source={ImageRes.ic_chevron_right}
-              style={{
-                width: minUnit * 5,
-                height: minUnit * 5,
-              }}/>
+              style={ss.moreIcon}/>
           </TouchableOpacity>
         </View>
         {this.drawContent()}
@@ -82,13 +64,9 @@ export default class C_LessonBoard extends Component {
     if (this.props.boardData.kind == 1){//懂你中文，只有一个课程，特殊类型
       return (
         <TouchableOpacity onPress={this.lessonOnSelected.bind(this, 0)}> 
-          <View style={{
-            width: ScreenWidth - minUnit * 10,
-            height: minUnit * 40,
-            backgroundColor: 'black',
-            marginTop: minUnit * 4,
-            borderRadius: minUnit * 3,
-          }}>
+          <View style={ss.firstItemView}>
+            <Image source={ImageRes.me_icon_normal} 
+              style={ss.firstImage} resizeMode='stretch'/>
           </View>
         </TouchableOpacity>
       );
@@ -100,13 +78,7 @@ export default class C_LessonBoard extends Component {
         );
       }
       return (
-        <View style={{
-          width: ScreenWidth - minUnit * 10,
-          marginTop: minUnit * 4,
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-        }}>
+        <View style={ss.boardListContainer}>
           {arrlb}
         </View>
       );
@@ -118,14 +90,7 @@ export default class C_LessonBoard extends Component {
         );
       }
       return (
-        <View style={{
-          width: ScreenWidth - minUnit * 10,
-          marginTop: minUnit * 4,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-        }}>
+        <View style={[ss.boardListContainer, {flexWrap: 'wrap',}]}>
           {arrlb}
         </View>
       );
@@ -134,27 +99,79 @@ export default class C_LessonBoard extends Component {
   getBoardItem(idx, lesson){
     return (
       <TouchableOpacity onPress={this.lessonOnSelected.bind(this, idx)}
-        style={{
-          justifyContent: 'center',
-        }} key={idx}>
-        <View style={{
-          width: (ScreenWidth - minUnit * 10) / 3 - minUnit * 4,
-          height: minUnit * 40,
-          backgroundColor: 'black',
-          borderRadius: minUnit * 3,
-          marginTop: minUnit * (idx >= 3 ? 3 : 0),
-        }}>
+        style={{justifyContent: 'center',}} key={idx} >
+        <View style={[ss.boardItemContainer, 
+            {marginTop: minUnit * (idx >= 3 ? 3 : 0)}]}>
+          <Image source={ImageRes.me_icon_normal} style={ss.boardItemIcon} resizeMode='stretch'/>
         </View>
-        <Text style={{
-          fontSize: minUnit*4,
-          width: (ScreenWidth - minUnit * 10) / 3 - minUnit * 4,
-          color: 'black',
-          marginTop: minUnit,
-        }}>
+        <Text style={ss.boardItemText}>
           {lesson.title}
         </Text>
       </TouchableOpacity>
     );
   }
 }
+
+let ss = StyleSheet.create({
+  titleView:{
+    width: ScreenWidth - minUnit * 10,
+    flexDirection:'row', 
+    justifyContent:'space-between',
+    alignItems: 'center',
+  },
+  titleStyle:{
+    fontSize: minUnit * 5,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  moreView:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  moreText:{
+    fontSize: minUnit * 3,
+    color: 'rgb(30,30,30)',
+  },
+  moreIcon:{
+    width: minUnit * 5,
+    height: minUnit * 5,
+  },
+  firstItemView:{
+    width: ScreenWidth - minUnit * 10,
+    height: minUnit * 40,
+    backgroundColor: 'green',
+    marginTop: minUnit * 4,
+    borderRadius: minUnit * 3,
+  },
+  firstImage:{
+    width: ScreenWidth - minUnit * 10,
+    height: minUnit * 40,
+    borderRadius: minUnit * 3,
+  },
+  boardListContainer:{
+    width: ScreenWidth - minUnit * 10,
+    marginTop: minUnit * 4,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  }, 
+  boardItemContainer:{
+    width: (ScreenWidth - minUnit * 10) / 3 - minUnit * 4,
+    height: minUnit * 40,
+    backgroundColor: 'green',
+    borderRadius: minUnit * 3,
+  },
+  boardItemIcon:{
+    width: (ScreenWidth - minUnit * 10) / 3 - minUnit * 4,
+    height: minUnit * 40,
+    borderRadius: minUnit * 3,
+  },
+  boardItemText:{
+    fontSize: minUnit*4,
+    width: (ScreenWidth - minUnit * 10) / 3 - minUnit * 4,
+    color: 'black',
+    marginTop: minUnit,
+  },
+});
 

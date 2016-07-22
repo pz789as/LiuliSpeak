@@ -224,6 +224,12 @@ let styles = StyleSheet.create({
     width: minUnit*14,
     height: minUnit*14,
     borderRadius: minUnit*7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  kindBoardItemImage:{
+    width: minUnit * 8,
+    height: minUnit * 8,
   },
   lesssonsScrollView:{
     width: ScreenWidth,
