@@ -42,7 +42,7 @@ export default class P_AllLessons extends Component {
     };
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState != this.state || nextProps != this.props) return true;
+    if (nextState != this.state) return true;
     return false;
   }
   componentWillMount(){
@@ -88,6 +88,7 @@ export default class P_AllLessons extends Component {
      }
   }
   render() {
+    console.log('all lessons render');
     return (
       <View style={[styles.fill, styles.lessonsBack]}>
         <View style={styles.studyTopBar}>

@@ -49,7 +49,7 @@ export default class P_LessonList extends Component {
     this.myDate = new Date();
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState != this.state || nextProps != this.props) return true;
+    if (nextState != this.state) return true;
     return false;
   }
   componentWillMount(){

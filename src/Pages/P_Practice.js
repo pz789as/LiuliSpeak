@@ -54,6 +54,10 @@ class P_Practice extends Component {
             // }),
         };
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState != this.state) return true;
+        return false;
+    }
     componentWillMount() {
         this._panResponder = null;
         this._panResponder = PanResponder.create({
