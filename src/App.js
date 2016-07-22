@@ -30,7 +30,6 @@ export default class App extends Component {
   componentDidMount(){
   }
   componentWillUnmount(){
-
   }
   configureScene(route, routeStack){
     let configure = Navigator.SceneConfigs.PushFromRight;

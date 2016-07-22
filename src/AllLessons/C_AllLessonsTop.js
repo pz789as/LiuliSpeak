@@ -36,6 +36,10 @@ export default class P_AllLessonsTop extends Component {
       searchText: '',
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
   }
   componentWillUnmount(){

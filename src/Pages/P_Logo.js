@@ -24,8 +24,14 @@ export default class P_Logo extends Component {
   constructor(props){
     super(props);
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
     setTimeout(this.GotoLogin.bind(this), 3000);
+  }
+  componentDidMount(){
   }
   componentWillUnmount(){
   }

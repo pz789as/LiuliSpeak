@@ -41,6 +41,10 @@ export default class Waiting extends Component {
       waitIdx:0,
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
     this.waitFrame = setInterval(this.WaitFrame.bind(this), 100);
   }

@@ -44,6 +44,10 @@ class C_LessonMenu extends Component {
       blnDraw: false,
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentDidMount() {
     InteractionManager.runAfterInteractions(()=>{
       this.timer = setTimeout(()=>{

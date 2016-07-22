@@ -32,6 +32,10 @@ export default class P_Register extends Component {
       password: '',
     }
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
   }
   componentWillUnmount(){

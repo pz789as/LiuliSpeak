@@ -25,6 +25,10 @@ export default class P_PrePage extends Component {
   constructor(props){
     super(props);
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
   }
   componentWillUnmount(){

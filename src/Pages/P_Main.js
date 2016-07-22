@@ -63,6 +63,7 @@ export default class P_Main extends Component {
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});
   }
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
     return false;
   }
   render() {

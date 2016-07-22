@@ -51,6 +51,7 @@ export default class C_CardItem extends Component {
     renderData: React.PropTypes.any.isRequired,
 	};
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
     return false;
   }
   render() {

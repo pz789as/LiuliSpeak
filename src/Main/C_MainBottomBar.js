@@ -32,8 +32,11 @@ export default class C_MainBottomBar extends Component {
       selected: 0,
     }
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state && nextProps != this.props) return true;
+    return false;
+  }
   componentWillMount(){
-    
   }
   componentWillUnmount(){
   }
