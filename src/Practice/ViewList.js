@@ -143,6 +143,7 @@ class ViewList extends Component {
             <View style={styles.container}>
                 <ListView
                   initialListSize={1}
+                  pageSize={1}
                   onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
                   ref={'ScrollView'}
                   style={{flex: 1,}}

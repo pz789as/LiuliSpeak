@@ -41,6 +41,10 @@ export default class P_AllLessons extends Component {
       blnLoading: true,
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState != this.state) return true;
+    return false;
+  }
   componentWillMount(){
   }
   componentDidMount(){
