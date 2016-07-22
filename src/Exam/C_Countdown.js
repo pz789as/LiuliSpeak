@@ -76,7 +76,7 @@ export default class Countdown extends Component {
         return (
             <View style={styles.container}>
                 <Animated.View style={[styles.back,{opacity:this.state.opacityAnim.interpolate({
-                    inputRange:[0,0.5],outputRange:[1,0]}),
+                    inputRange:[0,0.49,0.5],outputRange:[1,0,0]}),
                 transform:[{scale:this.state.scaleAnim.interpolate(
                     {inputRange:[0,0.4,0.7,1],outputRange:[1,1.4,1,1]}
             )}]}]}>

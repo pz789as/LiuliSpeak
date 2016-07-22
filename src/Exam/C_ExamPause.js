@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     button: {
-        width: fontSize * 10,
-        height: fontSize * 2,
-        borderRadius: 10,
+        width: fontSize * 14,
+        height: fontSize * 4,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical:2,
+        marginVertical:6,
     },
     bgWhite: {
         backgroundColor: '#ffffff',
@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
     fontColWhite:{
         color:'#ffffff',
         textAlign: 'center',
-        fontSize:fontSize,
+        fontSize:fontSize*1.5,
     },
     fontColBlack:{
         color:'#434343',
         textAlign: 'center',
-        fontSize:fontSize,
+        fontSize:fontSize*1.5,
     }
 
 });
