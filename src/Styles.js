@@ -288,16 +288,17 @@ var UtilStyles = StyleSheet.create({
   },
 });
 
-var startTime = 0;
+var startTime = [];
 function LogStart(msg) {
   // body...
-  startTime = new Date();
-  console.log(msg+"\tStartTime: "+startTime.getMilliseconds());
+  startTime.push(msg);
+  startTime[msg] = new Date();
+  console.log(msg+"\tStartTime: "+startTime[msg].getMilliseconds());
 };
 function LogEnd(msg) {
   // body...
   var endTime = new Date();
-  console.log(msg+"\t加载时间: "+(endTime.getMilliseconds()-startTime.getMilliseconds()));
+  console.log(msg+"\t加载时间: "+(endTime.getMilliseconds()-startTime[msg].getMilliseconds()));
 };
 
 module.exports = {
