@@ -43,11 +43,9 @@ class ProgressBar extends Component {
 				color='#E8BB4B'
 				height={minUnit*2.4}
 				width={minUnit*85}/>
-				<View style={[styles.progressText, UtilStyles.center,]}>
-					<Text style={styles.progressFont}>
-						{this.state.goldNum}/{this.props.GoldAllNum}
-					</Text>
-				</View>
+				<Text style={[styles.progressText, styles.progressFont]}>
+					{this.state.goldNum}/{this.props.GoldAllNum}
+				</Text>
       		</View>
     	);
   	}
@@ -72,6 +70,7 @@ const styles = StyleSheet.create({
 		backgroundColor:'rgba(10,10,10,0)',
 		width: ScreenWidth,
 		height: minUnit*4,
+		textAlign: 'center',
 	},
 	progressFont: {
 		fontSize: minUnit*2.8,

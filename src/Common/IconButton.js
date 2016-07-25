@@ -57,13 +57,12 @@ class IconButton extends Component {
 	}
 	render() {
 		return (
-			<View style = {[styles.center, this.props.style?this.props.style:{}, styles.border]}>
-				<TouchableOpacity
-					onPress={this.keyPress.bind(this)}
-					activeOpacity={opacity}>
-					{this.renderButton()}
-				</TouchableOpacity>
-			</View>
+			<TouchableOpacity
+				style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
+				onPress={this.keyPress.bind(this)}
+				activeOpacity={opacity}>
+				{this.renderButton()}
+			</TouchableOpacity>
 		);
 	}
 	keyPress() {
@@ -84,17 +83,15 @@ class IconButton extends Component {
 	renderButton() {
 		if (this.props.icon) {
 			return (
-				<View style={{flexDirection: 'row',}}>
-					<Image style = {
-						{
-							width: this.props.iconWidth ? this.props.iconWidth : width,
-							height: this.props.iconHeight ? this.props.iconHeight : height,
-						}
+				<Image style = {
+					{
+						width: this.props.iconWidth ? this.props.iconWidth : width,
+						height: this.props.iconHeight ? this.props.iconHeight : height,
 					}
-					source = {
-						this.setImage()
-					}/>
-				</View>
+				}
+				source = {
+					this.setImage()
+				}/>
 			);
 		} else if (this.props.progress){
 			var pg = this.state.blnProgress ? <Progress.Bar style={{flex:1}}
@@ -110,9 +107,7 @@ class IconButton extends Component {
 							onLayout={(event)=>{this.pw = event.nativeEvent.layout.width;}} >
 					{pg}
 					<View style={[styles.newFont,styles.center]}>
-						<Text style={[styles.font, this.props.fontStyle?this.props.fontStyle:{}]}>
-							{this.props.text?this.props.text:''}
-						</Text>
+						{this.renderText()}
 					</View>
 				</View>
 			);
@@ -127,7 +122,7 @@ class IconButton extends Component {
 	renderText() {
 		if (this.props.text) {
 			return (
-				<Text style={this.props.fontStyle?this.props.fontStyle:styles.font}>
+				<Text style={[styles.font,this.props.fontStyle?this.props.fontStyle:{}]}>
 				 	{this.props.text}
 				</Text>
 			);
