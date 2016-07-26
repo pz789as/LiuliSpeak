@@ -23,6 +23,7 @@ import {
 	TouchableOpacity,
 	Image,
 	Text,
+	InteractionManager,
 	PixelRatio,
 } from 'react-native';
 
@@ -46,6 +47,7 @@ class IconButton extends Component {
 			icon_k: 0,
 			progress: 0,
 			blnProgress: false,
+			blnDraw: false,
 		};
 	}
 	setProgross(v, bln){
@@ -56,6 +58,13 @@ class IconButton extends Component {
 		});
 	}
 	render() {
+		if (!this.state.blnDraw) {
+			return (
+				<View style={[styles.center, this.props.style?this.props.style:{}, styles.border]}>
+					{this.renderButton()}
+				</View>
+			);
+		}
 		return (
 			<TouchableOpacity
 				style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
@@ -64,6 +73,13 @@ class IconButton extends Component {
 				{this.renderButton()}
 			</TouchableOpacity>
 		);
+	}
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(()=>{
+			this.setState({
+				blnDraw: true,
+			});
+		});
 	}
 	keyPress() {
 		var kind = this.props.onPress();
