@@ -259,6 +259,30 @@ let styles = StyleSheet.create({
     alignItems: 'center',
     padding: minUnit * 4,
   },
+  kindListItemStyle:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: minUnit * 2,
+    marginLeft: minUnit * 4,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEE',
+  },
+  kindListItemIconBack:{
+    width: minUnit*18,
+    height: minUnit*18,
+    borderRadius: minUnit*9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  kindListItemIconImage:{
+    width: minUnit * 10,
+    height: minUnit * 10,
+  },
+  kindListItemRightIamge:{
+    width: minUnit * 10,
+    height: minUnit * 10,
+    marginRight: minUnit * 2,
+  },
 });
 
 var UtilStyles = StyleSheet.create({

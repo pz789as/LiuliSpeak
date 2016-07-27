@@ -38,6 +38,7 @@ let Scenes = {//界面的index，主要是宏定义，方便跳转到对应的sc
     EXAM: 8,
     LESSONLIST: 9,
     LESSONINFO: 10,
+    KINDLIST: 11,
 };
 
 let getAudioFilePath = function(lessonID, courseID, dailogID){

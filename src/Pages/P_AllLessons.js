@@ -63,11 +63,15 @@ export default class P_AllLessons extends Component {
   }
   kindOnSelected(kind){
     logf('selected kind', kindList[kind]);
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
-      freshType: Consts.REFRESH,
-      listKind: kind,
-      mainTitle: kindList[kind].name,
-    });
+    if (kindList[kind].name == '更多'){
+      this.props.GotoPage(Consts.NAVI_PUSH, Scenes.KINDLIST, {});
+    }else{
+      this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
+        freshType: Consts.REFRESH,
+        listKind: kind,
+        mainTitle: kindList[kind].name,
+      });
+    }
   }
   lessonOnSelected(list, idx){
      if (idx == -1) {//查看更多，也就是跳转到该类的列表里面去，人为的在里面控制传出来的值

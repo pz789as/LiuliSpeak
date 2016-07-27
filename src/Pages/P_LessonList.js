@@ -46,7 +46,6 @@ export default class P_LessonList extends Component {
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
     };
-    this.myDate = new Date();
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state) return true;
@@ -64,9 +63,6 @@ export default class P_LessonList extends Component {
         this.showList = setTimeout(this.showListInfo.bind(this), 500);
       });
     }
-    var nowData = new Date();
-    var useTime = nowData.getMilliseconds() - this.myDate.getMilliseconds();
-    logf('渲染用时：', useTime);
   }
   componentWillUnmount(){
     this.getlessons && clearTimeout(this.getlessons);

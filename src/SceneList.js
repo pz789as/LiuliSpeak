@@ -24,6 +24,7 @@ import AllLessons from './Pages/P_AllLessons';
 import Exam from './Pages/P_Exam';
 import LessonList from './Pages/P_LessonList';
 import LessonInfo from './Pages/P_LessonInfo';
+import KindList from './Pages/P_KindList';
 
 import {
     Scenes,
@@ -106,6 +107,13 @@ let SceneList = [
         name: 'LessonInfo',
         Component: LessonInfo,
         index: Scenes.LESSONINFO,
+        configure: 0,
+        showStatusBar: true,
+    },
+    {
+        name: 'KindList',
+        Component: KindList,
+        index: Scenes.KINDLIST,
         configure: 0,
         showStatusBar: true,
     }
