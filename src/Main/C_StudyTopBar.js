@@ -28,7 +28,7 @@ export default class C_StudyTopBar extends Component {
     this.state={
       statusHeight:StatusBar.currentHeight,
     };
-    //..console.log(StatusBar.currentHeight);
+    //logf(StatusBar.currentHeight);
     // if (StatusBar != null) {
     //   StatusBar.getHeiht((height)=>{
     //     this.setState({

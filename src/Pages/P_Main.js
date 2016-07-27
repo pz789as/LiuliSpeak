@@ -37,7 +37,7 @@ export default class P_Main extends Component {
     };
   }
   selectListItem(rowID){
-    console.log(rowID);
+    logf(rowID);
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, 
         {
           lessonData:lesson1.practices,

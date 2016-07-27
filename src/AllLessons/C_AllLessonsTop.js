@@ -52,7 +52,7 @@ export default class P_AllLessonsTop extends Component {
     });
   }
   doSearchLesson(){
-    console.log('doing Search ' + this.state.searchText + ' Lessons begin');
+    logf('doing Search ' + this.state.searchText + ' Lessons begin');
     this.props.doSearchLessons();
   }
   

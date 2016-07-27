@@ -149,7 +149,7 @@ class IconButton extends Component {
 	// }
 	// updateProgress(){
 	// 	var v = (this.state.progress + 0.1) % 1;
-	// 	console.log(v);
+	// 	logf(v);
 	// 	this.setState({
 	// 		progress: v,
 	// 	});

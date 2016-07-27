@@ -102,7 +102,7 @@ class LessonCard extends Component {
 	onPress1(){
 		this.refs.download && this.refs.download.setProgross(0, true);
 		var path = fs.DocumentDirectoryPath + getMp3FilePath(this.props.lessonID,this.props.rowID);
-		console.log(path);
+		logf(path);
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
 	onPress2(){
@@ -133,7 +133,7 @@ class LessonCard extends Component {
 						}
 					})
 					.catch((err)=>{
-						console.log(err);
+						logf(err);
 					});
 				}
 			}else{
@@ -141,7 +141,7 @@ class LessonCard extends Component {
 			}
 		})
 		.catch((err)=>{
-			console.log(err);
+			logf(err);
 		});
 	}
 	makeDir(path){
@@ -150,11 +150,11 @@ class LessonCard extends Component {
 			if (result[0]){
 				this.downLoadMp3(path);
 			}else{
-				console.log(result);
+				logf(result);
 			}
 		})
 		.catch((err)=>{
-			console.log(err);
+			logf(err);
 		});
 	}
 	downLoadMp3(path){
@@ -167,8 +167,8 @@ class LessonCard extends Component {
 			var localPath = path + '/' + this.course.contents[idx].mp3;
 			var fromUrl = serverUrl + '/LiuliSpeak/Lessons/lesson' + 
 							(parseInt(this.props.lessonID)+1) + '_mp3/' + this.course.contents[idx].mp3;
-			console.log(fromUrl);
-			console.log(localPath);
+			logf(fromUrl);
+			logf(localPath);
 			fs.downloadFile({
 				fromUrl: fromUrl,
 				toFile: localPath,
@@ -182,11 +182,11 @@ class LessonCard extends Component {
 						this.clearProgressTime = setTimeout(this.clearProgress.bind(this), 100);
 					}
 				}else{
-					console.log(response);
+					logf(response);
 				}
 			})
 			.catch((err)=>{
-				console.log(err);
+				logf(err);
 			});
 		}
 	}
@@ -196,7 +196,7 @@ class LessonCard extends Component {
 	downloadProgress(result){
 		this.goIdx += (result.bytesWritten - this.tmpLen[result.jobId])/result.contentLength;
 		this.tmpLen[result.jobId] = result.bytesWritten;
-		console.log(this.goIdx);
+		logf(this.goIdx);
 		this.refs.download.setProgross(this.goIdx/this.allIdx, true);
 	}
 	clearProgress(){

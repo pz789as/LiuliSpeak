@@ -49,7 +49,7 @@ class CoverFlow extends Component {
 		frameSpace: 200,	//每个元素的宽带
 		horizontal: true,	//是否水平显示
 		SelectId: 0,
-		getSelectIndex: (num)=>{console.log('SelectId: '+num)},
+		getSelectIndex: (num)=>{logf('SelectId: '+num)},
 
 		// Animation Config
 		overshootSpringConfig: {
