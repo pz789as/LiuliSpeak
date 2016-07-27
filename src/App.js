@@ -49,6 +49,7 @@ export default class App extends Component {
     //     );
     //   }
     // });
+    if (nextState != this.nextState) return true;
     return false;
   }
   componentDidMount(){
