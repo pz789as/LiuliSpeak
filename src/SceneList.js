@@ -19,6 +19,8 @@ import Main from './Pages/P_Main';
 import Menu from './Pages/P_Menu';
 import Practice from './Pages/P_Practice';
 import AllLessons from './Pages/P_AllLessons';
+// import AllLessons from './Pages/P_TestText';
+// import AllLessons from './Pages/P_WebText';
 import Exam from './Pages/P_Exam';
 import LessonList from './Pages/P_LessonList';
 import LessonInfo from './Pages/P_LessonInfo';

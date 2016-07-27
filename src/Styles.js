@@ -131,6 +131,9 @@ let styles = StyleSheet.create({
   studySpacing:{
     marginVertical: 10,
   },
+  overflow:{
+    overflow: 'hidden',
+  },
   horizontalList:{
     flexDirection:'row',
     alignItems: 'center',
@@ -142,7 +145,7 @@ let styles = StyleSheet.create({
     bottom: minUnit * 2,
   },
   addLessonButton:{
-    width: minUnit*26,
+    width: minUnit*30,
     height: minUnit*10,
     backgroundColor:'rgb(255,90,0)'
   },
@@ -213,6 +216,7 @@ let styles = StyleSheet.create({
     alignItems: 'center',
     padding: minUnit,
     backgroundColor: 'white',
+    overflow: 'hidden',
   },
   kindBoardItemView:{
     width: minUnit * 24,

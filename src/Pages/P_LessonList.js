@@ -116,12 +116,11 @@ export default class P_LessonList extends Component {
   }
   renderRow(lesson, sectionID, rowID){
     return (
-      <TouchableOpacity onPress={this.onSelectLesson.bind(this, rowID)}>
-        <View style={[styles.fill, styles.studySpacing]}>
+      <TouchableOpacity onPress={this.onSelectLesson.bind(this, rowID)}
+        style={[styles.fill, styles.studySpacing, styles.overflow]}>
           <CardItem image={ImageRes.me_icon_normal}
             renderData={lesson}
             renderRight={this.renderRight.bind(this)}/>
-        </View>
       </TouchableOpacity>
     );
   }

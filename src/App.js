@@ -27,6 +27,29 @@ export default class App extends Component {
       //初始化场景，调整其他界面时，可以更改为其他界面，通过该上面的值
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    //如果要比较js对象如：
+    // var {List, Map} = Immutable;
+    // var Component = React.createClass({
+	  // getInitialState(){
+	  // 	return {
+		//   	…
+		// 	  data: Immutable.fromJS({
+		// 		  valueobj:{
+		// 			  v1: ‘v1’,
+		// 			  v2: ‘v2’,
+		// 		  }
+		// 	  })
+		//   }
+	  // }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return (
+    //       return next.Props.data !== this.props.data;
+    //     );
+    //   }
+    // });
+    return false;
+  }
   componentDidMount(){
   }
   componentWillUnmount(){
