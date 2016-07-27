@@ -26,6 +26,7 @@ export default class App extends Component {
       appStatus: Scenes.MAIN,//可以根据状态去做一些处理，比如顶部的状态栏显示与否。
       //初始化场景，调整其他界面时，可以更改为其他界面，通过该上面的值
     };
+    global.logf = this.Logf.bind(this);
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
@@ -152,5 +153,9 @@ export default class App extends Component {
       });
     }
     this._navigator.pop();
+  }
+  Logf(message, ...optionalParams) {
+    // var args = arguments.length;
+    console.log(message, ...optionalParams);
   }
 }

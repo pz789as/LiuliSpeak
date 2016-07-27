@@ -215,8 +215,8 @@ export default class P_LessonInfo extends Component {
           this.setState({ blnLoading: false,});
           var result = text.replace(/[\r\n\t]/g,'');
           var obj = eval('(' + result + ')');
-          console.log(obj);
-          // console.log(result);
+          logf(obj);
+          // logf(result);
           //-------------------
         }).catch((error)=>{
           this.setState({ blnLoading: false,});
@@ -227,7 +227,7 @@ export default class P_LessonInfo extends Component {
         });
       }
     } catch(error){
-      console.log(error);
+      logf(error);
       this.setState({ blnLoading: false,});
       Alert.alert('访问出错', '服务器忙或网络有问题，请稍后再试！', [
         {text:'重新连接', onPress:()=>{ 

@@ -62,7 +62,7 @@ export default class P_AllLessons extends Component {
 
   }
   kindOnSelected(kind){
-    console.log('selected kind ', kindList[kind]);
+    logf('selected kind', kindList[kind]);
     this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
       freshType: Consts.REFRESH,
       listKind: kind,
@@ -88,7 +88,7 @@ export default class P_AllLessons extends Component {
      }
   }
   render() {
-    console.log('all lessons render');
+    logf('all lessons render');
     return (
       <View style={[styles.fill, styles.lessonsBack]}>
         <View style={styles.studyTopBar}>
@@ -147,7 +147,7 @@ export default class P_AllLessons extends Component {
           this.setState({ blnLoading: false,});
           var result = text.replace(/[\r\n\t]/g,'');
           var obj = eval('(' + result + ')');
-          console.log(obj);
+          logf(obj);
           //-----------------
         })
         .catch((error)=>{

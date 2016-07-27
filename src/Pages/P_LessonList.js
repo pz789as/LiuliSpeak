@@ -66,7 +66,7 @@ export default class P_LessonList extends Component {
     }
     var nowData = new Date();
     var useTime = nowData.getMilliseconds() - this.myDate.getMilliseconds();
-    console.log('渲染用时：', useTime);
+    logf('渲染用时：', useTime);
   }
   componentWillUnmount(){
     this.getlessons && clearTimeout(this.getlessons);
