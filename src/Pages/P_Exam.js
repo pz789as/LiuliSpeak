@@ -4,7 +4,6 @@
 import React, {Component, PropTypes} from 'react'
 import {View, Text, StyleSheet, Image,TouchableOpacity, Animated, Easing, InteractionManager} from 'react-native'
 
-import Sentence from '../ListItem/C_Sentence';
 import RoleIcon from '../Exam/C_RoleIcon';
 import BtnRecord from '../ListItem/C_BtnRecording'
 import Countdown from '../Exam/C_Countdown'
