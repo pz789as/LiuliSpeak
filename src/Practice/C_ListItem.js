@@ -3,373 +3,170 @@
  */
 'use strict';
 import React, {Component, PropTypes} from 'react';
-import ReactNative, {
+import {
     StyleSheet,
     View,
     Text,
     TouchableOpacity,
-    Animated,
-    PixelRatio,
+    Animated,    
     Image,
 }from 'react-native'
 import {
     ImageRes,
     ImageIcon,
 } from '../Resources';
-
+import {    
+    ScreenWidth,     
+    minUnit,
+    MinWidth,
+} from '../Styles';
 import {
     getAudioFilePath,
     getMp3FilePath,
 } from '../Constant';
 
-import BtnPlayer from '../ListItem/C_BtnPlayer';
-import BtnRecord from '../ListItem/C_BtnRecording';
-import BtnQuestion from '../ListItem/C_BtnQuestion';
-import BtnRecPlayer from '../ListItem/C_BtnRecPlayer';
-import Sentence from '../ListItem/C_Sentence';
+
+//import Sentence from '../ListItem/C_Sentence';
+import Sentence from '../ListItem/C_NewSentence';
+import AllBotton from  '../ListItem/C_AllBottons';
 import RNFS from 'react-native-fs'
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26);
+
+var totalWidth = ScreenWidth; 
+var fontSize = parseInt(minUnit*4);
 var spacing = fontSize * 1;//内容之间的间距
-
-const ITEM_STATUS = {
-    HIDDEN: 0, //隐藏:就是没有被选中的状态
-    NORMAL: 1,//正常:被选中的状态,等待操作
-    PLAYAUDIO: 2,//播放音频文件
-    PAUSEAUDIO: 3,//暂停播放音频文件
-    RECORDING: 4,//正在录音
-    PLAYRECORD: 5,//播放录音
-    PAUSERECORD: 6,//暂停播放录音
-};
-
-const RATE = [0.6,1,1.4];
 
 export default class ListItem extends Component {
     height = 0;
-
     constructor(props) {
         super(props);
         // 初始状态
+        this.itemIndex = this.props.dialogInfo.itemIndex;
         this.state = {
             score: this.props.itemScore,
             coins: this.props.itemCoins,
             blnLow: false,
-            disabled: (this.props.itemIndex == 0),
-            blnSelect:(this.props.itemIndex == 0),
-            showType:this.props.itemShowType,//默认的显示类型由属性传递
-            blnHaveRecord: false,
+            blnSelect: (this.itemIndex == 0),
+            showType: this.props.itemShowType,//默认的显示类型由属性传递
+            btnCount:4,
         };
-        this.blnPcmPlayAnim = true;//用一个变量记录播放录音按钮在render时是否有动画,用在录音从无到有时,后面两个按钮跳过动画直接显示
-        if (this.props.itemIndex == 0) {
-            this.itemStatus = ITEM_STATUS.NORMAL;
-        } else {
-            this.itemStatus = ITEM_STATUS.HIDDEN;
-        }
-        this.userIcon = this.props.user == 1 ? ImageIcon.user1 : ImageIcon.user2;
-        this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.dIndex);
+        this.useTime = new Date();
+        //logf("构造:", this.itemIndex, "当前时间:", this.useTime.getTime());
+        this.userIcon = this.props.dialogInfo.user == 1 ? ImageIcon.user1 : ImageIcon.user2;
+        this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
     }
 
     myLayout = null;//记录item的位置
     contentLayout = null;//记录item中的内容部分view的位置
     blnInTouch = false;//一个标记,判断自己是否属于手势控制范围
     static propTypes = {
-        itemWordCN: PropTypes.object,//中文教学内容
-        itemWordEN: PropTypes.string,//教学内容的英文翻译
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
         itemScore: PropTypes.number,//从数据库中获取的分数
         itemCoins: PropTypes.number,//从数据库中获取的金币数量
-        audio: PropTypes.string,       
-        user: PropTypes.number,//跟头像显示有关
         dialogInfo: PropTypes.object,//对话信息
-        itemIndex:PropTypes.number,
-        partents:PropTypes.object,
-    };  
+        playNext:PropTypes.func,
+        getRate:PropTypes.func,
+        blnAutoplay:PropTypes.bool,
+    };
 
-    playDialogAudio() {//播放音频
-        if (this.itemStatus == ITEM_STATUS.RECORDING) { //如果正在录音,强制关闭录音
-            this.refs.btnRecord.stopRecord();
-        } else if (this.itemStatus == ITEM_STATUS.PLAYRECORD) {//如果正在播放录音,强制关闭播放录音
-            this.refs.btnRecPlay.stopAudio();
-        }
-        this.itemStatus = ITEM_STATUS.PLAYAUDIO;
-        this.refs.btnPlay.playerAudio();
-    }
+    _onAutoplay = ()=> { //接收到父组要调用自动播放的指令        
+        this.refs.allBotton.autoplay();
 
-    pauseDialogAudio() {//暂停播放音频
-        if (this.itemStatus != ITEM_STATUS.PLAYAUDIO) { //如果不是在暂停状态,不应该调用这个函数
-            console.log("pauseDialogAudio中出现状态异常,在非播放音频状态下,竟然暂停播放,当前状态:", this.itemStatus)
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.PAUSEAUDIO;
-        this.refs.btnPlay.pauseAudio();
-    }
-
-    overDialogAudio() {//音频播放完毕
-        if (this.itemStatus != ITEM_STATUS.PLAYAUDIO) {
-            console.log("overDialogAudio,播放按钮通知我它播放完毕,此时item状态却不是播放状态,当前状态:", this.itemStatus);
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.NORMAL;
-        console.log("blnInAutoplay:",this.props.partents.blnAutoplay);
-        if (this.props.partents.blnAutoplay) {
-            this.props.partents.playNext();
-        }
-    }
-
-    startRecording() {//开始录音
-        if (this.itemStatus == ITEM_STATUS.PLAYAUDIO || this.itemStatus == ITEM_STATUS.PAUSEAUDIO) {//如果在播放或暂停对话音频时
-            this.refs.btnPlay.stopAudio();
-        } else if (this.itemStatus == ITEM_STATUS.PLAYRECORD || this.itemStatus == ITEM_STATUS.PAUSERECORD) {//如果在播放或暂停录音时
-            this.refs.btnRecPlay.stopAudio();
-        }
-        this.itemStatus = ITEM_STATUS.RECORDING;
-        this.startRecord();
-    }
-
-    stopRecording() {//停止录音
-        if (this.itemStatus != ITEM_STATUS.RECORDING) {
-            console.log("stopRecording中出现状态异常,在非录音的状态下,竟然停止录音,当前状态:", this.itemStatus);
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.NORMAL;
-        this.refs.btnRecord.stopRecord();
-    }
-
-    overRecording(data, num) {//录音结束
-        if (this.itemStatus != ITEM_STATUS.RECORDING) {
-            console.log("overRecording,录音按钮给我返回正确结果,此时item状态却不是播放状态,当前状态:", this.itemStatus);
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.NORMAL;
-        console.log("CallBackRecord Result:", num);
-        var pcResult = {blnSuccess: true, score: num, syllableScore: data};
-        console.log("检查pcResult.syllable:", pcResult.syllableScore);
-        this.setPingceResult(pcResult);
-        if (this.state.blnHaveRecord) {
-            this.refs.btnRecPlay.updateFile();
-            //通知录音按钮更新录音文件
-        } else {
-            this.existsRecordFile();
-        }
-    }
-
-    startRecord() {
-        const {itemWordCN, dialogInfo} = this.props;
-        var testText = itemWordCN.words;//获取text
-        var fileName = this.recordFileName;
-        testText = testText.replace(/_/g, "");
-        //console.log(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
-        this.refs.btnRecord.StartISE(testText,
-            dialogInfo.gategory,
-            fileName);
-    }
-
-    playRecordAudio() {
-        if (this.itemStatus == ITEM_STATUS.PLAYAUDIO || this.itemStatus == ITEM_STATUS.PAUSEAUDIO) {
-            this.refs.btnPlay.stopAudio();
-        } else if (this.itemStatus == ITEM_STATUS.RECORDING) {
-            this.refs.btnRecord.stopRecord();
-        }
-        this.itemStatus = ITEM_STATUS.PLAYRECORD;
-        this.refs.btnRecPlay.playerAudio();
-    }
-
-    pauseRecordAudio() {
-        if (this.itemStatus != ITEM_STATUS.PLAYRECORD) {
-            console.log("pauseRecordAudio中出现状态异常,在非播放录音的状态下,竟然暂停播放,当前状态", this.itemStatus);
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.PAUSERECORD;
-        this.refs.btnRecPlay.pauseAudio();
-    }
-
-    overRecordAudio() {
-        if (this.itemStatus != ITEM_STATUS.PLAYRECORD) {
-            console.log("overRecordAudio中出现状态异常,播放录音按钮通知我播放结束,但此时却不是播放录音状态,当前状态:", this.itemStatus);
-            return;
-        }
-        this.itemStatus = ITEM_STATUS.NORMAL;
-    }
-
-    callbackBtnPlay = (msg)=> {
-        if(this.itemStatus == ITEM_STATUS.HIDDEN)return;
-        if (msg == "play") {
-            this.playDialogAudio();
-        } else if (msg == "pause") {
-            this.pauseDialogAudio();
-        } else if (msg == "over") {
-            this.overDialogAudio();
-        } else if (msg == "AnimOver") {
-
-        }
-    }
-
-    callbackBtnRecord(msg, num) {
-        if(this.itemStatus == ITEM_STATUS.HIDDEN)return;
-        if (msg == "record") {
-            this.startRecording();
-        } else if (msg == "stop") {
-            this.stopRecording();
-        } else if (msg == "error") {
-            this.overRecording(msg, num);//如果出现异常,参数这样传
-        } else if (msg == "result") {
-            this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
-        }else if(msg == "AnimOver"){
-             if(this.state.blnHaveRecord == false){
-                 this.itemStatus = ITEM_STATUS.PLAYAUDIO;
-                 this.setState({disabled:false});
-                 this.refs.btnPlay.playerAudio();
-                 this.blnPcmPlayAnim = false;//如果此次结束动画是在录音按钮动画播完,则将此变量置为false;
-             }
-        }
-    }
-
-    callbackBtnRecPlay = (msg)=> {
-        if(this.itemStatus == ITEM_STATUS.HIDDEN)return;
-        if (msg == "play") {
-            this.playRecordAudio();
-        } else if (msg == "pause") {
-            this.pauseRecordAudio();
-        } else if (msg == "over") {
-            this.overRecordAudio();
-        } else if (msg == "AnimOver"){
-
-        }
-    }
-
-    callbackBtnQuestion = (msg)=>{
-        if(this.itemStatus == ITEM_STATUS.HIDDEN)return;
-        console.log("itemIndex:",this.props.itemIndex);
-        if(msg == "AnimOver"){
-            this.itemStatus = ITEM_STATUS.PLAYAUDIO;
-            this.setState({disabled:false});
-            this.refs.btnPlay.playerAudio();
-        }
-    }
-
-    _onAutoplay = ()=> { //接收到父组要调用自动播放的指令
-        if (this.itemStatus == ITEM_STATUS.RECORDING) { //如果正在录音,强制关闭录音
-            this.refs.btnRecord.stopRecord();
-        } else if (this.itemStatus == ITEM_STATUS.PLAYRECORD) {//如果正在播放录音,强制关闭播放录音
-            this.refs.btnRecPlay.stopAudio();
-        }
-        this.itemStatus = ITEM_STATUS.PLAYAUDIO;
-        this.refs.btnPlay.replayAudio();
     }
 
     _onStopAutoplay = ()=> {//接收到父组件调用暂停自动播放的指令
-        this.refs.btnPlay.stopAudio();
-        this.itemStatus = ITEM_STATUS.NORMAL;
+        this.refs.allBotton.stopAutoplay();
     }
 
     componentWillMount() {
-        this.existsRecordFile();//检查是否有录音文件
+        var time = new Date();
+        //logf("C_ListItem WillMount User time:", this.itemIndex, time - this.useTime);
+        this.useTime = time;
+        //logf("WillMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
+        //..this.existsRecordFile();//检查是否有录音文件
+    }
+
+    componentDidMount() {
+        var time = new Date();
+        logf("C_ListItem DidMount User time:", this.itemIndex, time - this.useTime);
+        this.useTime = time;
+        logf("DidMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
     }
 
     shouldComponentUpdate(nextProps, nextStates) {
         var blnUpdate = false;
-        /*if(nextProps.itemBlnSelect != this.props.itemBlnSelect){
+        if (nextStates != this.state) {
+            //..logf("nextState:",nextStates);
+            //..logf("this.state:",this.state);
             blnUpdate = true;
         }
-        if(nextProps.itemShowType != this.props.itemShowType){
-            blnUpdate = true;
-        }*/
-
-        if(nextStates != this.state){
-            blnUpdate = true;
-        }
-
-        /*
-        if(nextStates.blnSelect != this.state.blnSelect){
-            blnUpdate = true;
-        }
-        if(nextStates.score != this.state.score){
-            blnUpdate = true;
-        }
-        if(nextStates.coins != this.state.coins){
-            blnUpdate = true;
-        }
-        if(nextStates.blnLow != this.state.blnLow){
-            blnUpdate = true;
-        }
-        if(nextStates.disabled != this.state.disabled){
-            blnUpdate = true;
-        }
-        if(nextStates.blnHaveRecord != this.state.blnHaveRecord){
-            blnUpdate = true;
-        }*/
-        /*
-        if(blnUpdate){
-            console.log("nowProps:",this.props);
-            console.log("nextProps:",nextProps);
-            console.log("nowState:",this.state);
-            console.log("nextState:",nextStates);
-        }*/
         return blnUpdate;
     }
 
+    callbackAllBtn = (btn,msg)=>{
+        if(btn == "btnPlay"){
+            if(msg == "playover"){
+                this.props.playNext();
+            }
+        }else if(btn == "btnRecord"){
+            this.setPingceResult(msg);
+        }else if(btn == "btnRecPlay"){
+
+        }else if(btn == "btnQuestion"){
+
+        }
+    }
+
     render() {
-        const {itemIndex, itemWordCN, itemWordEN, itemShowType, dialogInfo} = this.props;//获取属性值
-        console.log("Render ListIndex:",this.props.itemIndex);
+        const { dialogInfo} = this.props;//获取属性值
+        const {itemWordCN, itemWordEN} = dialogInfo;
+        //logf("render item:",this.itemIndex);
         return (
-            <View pointerEvents={(this.state.disabled)?"none":"auto"}
+            <View
+                    ref = "item"
+                    pointerEvents={this.props.blnAutoplay?"box-only":"auto"}
                   style={[styles.container,{backgroundColor:this.state.blnSelect?'#FFFFFF':'#EBEBEB'}]}
                   onLayout={this._onLayout.bind(this)}>
-                <View style={styles.leftView}>
-                    <Image style={styles.iconImage} source={this.userIcon}/>
-                </View>
-                <View style={styles.contentView} onLayout={this._onLayoutContentView.bind(this)}>
-                    {/*当属性showType不为只显示英文时,显示这个text*/}
 
-                    {(itemShowType != 1) &&
+                <Image style={styles.iconImage} source={this.userIcon}/>
+                <View style={styles.contentView} onLayout={this._onLayoutContentView.bind(this)}>
+
+
+                    {(this.state.showType != 1) &&
                     <Sentence ref="mySentence" style={styles.textWordCN} words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
                               touch={this.state.touch}/> }
-                    {/*当属性showType不为只显示中文时,显示这个text*/}
-                    {(itemShowType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
-                    {this.state.blnSelect &&
-                        <View style={styles.operateView}>
-                            <BtnPlayer blnAnimate={true} animateDialy={0}
-                                       audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + this.props.audio}
-                                       btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>RATE[this.props.partents.state.speedKind]} ref={'btnPlay'}/>
+                    {(this.state.showType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
-                             <BtnRecord blnAnimate={true} animateDialy={100} startRecord={this.startRecord.bind(this)}
-                             ref={'btnRecord'} btnCallback={this.callbackBtnRecord.bind(this)}/>
-                             {this.state.blnHaveRecord && <BtnRecPlayer blnAnimate={this.blnPcmPlayAnim } animateDialy={150}
-                             btnCallback={this.callbackBtnRecPlay.bind(this)}
-                             recordName={getAudioFilePath(dialogInfo.lesson, dialogInfo.course, dialogInfo.dIndex)}
-                             ref={'btnRecPlay'}/>}
-                             {this.state.blnHaveRecord && <BtnQuestion blnAnimate={this.blnPcmPlayAnim } animateDialy={200}
-                             btnCallback = {this.callbackBtnQuestion.bind(this)} ref={'btnQuestion'}
-                             />}
-                        </View>}
-
+                    {this.state.blnSelect && <AllBotton ref = "allBotton"
+                                                        btnCount={this.state.btnCount}
+                                                        dialogInfo={dialogInfo} 
+                                                        btnCallback={this.callbackAllBtn.bind(this)}
+                                                        getRate = {this.props.getRate.bind(this)}/>
+                    }
                 </View>
+                {this.drawScore()}
 
-                <View style={styles.rightView}>
-                    {this.drawScore()}
-                </View>
-
-                {(this.state.coins > 0) &&
-                <View style={[styles.coinView,this.state.blnLow&&{bottom:2/PixelRatio.get()}]}>
-                    <Text style={styles.coinText}>{this.state.coins}</Text>
-                    <Image style={styles.coinImage} source={ImageRes.icon_coin_s}/>
-                </View>}
+                <Text style={[styles.coinText,this.state.blnLow&&{bottom:2/MinWidth}]}>
+                    {this.state.coins}
+                    { <Image style={styles.coinImage} source={ImageRes.icon_coin_s}/>}
+                </Text>
             </View>
         );
-    } 
+    }
+
+    setPointEvent = (value)=>{
+        this.refs.item.setNativeProps({pointerEvents:value});
+    }
 
     _onLayout = (event)=> {
         this.myLayout = event.nativeEvent.layout;
         var getHeight = this.myLayout.height;
         this.height = getHeight;
-        //console.log('height:', getHeight)
-        //console.log('6*fontSize', 6 * fontSize);
+        //logf('height:', getHeight)
+        //logf('6*fontSize', 6 * fontSize);
         if (getHeight < 5 * fontSize) { //当内容很少时,为了适配右下角金币显示的位置而做的特殊处理
-            console.log('低于最小高度了亲...');
+            logf('低于最小高度了亲...');           
             this.setState({
                 blnLow: true,
             });
@@ -384,11 +181,13 @@ export default class ListItem extends Component {
         var basePath = RNFS.CachesDirectoryPath + '/';
         var fileName = this.recordFileName;
         var path = basePath + fileName;
+
         RNFS.exists(path).then((result)=> {
+            
             if (result === true) {
-                this.setState({blnHaveRecord: true});
+                this.setState({btnCount:4});
             } else {
-                this.setState({blnHaveRecord: false});
+                this.setState({btnCount:2});
             }
         })
     }
@@ -415,13 +214,13 @@ export default class ListItem extends Component {
         };
         if (this.blnInTouch) {
             if (!this.blnInRange(touch, colLayout)) {//如果touch在自己的位置
-                //console.log("手指离开了此区域");
+                //logf("手指离开了此区域");
                 this.blnInTouch = false;
             }
             this.collisionSentence(touch, colLayout);//判断此手势是否在当前item的"句子"子组件上
         } else {
             if (this.blnInRange(touch, colLayout)) {//如果touch在自己的位置
-                //console.log("触碰我这儿了");
+                //logf("触碰我这儿了");
                 this.collisionSentence(touch, colLayout);
                 this.blnInTouch = true;
             }
@@ -457,7 +256,7 @@ export default class ListItem extends Component {
         this.refs.mySentence.blnTouchSentence(touch, layout);//调用子组件的判断碰撞函数,将touch对象和myLayout传递给子组件
     }
     drawScore = ()=> {
-        if (!this.state.blnHaveRecord) return;
+        //if (!this.state.blnHaveRecord) return;
         if (this.state.score >= 60) {
             return (
                 <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
@@ -466,18 +265,14 @@ export default class ListItem extends Component {
             );
         } else {
             return (
-                <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
-                    <Image style={styles.badImage} source={ImageRes.icon_bad}>
-                        <Text style={{fontSize:fontSize/2,color:'#F0FFE7'}}>{this.state.score}</Text>{/*唐7-12*/}
-                    </Image>
-                </View>
-            );
+                <Image  style={styles.badImage} source={ImageRes.icon_bad}/>
+            )
         }
     }
 
 
     setPingceResult(result) {//唐7-11
-        console.log("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
+        logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
         syllableScore
         const {blnSuccess, score, syllableScore, errorMsg} = result;
         if (blnSuccess) {
@@ -486,126 +281,37 @@ export default class ListItem extends Component {
             if (syllableScore < 60) { //如果没及格,就别给随机分数了
                 rndScore = syllableScore;
             }
+           
             this.setState({score: rndScore}); //评测打分..
         } else {
             if (errorMsg == 0) {
-                console.log("未知的异常");
+                logf("未知的异常");
             } else {
-                console.log("讯飞返回的错误代码:", errorMsg);
+                logf("讯飞返回的错误代码:", errorMsg);
             }
             this.refs.mySentence.setPingce("error");
+            
             this.setState({score: 0});
         }
     }
 
-    _onSelectItem = ()=> {//选中item时调用
-        //this.blnPcmPlayAnim = true;//用一个变量记录播放录音按钮在render时是否有动画,用在录音从无到有时,后面两个按钮跳过动画直接显示
-        console.log("_onSelectItem:",this.props.itemIndex);
-        this.itemStatus = ITEM_STATUS.NORMAL;
-        this.setState({disabled: true,blnSelect:true});
+    _onSelectItem = ()=> {//选中item时调用        
+        this.setState({ blnSelect: true});
     }
 
-    _onHiddenItem = ()=> {//item由选中到非选中时调用
-        console.log("_onHiddenItem:",this.props.itemIndex);
-        this.itemStatus = ITEM_STATUS.HIDDEN;
-        this.setState({blnSelect:false});
+    _onHiddenItem = ()=> {//item由选中到非选中时调用       
+        this.setState({blnSelect: false});
     }
 
-    _onChangeShowType = (type)=>{
-        if(this.state.showType != type){
-            this.setState({showType:type});
+    _onChangeShowType = (type)=> {        
+        if (this.state.showType != type) {
+            this.setState({showType: type});
         }
     }
 
-    _onPreviousPage = ()=>{//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
-        if(this.itemStatus == ITEM_STATUS.PLAYAUDIO || this.itemStatus == ITEM_STATUS.PAUSEAUDIO){
-            this.refs.btnPlay.stopAudio();
-        }
-        if(this.itemStatus == ITEM_STATUS.RECORDING){
-            this.refs.btnRecord.stopRecord();
-        }
-        if(this.itemStatus == ITEM_STATUS.PLAYRECORD || this.itemStatus == ITEM_STATUS.PAUSERECORD){
-            this.refs.btnRecPlay.stopAudio();
-        }
-    }
-
-    //------------------播放音频end------------------------------------
-
-
-    _callbackRecord(data, num) {
-        if (data == 'status') {
-            if (num == 1) {//此时接收到录音按钮开始工作
-                if (this.itemStatus == ITEM_STATUS.PLAYAUDIO || this.itemStatus == ITEM_STATUS.PAUSEAUDIO) {
-                    //如果此时item正在播放音频,将音频结束
-                    this.refs.btnPlay.stopAudio();
-                } else if (this.itemStatus == ITEM_STATUS.PLAYRECORD || this.itemStatus == ITEM_STATUS.PAUSERECORD) {
-                    this.refs.btnRecPlay.stopAudio();
-                }
-                this.itemStatus = ITEM_STATUS.RECORDING;
-            } else if (num == 2) {
-                if (this.itemStatus == ITEM_STATUS.RECORDING) {
-
-                }
-            }
-        } else if (data == 'error') {//返回错误
-            var pcResult = {blnSuccess: false, score: '0', syllableScore: '', errorMsg: num};
-            this.setPingceResult(pcResult);
-            if (this.itemStatus == ITEM_STATUS.RECORDING) {
-                this.itemStatus = ITEM_STATUS.NORMAL;
-            } else {
-                console.log("注意监视此时状态,可能会有冲突", this.itemStatus);
-            }
-            if (this.state.blnHaveRecord) {
-                this.refs.btnRecPlay.updateFile();
-                //通知录音按钮更新录音文件
-            } else {
-                this.existsRecordFile();
-            }
-        } else {//正确获得结果之后
-            console.log("CallBackRecord Result:", data, num);
-            var pcResult = {blnSuccess: true, score: num, syllableScore: data};
-            console.log("检查pcResult.syllable:", pcResult.syllableScore);
-            this.setPingceResult(pcResult);
-            if (this.itemStatus == ITEM_STATUS.RECORDING) {
-                this.itemStatus = ITEM_STATUS.NORMAL;
-            } else {
-                console.log("注意监视此时状态,可能会有冲突", this.itemStatus);
-            }
-
-            if (this.state.blnHaveRecord) {
-                this.refs.btnRecPlay.updateFile();
-                //通知录音按钮更新录音文件
-            } else {
-                this.existsRecordFile();
-            }
-        }
-    }
-
-    _callbackPlayRecord = (btnStatus)=> {
-        if (btnStatus == 0) { //告诉ListItem 我播放完了或者被手动停了
-            if (this.itemStatus == ITEM_STATUS.PLAYRECORD) {
-                this.itemStatus = ITEM_STATUS.NORMAL;
-            } else {
-                console.log("状态冲突:如果不在播放状态,接受到播放按钮传过来说停止播放");
-            }
-        } else if (btnStatus == 1) { //告诉ListItem 要开始播放音频了
-            if (this.itemStatus == ITEM_STATUS.NORMAL || this.itemStatus == ITEM_STATUS.PAUSERECORD) {
-                this.itemStatus = ITEM_STATUS.PLAYAUDIO;
-            } else if (this.itemStatus == ITEM_STATUS.PLAYAUDIO || this.itemStatus == ITEM_STATUS.PAUSEAUDIO) {
-                this.refs.btnPlay.stopAudio();
-            } else if (this.itemStatus == ITEM_STATUS.RECORDING) {//如果此时录音按钮正在工作
-                this.refs.btnRecord.stopRecord();
-                this.itemStatus = ITEM_STATUS.PLAYRECORD;
-            } else if (this.itemStatus == ITEM_STATUS.PLAYRECORD) {
-                console.log("状态冲突:如果已经处于播放音频状态了,却又收到播放按钮传过来的播放状态");
-            }
-        } else if (btnStatus == 2) { //告诉ListItem 暂停播放音频了
-            if (this.itemStatus != ITEM_STATUS.PLAYRECORD) {
-                console.log("状态冲突:如果不在播放音频状态,却收到一个播放按钮传来的暂停播放");
-            } else {
-                this.itemStatus = ITEM_STATUS.PAUSERECORD;
-            }
-        }
+    _onPreviousPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
+        this.refs.allBotton.releaseBotton();
+        
     }
 }
 
@@ -613,10 +319,11 @@ const styles = StyleSheet.create({
     container: {//主背景
         flexDirection: 'row',
         width: totalWidth,
-        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomWidth: 1 / MinWidth,
         borderBottomColor: '#CBCBCB',
-        paddingTop: spacing,//给个1个汉字大小的内边距
-        //justifyContent:'space-between',
+        paddingVertical: spacing,//给个1个汉字大小的内边距
+        paddingHorizontal: spacing / 4,
+        overflow : 'hidden',
     },
     leftView: {
         //backgroundColor:'blue',
@@ -637,12 +344,14 @@ const styles = StyleSheet.create({
         marginBottom: spacing,
     },
     textWordCN: {//汉语内容的样式
-        marginBottom: spacing,
+        //marginBottom: spacing,
     },
     textWordEN: {//英文翻译的样式
         fontSize: fontSize,
         color: '#757575',
-        marginBottom: spacing,
+        //marginBottom: spacing,
+        marginLeft:fontSize/2,
+        marginVertical:spacing/2,
     },
     operateView: {//操作按钮的背景界面
         //height: 3 * fontSize,
@@ -666,8 +375,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     badImage: {
+        backgroundColor:'red',
         width: fontSize * 2.5,
         height: fontSize * 2.5,
+        borderRadius: fontSize * 2.5 / 2,
         alignItems: 'center',//唐7-12
         justifyContent: 'center',//唐7-12
     },
@@ -682,19 +393,20 @@ const styles = StyleSheet.create({
     },
     coinText: {//金币的数量样式
         position: 'absolute',
-        fontSize: fontSize / 2,
-        width: fontSize / 2,
+        fontSize: fontSize ,
+        width: fontSize *2,
         color: '#757575',
-        left: 2 / PixelRatio.get(),
-        top: fontSize / 2 - 4 / PixelRatio.get(),
+        right: fontSize / 2,
+        bottom: fontSize / 2,
+
         //backgroundColor:'white',
     },
     coinImage: {//金币图标样式
-        width: fontSize / 2,
-        height: fontSize / 2,
-        borderRadius: fontSize / 4,
+        width: fontSize * 0.7,
+        height: fontSize *0.7,
+        borderRadius: fontSize *0.35,
         backgroundColor: '#EF911D',
-        top: fontSize / 2 - 2 / PixelRatio.get(),
+        top: fontSize / 2 - 2 / MinWidth,
         left: fontSize / 2,
     },
 

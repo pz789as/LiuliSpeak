@@ -10,22 +10,21 @@ import ReactNative, {
     Text,
     TouchableOpacity,
     Image,
-    Animated,
-    PixelRatio,
+    Animated,     
     NativeModules,
 }from 'react-native'
 import {
     ImageRes
 } from '../Resources'
+import {
+    minUnit,
+    MinWidth,
+} from '../Styles';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
 var XFiseBridge = NativeModules.XFiseBridge;
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
-
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26)
+var fontSize = parseInt(minUnit*4)
 var btnSize = fontSize * 5;
 var radioSize = btnSize;
 export default class BtnRecording extends Component {
@@ -35,29 +34,29 @@ export default class BtnRecording extends Component {
         this.state = {
             recordState: 0,//0:等待录音,1:录音中,2计算成绩
             progress: 0,//录音音量
-            scaleAnim: this.props.blnScaleAnimate ? new Animated.Value(0) : new Animated.Value(1),
-            opacityAnim:this.props.blnOpacityAnimate?new Animated.Value(0) : new Animated.Value(1),
+            //scaleAnim: this.props.blnScaleAnimate ? new Animated.Value(0) : new Animated.Value(1),
+            opacityAnim: this.props.blnOpacityAnimate ? new Animated.Value(0) : new Animated.Value(1),
         };
         this.listener = null;
         this.volumeListener = null;
         this.speechStatus = XFiseBridge.SPEECH_STOP;
-        this.btnDisabled = false;
 
+        this.useTime = new Date();
     }
 
     static propTypes = {
-        blnScaleAnimate: PropTypes.bool,//是否有出现动画
-        blnOpacityAnimate:PropTypes.bool,//是否有出现动画
-        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值              
+        //blnScaleAnimate: PropTypes.bool,//是否有出现动画
+        blnOpacityAnimate: PropTypes.bool,//是否有出现动画
+        //animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值              
         btnCallback: PropTypes.func,
 
     };
-    
+
     static defaultProps = {
-        blnScaleAnimate:false,
-        animateDialy:0,
-        blnOpacityAnimate:false,
-        
+        //blnScaleAnimate:false,
+        animateDialy: 0,
+        blnOpacityAnimate: false,
+
     };
 
     componentWillUnmount() {
@@ -73,23 +72,19 @@ export default class BtnRecording extends Component {
     }
 
     _onPress = ()=> {//发送点击事件      
-        if(this.state.recordState == 0){
+        if (this.state.recordState == 0) {
             this.props.btnCallback("record");
-        }else if(this.state.recordState == 1){
+        } else if (this.state.recordState == 1) {
             this.props.btnCallback("stop");
-        }              
+        }
     }
 
     componentWillMount() {
-        if (this.props.blnScaleAnimate) {
-            Animated.timing(this.state.scaleAnim, {
-                toValue: 1,
-                duration: 300,
-                delay: this.props.animateDialy,
-            }).start(()=>{this.props.btnCallback("AnimOver")});
-        }
         this.listener = RCTDeviceEventEmitter.addListener('iseCallback', this.iseCallback.bind(this));
         this.volumeListener = RCTDeviceEventEmitter.addListener('iseVolume', this.iseVolume.bind(this));
+    }
+
+    componentDidMount() {
     }
 
     drawBtnRecord = ()=> {//0:等待录音,1:录音中,2手动停止录音
@@ -105,7 +100,7 @@ export default class BtnRecording extends Component {
     }
 
     setProgress(volume) {//设置当前的音量progress
-        if(this.volumeListener == null) return;
+        if (this.volumeListener == null) return;
         volume += 12 + parseInt(Math.random() * 5);
         var v = volume / 50;
         if (this.state.recordState == 0) {
@@ -116,13 +111,9 @@ export default class BtnRecording extends Component {
             progress: v,
         });
     }
-    
-    setOpacityAnim = (toValue)=>{
-        Animated.timing(this.state.opacityAnim,{toValue:toValue,duration:300}).start(()=>{this.props.btnCallback("AnimOver")})
-    }
 
     recordEnd() {//录音结束时调用
-        //..console.log("手动停止录音");
+        //..logf("手动停止录音");
         var state = this.state.recordState;
         if (state == 1) {
             state = 0;
@@ -133,53 +124,56 @@ export default class BtnRecording extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps,nextStates) {
+    shouldComponentUpdate(nextProps, nextStates) {
         var blnUpdate = false;
 
-        if(nextStates.recordState != this.state.recordState){
+        if (nextStates.recordState != this.state.recordState) {
             blnUpdate = true;
         }
-        if(nextStates.scaleAnim != this.state.scaleAnim){
-            blnUpdate = true;
-        }
-        if(nextStates.progress != this.state.progress){
+        /*if(nextStates.scaleAnim != this.state.scaleAnim){
+         blnUpdate = true;
+         }*/
+        if (nextStates.progress != this.state.progress) {
             blnUpdate = true;
         }
         return blnUpdate;
     }
 
+    /*
+     <Animated.View style={{transform:[{scale:this.state.scaleAnim}],opacity:this.state.opacityAnim}}>
+     <TouchableOpacity onPress={this._onPress} activeOpacity={0.5}>
+
+     <View style={[styles.container]}>
+     {this.drawBtnRecord()}
+     {this.state.playerState != 0 && this.state.progress > 0&&
+     <Progress.Circle style={styles.progress} thickness={5}
+     borderWidth={0} progress={this.state.progress}
+     size={btnSize-2} color="#3FA214" animated={true}/>
+     }
+     </View>
+     </TouchableOpacity>
+     </Animated.View> */
+
     render() {
         return (
-            <Animated.View style={{transform:[{scale:this.state.scaleAnim}],opacity:this.state.opacityAnim}}>
-                <TouchableOpacity onPress={this._onPress} activeOpacity={0.5}>
-                    {/*上一句是为了仿流利说把点击效果取消,没有Touchwihtout是方便日后修改*/}
-                    <View style={[styles.container]}>
-                        {/*<View style={styles.radio}>
-                         <Text>录</Text>
-                         {这里先用text意思意思,后面要换成图片组件}
-                         </View>*/}
-                        {this.drawBtnRecord()}
-                        {this.state.playerState != 0 && this.state.progress > 0&&
-                        <Progress.Circle style={styles.progress} thickness={5}
-                                         borderWidth={0} progress={this.state.progress}
-                                         size={btnSize-2} color="#3FA214" animated={true}/>
-                        }
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <TouchableOpacity style={[styles.container]} onPress={this._onPress} activeOpacity={0.5}>
+                {this.drawBtnRecord()}
+                {this.state.playerState != 0 && this.state.progress > 0 &&
+                <Progress.Circle style={styles.progress} thickness={5}
+                                 borderWidth={0} progress={this.state.progress}
+                                 size={btnSize-2} color="#3FA214" animated={true}/> }                 
+            </TouchableOpacity>
+
         );
     }
 
     StartISE(msg, category, fileName) {
-        console.log("ISE msg:",msg);
-        console.log("ISE category:",category);
-        console.log("ISE fileName:",fileName);
         this.category = category;
         this.startRecord(msg, category, fileName);
     }
 
     startRecord(msg, category, fileName) {
-        if (this.speechStatus == XFiseBridge.SPEECH_STOP) {            
+        if (this.speechStatus == XFiseBridge.SPEECH_STOP) {
             var startInfo = {
                 SAMPLE_RATE: '16000',
                 TEXT_ENCODING: 'utf-8',
@@ -203,33 +197,32 @@ export default class BtnRecording extends Component {
         }
     }
 
-    stopRecord=()=>{
+    stopRecord = ()=> {
         if (this.speechStatus != XFiseBridge.SPEECH_STOP) {
             XFiseBridge.stop();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
     }
 
-    cancelRecord=()=>{
+    cancelRecord = ()=> {
         if (this.speechStatus != XFiseBridge.SPEECH_STOP) {
             XFiseBridge.cancel();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
-    }    
+    }
 
     iseVolume(data) {//接收到讯飞引擎传来的录音音量
         this.setProgress(parseInt(data.volume));
     }
 
-    iseCallback(data) {//接受到讯飞原生传过来的数据,包含引擎当前状态和数值 data={code:,result:}
-        console.log("iseCallback:", data.code, XFiseBridge.CB_CODE_RESULT);
+    iseCallback(data) {//接受到讯飞原生传过来的数据,包含引擎当前状态和数值 data={code:,result:}        
         if (data.code == XFiseBridge.CB_CODE_RESULT) {
-            console.log("录音结束,返回结果,调用 this.resultParse");
+            logf("录音结束,返回结果,调用 this.resultParse");
             this.resultParse(data.result);//录音结束返回结果数据去前端解析,并调用btnCallback将结果给父组件
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
         else if (data.code == XFiseBridge.CB_CODE_ERROR) {
-            this.props.btnCallback('error',data.result);//返回讯飞给的评测异常错误
+            this.props.btnCallback('error', data.result);//返回讯飞给的评测异常错误
             this.recordEnd();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
@@ -248,9 +241,9 @@ export default class BtnRecording extends Component {
             this.speechStatus = data.result;
         }
         else {//..真的是未知的错误
-            console.log('传回其他参数', data.result);
+            logf('传回其他参数', data.result);
             this.recordEnd();
-            this.props.btnCallback('error',0);//返回未知的错误
+            this.props.btnCallback('error', 0);//返回未知的错误
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
     }
@@ -367,9 +360,9 @@ export default class BtnRecording extends Component {
 
         if (lostPoint < 0) lostPoint = 0;
         var score = lostPoint / pointCount * 100;
-        console.log("评测分数: " + score);
-        console.log("每个汉字情况:" + syllablesScore);
-        this.props.btnCallback("result",{syllableScore:syllablesScore,sentenctScore: parseInt(score)});
+        logf("评测分数: " + score);
+        logf("每个汉字情况:" + syllablesScore);
+        this.props.btnCallback("result", {syllableScore: syllablesScore, sentenctScore: parseInt(score)});
 
     }
 }
@@ -385,8 +378,8 @@ const styles = StyleSheet.create({
     },
     progress: {
         position: 'absolute',
-        left: 2 / PixelRatio.get(),
-        top: 2 / PixelRatio.get(),
+        left: 2 / MinWidth,
+        top: 2 / MinWidth,
     },
     radio: {
         width: radioSize,

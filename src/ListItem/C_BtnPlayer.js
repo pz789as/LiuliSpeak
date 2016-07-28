@@ -10,8 +10,7 @@ import ReactNative, {
     Text,
     TouchableOpacity,
     Image,
-    Animated,
-    PixelRatio,
+    Animated,   
 }from 'react-native'
 import {
     ImageRes
@@ -32,40 +31,40 @@ export default class BtnPlayer extends Component {
         // 初始状态
         this.state = {
             playerStatus: 0,//0:等待播放,1:播放中,2暂停播放
-            scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
+            //scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
             progress: 0,//进度条
         };
         this.time = null;
         this.dialogSound = null;
         this.audioCurrentTime = 0;//当前时间
         this.audioTimes = 0;//音频总时间
+        this.useTime = new Date();
     }
 
     static propTypes = {
-        blnAnimate: PropTypes.bool,//是否有出现动画
-        animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
+        //blnAnimate: PropTypes.bool,//是否有出现动画
+        //animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值
         audioName: PropTypes.string,//音频文件名
         btnCallback: PropTypes.func,
-        rate:PropTypes.func,
+        rate: PropTypes.func,
     };
 
     static defaultProps = {
-        blnAnimate: false,
-        rate:()=>1,
-        animateDialy:0,
+        //blnAnimate: false,
+        rate: ()=>1,
+        //animateDialy: 0,
     }
 
     handleInitDialog = (error)=> {
         if (error != null) {
-            console.log('failed to load the sound! ', error.message);
+            logf('failed to load the sound! ', error.message);
         } else {
-            //console.log('success to load the sound');
+            //logf('success to load the sound');
             this.audioCurrentTime = 0;
             this.audioTimes = this.dialogSound.getDuration();
         }
     }
     initDialog = ()=> {
-        //console.log("this.props.audioName:", this.props.audioName);
         this.dialogSound = new Sound(this.props.audioName, Sound.DOCUMENT, this.handleInitDialog.bind(this));
     }
     releaseDialog = ()=> {
@@ -76,11 +75,10 @@ export default class BtnPlayer extends Component {
         }
     }
 
-    playerAudio = ()=> {//开始播放声音
-        console.log("player Rate:",this.props.rate());
-        this.dialogSound.setRate(this.props.rate());
+    playerAudio = (rate = 1)=> {//开始播放声音
+        this.dialogSound.setRate(rate);
         this.dialogSound.play(this.audioPlayerEnd);
-        this.time = setInterval(this.getNowTime.bind(this),100);
+        this.time = setInterval(this.getNowTime.bind(this), 100);
         this.setState({
             playerStatus: 1,
         });
@@ -96,7 +94,8 @@ export default class BtnPlayer extends Component {
     }
 
     audioPlayerEnd = ()=> {//声音播放完毕时调用
-        if(this.time == null) return;
+
+        if (this.time == null) return;
         clearInterval(this.time);
         this.time = null;
         this.setState({
@@ -107,6 +106,7 @@ export default class BtnPlayer extends Component {
     }
     stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
         if (this.state.playerStatus != 0) {//只有当已经启动播放后 此函数才起作用
+
             clearInterval(this.time);
             this.time = null;
             this.dialogSound.stop();
@@ -117,19 +117,19 @@ export default class BtnPlayer extends Component {
         }
     }
 
-    replayAudio = ()=> {//父组件中,接收到自动播放指令时,当前的item会调用这个播放函数
+    replayAudio = (rate = 1)=> {//父组件中,接收到自动播放指令时,当前的item会调用这个播放函数
         if (this.state.playerStatus == 0) {
-            this.playerAudio();
+            this.playerAudio(rate);
         } else if (this.state.playerStatus == 1) {
-            this.dialogSound.setRate(this.props.rate());
+            this.dialogSound.setRate(rate);
             this.dialogSound.setCurrentTime(0);
         } else {
-            this.playerAudio();
+            this.playerAudio(rate);
         }
     }
 
     _onPress = ()=> {//发送点击事件
-        console.log("onPress BtnPlayer:",this.state.playerStatus);
+        logf("onPress BtnPlayer:", this.state.playerStatus);
         if (this.state.playerStatus != 1) {
             this.props.btnCallback("play");
         } else {
@@ -140,7 +140,7 @@ export default class BtnPlayer extends Component {
     getNowTime = ()=> { //获取当前播放时间,当获取成功后,设置进度条数值
         this.dialogSound.getCurrentTime(
             (time)=> {
-                if(this.time){
+                if (this.time) {
                     this.audioCurrentTime = time;
                     this.setState({progress: this.audioCurrentTime / this.audioTimes});
                 }
@@ -149,15 +149,20 @@ export default class BtnPlayer extends Component {
 
     componentWillMount() {
         this.initDialog();
-        if (this.props.blnAnimate) {
-            Animated.timing(this.state.scaleAnim, {
-                toValue: 1,
-                duration: 300,
-                delay: this.props.animateDialy
-            }).start(()=> {
-                this.props.btnCallback("AnimOver");
-            });
-        }
+        /*
+         if (this.props.blnAnimate) {
+         Animated.timing(this.state.scaleAnim, {
+         toValue: 1,
+         duration: 300,
+         delay: this.props.animateDialy
+         }).start(()=> {
+         this.props.btnCallback("AnimOver");
+         });
+         }*/
+    }
+
+    componentDidMount() {
+
     }
 
     componentDidUpdate(preProps, preStates) {
@@ -168,22 +173,22 @@ export default class BtnPlayer extends Component {
         this.releaseDialog();
     }
 
-    shouldComponentUpdate(nextProps,nextStates) {
+    shouldComponentUpdate(nextProps, nextStates) {
         var blnUpdate = false;
 
-        if(nextStates.playerStatus != this.state.playerStatus){
+        if (nextStates.playerStatus != this.state.playerStatus) {
             blnUpdate = true;
         }
 
-        if(nextStates.scaleAnim != this.state.scaleAnim){
-            blnUpdate = true;
-        }
-        if(nextStates.progress != this.state.progress){
+        /*if (nextStates.scaleAnim != this.state.scaleAnim) {
+         blnUpdate = true;
+         }*/
+        if (nextStates.progress != this.state.progress) {
             blnUpdate = true;
         }
         return blnUpdate;
     }
-    
+
     drawBtnPlayAudio = ()=> { //0:等待播放,1:播放中,2暂停播放
         if (this.state.playerStatus == 0) {
             return (<Image style={styles.btnImg} source={ImageRes.btn_play}/>);
@@ -196,18 +201,13 @@ export default class BtnPlayer extends Component {
 
     render() {
         return (
-            <Animated.View style={{transform:[{scale:this.state.scaleAnim}]}}>
-                <TouchableOpacity onPress={this._onPress.bind(this)} activeOpacity={0.5}>
-                    {/*上一句是为了仿流利说把点击效果取消,没有Touchwihtout是方便日后修改*/}
-                    <View style={[styles.container]}>
-                        {this.state.playerStatus != 0 && this.state.progress > 0 &&
-                        <Progress.Circle style={styles.progress} thickness={2} borderWidth={0}
-                                         progress={this.state.progress} size={btnSize+4} color="#4ACE35"/>
-                        }
-                        {this.drawBtnPlayAudio()}
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <TouchableOpacity style={[styles.container]} onPress={this._onPress.bind(this)} activeOpacity={0.5}>
+                {this.state.playerStatus != 0 && this.state.progress > 0 &&
+                <Progress.Circle style={styles.progress} thickness={2} borderWidth={0}
+                                 progress={this.state.progress } size={btnSize+4} color="#4ACE35"/>
+                }
+                {this.drawBtnPlayAudio()}
+            </TouchableOpacity>
         );
     }
 
@@ -215,8 +215,8 @@ export default class BtnPlayer extends Component {
 
 const styles = StyleSheet.create({
     container: {//主背景
-        width: btnSize+4,
-        height: btnSize+4,
+        width: btnSize + 4,
+        height: btnSize + 4,
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: fontSize / 2,
@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#CCCCCC',
         borderRadius: (radioSize / 2),
+
     },
     btnImg: {
         width: radioSize,

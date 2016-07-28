@@ -11,6 +11,7 @@ import Countdown from '../Exam/C_Countdown'
 import GreenPoint from '../Exam/C_GreenPoint'
 import ExamPause from  '../Exam/C_ExamPause';
 import Sound from 'react-native-sound';
+
 import {
     getExamFilePath,
     getMp3FilePath,
@@ -18,11 +19,16 @@ import {
 import {
     ImageRes,
 } from '../Resources';
+import {
+    minUnit,
+    ScreenWidth,
+    ScreenHeight,
+} from '../Styles';
 
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26);
+ 
+var totalWidth = ScreenWidth;
+var totalHeight = ScreenHeight;
+var fontSize = parseInt(minUnit*4);
 var ScentenceSpace = fontSize * 6;
 var AnimTransfromY = ScentenceSpace * 3 / 2;
 export default class P_Exam extends Component {
@@ -33,6 +39,7 @@ export default class P_Exam extends Component {
         this.state = {
             opacityAnim: new Animated.Value(1),
             translateYAnim: new Animated.Value(0),
+            recordAnim:new Animated.Value(0),
             nowIndex: 0,
             blnCountdown: true,//倒计时ing...
             blnChangeRole: false,
@@ -74,6 +81,10 @@ export default class P_Exam extends Component {
         }
     }
 
+    componentWillMount() {
+
+    }
+
     setRoles = (role)=> {//判断当前传进来的角色,是否已经在角色数组中,如果没有则添加一个
         var blnHave = false;
         for (var i = 0; i < this.Roles.length; i++) {
@@ -95,7 +106,7 @@ export default class P_Exam extends Component {
 
     handleInitAudio = (error)=> {
         if (error != null) {
-            console.log('failed to load the sound! ', error.message);
+            logf('failed to load the sound! ', error.message);
         } else {
             this.audioCurrentTime = 0;
             this.audioTimes = this.dialogSound.getDuration();//初始化成功就播放
@@ -106,7 +117,7 @@ export default class P_Exam extends Component {
         if (this.dialogSound != null) {
             this.releaseDialog();
         }
-        console.log("initDialog:", this.audio[index]);
+        logf("initDialog:", this.audio[index]);
         this.dialogSound = new Sound(this.audio[index], Sound.DOCUMENT, this.handleInitAudio.bind(this));
     }
 
@@ -130,6 +141,7 @@ export default class P_Exam extends Component {
         if (this.time == null) return;
         clearInterval(this.time);
         this.time = null;
+
         this.refs.roleIcon.setProgress(0);
         this.onDialogOver();
         //..播放结束调用下一条啦
@@ -157,18 +169,26 @@ export default class P_Exam extends Component {
         var category = this.category[index];
         var fileName = getExamFilePath(this.props.lessonID, this.props.courseID, index);
         testText = testText.replace(/_/g, "");
-        //console.log(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
+        //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
         this.refs.btnRecord.StartISE(testText, category, fileName);
     }
 
     showBtnRecord = ()=> {//将录音按钮显示出来
         this.blnShowBtnRecord = true;
-        this.refs.btnRecord.setOpacityAnim(1);
+        Animated.timing(this.state.recordAnim,{
+            toValue:1,
+            duration:300,
+        }).start(this.initRecord(this.state.nowIndex))
+        //this.refs.btnRecord.setOpacityAnim(1);
     }
 
     hideBtnRecord = ()=> { //将录音按钮隐藏
         this.blnShowBtnRecord = false;
-        this.refs.btnRecord.setOpacityAnim(0);
+        Animated.timing(this.state.recordAnim,{
+            toValue:0,
+            duration:300,
+        }).start(this.onDialogOver())
+        //this.refs.btnRecord.setOpacityAnim(0);
     }
 
     pauseRecord = ()=>{//暂停时调用此函数,将录音暂停
@@ -189,13 +209,9 @@ export default class P_Exam extends Component {
         } else if (msg == "result") {
             this.hideBtnRecord();
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
-        } else if (msg == "AnimOver") {
-            if (this.blnShowBtnRecord) {
-                this.initRecord(this.state.nowIndex);
-            } else {
-                this.onDialogOver();
-            }
-        }
+        } /*(else if (msg == "AnimOver") {
+
+        }*/
     }
 
     onDialogOver = ()=> {
@@ -223,7 +239,7 @@ export default class P_Exam extends Component {
 
     changeRole = ()=> {
         if (this.examRoleIndex == 0) {
-            console.log("exam is over");
+            logf("exam is over");
         } else {
             this.setState({blnChangeRole: true});
         }
@@ -251,7 +267,7 @@ export default class P_Exam extends Component {
     }
 
     endOfCountdown = (type)=> {
-        console.log("endofcountdown type:", type);
+        logf("endofcountdown type:", type);
         if (type == 0) {
             this.setState({blnCountdown: false});
         } else if (type == 1) {
@@ -372,10 +388,10 @@ export default class P_Exam extends Component {
         if (this.state.blnCountdown) return;
         return (
             <View style={styles.bottom}>
-                <View style = {{transform:[{scale:1.35}]}}>
+                <Animated.View style = { {transform:[{scale:1.35}],opacity:this.state.recordAnim}}>
                     <BtnRecord blnOpacityAnimate={true} ref={'btnRecord'}
                                btnCallback={this.callbackBtnRecord.bind(this)}/>
-                </View>
+                </Animated.View>
                 <TouchableOpacity onPress = {this._onPressPause.bind(this)}>
                     <Image style={styles.btnPause} source={ImageRes.circle_btn_pause_26}/>
                 </TouchableOpacity>

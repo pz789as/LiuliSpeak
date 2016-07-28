@@ -4,10 +4,11 @@
 import React, {Component, PropTypes} from 'react'
 import {Animated, View, StyleSheet,}from 'react-native'
 
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-
-var fontSize = parseInt(totalWidth / 26);
+import {
+    minUnit,
+} from '../Styles';
+ 
+var fontSize = parseInt(minUnit*4);
 var Space = fontSize/4;
 var PointSize = fontSize/2;
 export default class GreenPoint extends Component {

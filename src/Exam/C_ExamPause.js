@@ -3,11 +3,15 @@
  */
 import React, {Component, PropTypes} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
-
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26);
+import {
+    minUnit,
+    ScreenWidth,
+    ScreenHeight,
+} from '../Styles';
+ 
+var totalWidth = ScreenWidth;
+var totalHeight = ScreenHeight;
+var fontSize = parseInt(minUnit*4);
 export default class ExamPause extends Component {
     // 构造
     constructor(props) {
@@ -22,7 +26,7 @@ export default class ExamPause extends Component {
 
     static defaultProps = {
         callback: (id)=> {
-            console.log("on Press", id);
+            logf("on Press", id);
         }
     }
 

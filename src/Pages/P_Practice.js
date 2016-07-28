@@ -52,13 +52,18 @@ class P_Practice extends Component {
             // listDataSource: new ListView.DataSource({
             //     rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
             // }),
+            blnDraw:true,
         };
+        this.useTime = new Date();
     }
     shouldComponentUpdate(nextProps, nextState) {
         if (nextState != this.state) return true;
         return false;
     }
     componentWillMount() {
+        var time = new Date();
+        logf("P_Parctice Will Mount:",time - this.useTime);
+        this.useTime = time;
         this._panResponder = null;
         this._panResponder = PanResponder.create({
             // 要求成为响应者：
@@ -84,6 +89,12 @@ class P_Practice extends Component {
         // this.setState({
         //   listDataSource:this.state.listDataSource.cloneWithRows(this.props.dialogData),
         // });
+    }
+
+    componentDidMount() {
+        var time = new Date();
+        logf("P_Parctice Did Mount:",time - this.useTime);
+        InteractionManager.runAfterInteractions(()=>{if(!this.state.blnDraw){this.setState({blnDraw:true})}})
     }
 
     onWatchStart = (event, gestureState)=> {
@@ -119,13 +130,13 @@ class P_Practice extends Component {
         //判断当前的touch是否在自己的位置
         if(this.blnInTouch){
             if(!this.blnInRange(touch)){//如果touch在自己的位置
-                //console.log("手指离开了此区域");
+                //logf("手指离开了此区域");
                 this.blnInTouch = false;
             }
             this.refs.ViewList.collisionItems(touch);//判断此手势是否在当前item的"句子"子组件上
         }else{
             if(this.blnInRange(touch)){//如果touch在自己的位置
-                //console.log("触碰我这儿了");
+                //logf("触碰我这儿了");
                 this.refs.ViewList.collisionItems(touch);
                 this.blnInTouch = true;
             }
@@ -152,26 +163,43 @@ class P_Practice extends Component {
             }
         }
     }
+    /*<View style={ming.container} onLayout={this._onLayout.bind(this)} {...this._panResponder.panHandlers} >
+     <TopBar onPressBack={this._onPressBack.bind(this)} />
 
+     <ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />
+
+     <ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
+     courseID={this.props.courseID} showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
+     getGold={this.getGold.bind(this)} parents={this}
+     />
+
+     <BottomBar showKind={this.showKind} speedKind={this.speedKind}
+     onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
+     onStart={this._onStart.bind(this)}
+     changePlayKind={this._changePlayK.bind(this)}
+     changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />
+     </View>*/
     render() {
-        console.log('Hello Practice!');
+        logf('Hello Practice!');
         return (
+
             <View style={ming.container} onLayout={this._onLayout.bind(this)} {...this._panResponder.panHandlers} >
-                <TopBar onPressBack={this._onPressBack.bind(this)} />
+                {this.state.blnDraw&&
+             <TopBar onPressBack={this._onPressBack.bind(this)} />}
 
-                <ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />
+                {this.state.blnDraw&&<ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />}
 
-                <ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
-                    courseID={this.props.courseID} showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
-                    getGold={this.getGold.bind(this)} parents={this}
-                    />
+                {this.state.blnDraw&&<ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
+             courseID={this.props.courseID} showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
+             getGold={this.getGold.bind(this)} parents={this}
+             />}
 
-                <BottomBar showKind={this.showKind} speedKind={this.speedKind}
-                    onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
-                    onStart={this._onStart.bind(this)}
-                    changePlayKind={this._changePlayK.bind(this)}
-                    changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />
-            </View>
+                {this.state.blnDraw&&<BottomBar showKind={this.showKind} speedKind={this.speedKind}
+             onPlay={this._onPlay.bind(this)} onPause={this._onPause.bind(this)}
+             onStart={this._onStart.bind(this)}
+             changePlayKind={this._changePlayK.bind(this)}
+             changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />}
+             </View>
         );        
     }
     getAllGold(){
@@ -204,7 +232,7 @@ class P_Practice extends Component {
 
     _changePlayK(kind) {
         // 播放方式 0，播放一次 1，循环播放
-        console.log("kind: "+kind);
+        logf("kind: "+kind);
         this.refs.ViewList.setLoop(kind);
     }
 

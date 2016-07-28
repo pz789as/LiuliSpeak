@@ -49,20 +49,16 @@ class ViewList extends Component {
             }),
             showKind: this.props.showKind,
             speedKind: this.props.speedKind,
-            blnDraw: false,
             rotate: new Animated.Value(0),
         };
         this.listItemLayout = [this.props.dialogData.length];
 
         this.arrayList = [];
     }
+
     componentDidMount() {
-        InteractionManager.runAfterInteractions(()=>{
-            this.setState({
-                blnDraw: true,
-            });
-        });
     }
+
     // 修改设置
     changeShow(index, select) {
         // 显示，播放速度设置
@@ -80,6 +76,7 @@ class ViewList extends Component {
             //this.onPlay();
         }
     }
+
     // 设置是否自动播放
     setAutoplay(bln) {
         this.blnAutoplay = bln;
@@ -89,6 +86,7 @@ class ViewList extends Component {
             this.onPause();
         }
     }
+
     // 设置是否循环播放
     setLoop(bln) {
         this.blnLoop = bln;
@@ -102,7 +100,7 @@ class ViewList extends Component {
 
     _onLayoutItem = (index, event)=> {
         this.listItemLayout[index] = event.nativeEvent.layout;//..获取每个item在父组件中的位置
-        //console.log("TouchOpiact layout:",event.nativeEvent.layout);
+        //logf("TouchOpiact layout:",event.nativeEvent.layout);
     }
     collisionItems = (touch)=> {//..
         for (var i = 0; i < this.props.dialogData.length; i++) {
@@ -119,43 +117,38 @@ class ViewList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextState != this.state) return true;
+        if (nextState.showKind != this.state.showKind) {
+            for (var i = 0; i < this.arrayList.length; i++) {
+                this.arrayList[i]._onChangeShowType(nextState.showKind);
+            }
+            return false;
+        }
+        if (nextState != this.state) {
+            return true;
+        }
         else return false;
     }
+
     render() {
-        if (!this.state.blnDraw) {
-            var rotateZ = this.state.rotate.interpolate({
-                inputRange: [0,8,16],
-                outputRange: ['0deg','180deg','360deg']
-            });
-            return (
-                <View style={styles.container}>
-                    {/*<Animated.Image
-                        style={[styles.loadImg, {transform:[{rotateZ}]}]}
-                        source={ImageRes.loading} />
-                    <Text style={styles.font}>
-                        加载中...
-                    </Text>*/}
-                </View>
-            );
-        }
         return (
-            <View style={styles.container}>
+            <View ref="main" style={styles.container} >
                 <ListView
-                  initialListSize={1}
-                  pageSize={1}
-                  onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
-                  ref={'ScrollView'}
-                  style={{flex: 1,}}
-                  dataSource={this.state.listDataSource}
-                  renderRow={this.renderListFrame.bind(this)} />
-                
-                {/*<ScrollView
+                    initialListSize={4}
+                    pageSize={1}
+                    scrollRenderAheadDistance={minUnit}
+                    removeClippedSubviews={true}
                     onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
                     ref={'ScrollView'}
-                    showsVerticalScrollIndicator={false}>
-                    {this.renderList(this.state.select)}
-                </ScrollView>*/}
+                    style={{flex: 1,}}
+                    dataSource={this.state.listDataSource}
+                    renderRow={this.renderListFrame.bind(this)}/>
+
+                {/*<ScrollView
+                 onLayout={(event)=>{this.scrollLayout = event.nativeEvent.layout;}}
+                 ref={'ScrollView'}
+                 showsVerticalScrollIndicator={false}>
+                 {this.renderList(this.state.select)}
+                 </ScrollView>*/}
             </View>
         );
     }
@@ -169,21 +162,23 @@ class ViewList extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         this.moveScrollView();
-        if(prevState.speedKind != this.state.speedKind){
-            console.log("Run this onPlay");
+        if (prevState.speedKind != this.state.speedKind) {
             this.onPlay();
         }
     }
 
     // 显示列表（listView方式）
-    renderListFrame(course, sectionID, rowID) {
-        // console.log('renderListFrame!');
+    renderListFrame(course, sectionID, rowID) {         
         var i = rowID;
         var dialogInfo = {
             lesson: this.props.lessonID,
             course: this.props.courseID,
-            dIndex: i,
-            gategory: course.Category
+            itemIndex: Number(i),
+            audio: course.mp3,
+            gategory: course.Category,
+            itemWordCN: course.cn,
+            itemWordEN: course.en,
+            user: i % 2,
         };
         return (
             <TouchableOpacity
@@ -191,28 +186,34 @@ class ViewList extends Component {
                 disabled={this.blnAutoplay}
                 onPress={this.touchView.bind(this,i)}
                 activeOpacity={1}
-                key={i}>
-                
-                <ListItem itemWordCN={course.cn}
-                          itemWordEN={course.en}
-                          audio={course.mp3}
-                          itemShowType={this.state.showKind}
-                          itemScore={0}
-                          itemCoins={course.gold}
-                          ref={(ref)=>{this.arrayList.push(ref)}}
-                          user={i%2}
-                          dialogInfo={dialogInfo}
-                          itemIndex={Number(i)}
-                          partents={this}
-                          />
+                key={i}
+            >
+
+                <ListItem
+                    itemShowType={this.state.showKind}
+                    itemScore={0}
+                    itemCoins={course.gold}
+                    blnAutoplay = {this.blnAutoplay}
+                    ref={(ref)=>{this.arrayList[rowID]=ref}}
+                    //ref={(ref)=>{logf("show index:",this.arrayList.indexOf(ref)); if(this.arrayList.indexOf(ref)<0){ this.arrayList.push(ref)}}}
+                    dialogInfo={dialogInfo}
+                    playNext={this.playNext.bind(this)}
+                    getRate = {this.getSpeedKind.bind(this)}
+                />
+
             </TouchableOpacity>
         );
     }
 
+    getSpeedKind=()=>{
+        logf("getSpeedKind:",this.state.speedKind);
+        return this.state.speedKind;
+    }
+
     // 列表中选中处理
-    touchView(_id,blnTouch=true) {
-        if(blnTouch){
-            if(this.blnAutoplay)return;
+    touchView(_id, blnTouch = true) {
+        if (blnTouch) {
+            if (this.blnAutoplay)return;
         }
 
         if (_id != this.state.select) {
@@ -220,21 +221,28 @@ class ViewList extends Component {
                 select: _id
             });
         }
-    }
+    }    
 
     onPlay() {
         this.arrayList[this.state.select]._onAutoplay();
+        logf("arrList length:",this.arrayList.length)
+        for(var i=0;i<this.arrayList.length;i++){
+            logf("why why why",i)
+            this.arrayList[i].setPointEvent("box-only");
+        }
     }
 
     onPause() {
         this.arrayList[this.state.select]._onStopAutoplay();
+        for(var i=0;i<this.arrayList.length;i++){
+            this.arrayList[i].setPointEvent("auto");
+        }
     }
 
     // 自动播放下一条
     playNext() {
         if (this.blnAutoplay) {
-            var index = (this.state.select + 1) % this.props.dialogData.length;
-
+            var index = (this.state.select + 1) % this.props.dialogData.length;            
             // 是否循环播放处理
             if (index == 0) {
                 if (this.blnLoop == 0) {
@@ -244,7 +252,7 @@ class ViewList extends Component {
                 }
             }
             // 单次播放的 跳出
-            this.touchView(index,false);
+            this.touchView(index, false);
         }
     }
 
@@ -278,12 +286,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loadImg: {
-        width: minUnit*10,
-        height: minUnit*10,
-        marginVertical: minUnit*2,
+        width: minUnit * 10,
+        height: minUnit * 10,
+        marginVertical: minUnit * 2,
     },
     font: {
-        fontSize: minUnit*5,
+        fontSize: minUnit * 5,
     }
 });
 

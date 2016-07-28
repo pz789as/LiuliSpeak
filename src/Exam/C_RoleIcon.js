@@ -9,10 +9,12 @@ import {View, Image, StyleSheet, Animated} from 'react-native'
 import {
     ImageIcon
 } from '../Resources';
+import {
+    minUnit,
+} from '../Styles';
 import* as Progress from 'react-native-progress';//安装的第三方组件,使用方法查询:https://github.com/oblador/react-native-progress
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var fontSize = parseInt(totalWidth / 26);
+ 
+var fontSize = parseInt(minUnit*4);
 var radioSize = fontSize * 5;
 
 export default class RoleIcon extends Component {

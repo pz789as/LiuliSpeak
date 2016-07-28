@@ -3,11 +3,15 @@
  */
 import React, {Component, PropTypes} from 'react'
 import {Image, Text, View, Animated, StyleSheet, Easing} from 'react-native'
-
-var Dimensions = require('Dimensions');
-var totalWidth = Dimensions.get('window').width;
-var totalHeight = Dimensions.get('window').height;
-var fontSize = parseInt(totalWidth / 26);
+import {
+    minUnit,
+    ScreenWidth,
+    ScreenHeight,
+} from '../Styles';
+ 
+var totalWidth = ScreenWidth;
+var totalHeight = ScreenHeight;
+var fontSize = parseInt(minUnit*4);
 var SIZE = fontSize * 8;
 export default class Countdown extends Component {
     // 构造
@@ -61,7 +65,7 @@ export default class Countdown extends Component {
     }
 
     componentWillUpdate() {
-        console.log("Countdown Update");
+        logf("Countdown Update");
         this.state.scaleAnim.setValue(0);
         Animated.delay(1000);
         Animated.timing(this.state.scaleAnim, {
