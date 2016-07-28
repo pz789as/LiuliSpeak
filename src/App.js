@@ -6,10 +6,12 @@
 
 import React, { Component } from 'react';
 import {
+  Text,
   AppRegistry,
   NativeModules,
   StatusBar,
   Navigator,
+  Platform,
 } from 'react-native';
 
 import {
@@ -27,6 +29,10 @@ export default class App extends Component {
       //初始化场景，调整其他界面时，可以更改为其他界面，通过该上面的值
     };
     global.logf = this.Logf.bind(this);
+
+    if (Platform.OS == 'ios'){
+      Text.defaultProps.allowFontScaling = false;//设置文字不受机器字体放大缩小的影响，这里是全局设定
+    }
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
