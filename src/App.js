@@ -148,12 +148,28 @@ export default class App extends Component {
   }
   PopPage(){
     var arrRoutes = this._navigator.getCurrentRoutes();//可以获取到所有压入栈中的界面。
-    if (arrRoutes.length >= 2) {
-      this.setState({
-        appStatus: arrRoutes[arrRoutes.length-2].index,//index标识，也可以作为状态使用，两者是一样的值
-      });
+    if (arguments.length == 0 || arguments[0] == Consts.POP){
+      if (arrRoutes.length >= 2) {
+        this.setState({
+          appStatus: arrRoutes[arrRoutes.length-2].index,//index标识，也可以作为状态使用，两者是一样的值
+        });
+      }
+      this._navigator.pop();
+    }else if (arguments[0] == Consts.POP_ROUTE){
+      var bln = true;
+      if (arguments[1]){
+        for(var i=arrRoutes.length - 1;i>=0;i--){
+          if (arrRoutes[i].index == arguments[1]) {
+            this.setState({
+              appStatus: arrRoutes[i].index,
+            });
+            this._navigator.popToRoute(arrRoutes[i]);
+            bln = false;
+            break;
+          }
+        }
+      }
     }
-    this._navigator.pop();
   }
   Logf(message, ...optionalParams) {
     // var args = arguments.length;

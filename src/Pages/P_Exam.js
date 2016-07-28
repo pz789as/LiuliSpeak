@@ -229,7 +229,7 @@ export default class P_Exam extends Component {
         if (this.state.nowIndex == this.dialogLength) {
             this.changeRole();
         } else {
-            if (this.dialogRole[this.state.nowIndex] != this.examRole || true) {
+            if (this.dialogRole[this.state.nowIndex] != this.examRole) {
                 this.initAudio(this.state.nowIndex);
             } else {
                 this.showBtnRecord();

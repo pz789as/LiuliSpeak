@@ -11,7 +11,7 @@ import {
   InteractionManager,
 } from 'react-native';
 
-var fs = require('react-native-fs');
+import fs from 'react-native-fs';
 
 import {
   serverUrl,
