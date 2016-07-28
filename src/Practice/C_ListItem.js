@@ -26,9 +26,9 @@ import {
 } from '../Constant';
 
 
-//import Sentence from '../ListItem/C_Sentence';
+ 
 import Sentence from '../ListItem/C_NewSentence';
-import AllBotton from  '../ListItem/C_AllBottons';
+import AllBotton from  '../ListItem/C_AllButtons';
 import RNFS from 'react-native-fs'
 
 var totalWidth = ScreenWidth; 
@@ -132,7 +132,7 @@ export default class ListItem extends Component {
 
 
                     {(this.state.showType != 1) &&
-                    <Sentence ref="mySentence" style={styles.textWordCN} words={itemWordCN.words}
+                    <Sentence ref="mySentence"  words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
                               touch={this.state.touch}/> }
 
@@ -343,9 +343,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: spacing,
     },
-    textWordCN: {//汉语内容的样式
-        //marginBottom: spacing,
-    },
+
     textWordEN: {//英文翻译的样式
         fontSize: fontSize,
         color: '#757575',

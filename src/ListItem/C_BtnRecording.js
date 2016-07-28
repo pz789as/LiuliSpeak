@@ -158,10 +158,10 @@ export default class BtnRecording extends Component {
         return (
             <TouchableOpacity style={[styles.container]} onPress={this._onPress} activeOpacity={0.5}>
                 {this.drawBtnRecord()}
-                {this.state.playerState != 0 && this.state.progress > 0 &&
+                {this.state.playerState != 0 && this.state.progress >0 &&
                 <Progress.Circle style={styles.progress} thickness={5}
                                  borderWidth={0} progress={this.state.progress}
-                                 size={btnSize-2} color="#3FA214" animated={true}/> }                 
+                                 size={btnSize-2/MinWidth} color="#3FA214" animated={true}/> }
             </TouchableOpacity>
 
         );
@@ -378,8 +378,8 @@ const styles = StyleSheet.create({
     },
     progress: {
         position: 'absolute',
-        left: 2 / MinWidth,
-        top: 2 / MinWidth,
+        left: 1 / MinWidth,
+        top: 1 / MinWidth,
     },
     radio: {
         width: radioSize,

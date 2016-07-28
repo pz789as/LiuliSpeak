@@ -47,13 +47,11 @@ export default class Sentence extends Component {
 
     static propTypes = {
         words: PropTypes.string,
-        pinyins: PropTypes.string,
-        style: PropTypes.number,
+        pinyins: PropTypes.string,        
         touch: PropTypes.object,
         arrScore:PropTypes.array,
     };
-    static defaultProps = {
-        style: 0,
+    static defaultProps = {       
         touch: null,
         arrScore:[],
     };
@@ -97,15 +95,25 @@ export default class Sentence extends Component {
     }
 
     setSyllableColor = (arrScore)=>{
-        //logf("arrScore:",arrScore);
+        logf("arrScore:",arrScore);
         if(arrScore.length == 0){//给默认的颜色值
             for(var i=0;i<this.arrSyllablePY.length;i++){
                 this.arrSyllableColor[i] = '#434343';
             }
+        }else if(arrScore == "error"){
+            var tmpIndex = 0;
+            for(var i=0;i<this.arrSyllablePY.length;i++){
+                if(this.arrSyllablePY[i] == '\n'){
+                    this.arrSyllableColor[i] = '#434343';
+                }else{
+                    this.arrSyllableColor[i] = '#ff0000';
+                    tmpIndex += 1;
+                }
+            }
         }else{
             //先检测实际汉字和分数数据的长度是否匹配
             var tmpWord = this.props.words;
-            tmpWord = tmpWord.replace(/[，_。！？；“”‘’：]/g, "");
+            //tmpWord = tmpWord.replace(/[，_。！？；“”‘’：]/g, "");
             logf("tmpWord:",tmpWord);
             if(tmpWord.length != arrScore.length){
                 logf("检测到分数和实际字数不符");
@@ -211,6 +219,10 @@ export default class Sentence extends Component {
 
     shouldComponentUpdate(nProps,nStates) {
         if(nStates.blnRefresh == true){
+            return true;
+        }
+        if(nProps.words != this.props.words){
+            this.setSyllable(nProps.words,nProps.pinyins);
             return true;
         }
         return false;

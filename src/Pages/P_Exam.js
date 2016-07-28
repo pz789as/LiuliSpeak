@@ -4,6 +4,7 @@
 import React, {Component, PropTypes} from 'react'
 import {View, Text, StyleSheet, Image,TouchableOpacity, Animated, Easing, InteractionManager} from 'react-native'
 
+import Sentence from '../ListItem/C_NewSentence';
 import RoleIcon from '../Exam/C_RoleIcon';
 import BtnRecord from '../ListItem/C_BtnRecording'
 import Countdown from '../Exam/C_Countdown'
@@ -228,7 +229,7 @@ export default class P_Exam extends Component {
         if (this.state.nowIndex == this.dialogLength) {
             this.changeRole();
         } else {
-            if (this.dialogRole[this.state.nowIndex] != this.examRole) {
+            if (this.dialogRole[this.state.nowIndex] != this.examRole || true) {
                 this.initAudio(this.state.nowIndex);
             } else {
                 this.showBtnRecord();
@@ -331,6 +332,7 @@ export default class P_Exam extends Component {
 
     renderContent = ()=> {
         if (this.state.blnCountdown) return;
+        console.log("this.state.nowIndex:",this.state.nowIndex);
         return (
             <View style={styles.content}>
                 {this.state.nowIndex > 0 &&
@@ -341,9 +343,10 @@ export default class P_Exam extends Component {
                             translateY:this.state.translateYAnim.interpolate({
                                 inputRange:[0,1],outputRange:[0,-AnimTransfromY]
                             })
-                        }]
+                        }],
+                        marginBottom:ScentenceSpace,
                     }}>
-                    <Sentence ref="mySentence" style={styles.Sentence} words={this.words[this.state.nowIndex-1]}
+                    <Sentence ref="mySentence" words={this.words[this.state.nowIndex-1]}
                               pinyins={this.pinyins[this.state.nowIndex-1]}
                     />
                 </Animated.View>
@@ -356,10 +359,11 @@ export default class P_Exam extends Component {
                             translateY:this.state.translateYAnim.interpolate({
                                 inputRange:[0,1],outputRange:[AnimTransfromY,0]
                             })
-                        }]
+                        }],
+                        marginBottom:ScentenceSpace,
                     }}>
                     {this.blnShowPoint && <GreenPoint ref="greenPoint" callback={this.endOfCountdown.bind(this)}/>}
-                    <Sentence ref="mySentence" style={styles.Sentence} words={this.words[this.state.nowIndex]}
+                    <Sentence ref="mySentence" words={this.words[this.state.nowIndex]}
                               pinyins={this.pinyins[this.state.nowIndex]}
                     />
                 </Animated.View>
@@ -372,9 +376,10 @@ export default class P_Exam extends Component {
                             translateY:this.state.translateYAnim.interpolate({
                                 inputRange:[0,1],outputRange:[AnimTransfromY,0]
                             })
-                        }]
+                        }],
+                        marginBottom:ScentenceSpace,
                     }}>
-                        <Sentence ref="mySentence" style={styles.Sentence} words={this.words[this.state.nowIndex+1]}
+                        <Sentence ref="mySentence" words={this.words[this.state.nowIndex+1]}
                                   pinyins={this.pinyins[this.state.nowIndex+1]}
                         />
                     </Animated.View>
@@ -501,9 +506,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: (totalWidth) / 2 - fontSize * 4,
         top: -fontSize * 2,
-    },
-    Sentence: {
-        marginBottom: ScentenceSpace,
     },
     changeText: {
         fontSize: fontSize * 1.5,

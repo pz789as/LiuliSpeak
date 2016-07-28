@@ -88,7 +88,6 @@ export default class AllBottons extends Component {
 
 
     componentDidMount() {
-
         InteractionManager.runAfterInteractions(()=> {
             if(this.blnRelease) return;
             this.setState({blnDraw: true})
