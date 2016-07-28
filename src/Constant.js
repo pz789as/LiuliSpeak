@@ -29,7 +29,7 @@ let Consts = {
     //界面回跳方式
     POP: 0,
     POP_ROUTE: 1,
-    // POP_POP: 2,
+    POP_POP: 2,
 };
 
 let Scenes = {//界面的index，主要是宏定义，方便跳转到对应的scenelist中的某个页面。
