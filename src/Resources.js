@@ -70,6 +70,20 @@ let ImageIcon = {
     user0:require('../icon/user0.png'),
     user1:require('../icon/user1.jpg'),
     user2:require('../icon/user2.jpg'),
+    user3:require('../icon/user3.jpg'),
+    user4:require('../icon/user4.jpg'),
+    user5:require('../icon/user5.jpg'),
+    user6:require('../icon/user6.jpg'),
+    user7:require('../icon/user7.jpg'),
+    user8:require('../icon/user8.jpg'),
+    user9:require('../icon/user9.jpg'),
+    user10:require('../icon/user10.jpg'),
+    user11:require('../icon/user11.jpg'),
+    user12:require('../icon/user12.jpg'),
+    user13:require('../icon/user13.png'),
+    user14:require('../icon/user14.png'),
+    user15:require('../icon/user15.jpg'),
+
 };
 
 let ColorRes = {

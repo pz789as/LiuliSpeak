@@ -32,6 +32,7 @@ export default class RoleIcon extends Component {
 
     static propTypes = {
         imgSourceName: PropTypes.array,
+        isExamRole:PropTypes.func,
     };
 
     hiddenIcon = (roleIndex)=> {
@@ -39,7 +40,7 @@ export default class RoleIcon extends Component {
         Animated.timing(this.state.roateYAnim, {
             toValue: 0,
             duration: 250,
-        }).start(()=>{this.setState({imgSource:this.props.imgSourceName[this.nowIndex]})})
+        }).start(()=>{this.setState({imgSource:this.props.isExamRole()?"user0":this.props.imgSourceName[this.nowIndex]})})
     }
 
     showIcon = ()=>{

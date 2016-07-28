@@ -113,7 +113,7 @@ export default class Sentence extends Component {
         }else{
             //先检测实际汉字和分数数据的长度是否匹配
             var tmpWord = this.props.words;
-            //tmpWord = tmpWord.replace(/[，_。！？；“”‘’：]/g, "");
+            tmpWord = tmpWord.replace(/[，_。！？；“”‘’：]/g, "");
             logf("tmpWord:",tmpWord);
             if(tmpWord.length != arrScore.length){
                 logf("检测到分数和实际字数不符");
@@ -231,13 +231,9 @@ export default class Sentence extends Component {
     getSyllable = (index)=>{
         var arrWord = [];
         for(var i=0;i<this.arrWordLength[index];i++){
-            var syllableMargin = 1/MinWidth;
-            if(i==this.arrWordLength[index] - 1){
-                syllableMargin = fontSize/2;
-            }
             var startIndex = this.arrWordStart[index]
             arrWord.push(
-                <Text key={startIndex + i} style={[styles.pinyin,{color:this.arrSyllableColor[startIndex+i],marginRight:syllableMargin}]}>
+                <Text key={startIndex + i} style={[styles.pinyin,{color:this.arrSyllableColor[startIndex+i]}]}>
                     {this.arrSyllablePY[startIndex + i]}
                     <Text style={styles.word}>{this.arrSyllableWord[startIndex+i]}</Text>
                 </Text>
@@ -302,12 +298,12 @@ const styles = StyleSheet.create({
     words: {
         //backgroundColor:'#ff000011',
         flexDirection: 'row',
-        marginHorizontal: fontSize / 3,
+        marginHorizontal: fontSize*0.25,
     },
     pinyin: {
-        fontSize: fontSize * 0.75,
+        fontSize: fontSize * 0.70,
         textAlign: 'center',
-        marginHorizontal: 1/MinWidth,
+        marginHorizontal: MinWidth,
     },
     word: {
         fontSize: fontSize * 1.5,

@@ -43,15 +43,16 @@ export default class ListItem extends Component {
         this.itemIndex = this.props.dialogInfo.itemIndex;
         this.state = {
             score: this.props.itemScore,
-            coins: this.props.itemCoins,
+            //coins: this.props.itemCoins,
             blnLow: false,
             blnSelect: (this.itemIndex == 0),
             showType: this.props.itemShowType,//默认的显示类型由属性传递
-            btnCount:4,
+            btnCount:3,
         };
         this.useTime = new Date();
-        //logf("构造:", this.itemIndex, "当前时间:", this.useTime.getTime());
-        this.userIcon = this.props.dialogInfo.user == 1 ? ImageIcon.user1 : ImageIcon.user2;
+        var strUser = "user"+this.props.dialogInfo.user;
+        logf("strUser:",strUser);
+        this.userIcon = ImageIcon[strUser];
         this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
     }
 
@@ -61,7 +62,7 @@ export default class ListItem extends Component {
     static propTypes = {
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
         itemScore: PropTypes.number,//从数据库中获取的分数
-        itemCoins: PropTypes.number,//从数据库中获取的金币数量
+        //itemCoins: PropTypes.number,//从数据库中获取的金币数量
         dialogInfo: PropTypes.object,//对话信息
         playNext:PropTypes.func,
         getRate:PropTypes.func,
@@ -146,11 +147,11 @@ export default class ListItem extends Component {
                     }
                 </View>
                 {this.drawScore()}
-
+                {/*
                 <Text style={[styles.coinText,this.state.blnLow&&{bottom:2/MinWidth}]}>
                     {this.state.coins}
                     { <Image style={styles.coinImage} source={ImageRes.icon_coin_s}/>}
-                </Text>
+                </Text>*/}
             </View>
         );
     }
@@ -319,7 +320,7 @@ const styles = StyleSheet.create({
     container: {//主背景
         flexDirection: 'row',
         width: totalWidth,
-        borderBottomWidth: 1 / MinWidth,
+        borderBottomWidth: MinWidth ,
         borderBottomColor: '#CBCBCB',
         paddingVertical: spacing,//给个1个汉字大小的内边距
         paddingHorizontal: spacing / 4,
@@ -404,7 +405,7 @@ const styles = StyleSheet.create({
         height: fontSize *0.7,
         borderRadius: fontSize *0.35,
         backgroundColor: '#EF911D',
-        top: fontSize / 2 - 2 / MinWidth,
+        top: fontSize / 2 - 2 *MinWidth,
         left: fontSize / 2,
     },
 

@@ -1,196 +1,247 @@
-{
-	"titleCN":"英语流利说欢迎你！",
-	"titleEN":"Welcome to Liulishuo!",
-	"degree":"小成",
-	"kind":"五花八门",
-	"introduction":"让我们先来热热身，准备畅游在英语流利说的海洋里吧！",
-	"practices":[
-		{
-			"titleCN":"问候",
-			"titleEN":"Saying Hi",
-			"contents":[
-				{
-					"cn": {
-						"words":"让_我们_先来_热热身，_准备_畅游_在_英语_流利说_的_海洋_里_吧！",
-						"pinyins": "rang_wo men_xian lai_re re shen_zhun bei_chang you_zai_ying yu_liu li shuo_de_hai yang_li_ba"
-						},
-					"en": "Hello",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_0.mp3",
-				},{
-					"cn": {
-						"words":"我_叫_李小龙。",
-						"pinyins": "wo_jiao_li xiao long"
-						},
-					"en": "You have a meal not",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_1.mp3",
-				},{
-					"cn": {
-						"words":"你_是_哪国_人？",
-						"pinyins": "ni_shi_na guo_ren"
-						},
-					"en": "What would you like to eat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_2.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat too!",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_4.mp3",
-				},
-			]
-		},{
-			"titleCN":"约人外出",
-			"titleEN":"Asking Somebody Out",
-			"contents":[
-				{
-					"cn": {
-						"words":"你_叫_什么？",
-						"pinyins": "ni_jiao_shen me"
-						},
-					"en": "Hello",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_0.mp3",
-				},{
-					"cn": {
-						"words":"我_叫_李小龙。",
-						"pinyins": "wo_jiao_li xiao long"
-						},
-					"en": "You have a meal not",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_1.mp3",
-				},{
-					"cn": {
-						"words":"你_是_哪国_人？",
-						"pinyins": "ni_shi_na guo_ren"
-						},
-					"en": "What would you like to eat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_2.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
-				},
-			]
-		},{
-			"titleCN":"太好吃了",
-			"titleEN":"That's So Yummy",
-			"contents":[
-				{
-					"cn": {
-						"words":"你_叫_什么？",
-						"pinyins": "ni_jiao_shen me"
-						},
-					"en": "Hello",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_0.mp3",
-				},{
-					"cn": {
-						"words":"我_叫_李小龙。",
-						"pinyins": "wo_jiao_li xiao long"
-						},
-					"en": "You have a meal not",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_1.mp3",
-				},{
-					"cn": {
-						"words":"你_是_哪国_人？",
-						"pinyins": "ni_shi_na guo_ren"
-						},
-					"en": "What would you like to eat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_2.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
-				},
-			]
-		},{
-			"titleCN":"那部电影棒极了",
-			"titleEN":"That Movie Was Awesome",
-			"contents":[
-				{
-					"cn": {
-						"words":"你_叫_什么？",
-						"pinyins": "ni_jiao_shen me"
-						},
-					"en": "Hello",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_0.mp3",
-				},{
-					"cn": {
-						"words":"我_叫_李小龙。",
-						"pinyins": "wo_jiao_li xiao long"
-						},
-					"en": "You have a meal not",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_1.mp3",
-				},{
-					"cn": {
-						"words":"你_是_哪国_人？",
-						"pinyins": "ni_shi_na guo_ren"
-						},
-					"en": "What would you like to eat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_2.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
-				},{
-					"cn": {
-						"words":"我_是_中国_人。",
-						"pinyins": "wo_shi_zhong guo_ren"
-						},
-					"en": "You are so fat too!",
-					"Category":"read_sentence",
-					"gold": 4,
-					"mp3": "dialog0_0_3.mp3",
-				},
-			]
-		},
-	]
+﻿{
+  "titleCN": "假期到了",
+  "titleEN": "Holidays coming",
+  "degree": "小成",
+  "kind": "五花八门",
+  "introduction": "你打算怎么度过假期呢？How are you going to spend the holiday?",
+  "practices": [
+    {
+      "titleCN": "假期计划",
+      "titleEN": "holiday plan",
+      "contents": [
+        {
+          "cn": {
+            "words": "假期_快_到了。",
+            "pinyins": "jià qī_kuài_dào le"
+          },
+          "en": "The vacation is coming.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog1.mp3",
+          "user": 7,
+        },
+        {
+          "cn": {
+            "words": "你_有_什么_假期_计划_呢？",
+            "pinyins": "nǐ_yǒu_shén me_jià qī_jì huà_ne"
+          },
+          "en": "What are your vacation plans yet?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog2.mp3",
+          "user": 2,
+        },
+        {
+          "cn": {
+            "words": "我_打算_去_找_一份_工作。_你呢？",
+            "pinyins": "wǒ_dǎ suàn_qù_zhǎo_yí fèn_gōng zuò_nǐ ne"
+          },
+          "en": "I intend to look for a job. How about you?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog3.mp3",
+          "user": 7,
+        },
+        {
+          "cn": {
+            "words": "我_还_没有_决定。_你_有_什么_建议_吗？",
+            "pinyins": "wǒ_hái_méi yǒu_jué dìng_Nǐ_yǒu_shén me_jiàn yì_ma"
+          },
+          "en": "I have not decided. Do you have any advice?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog4.mp3",
+          "user": 2,
+        },
+        {
+          "cn": {
+            "words": "我_觉得_你_可以_去_学习_游泳。",
+            "pinyins": "wǒ_jué de_nǐ_kě yǐ_qù_xué xí_yóu yǒng"
+          },
+          "en": "I think you can go to learn to swim.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog5.mp3",
+          "user": 7,
+        },
+        {
+          "cn": {
+            "words": "听起来_不错。",
+            "pinyins": "tīng qǐ lái_bú cuò"
+          },
+          "en": "It sounds pretty good.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog6.mp3",
+          "user": 2,
+        },
+      ]
+    },
+    {
+      "titleCN": "愉快假期",
+      "titleEN": "Happy Holidays",
+      "contents": [
+        {
+          "cn": {
+            "words": "假期_过_得_怎么样？",
+            "pinyins": "jià qī_guò_de_zěn me yàng"
+          },
+          "en": "how was your vacation?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog1.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "很_好，_我_跟_父母_一起_去_了_桂林。",
+            "pinyins": "hěn_hǎo_wǒ_gēn_fù mǔ_yì qǐ_qù_le_guì lín "
+          },
+          "en": "Ah well, I went to Guilin with their parents.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog2.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "那_太_好_了，_桂林_好_玩_吗？",
+            "pinyins": "nà_tài_hǎo_le_guì lín_hǎo_wán_ma"
+          },
+          "en": "That's good, Guilin fun?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog3.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "桂林_很_美，_天_很_蓝，_水_很_清，_空气_新鲜，_人_也_很_友好。",
+            "pinyins": "guì lín_hěn_měi_tiān_hěn_lán_shuǐ_hěn_qīng_kōng qì_xīn xiān_rén_yě_hěn_yǒu hǎo"
+          },
+          "en": "Guilin is beautiful, the sky is blue, water is very clear, fresh air, people are very friendly.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog4.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "哦，_那_确实_是_个_不错_的_旅行。",
+            "pinyins": "ò_nà_què shí_shì_gè_bú cuò_de_lǚ xíng"
+          },
+          "en": "Oh, it is indeed a good trip.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog5.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "是的。_你呢？_假期_过_得_怎么样？",
+            "pinyins": "shì de_nǐ ne_jià qī_guò_de_zěn me yàng"
+          },
+          "en": "Yes. How about you? how was your vacation?",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog6.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "我_找_了_个_卖_东西_的_工作，_从中_学习_了_很多。",
+            "pinyins": "wǒ_zhǎo_le_gè_mài_dōng xi_de_gōng zuò_cóng zhōng_xué xí_le_hěn duō"
+          },
+          "en": "I found a job selling things, learn a lot.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog7.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "真_好。_我们_都_度过_了_一个_美好_的_假期。",
+            "pinyins": "zhēn_hǎo_wǒ men_dōu_dù guò_le_yí gè_měi hǎo_de_jià qī"
+          },
+          "en": "that's nice. We all had a wonderful holiday.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog8.mp3",
+          "user": 5,
+        },
+      ]
+    },
+    {
+      "titleCN": "假期作业",
+      "titleEN": "Holiday jobs",
+      "contents": [
+        {
+          "cn": {
+            "words": "在_假期_我_不_想_做_任何_作业。",
+            "pinyins": "zài_jià qī_wǒ_bù_xiǎng_zuò_rèn hé_zuò yè"
+          },
+          "en": "In the holidays I do not want to do any work.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog1.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "作业_可以_帮助_我们_复习。",
+            "pinyins": "zuò yè_kě yǐ_bāng zhù_wǒ men_fù xí"
+          },
+          "en": "Jobs can help us review.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog2.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "我们_已经_通过_了_考试。",
+            "pinyins": "wǒ men_yǐ jīng_tōng guò_le_kǎo shì"
+          },
+          "en": "We have passed the exam.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog3.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "好吧。_可_这样_可以_增加_我们_的_记忆。",
+            "pinyins": "hǎo ba_Kě_zhè yàng_kě yǐ_zēng jiā_wǒ men_de_jì yì"
+          },
+          "en": "Ok. This can increase our memory.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog4.mp3",
+          "user": 1,
+        },
+        {
+          "cn": {
+            "words": "我们_没_必要_在_这个_时候_做_这么_多_作业。",
+            "pinyins": "wǒ men_méi_bì yào_zài_zhè gè_shí hou_zuò_zhè me_duō_zuò yè"
+          },
+          "en": "We do not need at this time to do so much work.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog5.mp3",
+          "user": 5,
+        },
+        {
+          "cn": {
+            "words": "老师_只是_想_布置_一些_任务，_不_让_我们_闲着。",
+            "pinyins": "lǎo shī_zhǐ shì_xiǎng_bù zhù_yī xīe_rèn wù_bú_ràng_wǒ men_xián zhe"
+          },
+          "en": "Some just want a teacher arranged mission, let us idle.",
+          "Category": "read_sentence",
+          "gold": 4,
+          "mp3": "dialog6.mp3",
+          "user": 1,
+        },
+      ]
+    },
+  ]
 }

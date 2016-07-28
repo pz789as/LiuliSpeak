@@ -161,7 +161,7 @@ export default class BtnRecording extends Component {
                 {this.state.playerState != 0 && this.state.progress >0 &&
                 <Progress.Circle style={styles.progress} thickness={5}
                                  borderWidth={0} progress={this.state.progress}
-                                 size={btnSize-2/MinWidth} color="#3FA214" animated={true}/> }
+                                 size={btnSize-2*MinWidth} color="#3FA214" animated={true}/> }
             </TouchableOpacity>
 
         );
@@ -378,8 +378,8 @@ const styles = StyleSheet.create({
     },
     progress: {
         position: 'absolute',
-        left: 1 / MinWidth,
-        top: 1 / MinWidth,
+        left: MinWidth,
+        top: MinWidth,
     },
     radio: {
         width: radioSize,

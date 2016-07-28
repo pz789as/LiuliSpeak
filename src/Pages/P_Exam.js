@@ -15,6 +15,8 @@ import Sound from 'react-native-sound';
 import {
     getExamFilePath,
     getMp3FilePath,
+    Consts,
+    Scenes,
 } from '../Constant';
 import {
     ImageRes,
@@ -49,7 +51,7 @@ export default class P_Exam extends Component {
         this.words = [];
         this.pinyins = [];
         this.audio = [];
-        this.category = []
+        this.category = [];
         this.dialogRole = [];//记录每句话都由哪个角色说的
         this.Roles = [];//获取对话中所有的角色信息
         this.getDialogData(this.props.dialogData);
@@ -76,7 +78,8 @@ export default class P_Exam extends Component {
             this.pinyins[i] = data[i].cn.pinyins;
             this.audio[i] = getMp3FilePath(this.props.lessonID, this.props.courseID) + '/' + data[i].mp3;
             this.category[i] = data[i].Category;
-            this.dialogRole[i] = 'user' + (i % 2);//数据中还没有,先留个变量
+            this.dialogRole[i] = 'user' + data[i].user;//数据中还没有,先留个变量
+            logf("diaolgRole",this.dialogRole[i]);
             this.setRoles(this.dialogRole[i]);
         }
     }
@@ -97,7 +100,14 @@ export default class P_Exam extends Component {
             this.Roles[this.Roles.length] = role;
         }
     }
-
+    
+    blnExamRole = ()=>{
+        if(this.examRole == this.dialogRole[this.state.nowIndex]){
+            return true;
+        }
+        return false;
+    }
+    
     _onStartIconAnim = ()=> {//控制两个头像的动画
         if (this.state.nowIndex < this.dialogLength) {
             this.refs.roleIcon.hiddenIcon(this.state.nowIndex);
@@ -229,7 +239,7 @@ export default class P_Exam extends Component {
         if (this.state.nowIndex == this.dialogLength) {
             this.changeRole();
         } else {
-            if (this.dialogRole[this.state.nowIndex] != this.examRole) {
+            if (this.dialogRole[this.state.nowIndex] != this.examRole ) {
                 this.initAudio(this.state.nowIndex);
             } else {
                 this.showBtnRecord();
@@ -325,7 +335,7 @@ export default class P_Exam extends Component {
         if (this.state.blnCountdown) return;
         return (
             <View style={styles.top}>
-                <RoleIcon ref="roleIcon" imgSourceName={this.dialogRole}/>
+                <RoleIcon ref="roleIcon" isExamRole={()=>this.dialogRole[this.state.nowIndex] == this.examRole} imgSourceName={this.dialogRole}/>
             </View>
         );
     }
@@ -442,7 +452,7 @@ export default class P_Exam extends Component {
 
     callBackPause = (id)=>{
         if(id == 0){//退出
-            this.props.PopPage();
+            this.props.PopPage(Consts.POP_ROUTE, Scenes.MENU);
         }else if(id == 1){//重来
             this.restartExam();
         }else if(id == 2){//继续

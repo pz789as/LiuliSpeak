@@ -178,12 +178,12 @@ class ViewList extends Component {
             gategory: course.Category,
             itemWordCN: course.cn,
             itemWordEN: course.en,
-            user: i % 2,
+            user: course.user,
         };
         return (
             <TouchableOpacity
                 onLayout={this._onLayoutItem.bind(this,i)}
-                disabled={this.blnAutoplay}
+
                 onPress={this.touchView.bind(this,i)}
                 activeOpacity={1}
                 key={i}
@@ -192,7 +192,7 @@ class ViewList extends Component {
                 <ListItem
                     itemShowType={this.state.showKind}
                     itemScore={0}
-                    itemCoins={course.gold}
+                    //itemCoins={course.gold}
                     blnAutoplay = {this.blnAutoplay}
                     ref={(ref)=>{this.arrayList[rowID]=ref}}
                     //ref={(ref)=>{logf("show index:",this.arrayList.indexOf(ref)); if(this.arrayList.indexOf(ref)<0){ this.arrayList.push(ref)}}}
@@ -225,16 +225,18 @@ class ViewList extends Component {
 
     onPlay() {
         this.arrayList[this.state.select]._onAutoplay();
-        logf("arrList length:",this.arrayList.length)
+        //logf("arrList length:",this.arrayList.length)
         for(var i=0;i<this.arrayList.length;i++){
-            logf("why why why",i)
+            //logf("why why why",i)
             this.arrayList[i].setPointEvent("box-only");
         }
     }
 
     onPause() {
+        this.blnAutoplay = false;
         this.arrayList[this.state.select]._onStopAutoplay();
         for(var i=0;i<this.arrayList.length;i++){
+            //logf("arrList",i,"setPointEvent");
             this.arrayList[i].setPointEvent("auto");
         }
     }
