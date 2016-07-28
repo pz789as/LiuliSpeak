@@ -101,7 +101,7 @@ class BottomBar extends Component {
 			array.push(
 				<TouchableOpacity
 					key={i}
-					style={[styles.button, i==0&&styles.buttonLeft, i==2&&styles.buttonRight, i==_select&&styles.buttonColor]}
+					style={[styles.button, i==_select&&styles.buttonColor]}
 					onPress={this.changeOption.bind(this, _id, i)}
 					activeOpacity={1}>
 					<View style={[styles.button, i!=2&&styles.space]} >
@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		overflow: 'hidden',
 	},
 	button: {
 		flex: 1,
