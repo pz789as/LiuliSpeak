@@ -237,6 +237,12 @@ class P_Practice extends Component {
     }
 
     _onStart() {
+        this.props.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM,
+            {
+                dialogData: this.props.dialogData,
+                lessonID: this.props.lessonID,
+                courseID: this.props.courseID,
+            });
     }
 
     _changeOption(index, select) {
@@ -246,7 +252,8 @@ class P_Practice extends Component {
     getGold(num) {
         this.gold += num;
         this.refs.ProgressBar.getGold(num);
-    }    
+    }
+
 }
 
 const ming = StyleSheet.create({
