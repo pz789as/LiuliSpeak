@@ -57,6 +57,8 @@ export default class C_MainStudyView extends Component {
         </View>
         <View style={styles.studyList}>
           <ListView renderRow={this.renderListItem.bind(this)}
+            scrollEnabled={true}
+            ref={'MainListView'}
             style={[styles.fill, {overflow: 'hidden'}]}
             dataSource={this.props.courseListDataSource} />
         </View>
@@ -70,13 +72,22 @@ export default class C_MainStudyView extends Component {
   }
   renderListItem(course, sectionID, rowID){
     return (
-      <TouchableOpacity activeOpacity={0.5} onPress={()=>{this.props.selectListItem(rowID)}}>
-        <View style={[styles.fill, styles.studySpacing]}>
-          <CardItem image={ImageRes.me_icon_normal}
-            renderData={course}/>
-        </View>
-      </TouchableOpacity>
+      <CardItem
+        image={ImageRes.me_icon_normal}
+        renderData={course}
+        parents={this}
+        onTouch={()=>{this.props.selectListItem(rowID)}}/>
     );
+  }
+  closeScrollMove() {
+    this.refs.MainListView.setNativeProps({
+      scrollEnabled: false,
+    });
+  }
+  openScrollMove() {
+    this.refs.MainListView.setNativeProps({
+      scrollEnabled: true,
+    });
   }
 };
 
