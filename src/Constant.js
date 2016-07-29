@@ -55,9 +55,13 @@ let getExamFilePath = function(lessonID, courseID, dailogID){
     return "exam" + lessonID + "_" + courseID + "_" + dailogID + ".pcm";
 };
 
-let getMp3FilePath = function(lessonID, courseID) {
-    return '/lesson' + lessonID + '/course' + courseID;
+let getMp3FilePath = function(lessonID, courseID) {//课程音频和json文件路径
+    return '/lessons/lesson' + lessonID;
 };
+
+let getLessonsPath = function(){//课程所有资源路径
+    return '/lessons';
+}
 
 let serverUrl = 'http://192.169.1.19:8080';
 
@@ -68,4 +72,5 @@ module.exports = {
     getExamFilePath,
     serverUrl,
     getMp3FilePath,
+    getLessonsPath,
 }

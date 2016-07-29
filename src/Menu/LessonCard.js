@@ -9,9 +9,8 @@ import {
   Image,
   Text,
   InteractionManager,
+  Alert,
 } from 'react-native';
-
-import fs from 'react-native-fs';
 
 import {
   serverUrl,
@@ -126,7 +125,7 @@ class LessonCard extends Component {
 						}
 						if (count == this.props.course.contents.length){
 							if (exits == count){//文件都存在就可以正常跳转
-								this.props.onStart(parseInt(this.props.rowID), 0);
+								this.gotoNext();
 							}else{//有文件不存在就要去下载
 								this.downLoadMp3(path);
 							}
@@ -165,8 +164,8 @@ class LessonCard extends Component {
 		this.intIdx = 0;
 		for(var idx=0; idx < this.allIdx; idx++){
 			var localPath = path + '/' + this.course.contents[idx].mp3;
-			var fromUrl = serverUrl + '/LiuliSpeak/Lessons/lesson' + 
-							(parseInt(this.props.lessonID)+1) + '_mp3/' + this.course.contents[idx].mp3;
+			var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
+							(parseInt(this.props.lessonID)) + '/' + this.course.contents[idx].mp3;
 			logf(fromUrl);
 			logf(localPath);
 			fs.downloadFile({
