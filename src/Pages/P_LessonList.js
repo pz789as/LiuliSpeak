@@ -76,10 +76,10 @@ export default class P_LessonList extends Component {
     });
   }
   onPressBack(){
-    this.props.PopPage();
+    app.PopPage();
   }
   onSelectLesson(index){
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
       lesson: this.props.listData[index],
     });
   }

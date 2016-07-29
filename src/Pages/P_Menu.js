@@ -45,7 +45,7 @@ class P_Menu extends Component {
   componentWillUnmount(){
   }
   onCancel() {
-  	this.props.PopPage();
+  	app.PopPage();
   }
   gotoMore() {
     this.setState({
@@ -64,7 +64,7 @@ class P_Menu extends Component {
     }else if(kind == 1){
       pageIdx = Scenes.EXAM;
     }
-    this.props.GotoPage(Consts.NAVI_PUSH, pageIdx, 
+    app.GotoPage(Consts.NAVI_PUSH, pageIdx, 
         {
           dialogData: this.realPractices[rowID].contents,
           lessonID: this.props.lessonID,

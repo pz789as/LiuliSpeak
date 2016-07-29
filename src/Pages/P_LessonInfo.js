@@ -66,7 +66,7 @@ export default class P_LessonInfo extends Component {
         blnMoreList: false,
       });
     }else{
-      this.props.PopPage();
+      app.PopPage();
     }
   }
   showMore(){

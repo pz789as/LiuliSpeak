@@ -64,13 +64,13 @@ export default class P_Login extends Component {
     );
   }
   onCancel(){
-    this.props.PopPage();
+    app.PopPage();
   }
   gotoRegister(){
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.REGISTER, {});
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.REGISTER, {});
   }
   onLogin(){
-    this.props.GotoPage(Consts.NAVI_RESET, Scenes.MAIN, {
+    app.GotoPage(Consts.NAVI_RESET, Scenes.MAIN, {
       phones: this.state.phones,
       password: this.state.password,
     });

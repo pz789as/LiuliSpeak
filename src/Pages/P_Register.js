@@ -66,10 +66,10 @@ export default class P_Register extends Component {
     );
   }
   onCancel(){
-    this.props.PopPage();
+    app.PopPage();
   }
   onRegister(){
-    this.props.GotoPage(Consts.NAVI_RESET, Scenes.MAIN, {
+    app.GotoPage(Consts.NAVI_RESET, Scenes.MAIN, {
       nicheng: this.state.nicheng,
       phones: this.state.phones,
       password: this.state.password,

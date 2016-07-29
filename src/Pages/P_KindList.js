@@ -65,12 +65,12 @@ export default class P_KindList extends Component {
   componentWillUnmount(){
   }
   onPressBack(){
-    this.props.PopPage();
+    app.PopPage();
   }
   onSelectKind(rowID){
     //0 选择全部
     // 选择其他类型
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {
       freshType: Consts.REFRESH,
       listKind: this.listData[rowID],
       mainTitle: this.listData[rowID].name,

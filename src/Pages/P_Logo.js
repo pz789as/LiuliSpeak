@@ -36,7 +36,7 @@ export default class P_Logo extends Component {
   componentWillUnmount(){
   }
   GotoLogin(){
-    this.props.GotoPage(Consts.NAVI_REPLACE, Scenes.PREPAGE, {});
+    app.GotoPage(Consts.NAVI_REPLACE, Scenes.PREPAGE, {});
   }
   render() {
     return (

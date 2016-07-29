@@ -52,7 +52,7 @@ const msg = [
 ];
 
 export default class C_CardItem extends Component {
-  listNum = 0;
+  listNum = 1;
   constructor(props){
     super(props);
     console.log(this.props.renderData);

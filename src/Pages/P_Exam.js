@@ -452,7 +452,7 @@ export default class P_Exam extends Component {
 
     callBackPause = (id)=>{
         if(id == 0){//退出
-            this.props.PopPage(Consts.POP_ROUTE, Scenes.MENU);
+            app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
         }else if(id == 1){//重来
             this.restartExam();
         }else if(id == 2){//继续

@@ -38,7 +38,7 @@ export default class P_Main extends Component {
   }
   selectListItem(rowID){
     logf(rowID);
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, 
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, 
         {
           lessonData:lesson1.practices,
           lessonID: rowID,
@@ -55,7 +55,7 @@ export default class P_Main extends Component {
   componentWillUnmount(){
   }
   addLesson(){
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state) return true;

@@ -38,6 +38,7 @@ export default class App extends Component {
     }
     this.createStorage();
     global.deleteFile = this.deleteFile.bind(this);
+    global.app = this;
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
@@ -111,19 +112,12 @@ export default class App extends Component {
           name: SceneList[this.state.appStatus].name,
           index: SceneList[this.state.appStatus].index,
           configure: SceneList[this.state.appStatus].configure,
-          params:{
-            GotoPage: this.GotoPage.bind(this),
-            PopPage: this.PopPage.bind(this),
-          }
         }}
         configureScene={this.configureScene.bind(this)}
         renderScene={this.renderScene.bind(this)} />
     );
   }
   GotoPage(kind, index, params){
-    params.GotoPage = this.GotoPage.bind(this);
-    params.PopPage = this.PopPage.bind(this);
-    params.App = this;
     var configureType = SceneList[index].configure;
     if (params.configure && params.configure >= Consts.PushFromRight){
       configureType = params.configure;
@@ -198,7 +192,7 @@ export default class App extends Component {
   }
   createStorage(){
     var storage = new Storage({
-      size: 1000,    // 最大容量，默认值1000条数据循环存储
+      size: 9999,    // 最大容量，默认值1000条数据循环存储
       defaultExpires: null,// 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
       enableCache: true,// 读写时在内存中缓存数据。默认启用。
       // 如果storage中没有相应数据，或数据已过期，
@@ -223,7 +217,7 @@ export default class App extends Component {
     // }).catch((error)=>{
     //   logf(error);
     // });
-    //删除不需要检查文件，如果删除的是路径会自动删除全部文件和路径。
+    //删除时不需要检查文件，如果删除的是路径会自动删除全部文件和路径。
     fs.unlink(file)
     .spread((success, path)=>{
       logf('FILE DELETED', success, path);

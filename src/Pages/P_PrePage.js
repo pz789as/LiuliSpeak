@@ -46,10 +46,10 @@ export default class P_PrePage extends Component {
     );
   }
   Register(){
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.REGISTER, {});
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.REGISTER, {});
   }
   Login(){
-    this.props.GotoPage(Consts.NAVI_PUSH, Scenes.LOGIN, {});
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.LOGIN, {});
   }
 }
 
