@@ -190,8 +190,8 @@ class P_Practice extends Component {
                 {this.state.blnDraw&&<ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />}
 
                 {this.state.blnDraw&&<ViewList dialogData={this.props.dialogData} 
-                    showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
-                    getGold={this.getGold.bind(this)} parents={this}
+                     showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
+             getGold={this.getGold.bind(this)} parents={this}
              />}
 
                 {this.state.blnDraw&&<BottomBar showKind={this.showKind} speedKind={this.speedKind}
@@ -237,11 +237,10 @@ class P_Practice extends Component {
     }
 
     _onStart() {
-        this.props.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM,
+        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM,
             {
-                dialogData: this.props.dialogData,
-                lessonID: this.props.lessonID,
-                courseID: this.props.courseID,
+                dialogData: this.props.dialogData,   
+                
             });
     }
 

@@ -98,13 +98,6 @@ let SceneList = [
         showStatusBar: true,
     },
     {
-        name:'ExamResultList',
-        Component:ExamResultList,
-        index:Scenes.EXAMRESULTLIST,
-        configure:0,
-        showStatusBar:true,
-    },
-    {
         name: 'LessonList',
         Component: LessonList,
         index: Scenes.LESSONLIST,
@@ -124,7 +117,14 @@ let SceneList = [
         index: Scenes.KINDLIST,
         configure: 0,
         showStatusBar: true,
-    }
+    },
+    {
+        name:'ExamResultList',
+        Component:ExamResultList,
+        index:Scenes.EXAMRESULTLIST,
+        configure:0,
+        showStatusBar:true,
+    },
 ];
 
 module.exports = SceneList;

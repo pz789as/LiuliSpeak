@@ -26,19 +26,21 @@ fontSize = minUnit * 4;
 
 export default class ExamResultList extends Component {
     // 构造
-
     constructor(props) {
         super(props);
-        // 初始状态
+        // 初始状态         
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             dataSource: ds.cloneWithRows(this.props.dialogData),
         };
+        this.time = new Date();
     }
 
     static propTypes = {
         dialogData: PropTypes.object,
-        arrScore: PropTypes.array,
+        arrSyllableScore: PropTypes.array,
+        arrSentenceScore: PropTypes.array,
+        Score:PropTypes.number,
     }
     static defaultProps = {}
     renderTopBar = ()=> {
@@ -48,7 +50,7 @@ export default class ExamResultList extends Component {
                     <Image style={styles.backImg} source={ImageRes.ic_back}/>
                 </TouchableOpacity>
                 <Text style={styles.textTitle}>闯关结果</Text>
-                <ScoreCircle score={90}/>
+                <ScoreCircle score={this.props.Score}/>
             </View>
         );
     }
@@ -64,10 +66,18 @@ export default class ExamResultList extends Component {
     }
 
     renderItem = (rowData, sectionID, rowID)=> {
-        logf("rowData",rowData);
+        //logf("rowID",rowID);
+        //logf("arrSyllableScore:",this.props.arrSyllableScore);
+        //logf("sentenceScore",this.props.arrSentenceScore);
         return(<ResultItem itemIndex={rowID} itemWords={rowData.cn.words}
-                           itemPinyins={rowData.cn.pinyins} itemEN={rowData.en}/>);
+                           itemPinyins={rowData.cn.pinyins} itemEN={rowData.en}
+                            arrSyllableScore = {this.props.arrSyllableScore[rowID]}
+                            sentenceScore = {this.props.arrSentenceScore[rowID]}/>);
 
+    }
+
+    componentDidMount() {
+        logf("--P_ExamResultList Did Mount:--",this.time - new Date());
     }
 
     render() {
@@ -104,6 +114,8 @@ class ResultItem extends Component {
         itemWords: PropTypes.string,
         itemPinyins: PropTypes.string,
         itemEN:PropTypes.string,
+        arrSyllableScore:PropTypes.array,
+        sentenceScore:PropTypes.number,
     };
     static defaultProps = {};
 
@@ -111,10 +123,10 @@ class ResultItem extends Component {
         return (
             <TouchableOpacity style={styles.itemView} activeOpacity={0.5}>
                 <View style={styles.itemContent}>
-                    <Sentence words={this.props.itemWords} pinyins={this.props.itemPinyins}/>
+                    <Sentence words={this.props.itemWords} pinyins={this.props.itemPinyins} arrScore = {this.props.arrSyllableScore}/>
                     <Text style={{fontSize:fontSize,color:'#757575',marginTop:fontSize*0.4,marginLeft:fontSize/2}}>{this.props.itemEN}</Text>
                 </View>
-                <ScoreCircle score={76}/>
+                <ScoreCircle score={this.props.sentenceScore}/>
             </TouchableOpacity>
         );
     }

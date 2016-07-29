@@ -23,13 +23,11 @@ export default class ScoreCircle extends Component {
     };
 
     getColor = (score)=>{
-        let color = 'red';
-        if (score >= 85) {
+        let color = '#FF3B2F';
+        if (score >= 80) {
             color = '#49CD36';
-        } else if (score >= 75) {
+        } else if (score >= 60) {
             color = '#F2B225';
-        } else if(score>=60) {
-            color = '#FF3B2F';
         }
         return color;
     }

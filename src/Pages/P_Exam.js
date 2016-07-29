@@ -69,8 +69,6 @@ export default class P_Exam extends Component {
 
     static propTypes = {
         dialogData: PropTypes.array,
-        lessonID: PropTypes.string,
-        courseID: PropTypes.number,
     };
 
     getDialogData = (data)=> {
@@ -78,10 +76,9 @@ export default class P_Exam extends Component {
         for (var i = 0; i < this.dialogLength; i++) {
             this.words[i] = data[i].cn.words;
             this.pinyins[i] = data[i].cn.pinyins;
-            this.audio[i] = getMp3FilePath(this.props.lessonID, this.props.courseID) + '/' + data[i].mp3;
+            this.audio[i] = getMp3FilePath(app.lesson.lessonID,app.lesson.courseID) + '/' + data[i].mp3;
             this.category[i] = data[i].Category;
             this.dialogRole[i] = 'user' + data[i].user;//数据中还没有,先留个变量
-            logf("diaolgRole",this.dialogRole[i]);
             this.setRoles(this.dialogRole[i]);
         }
     }
@@ -129,7 +126,6 @@ export default class P_Exam extends Component {
         if (this.dialogSound != null) {
             this.releaseDialog();
         }
-        logf("initDialog:", this.audio[index]);
         this.dialogSound = new Sound(this.audio[index], Sound.DOCUMENT, this.handleInitAudio.bind(this));
     }
 
@@ -179,7 +175,7 @@ export default class P_Exam extends Component {
     initRecord = (index)=> {
         var testText = this.words[index];//获取text
         var category = this.category[index];
-        var fileName = getExamFilePath(this.props.lessonID, this.props.courseID, index);
+        var fileName = getExamFilePath(app.lesson.lessonID, app.lesson.courseID, index);
         testText = testText.replace(/_/g, "");
         //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
         this.refs.btnRecord.StartISE(testText, category, fileName);
@@ -219,8 +215,8 @@ export default class P_Exam extends Component {
             //弹出一个提示框
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
-            this.hideBtnRecord();
             this.recordScore(this.state.nowIndex,num.syllableScore,num.sentenctScore);
+            this.hideBtnRecord();
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
         }
     }
@@ -228,6 +224,18 @@ export default class P_Exam extends Component {
     recordScore = (index,syllScore,sentScore)=>{
         this.sentenceScore[index] = sentScore;
         this.syllableScore[index] = syllScore;
+        console.log("this.sentenceScore:",index,this.sentenceScore);
+        console.log("this.syllableScore:",index,this.syllableScore);
+    }
+
+    getLastScore = (arrScore)=>{
+        logf("getLastScore:",arrScore);
+        var length = arrScore.length;
+        var scoreCount = 0;
+        for(var i=0;i<length;i++){
+            scoreCount += arrScore[i];
+        }
+        return parseInt(scoreCount/length);
     }
 
     onDialogOver = ()=> {
@@ -235,6 +243,7 @@ export default class P_Exam extends Component {
     }
 
     onNextDialog = ()=> {
+
         if (this.blnShowPoint) {
             this.refs.greenPoint.startAnim();
             return;
@@ -255,8 +264,15 @@ export default class P_Exam extends Component {
 
     changeRole = ()=> {
         if (this.examRoleIndex == 0) {
-
-            logf("exam is over");
+            var Score = this.getLastScore(this.sentenceScore);
+            logf("exam is over:",Score);
+            app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
+                {
+                    dialogData: this.props.dialogData,
+                    arrSyllableScore: this.syllableScore,
+                    arrSentenceScore: this.sentenceScore,
+                    Score:Score,
+                });
         } else {
             this.setState({blnChangeRole: true});
         }
@@ -349,7 +365,6 @@ export default class P_Exam extends Component {
 
     renderContent = ()=> {
         if (this.state.blnCountdown) return;
-        console.log("this.state.nowIndex:",this.state.nowIndex);
         return (
             <View style={styles.content}>
                 {this.state.nowIndex > 0 &&
