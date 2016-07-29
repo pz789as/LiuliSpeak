@@ -63,6 +63,10 @@ let ImageRes = {
     block_loading09: require('../res/Waiting/block_loading09.png'),
     block_loading10: require('../res/Waiting/block_loading10.png'),
     block_loading11: require('../res/Waiting/block_loading11.png'),
+
+    //课程卡片上的图标
+    ic_star_yellow: require('../res/UI/ic_star_yellow.png'),
+    icon_course_list_already_add: require('../res/UI/icon_course_list_already_add.png'),
 };
 
 

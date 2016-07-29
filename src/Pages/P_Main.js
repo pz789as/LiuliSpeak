@@ -46,12 +46,7 @@ export default class P_Main extends Component {
   }
   componentWillMount(){
     for(var i=0;i<5;i++){
-      this.realCourseList.push({
-        name:'课程' + i,
-        msg: '这是课程'+i+'的介绍',
-        icon:'xxx.png',
-        time:'2016.6.' + (i+1),
-      })
+      this.realCourseList.push(lesson1)
     }
     this.setState({
       courseListDataSource:this.state.courseListDataSource.cloneWithRows(this.realCourseList),

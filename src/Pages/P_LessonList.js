@@ -116,17 +116,10 @@ export default class P_LessonList extends Component {
         style={[styles.fill, styles.studySpacing, styles.overflow]}>
           <CardItem image={ImageRes.me_icon_normal}
             renderData={lesson}
-            renderRight={this.renderRight.bind(this)}/>
+            blnAdd={false}
+            blnNew={false}
+            blnMain={false}/>
       </TouchableOpacity>
-    );
-  }
-  renderRight(data){
-    return (
-      <View style={{margin: 10*MinWidth, padding: 20*MinWidth, flex: 1,}}>
-        <Text style={{fontSize: minUnit*6, color: '#11171D',}}>
-          {data.title}
-        </Text>
-      </View>
     );
   }
   getLessonListData(){
