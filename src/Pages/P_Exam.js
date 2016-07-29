@@ -63,6 +63,8 @@ export default class P_Exam extends Component {
         this.examRoleIndex = Math.min((this.Roles.length - 1), 1);
         this.examRole = this.Roles[this.examRoleIndex];//标记当前考试的Role,如果有多个角色,从第1个来
         this.blnShowPoint = false;
+        this.syllableScore = new Array(this.dialogLength);//音节分数 二维
+        this.sentenceScore = new Array(this.dialogLength);//句子的分数
     }
 
     static propTypes = {
@@ -218,10 +220,14 @@ export default class P_Exam extends Component {
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
             this.hideBtnRecord();
+            this.recordScore(this.state.nowIndex,num.syllableScore,num.sentenctScore);
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
-        } /*(else if (msg == "AnimOver") {
+        }
+    }
 
-        }*/
+    recordScore = (index,syllScore,sentScore)=>{
+        this.sentenceScore[index] = sentScore;
+        this.syllableScore[index] = syllScore;
     }
 
     onDialogOver = ()=> {
@@ -249,6 +255,7 @@ export default class P_Exam extends Component {
 
     changeRole = ()=> {
         if (this.examRoleIndex == 0) {
+
             logf("exam is over");
         } else {
             this.setState({blnChangeRole: true});

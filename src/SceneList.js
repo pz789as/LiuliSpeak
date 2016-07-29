@@ -22,6 +22,7 @@ import AllLessons from './Pages/P_AllLessons';
 // import AllLessons from './Pages/P_TestText';
 // import AllLessons from './Pages/P_WebText';
 import Exam from './Pages/P_Exam';
+import ExamResultList from './Pages/P_ExamResultList';
 import LessonList from './Pages/P_LessonList';
 import LessonInfo from './Pages/P_LessonInfo';
 import KindList from './Pages/P_KindList';
@@ -95,6 +96,13 @@ let SceneList = [
         index: Scenes.EXAM,
         configure: 0,
         showStatusBar: true,
+    },
+    {
+        name:'ExamResultList',
+        Component:ExamResultList,
+        index:Scenes.EXAMRESULTLIST,
+        configure:0,
+        showStatusBar:true,
     },
     {
         name: 'LessonList',
