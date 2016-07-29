@@ -33,6 +33,14 @@ class P_Menu extends Component {
       }),
       blnMoreMenu: false,
     };
+    storage.load({
+      key: 'lesson',
+      id: app.lesson.lessonID,
+    }).then((ret)=>{
+        console.log(ret);
+    }).catch((err) => {
+        console.log(err);
+    });
   }
   componentWillMount(){
     for(let i=0;i<this.props.lessonData.length;i++){

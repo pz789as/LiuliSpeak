@@ -1,0 +1,123 @@
+﻿{
+	"titleCN":"我要学汉语",
+	"titleEN":"Welcome to Liulishuo!",
+	"degree":"小成",
+	"kind":"五花八门",
+	"introduction":"你喜欢汉语课吗？Do you like chinese?",
+	"practices":[
+		{
+			"titleCN":"你今天上了什么课？",
+			"titleEN":"What you get on the lesson today?",
+			"contents":[
+				{
+					"cn": {
+						"words":"你_今天_上了_什么_课？",
+						"pinyins": "nǐ_jīn tiān_shàng le_shén me_kè"
+						},
+					"en": "What you get on the lesson today?",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog01.mp3",
+					"user":2,
+
+				},{
+					"cn": {
+						"words":"我_今天_上了_体育课。",
+						"pinyins": "wǒ_jīn tiān_shàng le_tǐ yù kè"
+						},
+					"en": "I went to physical education today.",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog02.mp3",
+					"user":1,
+				},{
+					"cn": {
+						"words":"你_明天_有_什么_课？",
+						"pinyins": "nǐ_míng tiān_yǒu_shén me_kè"
+						},
+					"en": "What lessons have you tomorrow?",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog03.mp3",
+					"user":2,
+				},{
+					"cn": {
+						"words":"我_明天_有_汉语_课。",
+						"pinyins": "wǒ_míng tiān_yǒu_hàn yǔ_kè"
+						},
+					"en": "I have a Chinese class tomorrow.",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog04.mp3",
+					"user":1,
+				},
+			]
+		},{
+			"titleCN":"汉语难不难？",
+			"titleEN":"Chinese difficult?",
+			"contents":[
+				{
+					"cn": {
+						"words":"汉语_难不难？",
+						"pinyins": "hàn yǔ_nán bù nán"
+						},
+					"en": "Chinese difficult?",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog05.mp3",
+					"user":6,
+				},{
+					"cn": {
+						"words":"汉语_不难。",
+						"pinyins": "hàn yǔ_bù nán"
+						},
+					"en": "Chinese is not difficult.",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog06.mp3",
+					"user":15,
+				},{
+					"cn": {
+						"words":"今天_作业_多不多？",
+						"pinyins": "jīn tiān_zùo yè_duō bù duō"
+						},
+					"en": "Today, much more than a job?",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog07.mp3",
+					"user":6,
+				},{
+					"cn": {
+						"words":"今天_作业_很多。",
+						"pinyins": "jīn tiān_zùo yè_hěn duō"
+						},
+					"en": "Many jobs today.",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog08.mp3",
+					"user":15,
+				},{
+					"cn": {
+						"words":"汉语课_有意思_吗？",
+						"pinyins": "hàn yǔ kè_yǒu yì si_ma"
+						},
+					"en": "Chinese lessons interesting?",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog09.mp3",
+					"user":6,
+				},{
+					"cn": {
+						"words":"汉语课_很有_意思。",
+						"pinyins": "hàn yǔ kè_hěn yǒu_yì si"
+						},
+					"en": "Chinese class is very interesting.",
+					"Category":"read_sentence",
+					"gold": 4,
+					"mp3": "dialog10.mp3",
+					"user":15,
+				},
+			]
+		},
+	]
+}
