@@ -57,7 +57,7 @@ class P_Menu extends Component {
 
   }
   selectListItem(rowID, kind){
-    this.courseIdx = rowID;
+    app.lesson.courseID = rowID;
     var pageIdx = Scenes.PRACTICE;
     if (kind == 0) {
       pageIdx = Scenes.PRACTICE;
@@ -67,8 +67,6 @@ class P_Menu extends Component {
     app.GotoPage(Consts.NAVI_PUSH, pageIdx, 
         {
           dialogData: this.realPractices[rowID].contents,
-          lessonID: this.props.lessonID,
-          courseID: rowID,
         });
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -86,7 +84,6 @@ class P_Menu extends Component {
           blnMoreMenu={this.state.blnMoreMenu}
           cancelMore={this.cancelMore.bind(this)}
           gotoMorePage={this.gotoMorePage.bind(this)}
-          lessonID={this.props.lessonID}
           ref={'menu'} />
     );
   }

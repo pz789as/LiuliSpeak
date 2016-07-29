@@ -171,8 +171,8 @@ class ViewList extends Component {
     renderListFrame(course, sectionID, rowID) {         
         var i = rowID;
         var dialogInfo = {
-            lesson: this.props.lessonID,
-            course: this.props.courseID,
+            lesson: app.lesson.lessonID,
+            course: app.lesson.courseID,
             itemIndex: Number(i),
             audio: course.mp3,
             gategory: course.Category,
@@ -183,7 +183,6 @@ class ViewList extends Component {
         return (
             <TouchableOpacity
                 onLayout={this._onLayoutItem.bind(this,i)}
-
                 onPress={this.touchView.bind(this,i)}
                 activeOpacity={1}
                 key={i}

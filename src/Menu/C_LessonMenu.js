@@ -98,7 +98,6 @@ class C_LessonMenu extends Component {
       array.push(<LessonCard onStart={this.gotoLesson.bind(this)} 
           rowID={i}
           course={course}
-          lessonID={this.props.lessonID}
           waitTime={i*60}
           key={i} />);
     }

@@ -37,11 +37,10 @@ export default class P_Main extends Component {
     };
   }
   selectListItem(rowID){
-    logf(rowID);
+    app.lesson.lessonID = rowID;
     app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, 
         {
           lessonData:lesson1.practices,
-          lessonID: rowID,
         });
   }
   componentWillMount(){

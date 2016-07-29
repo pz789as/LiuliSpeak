@@ -189,9 +189,9 @@ class P_Practice extends Component {
 
                 {this.state.blnDraw&&<ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />}
 
-                {this.state.blnDraw&&<ViewList dialogData={this.props.dialogData} lessonID={this.props.lessonID}
-             courseID={this.props.courseID} showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
-             getGold={this.getGold.bind(this)} parents={this}
+                {this.state.blnDraw&&<ViewList dialogData={this.props.dialogData} 
+                    showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
+                    getGold={this.getGold.bind(this)} parents={this}
              />}
 
                 {this.state.blnDraw&&<BottomBar showKind={this.showKind} speedKind={this.speedKind}

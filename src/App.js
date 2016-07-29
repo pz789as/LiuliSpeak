@@ -31,6 +31,7 @@ export default class App extends Component {
       appStatus: Scenes.MAIN,//可以根据状态去做一些处理，比如顶部的状态栏显示与否。
       //初始化场景，调整其他界面时，可以更改为其他界面，通过该上面的值
     };
+    this.lesson = {};
     global.logf = this.Logf.bind(this);
     global.fs = fs;
     if (Platform.OS == 'ios'){
