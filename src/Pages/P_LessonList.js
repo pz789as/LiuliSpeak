@@ -79,9 +79,8 @@ export default class P_LessonList extends Component {
     app.PopPage();
   }
   onSelectLesson(index){
-    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {
-      lesson: this.props.listData[index],
-    });
+    app.temp.lesson = this.props.listData[index];
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
   }
   render() {
     return (
@@ -112,14 +111,12 @@ export default class P_LessonList extends Component {
   }
   renderRow(lesson, sectionID, rowID){
     return (
-      <TouchableOpacity onPress={this.onSelectLesson.bind(this, rowID)}
-        style={[styles.fill, styles.studySpacing, styles.overflow]}>
-          <CardItem image={ImageRes.me_icon_normal}
-            renderData={lesson}
-            blnAdd={false}
-            blnNew={false}
-            blnMain={false}/>
-      </TouchableOpacity>
+        <CardItem image={ImageRes.me_icon_normal}
+          renderData={lesson}
+          blnAdd={false}
+          blnNew={false}
+          blnMain={false}
+          onTouch={this.onSelectLesson.bind(this, rowID)}/>
     );
   }
   getLessonListData(){

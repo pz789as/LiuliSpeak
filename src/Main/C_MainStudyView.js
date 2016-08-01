@@ -30,7 +30,6 @@ import {
   ImageRes,
 } from '../Resources';
 
-import StudyTopBar from './C_StudyTopBar';
 import IconButton from '../Common/IconButton';
 import CardItem from '../Common/CardItem';
 
@@ -52,15 +51,12 @@ export default class C_MainStudyView extends Component {
   render() {
     return (
       <View style={styles.fill}>
-        <View style={styles.studyTopBar}>
-          <StudyTopBar />
-        </View>
         <View style={styles.studyList}>
           <ListView renderRow={this.renderListItem.bind(this)}
             scrollEnabled={true}
             ref={'MainListView'}
             style={[styles.fill, {overflow: 'hidden'}]}
-            dataSource={this.props.courseListDataSource} />
+            dataSource={this.props.courseDataSource} />
         </View>
         <IconButton style={styles.addLessonBackStyle}
             buttonStyle={styles.addLessonButton}

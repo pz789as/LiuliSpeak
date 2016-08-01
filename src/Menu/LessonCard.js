@@ -100,7 +100,7 @@ class LessonCard extends Component {
 	}
 	onPress1(){
 		this.refs.download && this.refs.download.setProgross(0, true);
-		var path = fs.DocumentDirectoryPath + getMp3FilePath(app.lesson.lessonID,this.props.rowID);
+		var path = fs.DocumentDirectoryPath + getMp3FilePath(app.temp.lesson.key, this.props.rowID);
 		logf(path);
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
@@ -165,7 +165,8 @@ class LessonCard extends Component {
 		for(var idx=0; idx < this.allIdx; idx++){
 			var localPath = path + '/' + this.course.contents[idx].mp3;
 			var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
-							(parseInt(app.lesson.lessonID)) + '/' + this.course.contents[idx].mp3;
+							(parseInt(app.temp.lesson.key)) + '/' + 
+							this.course.contents[idx].mp3;
 			logf(fromUrl);
 			logf(localPath);
 			fs.downloadFile({

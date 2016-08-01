@@ -171,8 +171,8 @@ class ViewList extends Component {
     renderListFrame(course, sectionID, rowID) {         
         var i = rowID;
         var dialogInfo = {
-            lesson: app.lesson.lessonID,
-            course: app.lesson.courseID,
+            lesson: app.temp.lesson.key,
+            course: app.temp.courseID,
             itemIndex: Number(i),
             audio: course.mp3,
             gategory: course.Category,

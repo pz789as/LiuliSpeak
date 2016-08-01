@@ -40,10 +40,11 @@ import Waiting from '../Common/Waiting';
 export default class P_LessonInfo extends Component {
   constructor(props){
     super(props);
+    var blnAdd = app.lessonIsAdd(app.temp.lesson.key);
     this.state = {
       blnLoading: true,
       blnMoreList: false,
-      isAdd: false,
+      isAdd: blnAdd,
     };
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -74,6 +75,17 @@ export default class P_LessonInfo extends Component {
       blnMoreList: true,
     });
   }
+  switchLesson(){
+    var blnAdd = !this.state.isAdd;
+    this.setState({
+      isAdd: blnAdd,
+    });
+    if (blnAdd) {//添加课程之后跳转到menu中去
+      app.main.addNewLesson(app.temp.lesson.key);
+    } else {//删除课程后跳转到
+      app.main.subOldLesson(app.temp.lesson.key);
+    }
+  }
   render() {
     return (
       <View style={[styles.fill, styles.lessonsBack]}>
@@ -82,18 +94,8 @@ export default class P_LessonInfo extends Component {
             onPressBack={this.onPressBack.bind(this)}/>
         </View>
         {this.drawBody()}
-        {this.drawButtom()}
       </View>
     );
-  }
-  drawButtom(){
-    // if (!this.state.blnLoading && !this.state.blnMoreList){
-    //   return (
-    //     <TouchableOpacity style={ss.addBotton}>
-    //       <Text style={ss.addText}>添加课程</Text>
-    //     </TouchableOpacity>
-    //   );
-    // }
   }
   drawBody(){
     if (this.state.blnLoading){
@@ -125,16 +127,16 @@ export default class P_LessonInfo extends Component {
                 <Image source={ImageRes.me_icon_normal} style={ss.topImage} 
                   resizeMode='stretch'/>
                 <View style={ss.topTextContainer}>
-                  <Text style={ss.topTextTitle}>{this.props.lesson.title}</Text>
-                  <Text style={ss.topTextTitleEN}>this is fu biao ti</Text>
+                  <Text style={ss.topTextTitle}>{app.temp.lesson.titleCN}</Text>
+                  <Text style={ss.topTextTitleEN}>{app.temp.lesson.titleEN}</Text>
                   <Text style={[ss.topTextTitleEN, {marginTop: minUnit * 6}]}>
-                    来源: xxx</Text>
+                    来源: CheerData</Text>
                   <Text style={[ss.topTextTitleEN, {marginTop: minUnit * 6}]}>
-                    难度: xxx</Text>
+                    难度: {app.temp.lesson.degree}</Text>
                   <Text style={[ss.topTextTitleEN, {marginTop: minUnit * 3}]}>
-                    分类：xxxx</Text>
+                    分类：{app.temp.lesson.kind}</Text>
                   <View style={ss.topTextPriceContainer}>
-                    <Text style={ss.topTextPrice}>11111</Text>
+                    <Text style={ss.topTextPrice}>0</Text>
                     <Image source={ImageRes.icon_store_diamond} style={ss.topPriceIcon}/>
                   </View>
                 </View>
@@ -142,7 +144,7 @@ export default class P_LessonInfo extends Component {
               <View style={ss.topTextDetailContainer}>
                 <Text style={ss.topTextDetailTitle}>课程简介</Text>
                 <Text style={[ss.topTextTitleEN, {marginTop: minUnit}]}>
-                  这是罗里吧嗦的课程简介，看好了，对~就是简介，你妹看错。哔哩哔哩巴拉巴拉，魔法在燃烧。怎么没有对齐呢？
+                  {app.temp.lesson.introduction}
                 </Text>
               </View>
             </View>
@@ -150,20 +152,26 @@ export default class P_LessonInfo extends Component {
             {this.drawList(0)}
           </ScrollView>
         </View>
-        <TouchableOpacity style={[ss.addBotton, this.state.isAdd ? ss.subBottonColor : ss.addButtonColor]}>
+        <TouchableOpacity style={[ss.addBotton, this.state.isAdd ? ss.subBottonColor : ss.addButtonColor]}
+          onPress={this.switchLesson.bind(this)}>
           <Text style={ss.addText}>{this.state.isAdd ? '移除课程' : '添加课程'}</Text>
         </TouchableOpacity>
       </View>
     );
   }
   drawList(type){
-    var count = type == 0 ? 6 : 10;//10为实际的课程数量
+    var l = app.temp.lesson;
+    var lplen = l.practices.length;
+    var count = type == 0 ? 6 : l.practices.length;
+    var maxCount = lplen > 5 ? 5 : lplen;
+    //共15个单元，已发布148个关卡，有些有单元一级，我们可以把单元单独放在一个属性中，列表显示单元数量
+    var title = '已发布' + lplen + '个关卡';
     var arr = [];
     for(var i=0;i<count;i++){
       if (type == 0 && i==0){
         arr.push(<View style={[styles.fill, {paddingHorizontal: minUnit * 5,}]} key={i}>
           <View style={ss.listItemContainer}>
-            <Text style={ss.listTopTitle}>共15个单元，已发布148个关卡</Text>
+            <Text style={ss.listTopTitle}>{title}</Text>
             <TouchableOpacity style={ss.listMoreButton} onPress={this.showMore.bind(this)}>
               <Text style={ss.listMoreText}>查看更多</Text>
               <Image source={ImageRes.ic_chevron_right} style={ss.listMoreIcon}/>
@@ -172,15 +180,15 @@ export default class P_LessonInfo extends Component {
         </View>
         );
       }else{
-        if (type == 0 && i - 1 >= 5){//这里5要根据这个课程的关卡数或者单元数决定，本页最多显示5个，多余的需要到更多里面查看
+        if (type == 0 && i - 1 >= maxCount){//这里5要根据这个课程的关卡数或者单元数决定，本页最多显示5个，多余的需要到更多里面查看
           break;
         }else{
           arr.push(<View style={[styles.fill, ss.listOtherContainer]} key={i}>
             <View style={ss.listOtherView}>
               <Text style={ss.listIndex}>{type == 0 ? i : i+1}</Text>
               <Text style={[ss.listIndex, {marginLeft: minUnit*6}]}>
-                关卡{i}{'\n'}
-                <Text style={{color:'#888'}}>guan qia {type == 0 ? i : i+1}</Text>
+                {l.practices[type == 0 ? i-1 : i].titleCN + '\n'}
+                <Text style={{color:'#888'}}>{l.practices[type == 0 ? i-1 : i].titleEN}</Text>
               </Text>
             </View>
           </View>
@@ -190,53 +198,56 @@ export default class P_LessonInfo extends Component {
     }
     return arr;
   }
-  async getLessonInfo(){
-    try{
-      //这里需要改成实际的文件名字，课程（lesson1.json, lesson2.json)
-      var url = serverUrl + '/LiuliSpeak/getLessonInfo.jsp?filename=lesson1.json';
-      let response = await fetch(url);
-      if (response.ok == false){
-        var title = '出错';
-        var msg = '未知错误，请稍后再试！';
-        if (response.status == 404) {
-          title = '页面不存在 404';
-          msg = '您访问的页面不存在，请稍后再试！';
-        }else if (response.status == 500){
-          title = '服务器错误 500';
-          msg = '服务器出错，请稍后再试！';
-        }
-        Alert.alert(title, msg, [
-          {text: '刷新', onPress:()=>{ this.getLessonInfo();}},
-          {text: '取消', onPress:()=>{ this.setState({ blnLoading: false,});}},
-        ]);
-      } else {
-        response.text().then((text)=>{
-          //这里得到返回的正确结果.
-          this.setState({ blnLoading: false,});
-          var result = text.replace(/[\r\n\t]/g,'');
-          var obj = eval('(' + result + ')');
-          logf(obj);
-          // logf(result);
-          //-------------------
-        }).catch((error)=>{
-          this.setState({ blnLoading: false,});
-          Alert.alert('数据出错', msg, [
-            {text: '刷新', onPress:()=>{ this.getLessonInfo();}},
-            {text: '取消', onPress:()=>{ this.setState({ blnLoading: false,});}},
-          ]);
-        });
-      }
-    } catch(error){
-      logf(error);
-      this.setState({ blnLoading: false,});
-      Alert.alert('访问出错', '服务器忙或网络有问题，请稍后再试！', [
-        {text:'重新连接', onPress:()=>{ 
-          this.setState({ blnLoading: true,});
-          this.getLessonInfo();}},
-        {text:'取消' },
-      ]);
-    }
+  getLessonInfo(){
+    this.setState({blnLoading: false});
   }
+  // async getLessonInfo(){
+  //   try{
+  //     //这里需要改成实际的文件名字，课程（lesson1.json, lesson2.json)
+  //     var url = serverUrl + '/LiuliSpeak/getLessonInfo.jsp?filename=lesson1.json';
+  //     let response = await fetch(url);
+  //     if (response.ok == false){
+  //       var title = '出错';
+  //       var msg = '未知错误，请稍后再试！';
+  //       if (response.status == 404) {
+  //         title = '页面不存在 404';
+  //         msg = '您访问的页面不存在，请稍后再试！';
+  //       }else if (response.status == 500){
+  //         title = '服务器错误 500';
+  //         msg = '服务器出错，请稍后再试！';
+  //       }
+  //       Alert.alert(title, msg, [
+  //         {text: '刷新', onPress:()=>{ this.getLessonInfo();}},
+  //         {text: '取消', onPress:()=>{ this.setState({ blnLoading: false,});}},
+  //       ]);
+  //     } else {
+  //       response.text().then((text)=>{
+  //         //这里得到返回的正确结果.
+  //         this.setState({ blnLoading: false,});
+  //         var result = text.replace(/[\r\n\t]/g,'');
+  //         var obj = eval('(' + result + ')');
+  //         logf(obj);
+  //         // logf(result);
+  //         //-------------------
+  //       }).catch((error)=>{
+  //         this.setState({ blnLoading: false,});
+  //         Alert.alert('数据出错', msg, [
+  //           {text: '刷新', onPress:()=>{ this.getLessonInfo();}},
+  //           {text: '取消', onPress:()=>{ this.setState({ blnLoading: false,});}},
+  //         ]);
+  //       });
+  //     }
+  //   } catch(error){
+  //     logf(error);
+  //     this.setState({ blnLoading: false,});
+  //     Alert.alert('访问出错', '服务器忙或网络有问题，请稍后再试！', [
+  //       {text:'重新连接', onPress:()=>{ 
+  //         this.setState({ blnLoading: true,});
+  //         this.getLessonInfo();}},
+  //       {text:'取消' },
+  //     ]);
+  //   }
+  // }
 }
 
 let ss = StyleSheet.create({

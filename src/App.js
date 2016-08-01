@@ -24,6 +24,11 @@ import SceneList from './SceneList';
 import Storage from 'react-native-storage';
 import fs from 'react-native-fs';
 
+var testData = [
+    require('../data/lesson1.json'),
+    require('../data/lesson2.json'),
+];
+
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -31,15 +36,21 @@ export default class App extends Component {
       appStatus: Scenes.MAIN,//可以根据状态去做一些处理，比如顶部的状态栏显示与否。
       //初始化场景，调整其他界面时，可以更改为其他界面，通过该上面的值
     };
-    this.lesson = {};
+    this.save = {};//本地数据存储
+    this.temp = {};//临时数据
+    //包含： lesson 选择的课程
+    //lessonID 选择课程的index，相对于main里面的列表，目前应该不用这个，用lesson里面的key标识
+    //courseID 选择课程中的章节index
+
+    this.allLesson = testData;//所有课程列表，临时得到
+    global.app = this;
     global.logf = this.Logf.bind(this);
     global.fs = fs;
     if (Platform.OS == 'ios'){
       Text.defaultProps.allowFontScaling = false;//设置文字不受机器字体放大缩小的影响，这里是全局设定
     }
-    this.createStorage();
+    this.createStorage();//创建存储句柄
     global.deleteFile = this.deleteFile.bind(this);
-    global.app = this;
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
@@ -64,6 +75,66 @@ export default class App extends Component {
     // });
     if (nextState != this.nextState) return true;
     return false;
+  }
+  getLessonFromSave(key){
+    for(var i=0;i<this.save.lessons.length; i++){
+      if (this.save.lessons[i].key == key){
+        return this.save.lessons[i];
+      }
+    }
+    return null;
+  }
+  lessonIsAdd(key){
+    var sl = this.getLessonFromSave(key);
+    if (sl) return sl.isAdd;
+    return false;
+  }
+  loadData(loadOk){
+    // storage.remove({key:'save'});
+    storage.load({
+      key: 'save',
+    }).then((ret)=>{
+      this.save = ret;
+      loadOk();
+      console.log(this.save);
+    }).catch((err) => {
+      var lessons = [];
+      for(var i=0;i<this.allLesson.length;i++){
+        lessons.push({
+          key: this.allLesson[i].key,
+          isAdd: false,
+        });
+      }
+      this.save.lessons = lessons;
+      this.saveData();
+      loadOk();
+      console.log(err);
+    });
+  }
+  saveLessons(key, isAdd){
+    var blnIn = false;
+    for(var i=0;i<this.save.lessons.length;i++){
+      if (key == this.save.lessons[i].key){
+        blnIn = true;
+        this.save.lessons[i].isAdd = isAdd;
+      }
+    }
+    if (!blnIn){
+      this.save.lessons.push({
+        key: key,
+        isAdd: isAdd,
+      });
+    }
+    this.saveData();
+  }
+  saveData(){
+    storage.save({
+      key: 'save',
+      rawData: this.save,
+      expires: null,
+    });
+  }
+  componentWillMount(){
   }
   componentDidMount(){
   }
