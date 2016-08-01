@@ -29,6 +29,8 @@ var testData = [
     require('../data/lesson2.json'),
 ];
 
+let saveKey = 'save';
+
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -50,6 +52,7 @@ export default class App extends Component {
       Text.defaultProps.allowFontScaling = false;//设置文字不受机器字体放大缩小的影响，这里是全局设定
     }
     this.createStorage();//创建存储句柄
+    
     global.deleteFile = this.deleteFile.bind(this);
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -90,9 +93,8 @@ export default class App extends Component {
     return false;
   }
   loadData(loadOk){
-    // storage.remove({key:'save'});
     storage.load({
-      key: 'save',
+      key: saveKey,
     }).then((ret)=>{
       this.save = ret;
       loadOk();
@@ -129,9 +131,14 @@ export default class App extends Component {
   }
   saveData(){
     storage.save({
-      key: 'save',
+      key: saveKey,
       rawData: this.save,
       expires: null,
+    });
+  }
+  removeSave(){
+    storage.remove({
+      key: saveKey,
     });
   }
   componentWillMount(){
@@ -190,6 +197,25 @@ export default class App extends Component {
     );
   }
   GotoPage(kind, index, params){
+    var arrRoutes = this._navigator.getCurrentRoutes();//可以获取到所有压入栈中的界面。
+    for(var i=0;i<arrRoutes.length;i++){
+      if (arrRoutes[i].index == index){
+        if (i == arrRoutes.length - 1){
+          logf('gotopage', '两次进入同一个界面啦！注意处理');
+          return;//如果当前页面是即将要跳转的相同一个界面，则不起作用。
+        }else{
+          var configureTmp = SceneList[index].configure;
+          if (params.configure && params.configure >= Consts.PushFromRight){
+            configureTmp = params.configure;
+          }
+          this.setState({
+            appStatus: index,
+          });
+          this._navigator.jumpTo(arrRoutes[i]);
+          return;
+        }
+      }
+    }
     var configureType = SceneList[index].configure;
     if (params.configure && params.configure >= Consts.PushFromRight){
       configureType = params.configure;
@@ -253,6 +279,13 @@ export default class App extends Component {
       this._navigator.popToTop();
     }
   }
+  GetLastPage(i){
+    var arrRoutes = this._navigator.getCurrentRoutes();
+    if (arrRoutes.length >= i + 1){
+      return arrRoutes[arrRoutes.length - (i + 1)].index;
+    }
+    return arrRoutes[arrRoutes.length - 1].index;
+  }
   upDateStatus(route){
     this.setState({
       appStatus: route.index,//index标识，也可以作为状态使用，两者是一样的值
@@ -264,7 +297,7 @@ export default class App extends Component {
   }
   createStorage(){
     var storage = new Storage({
-      size: 9999,    // 最大容量，默认值1000条数据循环存储
+      size: 1000,    // 最大容量，默认值1000条数据循环存储
       defaultExpires: null,// 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
       enableCache: true,// 读写时在内存中缓存数据。默认启用。
       // 如果storage中没有相应数据，或数据已过期，

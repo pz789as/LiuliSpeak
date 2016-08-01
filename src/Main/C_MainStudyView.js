@@ -56,7 +56,8 @@ export default class C_MainStudyView extends Component {
             scrollEnabled={true}
             ref={'MainListView'}
             style={[styles.fill, {overflow: 'hidden'}]}
-            dataSource={this.props.courseDataSource} />
+            dataSource={this.props.courseDataSource}
+            enableEmptySections={true} />
         </View>
         <IconButton style={styles.addLessonBackStyle}
             buttonStyle={styles.addLessonButton}

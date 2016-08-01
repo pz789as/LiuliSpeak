@@ -61,7 +61,11 @@ class P_Menu extends Component {
   componentWillUnmount(){
   }
   onCancel() {
-  	app.PopPage();
+    if (this.props.popRoute) {
+      app.PopPage(Consts.POP_ROUTE, this.props.popRoute);
+    } else {
+      app.PopPage();
+    }
   }
   gotoMore() {
     this.setState({
@@ -70,7 +74,7 @@ class P_Menu extends Component {
     this.refs.menu.AnimatedInt();
   }
   gotoMorePage(){
-
+    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
   }
   selectListItem(rowID, kind){
     app.temp.courseID = rowID;

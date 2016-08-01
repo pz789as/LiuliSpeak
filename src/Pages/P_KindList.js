@@ -86,7 +86,8 @@ export default class P_KindList extends Component {
         <View style={[styles.fill, {backgroundColor: 'white'}]}>
           <ListView dataSource={this.state.listDataSource}
             renderRow={this.renderRow.bind(this)}
-            style={styles.fill} />
+            style={styles.fill}
+            enableEmptySections={true} />
         </View>
       </View>
     );

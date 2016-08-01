@@ -91,7 +91,7 @@ export default class P_Main extends Component {
   addNewLesson(key){
     var l = this.getLessonForAllLesson(key);
     if (l){
-      this.realCourseList.unshift(l);
+      this.realCourseList.push(l);
       app.saveLessons(key, true);
     }
   }

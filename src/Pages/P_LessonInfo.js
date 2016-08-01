@@ -82,8 +82,12 @@ export default class P_LessonInfo extends Component {
     });
     if (blnAdd) {//添加课程之后跳转到menu中去
       app.main.addNewLesson(app.temp.lesson.key);
+      app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, {
+        popRoute: app.GetLastPage(1),//进入下一个页面之后，返回到该屏的上一屏。
+      });
     } else {//删除课程后跳转到
       app.main.subOldLesson(app.temp.lesson.key);
+      app.PopPage(Consts.POP_ROUTE, app.GetLastPage(2));//退回到上2屏的位置。
     }
   }
   render() {
@@ -198,7 +202,7 @@ export default class P_LessonInfo extends Component {
     }
     return arr;
   }
-  getLessonInfo(){
+  getLessonInfo(){//临时设置不联网检测直接获取文件
     this.setState({blnLoading: false});
   }
   // async getLessonInfo(){

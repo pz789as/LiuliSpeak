@@ -80,7 +80,12 @@ export default class P_LessonList extends Component {
   }
   onSelectLesson(index){
     app.temp.lesson = this.props.listData[index];
-    app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
+    var blnAdd = app.lessonIsAdd(app.temp.lesson.key);
+    if (blnAdd){//如果已经添加的课程，选中课程之后直接跳转到Menu中去。
+      app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, {});
+    }else{
+      app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
+    }
   }
   render() {
     return (
@@ -104,7 +109,8 @@ export default class P_LessonList extends Component {
             scrollRenderAheadDistance={minUnit}
             dataSource={this.state.lessonDataSource}
             renderRow={this.renderRow.bind(this)}
-            style={styles.fill} />
+            style={styles.fill}
+            enableEmptySections={true} />
         </View>
       );
     }
