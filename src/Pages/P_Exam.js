@@ -76,7 +76,7 @@ export default class P_Exam extends Component {
         for (var i = 0; i < this.dialogLength; i++) {
             this.words[i] = data[i].cn.words;
             this.pinyins[i] = data[i].cn.pinyins;
-            this.audio[i] = getMp3FilePath(app.lesson.lessonID,app.lesson.courseID) + '/' + data[i].mp3;
+            this.audio[i] = getMp3FilePath(app.temp.lesson.key,app.temp.courseID) + '/' + data[i].mp3;
             this.category[i] = data[i].Category;
             this.dialogRole[i] = 'user' + data[i].user;//数据中还没有,先留个变量
             this.setRoles(this.dialogRole[i]);
@@ -175,7 +175,7 @@ export default class P_Exam extends Component {
     initRecord = (index)=> {
         var testText = this.words[index];//获取text
         var category = this.category[index];
-        var fileName = getExamFilePath(app.lesson.lessonID, app.lesson.courseID, index);
+        var fileName = getExamFilePath(app.temp.lesson.key, app.temp.courseID, index);
         testText = testText.replace(/_/g, "");
         //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
         this.refs.btnRecord.StartISE(testText, category, fileName);
