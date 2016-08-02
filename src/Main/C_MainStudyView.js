@@ -119,11 +119,17 @@ export default class C_MainStudyView extends Component {
   renderMsg(course) {
     return (
       <View style={[styles.fill, styles.cardFrame]}>
-        <Text style={[styles.cardFontName, styles.cardWordBottom]}>{course.titleCN}</Text>
+        {this.renderText([styles.cardFontName, styles.cardWordBottom], course.titleCN)}
         {this.drawProgress(0.3)}
-        <Text style={[styles.cardFontSmall, styles.cardWordH]}>{msg[0]}</Text>
+        {this.renderText([styles.cardFontSmall, styles.cardWordH], msg[0])}
         {this.drawStar(course, 5)}
       </View>
+    );
+  }
+  renderText(style, text) {
+    if (text == '') return null;
+    return (
+      <Text style={style}>{text}</Text>
     );
   }
   // 进度条（progress父组件传入）

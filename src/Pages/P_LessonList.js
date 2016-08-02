@@ -136,12 +136,18 @@ export default class P_LessonList extends Component {
     return (
       <View style={styles.fill}>
         <View style={styles.cardFrame}>
-          <Text style={[styles.cardFontName, styles.cardWordBottom]}>{course.titleCN}</Text>
-          <Text style={[styles.cardFontSmall, styles.cardWordH]}>{course.titleEN}</Text>
-          <Text style={[styles.cardFontSmall, styles.cardWordH]}>难度：{course.degree}</Text>
+          {this.renderText([styles.cardFontName, styles.cardWordBottom], course.titleCN)}
+          {this.renderText([styles.cardFontSmall, styles.cardWordH], course.titleEn)}
+          {this.renderText([styles.cardFontSmall, styles.cardWordH], '难度：'+course.degree)}
         </View>
         {this.renderNew(false)}
       </View>
+    );
+  }
+  renderText(style, text) {
+    if (text == '') return null;
+    return (
+      <Text style={style}>{text}</Text>
     );
   }
 
