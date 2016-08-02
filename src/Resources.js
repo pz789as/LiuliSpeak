@@ -67,6 +67,7 @@ let ImageRes = {
     //课程卡片上的图标
     ic_star_yellow: require('../res/UI/ic_star_yellow.png'),
     icon_course_list_already_add: require('../res/UI/icon_course_list_already_add.png'),
+    empty_trash: require('../res/UI/empty_trash.png'),
 };
 
 

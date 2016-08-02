@@ -283,6 +283,37 @@ let styles = StyleSheet.create({
     height: minUnit * 10,
     marginRight: minUnit * 2,
   },
+  cardFrame: {
+    margin: minUnit*4,
+  },
+  cardFontName: {
+    fontSize: minUnit*5,
+  },
+  cardFontSmall: {
+    fontSize: minUnit*4,
+    color: '#6C6C6C',
+  },
+  cardWordBottom: {
+    marginBottom: minUnit,
+  },
+  cardWordTop: {
+    marginTop: minUnit,
+  },
+  cardWordH: {
+    marginVertical: minUnit,
+  },
+  shade: {
+    backgroundColor: 'rgba(10,10,10,0.3)',
+  },
+  cardLeftImage: {
+    width: minUnit*20,
+    height: minUnit*20,
+    margin: minUnit*2,
+  },
+  cardLeftWord: {
+    fontSize: minUnit*3.5,
+    color: '#FFFFFF',
+  }
 });
 
 var UtilStyles = StyleSheet.create({

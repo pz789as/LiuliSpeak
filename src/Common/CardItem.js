@@ -9,6 +9,7 @@ import {
   Text,
   PanResponder,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -25,24 +26,13 @@ import {
 var width = minUnit*90;
 var height = minUnit*35;
 
-import * as Progress from 'react-native-progress';
-
-// 主菜单 当前闯关信息
-const msg = [
-  '还没有开始闯关',
-  '闯关中...',
-  '不错，闯关成功!',
-];
+var MoveDis = minUnit*30;
 
 export default class C_CardItem extends Component {
-  listNum = 1;
   oldx = 0;
   touchKind = -1;
   constructor(props){
     super(props);
-    if (this.props.renderData.practices) {
-      this.listNum = this.props.renderData.practices.length;
-    }
 
     this.state = {
       movex: new Animated.Value(0),
@@ -50,22 +40,31 @@ export default class C_CardItem extends Component {
   }
   static propTypes = {
     renderData: React.PropTypes.any.isRequired,       //数据信息
-    blnMain: React.PropTypes.bool,                    //是否在主菜单
-    progress: React.PropTypes.number,                 //进度条（仅在主菜单）
-    starNum: React.PropTypes.number,                  //星星数量（仅在主菜单）
-    blnNew: React.PropTypes.bool,                     //是否为new
-    blnAdd: React.PropTypes.bool,                     //是否已经添加
     onTouch: React.PropTypes.func,                    //点击效果
 	};
   static defaultProps = {
-    blnMain: true,
-    progress: 0.5,
-    starNum: 3,
-    blnNew: false,
-    blnAdd: false,
     onTouch: ()=>{console.log('Touched!')},
     parents: null,
     blnCanMove: false,
+    renderLeft: ()=>{return null},
+    renderRight: ()=>{return null},
+    deleteBack: (key)=>{},
+
+    // Animation Config
+    overshootSpringConfig: {
+      friction: 7,
+      tension: 40
+    },
+    momentumDecayConfig: {
+      deceleration: 0.993
+    },
+    // springOriginConfig: {
+    //  friction: 7,
+    //  tension: 40
+    // },
+    overshootReductionFactor: 3,
+    directionLockDistance: 10,
+    index: 0,
   };
   // 手势处理
   componentWillMount() {
@@ -82,12 +81,20 @@ export default class C_CardItem extends Component {
   panResponderStart() {
     this.touchKind = 0;
     this.oldx = this.state.movex._value;
+    if (this.props.blnCanMove) {
+      this.props.parents.setSelect(this.props.index);
+    }
   }
   // 移动
   panResponderMove(evt, {dx, dy, vx, vy}) {
-    this.touchKind = 1;
-    if (this.props.blnCanMove) {
-      this.state.movex.setValue(this.oldx+dx);
+    if (this.touchKind == 0) {
+      if (Math.abs(dx) > Math.abs(dy)) this.touchKind = 1;
+      else this.touchKind = 2;
+    }
+    if (this.props.blnCanMove && this.touchKind == 1) {
+      var newx = this.oldx+dx;
+      if (newx > 0) newx = 0
+      this.state.movex.setValue(newx);
       if (dx != 0 && this.props.parents!=null) {
         this.props.parents.closeScrollMove();
       }
@@ -96,11 +103,46 @@ export default class C_CardItem extends Component {
   // 松开
   panResponderRelease(evt, {vx, vy}) {
     if (this.touchKind == 0) {
-      this.props.onTouch();
+      if (this.state.movex._value == 0) {
+        this.props.onTouch();
+      }
     }
     if (this.props.parents!=null) {
       this.props.parents.openScrollMove();
     }
+    if (this.props.blnCanMove && this.touchKind == 1) {
+      var movex = this.state.movex;
+      this._listener = movex.addListener(({
+        value
+      }) => {
+        if (value > 0) {
+          movex.setValue(0);
+        } else if (value < -MoveDis) {
+          Animated.spring(movex, {
+            ...this.props.overshootSpringConfig,
+            toValue: -MoveDis,
+          }).start();
+        }
+      });
+
+      var dis = Math.abs(movex._value);
+      var target = 0;
+      if (dis > MoveDis/2) target = -MoveDis;
+      Animated.decay(movex, {
+        ...this.props.momentumDecayConfig,
+        toValue: target,
+        velocity: vx
+      }).start(()=>{
+        movex.removeListener(this._listener);
+      });
+    }
+  }
+
+  AnimatedBack() {
+    if (this.state.movex._value == 0) return;
+    Animated.timing(this.state.movex, {
+      toValue: 0,
+    }).start();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -110,92 +152,45 @@ export default class C_CardItem extends Component {
   render() {
     return (
       <View style={[styles.container, ]}>
+        {this.renderDelete()}
       	<Animated.View style={[styles.frame, this.props.style?this.props.style:{}, {transform:[{translateX: this.state.movex}]}, ]} {...this._panResponder.panHandlers}>
           <Image
             style={[styles.image, this.props.imgStyle?this.props.imgStyle:{}]}
             source={this.props.image}>
-            {this.renderAlreadyAdd()}
+            {this.renderLeft()}
           </Image>
           {this.renderMsg()}
-          {this.renderNew()}
+          {/*this.renderNew()*/}
       	</Animated.View>
       </View>
     );
   }
-  // 新课程
-  renderNew() {
-    if (!this.props.blnNew) return null;
+  renderDelete() {
     return (
-      <Image
-        style={styles.imageNew}
-        source={ImageRes.icon_newcourse} />
+      <TouchableOpacity style={styles.delete} onPress={this.deleteCard.bind(this)} activeOpacity={1}>
+        <Image
+          style={styles.deleteImage}
+          source={ImageRes.empty_trash} />
+      </TouchableOpacity>
     );
   }
-  // 已添加图标
-  renderAlreadyAdd() {
-    if (!this.props.blnAdd) return null;
+  deleteCard() {
+    this.props.deleteBack(this.props.renderData.key);
+    // app.main.subOldLesson(this.props.renderData.key);
+  }
+  renderLeft() {
     return (
-      <View style={styles.alreadyAdd}>
-        <Image
-          style={styles.imageAdd}
-          source={ImageRes.icon_course_list_already_add} />
-        <Text style={styles.fontAdd}>已添加</Text>
+      <View style={styles.left}>
+        {this.props.renderLeft()}
       </View>
     );
   }
   // 右侧信息显示
   renderMsg() {
-    var {
-      renderData,
-      blnMain,
-    } = this.props;
     return (
       <View style={[styles.message, ]}>
-        {this.drawText(styles.name, renderData.titleCN, true)}
-        {this.drawText(styles.small, renderData.titleEN, !blnMain)}
-        {this.drawText(styles.small, '难度：'+renderData.degree, !blnMain)}
-        {this.drawProgress()}
-        {this.drawText(styles.small, msg[0], blnMain)}
-        {this.drawStar()}
+        {this.props.renderRight(this.props.renderData)}
       </View>
-    );
-  }
-  // 进度条（progress父组件传入）
-  drawProgress() {
-    if (!this.props.blnMain) return null;
-    return (
-      <Progress.Bar
-        style={styles.progress}
-        progress={this.props.progress}
-        unfilledColor='#C0C0C0'
-        borderWidth={1}
-        borderColor='#C0C0C0'
-        borderRadius={minUnit*1}
-        color='#19E824'
-        height={minUnit*2}
-        width={minUnit*50}/>
-    );
-  }
-  // 星星数量显示
-  drawStar() {
-    if (!this.props.blnMain) return null;
-    return (
-      <View style={[styles.starPosition, ]}>
-        <Image
-          style={styles.starImg}
-          source={ImageRes.ic_star_yellow} />
-        <Text style={[styles.small, styles.fontMove]}>
-        {this.props.starNum}/{this.listNum*3}
-        </Text>
-      </View>
-    );
-  }
-  // 文字信息显示
-  drawText(style, text, bln) {
-    if (!bln) return null;
-    if (text == undefined) return null;
-    return (
-      <Text style={style} numberOfLines={1}>{text}</Text>
     );
   }
 }
@@ -207,6 +202,17 @@ const styles = StyleSheet.create({
     marginVertical: minUnit*2,
     alignItems: 'center',
 	},
+  delete: {
+    position: 'absolute',
+    right: MoveDis/2,
+    top: height/2 - minUnit*6,
+    borderRadius: minUnit*6,
+    overflow: 'hidden',
+  },
+  deleteImage: {
+    width: minUnit*12,
+    height: minUnit*12,
+  },
   frame: {
     flex: 1,
     backgroundColor: '#FFFFFF',
@@ -224,63 +230,15 @@ const styles = StyleSheet.create({
     height: height,
     backgroundColor: '#B8B8F5'
   },
-  alreadyAdd: {
+  left: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    alignItems: 'center',
-    backgroundColor: 'rgba(10,10,10,0.3)'
-  },
-  imageAdd: {
-    width: width*0.3-minUnit*4,
-    height: width*0.3-minUnit*4,
-    margin: minUnit*2,
-  },
-  fontAdd: {
-    fontSize: minUnit*3.5,
-    color: '#FFFFFF',
-  },
-  imageNew: {
-    position: 'absolute',
-    right: 0,
-    top: -MinWidth,
-    width: minUnit*13,
-    height: minUnit*13,
   },
   message: {
-    margin: minUnit*4,
     flex: 1,
     overflow: 'hidden',
-  },
-  name: {
-    fontSize: minUnit*5,
-    marginBottom: minUnit,
-  },
-  progress: {
-    marginVertical: minUnit,
-  },
-  small: {
-    marginVertical: minUnit,
-    fontSize: minUnit*4,
-    color: '#6C6C6C',
-  },
-  fontMove: {
-    // marginBottom: minUnit*0.5,
-  },
-  starPosition: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: minUnit*6,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  starImg: {
-    width: minUnit*4,
-    height: minUnit*4,
-    marginRight: minUnit,
   },
 });

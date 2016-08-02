@@ -81,6 +81,7 @@ export default class P_LessonInfo extends Component {
       isAdd: blnAdd,
     });
     if (blnAdd) {//添加课程之后跳转到menu中去
+      app.lessonList.Refresh();
       app.main.addNewLesson(app.temp.lesson.key);
       app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, {
         popRoute: app.GetLastPage(1),//进入下一个页面之后，返回到该屏的上一屏。

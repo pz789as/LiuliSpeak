@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  StyleSheet,
   View,
   Text,
   Image,
@@ -45,7 +46,14 @@ export default class P_LessonList extends Component {
       lessonDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
+      blnRefresh: false,
     };
+    app.lessonList = this;
+  }
+  Refresh() {
+    this.setState({
+      blnRefresh: !this.state.blnRefresh,
+    });
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state) return true;
@@ -119,16 +127,60 @@ export default class P_LessonList extends Component {
     return (
         <CardItem image={ImageRes.me_icon_normal}
           renderData={lesson}
-          blnAdd={false}
-          blnNew={false}
-          blnMain={false}
+          renderLeft={this.renderLeft.bind(this, lesson)}
+          renderRight={this.renderMsg.bind(this)}
           onTouch={this.onSelectLesson.bind(this, rowID)}/>
     );
   }
+  renderMsg(course) {
+    return (
+      <View style={styles.fill}>
+        <View style={styles.cardFrame}>
+          <Text style={[styles.cardFontName, styles.cardWordBottom]}>{course.titleCN}</Text>
+          <Text style={[styles.cardFontSmall, styles.cardWordH]}>{course.titleEN}</Text>
+          <Text style={[styles.cardFontSmall, styles.cardWordH]}>难度：{course.degree}</Text>
+        </View>
+        {this.renderNew(false)}
+      </View>
+    );
+  }
+
+  renderNew(blnNew) {
+    if (!blnNew) return null;
+    return (
+      <Image
+        style={Mstyles.imageNew}
+        source={ImageRes.icon_newcourse} />
+    );
+  }
+
+  renderLeft(course) {
+    bln = app.lessonIsAdd(course.key);
+    if (!bln) return null;
+    return (
+      <View style={[styles.fill, styles.shade, {alignItems: 'center',}]}>
+        <Image
+          style={styles.cardLeftImage}
+          source={ImageRes.icon_course_list_already_add} />
+        <Text style={styles.cardLeftWord}>已添加</Text>
+      </View>
+    );
+  }
+
   getLessonListData(){
     this.setState({
       blnLoading: false,
     });
   }
 }
+
+const Mstyles = StyleSheet.create({
+  imageNew: {
+    position: 'absolute',
+    right: 0,
+    top: -MinWidth,
+    width: minUnit*13,
+    height: minUnit*13,
+  },
+});
 

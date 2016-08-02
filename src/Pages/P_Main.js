@@ -34,6 +34,7 @@ export default class P_Main extends Component {
       courseDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
+      blnRefresh: false,
     };
     app.main = this;
     app.loadData(this.loadOk.bind(this));
@@ -94,6 +95,10 @@ export default class P_Main extends Component {
       this.realCourseList.push(l);
       app.saveLessons(key, true);
     }
+
+    this.setState({
+      courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+    });
   }
   subOldLesson(key){
     var pos = this.getIndexForRealList(key);
@@ -101,8 +106,18 @@ export default class P_Main extends Component {
       this.realCourseList.splice(pos, 1);
       app.saveLessons(key, false);
     }
+
+    this.setState({
+      courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+    });
+  }
+  Refresh() {
+    this.setState({
+      blnRefresh: !this.state.blnRefresh,
+    });
   }
   addLesson(){
+    app.studyView.selectBack();
     // app.GotoPage(Consts.NAVI_PUSH, Scenes.ALLLESSON, {});//实际应该是进入课程分类展示页面
     app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONLIST, {//临时设置，进入全部课程列表
       listData: app.allLesson,
@@ -114,14 +129,14 @@ export default class P_Main extends Component {
     
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.lessonCount != this.realCourseList.length){
-      this.lessonCount = this.realCourseList.length;
-      console.log('should update', this.lessonCount);
-      this.setState({
-        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-      });
-      return false;
-    }
+    // if (this.lessonCount != this.realCourseList.length){
+    //   this.lessonCount = this.realCourseList.length;
+    //   // console.log('should update', this.lessonCount);
+    //   this.setState({
+    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+    //   });
+    //   return false;
+    // }
     if (nextState != this.state) return true;
     return false;
   }
@@ -143,6 +158,7 @@ export default class P_Main extends Component {
         </View>
         <MainStudyView selectListItem={this.selectListItem.bind(this)}
           courseDataSource={this.state.courseDataSource}
+          parents={this}
           addLesson={this.addLesson.bind(this)} />
       </View>
     );
