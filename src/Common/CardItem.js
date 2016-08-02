@@ -23,6 +23,10 @@ import {
   ImageRes,
 } from '../Resources';
 
+import {
+  serverUrl,
+} from '../Constant';
+
 var width = minUnit*90;
 var height = minUnit*35;
 
@@ -37,6 +41,7 @@ export default class C_CardItem extends Component {
     this.state = {
       movex: new Animated.Value(0),
     };
+    this.imagePath = app.getImageUrl(this.props.image);
   }
   static propTypes = {
     renderData: React.PropTypes.any.isRequired,       //数据信息
@@ -156,7 +161,7 @@ export default class C_CardItem extends Component {
       	<Animated.View style={[styles.frame, this.props.style?this.props.style:{}, {transform:[{translateX: this.state.movex}]}, ]} {...this._panResponder.panHandlers}>
           <Image
             style={[styles.image, this.props.imgStyle?this.props.imgStyle:{}]}
-            source={this.props.image}>
+            source={{uri:this.imagePath}}>
             {this.renderLeft()}
           </Image>
           {this.renderMsg()}

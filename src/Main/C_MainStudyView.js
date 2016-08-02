@@ -81,10 +81,9 @@ export default class C_MainStudyView extends Component {
     );
   }
   renderListItem(course, sectionID, rowID){
-    console.log('renderListItem');
     return (
       <CardItem
-        image={ImageRes.me_icon_normal}
+        image={course.kcimage}
         renderData={course}
         renderRight={this.renderMsg.bind(this)}
         blnCanMove={true}

@@ -1,0 +1,417 @@
+{
+	"key" : "4",
+	"titleCN" : "生病就医",
+	"titleEn" : "Sick medical treatment",
+	"degree" : "大师",
+	"kind" : "生活服务",
+	"introduction" : "学习如何去看医生吧",
+	"kcimage" : "kc4_title.jpg",
+	"practices" : [{
+		"titleCN" : "身体不适",
+		"titleEn" : "uncomfortable",
+		"ksimage" : "ks41_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_好！_怎么样？",
+				"pinyins" : "nǐ_hǎo_zěn me yàng",
+				},
+			"en" : "hello! How are you.",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "我_不_舒服！_我_刚_去_看医生_了。_这_几_天_一直_不_舒服。",
+				"pinyins" : "wǒ_bú_shū fú_Wǒ_gāng_qù_kàn yī shēng_le_Zhè_jǐ_tiān_yì zhí_bú_shū fú",
+				},
+			"en" : "not too well! I’m just to the doctor. I haven’t been feeling too well.. over the last few days.",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "你_怎么_了？_头痛？_感冒_了？",
+				"pinyins" : "nǐ_zěn me_le_tóu tòng_gǎn mào_le",
+				},
+			"en" : "what have you got? A headache? A cold?",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "我_不_知道_怎么_了。_我_只是_觉得_很_疲惫。",
+				"pinyins" : "wǒ_bù_zhī dào_zěn me_le_wǒ_zhǐ shì_jué de_hěn_pí bèi",
+				},
+			"en" : "I don’t what’s wrong with me. I just feel exhausted.",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "或许_是_因为_你_工作_太_用功_了。_你_的_工作_压力_确实_很_大。",
+				"pinyins" : "huò xǔ_shì_yīn wéi_nǐ_gōng zuò_tài_yòng gōng_le_nǐ_de_gōng zuò_yā lì_què shí_hěn_dà",
+				},
+			"en" : "perhaps you’ve been working too hard. You do have a high-pressure job.",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "或许_吧。_我_也_没_心情_吃饭。_这_不_正常。",
+				"pinyins" : "huò xǔ_ba_Wǒ_yě_méi_xīn qíng_chī fàn_Zhè_bú_zhèng cháng",
+				},
+			"en" : "maybe. I haven’t been able to keep my food down either. That’s unusual.",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "嗯。_我_相信_吃_了_医生_开_的_药_你_就_会_好_的。",
+				"pinyins" : "èn_Wǒ_xiāng xìn_chī_le_yī shēng_kāi_de_yào_nǐ_jiù_huì_hǎo_de",
+				},
+			"en" : "well. I’m sure the doctor will be able to prescribe something to make you well again. Dr. Jameson is very good.",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "对_啊。_我_约_了_10_点_钟，_我_要_走_了。",
+				"pinyins" : "duì_a_wǒ_yuē_le_10_diǎn_zhōng_wǒ_yào_zǒu_le",
+				},
+			"en" : "yes, he is. I’ve make an appointment for 10 o’clock, so I’d better move along.",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "好。_祝_你_早日_康复。_放松_点。_我_相信_医生_会_治好_的。",
+				"pinyins" : "hǎo_Zhù_nǐ_zǎo rì_kāng fù_fàng sōng_diǎn_Wǒ_xiāng xìn_yī shēng_huì_zhì hǎo_de",
+				},
+			"en" : "OK. Hope you feel better soon. You should take it easy. I’m sure the doctor will prescribe rest, you know.",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "5",
+			}],
+		},{
+		"titleCN" : "见到医生",
+		"titleEn" : "See a doctor",
+		"ksimage" : "ks42_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "早上_好，_哪儿_不_舒服?",
+				"pinyins" : "zǎo shàng_hǎo_nǎ er_bù_shū fú",
+				},
+			"en" : "Good morning. What's the matter?",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "8",
+			},{
+			"cn" : {
+				"words" : "早上_好，_医生。_我_感到_头晕，_而且_发烧。",
+				"pinyins" : "zǎo shàng_hǎo_yī shēng_Wǒ_gǎn dào_tóu yūn_ér qiě_fā shāo",
+				},
+			"en" : "Good morning ,doctor, I feel dizzy and weak and I'm running a temperature.",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "还_有些_别的_症状_吗?",
+				"pinyins" : "hái_yǒu xiē_bié de_zhèng zhuàng_ma",
+				},
+			"en" : "Do you have any other symptoms?",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "8",
+			},{
+			"cn" : {
+				"words" : "是的。_咳_得_很_厉害，_并且_胸部_也_疼。",
+				"pinyins" : "shì de_Ké_de_hěn_lì hài_bìng qiě_xiōng bù_yě_téng",
+				},
+			"en" : "Yes, I have a bad cough and my chest also aches.",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我_知道_了。_让_我_量_量_你_的_体温，_请_把_温度计_放_在_胳膊_下。",
+				"pinyins" : "wǒ_zhī dao_le_ràng_wǒ_liáng_liáng_nǐ_de_tǐ wēn_qǐng_bǎ_wēn dù jì_fàng_zài_gē bó_xià",
+				},
+			"en" : "I see, Now let me take your temperature, Put this thermometer in under your arm please.",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "8",
+			},{
+			"cn" : {
+				"words" : "医生，_我_现在_的_体温_是_多少?",
+				"pinyins" : "yī shēng_wǒ_xiàn zài_de_tǐ wēn_shì_duō shǎo",
+				},
+			"en" : "Doctor, how about my temperature now?",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "三十九度五。",
+				"pinyins" : "sān shí jiǔ dù wǔ",
+				},
+			"en" : "It's 39.5℃。",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "8",
+			},{
+			"cn" : {
+				"words" : "医生，_我_严重_吗?",
+				"pinyins" : "yī shēng_wǒ_yán zhòng_ma",
+				},
+			"en" : "Doctor,am I serious?",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "一点_也_不_重。",
+				"pinyins" : "yì diǎn_yě_bù_zhòng",
+				},
+			"en" : "it's nothing serious.",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "8",
+			},{
+			"cn" : {
+				"words" : "你_的_话_使_我_松_了_一口气。",
+				"pinyins" : "nǐ_de_huà_shǐ_wǒ_sōng_le_yì kǒu qì",
+				},
+			"en" : "I'm relieved to hear that.",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "7",
+			}],
+		},{
+		"titleCN" : "治疗",
+		"titleEn" : "treatment",
+		"ksimage" : "ks43_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_需要_打_一_针_来_降_体温，_你_对_一些_药物_过敏_吗？",
+				"pinyins" : "nǐ_xū yào_dǎ_yì_zhēn_lái_jiàng_tǐ wēn_nǐ_duì_yī xiē_yào wù_guò mǐn_ma",
+				},
+			"en" : "You need a shot to lower body temperature, some drugs you are allergic to it?",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "我_不能_肯定。",
+				"pinyins" : "wǒ_bú néng_kěn dìng",
+				},
+			"en" : "I'm not sure.",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "那么_我们_来_给_你_查_一_查。",
+				"pinyins" : "nà me_wǒ men_lái_gěi_nǐ_chá_yī_chá",
+				},
+			"en" : "Well, We'll check on that.",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "把_这_张_纸条_拿_去_注射_室_交_给_护士。",
+				"pinyins" : "bǎ_zhè_zhāng_zhǐ tiáo_ná_qù_zhù shè_shì_jiāo_gěi_hù shì",
+				},
+			"en" : "Take this slip to the injection room and give it to the nurse.",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "她_会_给_你_做_皮_试_的。",
+				"pinyins" : "tā_huì_gěi_nǐ_zuò_pí_shì_de",
+				},
+			"en" : "She will give you a test.",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "如果_你_做_皮试_没_问题_的话，_她_会_给_你_打针_的。",
+				"pinyins" : "rú guǒ_nǐ_zuò_pí shì_méi_wèn tí_de huà_tā_huì_gěi_nǐ_dǎ zhēn_de ",
+				},
+			"en" : "If you test is all right, she will give you an injection.",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "我_要_吃_点_什么_药_吗？",
+				"pinyins" : "wǒ_yào_chī_diǎn_shí me_yào_ma",
+				},
+			"en" : "Do I need any medicine?",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "是的。_我_要_给_你_开_一些_治_头痛_的_药_以及_一些_抗生素_药丸。",
+				"pinyins" : "shì de_wǒ_yào_gěi_nǐ_kāi_yī xiē_zhì_tóu tòng_de_yào_yǐ jí_yī xiē_kàng shēng sù_yào wán",
+				},
+			"en" : "Yes, I'll prescribe some headache medicine and some antibiotic.",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "你_觉得_我_还_应该_注意_些_什么_吗?",
+				"pinyins" : "nǐ_jué de_wǒ_hái_yīng gāi_zhù yì_xiē_shí me_ma",
+				},
+			"en" : "What else do you advise me to do?",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "在_家_待_上_一_两_天，_注意_保暖，_多_喝_开水，_并_要_好好_休息。",
+				"pinyins" : "zài_jiā_dāi_shàng_yī_liǎng_tiān_zhù yì_bǎo nuǎn_duō_hē_kāi shuǐ_bìng_yào_hǎo hǎo_xiū xī",
+				},
+			"en" : "Stay at home for a day or two, keep warm, drink plenty of water, and have a good rest.",
+			"gold" : "4",
+			"mp3" : "dialog29.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "这是_你_的_处方。_把_它_拿到_药房_去_交给_药剂师，_他_会_告诉_你_该_怎么_服药_的。",
+				"pinyins" : "zhè shì_nǐ_de_chù fāng_Bǎ_tā_ná dào_yào fáng_qù_jiāo gěi_yào jì shī_tā_huì_gào sù_nǐ_gāi_zěn me_fú yào_de",
+				},
+			"en" : "Here is your prescription .Take it to the chemist at the dispensary and he will tell you the dosage.",
+			"gold" : "4",
+			"mp3" : "dialog30.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "非常_谢谢_你，_医生。",
+				"pinyins" : "fēi cháng_xiè xiè_nǐ_yī shēng",
+				},
+			"en" : "Thank you very much ,doctor.",
+			"gold" : "4",
+			"mp3" : "dialog31.mp3",
+			"user" : "6",
+			}],
+		},{
+		"titleCN" : "买药",
+		"titleEn" : "Buy medicine",
+		"ksimage" : "ks44_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "早上_好，_我_想_让_你_按照_处方_配药。",
+				"pinyins" : "zǎo shàng_hǎo_wǒ_xiǎng_ràng_nǐ_àn zhào_chù fāng_pèi yào",
+				},
+			"en" : "Good morning, I'd like to have these prescriptions filled, please.",
+			"gold" : "4",
+			"mp3" : "dialog32.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "好的，_大概_需要_五分钟。_请_在_外面_等候，_我_去_给_你_配药。",
+				"pinyins" : "hǎo de_dà gài_xū yào_wǔ fèn zhōng_Qǐng_zài_wài miàn_děng hòu_wǒ_qù_gěi_nǐ_pèi yào",
+				},
+			"en" : "Yes, It will about 5 minutes, Please wait outside and I'll have them for you.",
+			"gold" : "4",
+			"mp3" : "dialog33.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "谢谢。",
+				"pinyins" : "xiè xiè",
+				},
+			"en" : "Well, We'll check on that.",
+			"gold" : "4",
+			"mp3" : "dialog34.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "刘易斯_先生?",
+				"pinyins" : "liú yì sī_xiān shēng",
+				},
+			"en" : "Mr.Lewis?",
+			"gold" : "4",
+			"mp3" : "dialog35.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "在_这儿。",
+				"pinyins" : "zài_zhè ér",
+				},
+			"en" : "Yes. Here.",
+			"gold" : "4",
+			"mp3" : "dialog36.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "这是_你_的_药。",
+				"pinyins" : "zhè shì_nǐ_de_yào",
+				},
+			"en" : "Here is your medicine.",
+			"gold" : "4",
+			"mp3" : "dialog37.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "这些_胶囊_怎么_吃?",
+				"pinyins" : "zhè xiē_jiāo náng_zěn me_chī",
+				},
+			"en" : "How about the capsules?",
+			"gold" : "4",
+			"mp3" : "dialog38.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "瓶子_上_有_药_的_服法，_饭后_每次_两_片，_每日_三_次。",
+				"pinyins" : "píng zi_shàng_yǒu_yào_de_fú fǎ_fàn hòu_měi cì_liǎng_piàn_měi rì_sān_cì",
+				},
+			"en" : "The dosage is written on the bottle.Take two tablets each time ,three times a day after meal.",
+			"gold" : "4",
+			"mp3" : "dialog39.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "还有_别_的_药_吗?",
+				"pinyins" : "hái yǒu_bié_de_yào_ma",
+				},
+			"en" : "Anything else?",
+			"gold" : "4",
+			"mp3" : "dialog40.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "没有_了。_总共_十五_元_五角。",
+				"pinyins" : "méi yǒu_le_zǒng gòng_shí wǔ_yuán_wǔ jiǎo",
+				},
+			"en" : "No, That comes to 15.5 yuan.",
+			"gold" : "4",
+			"mp3" : "dialog41.mp3",
+			"user" : "9",
+			},{
+			"cn" : {
+				"words" : "给你_二十_元。",
+				"pinyins" : "gěi nǐ_èr shí_yuán",
+				},
+			"en" : "Here is 20 yuan.",
+			"gold" : "4",
+			"mp3" : "dialog42.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "这是_你_的_零钱。_祝_你_早日_康复。",
+				"pinyins" : "zhè shì_nǐ_de_líng qián_Zhù_nǐ_zǎo rì_kāng fù",
+				},
+			"en" : "And here is your change.I wish you a quick recovery.",
+			"gold" : "4",
+			"mp3" : "dialog43.mp3",
+			"user" : "9",
+			}],
+	}]
+}

@@ -1,0 +1,160 @@
+{
+	"key" : "3",
+	"titleCN" : "见面和问好",
+	"titleEn" : "Meet and greet",
+	"degree" : "小成",
+	"kind" : "日常会话",
+	"introduction" : "很高兴认识你! Nice to meet you!",
+	"kcimage" : "kc3_title.jpg",
+	"practices" : [{
+		"titleCN" : "你从哪儿来？",
+		"titleEn" : "Where are you from?",
+		"ksimage" : "ks31_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_从_哪儿_来？",
+				"pinyins" : "nǐ_cóng_nǎ er_lái",
+				},
+			"en" : "Where are you from?",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我_从_北京_来。",
+				"pinyins" : "wǒ_cóng_běi jīng_lái",
+				},
+			"en" : "I come from Beijing.",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "北京_的_故宫_和_长城_很_有名。",
+				"pinyins" : "běi jīng_de_gù gōng_hé_cháng chéng_hěn_yǒu míng",
+				},
+			"en" : "Beijing's Forbidden City and the Great Wall is famous.",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "是的，欢迎_你_来_北京。",
+				"pinyins" : "shì de, huān yíng_nǐ_lái_běi jīng",
+				},
+			"en" : "Yes, welcome to Beijing.",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "5",
+			}],
+		},{
+		"titleCN" : "你好",
+		"titleEn" : "say hello",
+		"ksimage" : "ks32_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你好，_我_叫_迈克。",
+				"pinyins" : "nǐ hǎo_wǒ_jiào_mài kè",
+				},
+			"en" : "Hello, my name is Mike.",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "你好，_我_叫_梅梅。",
+				"pinyins" : "nǐ hǎo_wǒ_jiào_méi méi",
+				},
+			"en" : "Hello, my name is meimei.",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "很_高兴_认识_你。",
+				"pinyins" : "hěn_gāo xìng_rèn shí_nǐ",
+				},
+			"en" : "Nice to meet you.",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "我_也是。",
+				"pinyins" : "wǒ_yě shì",
+				},
+			"en" : "me too.",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "15",
+			}],
+		},{
+		"titleCN" : "好久不见",
+		"titleEn" : "long time no see",
+		"ksimage" : "ks33_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你好，_迈克。_好久不见。",
+				"pinyins" : "nǐ hǎo_mài kè_hǎo jiǔbújiàn",
+				},
+			"en" : "Hello, Mike. long time no see.",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "你好，_李先生，_好久不见。",
+				"pinyins" : "nǐ hǎo_lǐ xiān shēng_hǎo jiǔ bú jiàn",
+				},
+			"en" : "Hello, Mr. Li, Long time no see.",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "最近_怎么样？",
+				"pinyins" : "zuì jìn_zěn me yàng",
+				},
+			"en" : "how are things?",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "工作_比较_忙。_你呢？",
+				"pinyins" : "gōng zuò_bǐ jiào_máng_nǐ ne",
+				},
+			"en" : "Busy work. How about you?",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "老_样子，_也_很忙。",
+				"pinyins" : "lǎo_yàng zǐ_yě_hěn máng",
+				},
+			"en" : "Old, too busy.",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "你_在_忙什么_呢？",
+				"pinyins" : "nǐ_zài_máng shén me_ne",
+				},
+			"en" : "what are you busy with?",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "在_照顾_孩子。",
+				"pinyins" : "zài_zhào gù_hái zǐ",
+				},
+			"en" : "In the care of children.",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "3",
+			}],
+	}]
+}

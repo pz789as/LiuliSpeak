@@ -129,7 +129,7 @@ export default class P_LessonInfo extends Component {
           <ScrollView>
             <View style={ss.topMsgStyle}>
               <View style={ss.topContent}>
-                <Image source={ImageRes.me_icon_normal} style={ss.topImage} 
+                <Image source={{uri: app.getImageUrl(app.temp.lesson.kcimage)}} style={ss.topImage} 
                   resizeMode='stretch'/>
                 <View style={ss.topTextContainer}>
                   <Text style={ss.topTextTitle}>{app.temp.lesson.titleCN}</Text>

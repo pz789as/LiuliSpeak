@@ -125,7 +125,7 @@ export default class P_LessonList extends Component {
   }
   renderRow(lesson, sectionID, rowID){
     return (
-        <CardItem image={ImageRes.me_icon_normal}
+        <CardItem image={lesson.kcimage}
           renderData={lesson}
           renderLeft={this.renderLeft.bind(this, lesson)}
           renderRight={this.renderMsg.bind(this)}

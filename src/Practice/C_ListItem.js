@@ -52,8 +52,8 @@ export default class ListItem extends Component {
         };
         this.syllableScore = [];
         this.useTime = new Date();
-        var strUser = "user" + this.props.dialogInfo.user;
-        //logf("strUser:", strUser);
+        var strUser = "user"+ parseInt(this.props.dialogInfo.user);
+        logf("strUser:",strUser);
         this.userIcon = ImageIcon[strUser];
         this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
     }
@@ -94,7 +94,7 @@ export default class ListItem extends Component {
         //logf("C_ListItem syllableScore:", this.syllableScore);
         var saveSocre = practiceSave.contents[this.itemIndex].p_score;
         //logf("C_ListItem p_Score:", saveSocre);
-        var blnHaveRecord = this.syllableScore.length>0
+        var blnHaveRecord = this.syllableScore.length > 0
         this.setState({score: saveSocre,btnCount:blnHaveRecord?3:2});
     }
 

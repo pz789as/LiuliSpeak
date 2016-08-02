@@ -1,0 +1,269 @@
+{
+	"key" : "6",
+	"titleCN" : "讨论天气",
+	"titleEn" : "Weather discussion",
+	"degree" : "小成",
+	"kind" : "日常会话",
+	"introduction" : "最近天气怎么样呀?",
+	"kcimage" : "kc6_title.jpg",
+	"practices" : [{
+		"titleCN" : "雨天",
+		"titleEn" : "raining day",
+		"ksimage" : "ks61_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "妈妈，_我_能_出去_玩_吗？",
+				"pinyins" : "mā mā_wǒ_néng_chū qù_wán_ma",
+				},
+			"en" : "Mom, can I go out to play?",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "现在_不行，_外面_下雨。",
+				"pinyins" : "xiàn zài_bú xíng_wài miàn_xià yǔ",
+				},
+			"en" : "Not now, it's raining outside.",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "拜托_啦。_我_会_打_雨伞_的。",
+				"pinyins" : "bài tuō_lā_wǒ_huì_dǎ_yǔ sǎn_de",
+				},
+			"en" : "what have you got? A headache? A cold?",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "现在_外面_雨_下的_太大_了，_晚_一点_吧。",
+				"pinyins" : "xiàn zài_wài miàn_yǔ_xià de_tài dà_le_wǎn_yì diǎn_ba",
+				},
+			"en" : "Outside the rain is too large now, and a little later it.",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "晴天",
+		"titleEn" : "sunny day",
+		"ksimage" : "ks62_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "今天_看来_像是_个_晴天。",
+				"pinyins" : "jīn tiān_kàn lái_xiàng shì_gè_qíng tiān",
+				},
+			"en" : "It looks like a sunny day.",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "是的，今天_天气_真好。",
+				"pinyins" : "shì de, jīn tiān_tiān qì_zhēn hǎo",
+				},
+			"en" : "Yes, nice weather today.",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "希望_这_几天_都_是_这样_的_好_天气。",
+				"pinyins" : "xī wàng_zhè_jǐ tiān_dōu_shì_zhè yàng_de_hǎo_tiān qì",
+				},
+			"en" : "I hope these days are such good weather.",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "希望_是的。",
+				"pinyins" : "xī wàng_shì de",
+				},
+			"en" : "I wish it was.",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "15",
+			}],
+		},{
+		"titleCN" : "第一场雪",
+		"titleEn" : "The first snow",
+		"ksimage" : "ks63_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "外面_下雪_了！",
+				"pinyins" : "wài miàn_xià xuě_le",
+				},
+			"en" : "Snowing outside!",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "真的_吗？_吃_完_午饭_你_想_堆雪人_吗？",
+				"pinyins" : "zhēn de_ma_Chī_wán_wǔ fàn_nǐ_xiǎng_duī xuě rén_ma",
+				},
+			"en" : "really? After lunch you do want to make a snowman?",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "是的!_我们_可以_去_公园_吗？",
+				"pinyins" : "shì de_wǒ men_kě yǐ_qù_gōng yuán_ma",
+				},
+			"en" : "yes! We can go to the park?",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "当然。_我们_可以_在_空地_上_堆_一个_最大_的_雪人。",
+				"pinyins" : "dāng rán_wǒ men_kě yǐ_zài_kōng dì_shàng_duī_yí gè_zuì dà_de_xuě rén",
+				},
+			"en" : "of course. We can stack one of the biggest snowman in the open.",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "大雾天气",
+		"titleEn" : "Foggy weather",
+		"ksimage" : "ks64_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "为什么_我_看_不到_窗外_的_任何_东西？",
+				"pinyins" : "wèi shén me_wǒ_kàn_bú dào_chuāng wài_de_rèn hé_dōng xi",
+				},
+			"en" : "Why I do not see anything out of the window?",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "14",
+			},{
+			"cn" : {
+				"words" : "因为_有_雾。",
+				"pinyins" : "yīn wéi_yǒu_wù",
+				},
+			"en" : "Because of the fog.",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "妈妈，_什么_是_雾？",
+				"pinyins" : "mā mā_shén me_shì_wù",
+				},
+			"en" : "Mom, what is fog?",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "14",
+			},{
+			"cn" : {
+				"words" : "雾_是_一种_离_地面_很近_的_云。",
+				"pinyins" : "wù_shì_yì zhǒng_lí_dì miàn_hěn jìn_de_yún",
+				},
+			"en" : "Fog is a cloud close to the ground.",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "哦。_因为_有_雾，_所以_我们_不能_看到_远处。",
+				"pinyins" : "ò_yīn wéi_yǒu_wù_suǒ yǐ_wǒ men_bù néng_kàn dào_yuǎn chù",
+				},
+			"en" : "Oh. Because of the fog, so we can not see in the distance.",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "14",
+			},{
+			"cn" : {
+				"words" : "对，_当_雾_散了，_我们_就_又能_看到_太阳_了。",
+				"pinyins" : "duì_dāng_wù_sàn le_wǒ men_jiù_yòu néng_kàn dào_tài yáng_le",
+				},
+			"en" : "Yes, when the fog lifted, we can see the sun.",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "天气很热",
+		"titleEn" : "Hot weather",
+		"ksimage" : "ks65_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你好，_李雷。_我_是_韩梅梅。_我_从_三亚_来。",
+				"pinyins" : "nǐ hǎo_lǐ léi_Wǒ_shì_hán méi méi_Wǒ_cóng_sān yà_lái",
+				},
+			"en" : "Hello, Li Lei. I Han Meimei. I come from Sanya.",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "三亚？_你_在_三亚_做_什么？",
+				"pinyins" : "sān yà_Nǐ_zài_sān yà_zuò_shén me",
+				},
+			"en" : "Sanya? What do you do in Sanya?",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我_在_度假。",
+				"pinyins" : "wǒ_zài_dù jià",
+				},
+			"en" : "I am on vacation.",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "三亚_的_天气_怎么样？",
+				"pinyins" : "sān yà_de_tiān qì_zěn me yàng",
+				},
+			"en" : "Fog is a cloud close to the ground.",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "天气_很_好，_但是_很_热。",
+				"pinyins" : "tiān qì_hěn_hǎo_dàn shì_hěn_rè",
+				},
+			"en" : "The weather was good, but very hot.",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "多少_度？",
+				"pinyins" : "duō shǎo_dù",
+				},
+			"en" : "how many degree?",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "30度。",
+				"pinyins" : "30 dù",
+				},
+			"en" : "30 degrees.",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "确实_很_热。",
+				"pinyins" : "què shí_hěn_rè",
+				},
+			"en" : "Really hot.",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "7",
+			}],
+	}]
+}

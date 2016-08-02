@@ -66,6 +66,8 @@ class LessonCard extends Component {
 			<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
 				{/*上方图片*/}
 				<View style={[styles.top, styles.border]}>
+					<Image source={{uri:app.getImageUrl(this.props.course.ksimage)}}
+						style={styles.imageView}/>
 				</View>
 				{/*选项，标题，介绍等*/}
 				<View style={[styles.msg, styles.border]}>
@@ -214,6 +216,7 @@ const styles = StyleSheet.create({
 		height: height,
 		borderRadius: minUnit*3,
 		backgroundColor: '#FDFFFF',
+		overflow: 'hidden',
 	},
 	border: {
 		// borderWidth: 1,
@@ -223,6 +226,10 @@ const styles = StyleSheet.create({
 		height: height*0.4,
 		borderBottomWidth: 1/PixelRatio.get(),
 		borderColor: '#C7C7C7',
+	},
+	imageView:{
+		height: height * 0.4,
+		width: width,
 	},
 	msg: {
 		flex: 1,

@@ -1,0 +1,300 @@
+{
+	"key" : "5",
+	"titleCN" : "外出就餐",
+	"titleEn" : "Eating out",
+	"degree" : "进阶",
+	"kind" : "生活服务",
+	"introduction" : "来学习一下如何外出就餐吧",
+	"kcimage" : "kc5_title.jpg",
+	"practices" : [{
+		"titleCN" : "进入餐厅",
+		"titleEn" : "In the restaurant",
+		"ksimage" : "ks51_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "我们_想_要_一个_靠_街_的_桌位。",
+				"pinyins" : "wǒ men_xiǎng_yào_yí gè_kào_jiē_de_zhuō wèi",
+				},
+			"en" : "We'd like to have to table near the street.",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "这是_你_的_菜单，_服务员_马上_来。",
+				"pinyins" : "zhè shì_nǐ_de_cài dān_fú wù yuán_mǎ shàng_lái",
+				},
+			"en" : "This is your menu. Your waitress will be here soon.",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "谢谢_你。",
+				"pinyins" : "xiè xiè_nǐ",
+				},
+			"en" : "Thank you.",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "你_要_点菜_了_吗?",
+				"pinyins" : "nǐ_yào_diǎn cài_le_ma",
+				},
+			"en" : "May I take your order?",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "我_想_看看_菜单。",
+				"pinyins" : "wǒ_xiǎng_kàn kàn_cài dān",
+				},
+			"en" : "I'd like to see the menu, please.",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "抱歉，我_想_你_已经_有_一份_了，_在_这里。",
+				"pinyins" : "bào qiàn wǒ_xiǎng_nǐ_yǐ jīng_yǒu_yí fèn_le_zài_zhè lǐ",
+				},
+			"en" : "I'm sorry. I thought you had one. Here you are.",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "选座",
+		"titleEn" : "Seat selection",
+		"ksimage" : "ks52_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "中午_好，_先生_们。_欢迎_来_到_百丽_西餐厅。_请问_总共_有_几_位_呢?",
+				"pinyins" : "zhōng wǔ_hǎo_xiān shēng_men_huān yíng_lái_dào_bǎi lì_xī cān tīng_ qǐng wèn_zǒng gòng_yǒu_jǐ_wèi_ne",
+				},
+			"en" : "Good afternoon, gentlemen. Welcome to our restaurant. There are several to ask it?",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "三_位。",
+				"pinyins" : "sān_wèi",
+				},
+			"en" : "Three.",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "你们_喜欢_坐_吸烟_区_还是_无烟_区_呢?",
+				"pinyins" : "nǐ men_xǐ huān_zuò_xī yān_qū_hái shì_wú yān_qū_ne",
+				},
+			"en" : "Would you like to sit smoking or no somking？",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "吸烟_区。",
+				"pinyins" : "xī yān_qū",
+				},
+			"en" : "Smoking.",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "请_跟_我_来。_我_给_你们_找_位子。_这_张_桌子_可以_吗",
+				"pinyins" : "qǐng_gēn_wǒ_lái_Wǒ_gěi_nǐ men_zhǎo_wèi zǐ_Zhè_zhāng_zhuō zǐ_kě yǐ_ma",
+				},
+			"en" : "Follow me ,please.I'll seat you.How about this table?",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "好_的。_谢谢。",
+				"pinyins" : "hǎo_de_xiè xiè",
+				},
+			"en" : "Yes.Thank you.",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "6",
+			}],
+		},{
+		"titleCN" : "点餐",
+		"titleEn" : "order",
+		"ksimage" : "ks53_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "欢迎_来_我们_西餐厅。_请_坐。",
+				"pinyins" : "huān yíng_lái_wǒ men_xī cān tīng_qǐng_zuò",
+				},
+			"en" : "Welcome to our western restaurant. Sit down, please.",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "谢谢。",
+				"pinyins" : "xiè xiè",
+				},
+			"en" : "Thank you.",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "您_要_不要_看_看_菜单?",
+				"pinyins" : "nín_yào_bú yào_kàn_kàn_cài dān",
+				},
+			"en" : "May I show you our breakfast menu?",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "好_的。",
+				"pinyins" : "hǎo_de",
+				},
+			"en" : "Yes, please.",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "给您。_请_慢_慢_看。",
+				"pinyins" : "gěi nín_qǐng_màn_màn_kàn",
+				},
+			"en" : "Here it is. Please take your time.",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "好_的，_稍_等。",
+				"pinyins" : "hǎo_de_shāo_děng",
+				},
+			"en" : "Yes, please wait.",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "您_现在_要_点菜_了_吗?",
+				"pinyins" : "nín_xiàn zài_yào_diǎn cài_le_ma",
+				},
+			"en" : "May I take your order now?",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "是_的，_我_要_一_杯_咖啡，_一个_煮_鸡蛋_和_两个_圆_面包。",
+				"pinyins" : "shì_de_wǒ_yào_yī_bēi_kā fēi_yī gè_zhǔ_jī dàn_hé_liǎng gè_yuán_miàn bāo",
+				},
+			"en" : "Yes. I’ll have one coffee, one boiled egg and two rolls, please.",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "好_的，_先生。_我_马上_回来。",
+				"pinyins" : "hǎo_de_xiān shēng_Wǒ_mǎ shàng_huí lái",
+				},
+			"en" : "Very good, sir. I’ll be with you in a moment. ",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "买单",
+		"titleEn" : "payment",
+		"ksimage" : "ks54_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "请问_您_还_需要_些_什么_吗？",
+				"pinyins" : "qǐng wèn_nín_hái_xū yào_xiē_shén me_ma",
+				},
+			"en" : "Do you have what you need?",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "哦，_不用_了。_我们_已经_吃饱_了。",
+				"pinyins" : "ò_bú yòng_le_wǒ men_yǐ jīng_chī bǎo_le",
+				},
+			"en" : "Oh, no. We've had enough.",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "好_的。_有_什么_需要_您_再_叫_我。",
+				"pinyins" : "hǎo_de_yǒu_shén me_xū yào_nín_zài_jiào_wǒ",
+				},
+			"en" : "Ok. What need you to call me.",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "请_给_我_结账_好_吗？",
+				"pinyins" : "qǐng_gěi_wǒ_jié zhàng_hǎo_ma",
+				},
+			"en" : "Please give me the bill, please?",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "好_的。_这是_您_的_账单。",
+				"pinyins" : "hǎo_de_zhè shì_nín_de_zhàng dān",
+				},
+			"en" : "Ok. This is your bill.",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "总共_多少_钱？",
+				"pinyins" : "zǒng gòng_duō shao_qián",
+				},
+			"en" : "How much is the total?",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "共计_185_元。_刷卡_还是_现金？",
+				"pinyins" : "gòng jì_185_yuán_shuā kǎ_hái shì_xiàn jīn",
+				},
+			"en" : "A total of 185 yuan. Cash or credit card?",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "现金。_这是_200_元。",
+				"pinyins" : "xiàn jīn_zhè shì_200_yuán",
+				},
+			"en" : "cash. This is 200 yuan.",
+			"gold" : "4",
+			"mp3" : "dialog29.mp3",
+			"user" : "10",
+			},{
+			"cn" : {
+				"words" : "这是_您_的_找零。_欢迎_下次_光临。",
+				"pinyins" : "zhè shì_nín_de_zhǎo líng_huān yíng_xià cì_guāng lín",
+				},
+			"en" : "This is your change. Welcome to the next visit.",
+			"gold" : "4",
+			"mp3" : "dialog30.mp3",
+			"user" : "11",
+			}],
+	}]
+}

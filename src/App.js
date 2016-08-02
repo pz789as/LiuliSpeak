@@ -18,6 +18,7 @@ import {
 import {
   Scenes,
   Consts,
+  serverUrl,
 } from './Constant';
 
 import SceneList from './SceneList';
@@ -27,6 +28,10 @@ import fs from 'react-native-fs';
 var testData = [
     require('../data/lesson1.json'),
     require('../data/lesson2.json'),
+    require('../data/lesson3.json'),
+    require('../data/lesson4.json'),
+    require('../data/lesson5.json'),
+    require('../data/lesson6.json'),
 ];
 
 let saveKey = 'save';
@@ -162,6 +167,7 @@ export default class App extends Component {
     for(var i=0;i<lesson.practices.length;i++){
       var p = {
         isLock: i==0 ? false : true,//是否解锁
+        isPass: false,//是否通过闯关
         contents: [],//每个章节保存的分数
       };
       for(var j=0;j<lesson.practices[i].contents.length;j++){
@@ -378,5 +384,8 @@ export default class App extends Component {
     }).catch((err) => {
       logf(err.message);
     });
+  }
+  getImageUrl(name){
+    return serverUrl + '/LiuliSpeak/lessons/images/' + name;
   }
 }

@@ -70,7 +70,7 @@ class C_LessonMenu extends Component {
         {/*上方 按钮 信息显示*/}
         <View style={[ming.menuTop, styles.horizontalList]}>
           <IconButton icon={ImageRes.ic_close} onPress={this.props.onClose}/>
-          <Text style={{fontSize:16,color:'white'}}>课程名称</Text>
+          <Text style={{fontSize:16,color:'white'}}>{app.temp.lesson.titleCN}</Text>
           <IconButton icon={ImageRes.more} onPress={this.AnimatedInt.bind(this)}/>
         </View>
         <View style={{alignItems:'center'}}>
