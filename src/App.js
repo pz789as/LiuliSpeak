@@ -93,6 +93,7 @@ export default class App extends Component {
     return false;
   }
   loadData(loadOk){
+    // this.removeSave();
     storage.load({
       key: saveKey,
     }).then((ret)=>{
@@ -140,6 +141,54 @@ export default class App extends Component {
     storage.remove({
       key: saveKey,
     });
+  }
+  //根据章节ID获取章节章节存档，前提是已经选中课程
+  getPracticeSave(practiceID){
+    var tempLesson = this.temp.lesson;
+    var lessonSave = this.getLessonFromSave(tempLesson.key);
+    if (!lessonSave) {
+      logf('存档错误:', tempLesson.key);
+      return;
+    }
+    if (!lessonSave.practices){//如果没存档没有数据，则生成新的存档数据
+      this.createPracticeStorage(tempLesson, lessonSave);
+      this.saveData();
+    }
+    return lessonSave.practices[practiceID];
+  }
+  //创建章节存档，不需要使用，如果要使用先@郭
+  createPracticeStorage(lesson, lessonSave){
+    lessonSave.practices = [];
+    for(var i=0;i<lesson.practices.length;i++){
+      var p = {
+        isLock: i==0 ? false : true,//是否解锁
+        contents: [],//每个章节保存的分数
+      };
+      for(var j=0;j<lesson.practices[i].contents.length;j++){
+        p.contents.push({
+          p_score: 0,//修炼分数信息
+          e_Score: 0,//闯关分数
+          p_SyllableScore:[],//练习中每一句音阶分数
+          e_SyllableScore:[],//闯关中每一句音阶分数
+        });
+      }
+      lessonSave.practices.push(p);
+    }
+    logf("初始化存档数据:", lessonSave.practices)
+  }
+  //保存某个对话信息，不需要传递key和章节id，因为已经保存在app的temp中了。
+  //dialogID: 对话id  //kind: 修炼/闯关（0、修炼；1、闯关)  
+  //score: 评分  //syllableScore: 单个音节信息
+  saveSingleScore(dialogID, kind, score, syllableScore){
+    var practice = this.getPracticeSave(this.temp.courseID);
+    if (kind == 0){
+      practice.contents[dialogID].p_score = score;
+      practice.contents[dialogID].p_SyllableScore = syllableScore;
+    }else{
+      practice.contents[dialogID].e_Score = score;
+      practice.contents[dialogID].e_SyllableScore = syllableScore;
+    }
+    app.saveData();//保存存档
   }
   componentWillMount(){
   }
@@ -197,12 +246,12 @@ export default class App extends Component {
     );
   }
   GotoPage(kind, index, params){
-    var arrRoutes = this._navigator.getCurrentRoutes();//可以获取到所有压入栈中的界面。
-    for(var i=0;i<arrRoutes.length;i++){
+    var arrRoutes = this._navigator.getCurrentRoutes();//可以获取到所有压入栈中的界面
+    for(var i=0;i<arrRoutes.length;i++){//主要作用是判断页面栈中是否已经存在了这个页面
       if (arrRoutes[i].index == index){
         if (i == arrRoutes.length - 1){
           logf('gotopage', '两次进入同一个界面啦！注意处理');
-          return;//如果当前页面是即将要跳转的相同一个界面，则不起作用。
+          return;//如果要跳转的页面和当前页面是一样，在不做跳转处理
         }else{
           var configureTmp = SceneList[index].configure;
           if (params.configure && params.configure >= Consts.PushFromRight){

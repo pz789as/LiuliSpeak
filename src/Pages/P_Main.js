@@ -110,6 +110,9 @@ export default class P_Main extends Component {
       mainTitle: '添加课程',
     });
   }
+  downloadAll(){
+    
+  }
   shouldComponentUpdate(nextProps, nextState) {
     if (this.lessonCount != this.realCourseList.length){
       this.lessonCount = this.realCourseList.length;
