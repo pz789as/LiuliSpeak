@@ -8,15 +8,15 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Animated,    
+    Animated,
     Image,
 }from 'react-native'
 import {
     ImageRes,
     ImageIcon,
 } from '../Resources';
-import {    
-    ScreenWidth,     
+import {
+    ScreenWidth,
     minUnit,
     MinWidth,
 } from '../Styles';
@@ -26,17 +26,18 @@ import {
 } from '../Constant';
 
 
- 
+import ScoreCircle from '../Common/ScoreCircle'
 import Sentence from '../ListItem/C_NewSentence';
 import AllBotton from  '../ListItem/C_AllButtons';
 import RNFS from 'react-native-fs'
 
-var totalWidth = ScreenWidth; 
-var fontSize = parseInt(minUnit*4);
+var totalWidth = ScreenWidth;
+var fontSize = parseInt(minUnit * 4);
 var spacing = fontSize * 1;//内容之间的间距
 
 export default class ListItem extends Component {
     height = 0;
+
     constructor(props) {
         super(props);
         // 初始状态
@@ -47,11 +48,12 @@ export default class ListItem extends Component {
             blnLow: false,
             blnSelect: (this.itemIndex == 0),
             showType: this.props.itemShowType,//默认的显示类型由属性传递
-            btnCount:3,
+            btnCount: 2,
         };
+        this.syllableScore = [];
         this.useTime = new Date();
-        var strUser = "user"+this.props.dialogInfo.user;
-        logf("strUser:",strUser);
+        var strUser = "user" + this.props.dialogInfo.user;
+        //logf("strUser:", strUser);
         this.userIcon = ImageIcon[strUser];
         this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
     }
@@ -64,9 +66,9 @@ export default class ListItem extends Component {
         itemScore: PropTypes.number,//从数据库中获取的分数
         //itemCoins: PropTypes.number,//从数据库中获取的金币数量
         dialogInfo: PropTypes.object,//对话信息
-        playNext:PropTypes.func,
-        getRate:PropTypes.func,
-        blnAutoplay:PropTypes.bool,
+        playNext: PropTypes.func,
+        getRate: PropTypes.func,
+        blnAutoplay: PropTypes.bool,
     };
 
     _onAutoplay = ()=> { //接收到父组要调用自动播放的指令        
@@ -84,6 +86,16 @@ export default class ListItem extends Component {
         this.useTime = time;
         //logf("WillMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
         //..this.existsRecordFile();//检查是否有录音文件
+
+        var practiceSave = app.getPracticeSave(app.temp.courseID);
+        //logf("C_ListItem PracticeSave:", practiceSave);
+
+        this.syllableScore = practiceSave.contents[this.itemIndex].p_SyllableScore;
+        //logf("C_ListItem syllableScore:", this.syllableScore);
+        var saveSocre = practiceSave.contents[this.itemIndex].p_score;
+        //logf("C_ListItem p_Score:", saveSocre);
+        var blnHaveRecord = this.syllableScore.length>0
+        this.setState({score: saveSocre,btnCount:blnHaveRecord?3:2});
     }
 
     componentDidMount() {
@@ -103,61 +115,57 @@ export default class ListItem extends Component {
         return blnUpdate;
     }
 
-    callbackAllBtn = (btn,msg)=>{
-        if(btn == "btnPlay"){
-            if(msg == "playover"){
+    callbackAllBtn = (btn, msg)=> {
+        if (btn == "btnPlay") {
+            if (msg == "playover") {
                 this.props.playNext();
             }
-        }else if(btn == "btnRecord"){
+        } else if (btn == "btnRecord") {
             this.setPingceResult(msg);
-        }else if(btn == "btnRecPlay"){
+        } else if (btn == "btnRecPlay") {
 
-        }else if(btn == "btnQuestion"){
+        } else if (btn == "btnQuestion") {
 
         }
     }
 
     render() {
-        const { dialogInfo} = this.props;//获取属性值
+        const {dialogInfo} = this.props;//获取属性值
         const {itemWordCN, itemWordEN} = dialogInfo;
-        //logf("render item:",this.itemIndex);
+        logf("render item:",this.itemIndex);
+
         return (
             <View
-                    ref = "item"
-                    pointerEvents={this.props.blnAutoplay?"box-only":"auto"}
-                  style={[styles.container,{backgroundColor:this.state.blnSelect?'#FFFFFF':'#EBEBEB'}]}
-                  onLayout={this._onLayout.bind(this)}>
+                ref="item"
+                pointerEvents={this.props.blnAutoplay?"box-only":"auto"}
+                style={[styles.container,{backgroundColor:this.state.blnSelect?'#FFFFFF':'#EBEBEB'}]}
+                onLayout={this._onLayout.bind(this)}>
 
                 <Image style={styles.iconImage} source={this.userIcon}/>
                 <View style={styles.contentView} onLayout={this._onLayoutContentView.bind(this)}>
-
-
                     {(this.state.showType != 1) &&
-                    <Sentence ref="mySentence"  words={itemWordCN.words}
+                    <Sentence ref="mySentence" words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
-                              touch={this.state.touch}/> }
+                              touch={this.state.touch}
+                              arrScore={this.syllableScore}
+                    /> }
 
                     {(this.state.showType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
-                    {this.state.blnSelect && <AllBotton ref = "allBotton"
+                    {this.state.blnSelect && <AllBotton ref="allBotton"
                                                         btnCount={this.state.btnCount}
-                                                        dialogInfo={dialogInfo} 
+                                                        dialogInfo={dialogInfo}
                                                         btnCallback={this.callbackAllBtn.bind(this)}
-                                                        getRate = {this.props.getRate.bind(this)}/>
+                                                        getRate={this.props.getRate.bind(this)}/>
                     }
                 </View>
-                {this.drawScore()}
-                {/*
-                <Text style={[styles.coinText,this.state.blnLow&&{bottom:2/MinWidth}]}>
-                    {this.state.coins}
-                    { <Image style={styles.coinImage} source={ImageRes.icon_coin_s}/>}
-                </Text>*/}
+                {this.drawScore()}                
             </View>
         );
     }
 
-    setPointEvent = (value)=>{
-        this.refs.item.setNativeProps({pointerEvents:value});
+    setPointEvent = (value)=> {
+        this.refs.item.setNativeProps({pointerEvents: value});
     }
 
     _onLayout = (event)=> {
@@ -167,7 +175,7 @@ export default class ListItem extends Component {
         //logf('height:', getHeight)
         //logf('6*fontSize', 6 * fontSize);
         if (getHeight < 5 * fontSize) { //当内容很少时,为了适配右下角金币显示的位置而做的特殊处理
-            logf('低于最小高度了亲...');           
+            logf('低于最小高度了亲...');
             this.setState({
                 blnLow: true,
             });
@@ -184,11 +192,10 @@ export default class ListItem extends Component {
         var path = basePath + fileName;
 
         RNFS.exists(path).then((result)=> {
-            
             if (result === true) {
-                this.setState({btnCount:4});
+                this.setState({btnCount: 4});
             } else {
-                this.setState({btnCount:2});
+                this.setState({btnCount: 2});
             }
         })
     }
@@ -257,33 +264,41 @@ export default class ListItem extends Component {
         this.refs.mySentence.blnTouchSentence(touch, layout);//调用子组件的判断碰撞函数,将touch对象和myLayout传递给子组件
     }
     drawScore = ()=> {
+        if(this.state.btnCount == 2)return;
+        return (<ScoreCircle score={this.state.score}/>)
         //if (!this.state.blnHaveRecord) return;
-        if (this.state.score >= 60) {
-            return (
-                <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
-                    <Text style={{fontSize:fontSize,color:'#F0FFE7'}}>{this.state.score}</Text>
-                </View>
-            );
-        } else {
-            return (
-                <Image  style={styles.badImage} source={ImageRes.icon_bad}/>
-            )
-        }
-    }
+        /*if (this.state.score >= 60) {
+         return (
+         <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
+         <Text style={{fontSize:fontSize,color:'#F0FFE7'}}>{this.state.score}</Text>
+         </View>
+         );
+         } else {
+         return (
+         <Image  style={styles.badImage} source={ImageRes.icon_bad}/>
+         )
+         }*/
 
+    }
 
     setPingceResult(result) {//唐7-11
         logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
-        syllableScore
+
         const {blnSuccess, score, syllableScore, errorMsg} = result;
         if (blnSuccess) {
+            this.syllableScore = syllableScore;
             this.refs.mySentence.setPingce(syllableScore); //评测打分..
             var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
             if (syllableScore < 60) { //如果没及格,就别给随机分数了
                 rndScore = syllableScore;
             }
-           
-            this.setState({score: rndScore}); //评测打分..
+            app.saveSingleScore(this.itemIndex, 0, rndScore, this.syllableScore)
+            if(this.state.btnCount == 2){
+                this.setState({score: rndScore,btnCount:3}); //评测打分..
+            }else {
+                this.setState({score: rndScore}); //评测打分..
+            }
+
         } else {
             if (errorMsg == 0) {
                 logf("未知的异常");
@@ -291,20 +306,20 @@ export default class ListItem extends Component {
                 logf("讯飞返回的错误代码:", errorMsg);
             }
             this.refs.mySentence.setPingce("error");
-            
+
             this.setState({score: 0});
         }
     }
 
     _onSelectItem = ()=> {//选中item时调用        
-        this.setState({ blnSelect: true});
+        this.setState({blnSelect: true});
     }
 
     _onHiddenItem = ()=> {//item由选中到非选中时调用       
         this.setState({blnSelect: false});
     }
 
-    _onChangeShowType = (type)=> {        
+    _onChangeShowType = (type)=> {
         if (this.state.showType != type) {
             this.setState({showType: type});
         }
@@ -312,7 +327,7 @@ export default class ListItem extends Component {
 
     _onPreviousPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
         this.refs.allBotton.releaseBotton();
-        
+
     }
 }
 
@@ -320,11 +335,11 @@ const styles = StyleSheet.create({
     container: {//主背景
         flexDirection: 'row',
         width: totalWidth,
-        borderBottomWidth: MinWidth ,
+        borderBottomWidth: MinWidth,
         borderBottomColor: '#CBCBCB',
         paddingVertical: spacing,//给个1个汉字大小的内边距
         paddingHorizontal: spacing / 4,
-        overflow : 'hidden',
+        overflow: 'hidden',
     },
     leftView: {
         //backgroundColor:'blue',
@@ -349,8 +364,8 @@ const styles = StyleSheet.create({
         fontSize: fontSize,
         color: '#757575',
         //marginBottom: spacing,
-        marginLeft:fontSize/2,
-        marginVertical:spacing/2,
+        marginLeft: fontSize / 2,
+        marginVertical: spacing / 2,
     },
     operateView: {//操作按钮的背景界面
         //height: 3 * fontSize,
@@ -374,7 +389,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     badImage: {
-        backgroundColor:'red',
+        backgroundColor: 'red',
         width: fontSize * 2.5,
         height: fontSize * 2.5,
         borderRadius: fontSize * 2.5 / 2,
@@ -392,8 +407,8 @@ const styles = StyleSheet.create({
     },
     coinText: {//金币的数量样式
         position: 'absolute',
-        fontSize: fontSize ,
-        width: fontSize *2,
+        fontSize: fontSize,
+        width: fontSize * 2,
         color: '#757575',
         right: fontSize / 2,
         bottom: fontSize / 2,
@@ -402,10 +417,10 @@ const styles = StyleSheet.create({
     },
     coinImage: {//金币图标样式
         width: fontSize * 0.7,
-        height: fontSize *0.7,
-        borderRadius: fontSize *0.35,
+        height: fontSize * 0.7,
+        borderRadius: fontSize * 0.35,
         backgroundColor: '#EF911D',
-        top: fontSize / 2 - 2 *MinWidth,
+        top: fontSize / 2 - 2 * MinWidth,
         left: fontSize / 2,
     },
 

@@ -224,6 +224,7 @@ export default class P_Exam extends Component {
     recordScore = (index,syllScore,sentScore)=>{
         this.sentenceScore[index] = sentScore;
         this.syllableScore[index] = syllScore;
+        app.saveSingleScore(index,1,sentScore,syllScore);
         console.log("this.sentenceScore:",index,this.sentenceScore);
         console.log("this.syllableScore:",index,this.syllableScore);
     }

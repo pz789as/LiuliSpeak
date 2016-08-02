@@ -313,45 +313,46 @@ export default class BtnRecording extends Component {
                 }
             }
         } else if (this.category === 'read_sentence') {
-            var sentence = obj.sentences[0];
-            for (var j = 0; j < sentence.words.length; j++) {
-                var word = sentence.words[j];
-                for (var idx = 0; idx < word.syllables.length; idx++) {
-                    var syllable = word.syllables[idx];
-                    if (syllable.pDpMessage == '正常') {
-                        pointCount += 3;
-                        lostPoint += 3;
-                        var tmpPoint = '';
-                        if (Math.abs(syllable.shengmu.wpp) > 2) {
-
-                            lostPoint--;
-                            tmpPoint = tmpPoint.concat('0');
+            for(var i=0;i<obj.sentences.length;i++){
+                var sentence = obj.sentences[i];
+                for (var j = 0; j < sentence.words.length; j++) {
+                    var word = sentence.words[j];
+                    for (var idx = 0; idx < word.syllables.length; idx++) {
+                        var syllable = word.syllables[idx];
+                        if (syllable.pDpMessage == '正常') {
+                            pointCount += 3;
+                            lostPoint += 3;
+                            var tmpPoint = '';
+                            if (Math.abs(syllable.shengmu.wpp) > 2) {
+                                lostPoint--;
+                                tmpPoint = tmpPoint.concat('0');
+                            } else {
+                                tmpPoint = tmpPoint.concat('1');
+                            }
+                            if (Math.abs(syllable.yunmu.wpp) > 2) {
+                                tmpPoint = tmpPoint.concat('0');
+                                lostPoint--;
+                            } else {
+                                tmpPoint = tmpPoint.concat('1');
+                            }
+                            if (Math.abs(syllable.yunmu.tgpp) > 1) {
+                                tmpPoint = tmpPoint.concat('0');
+                                lostPoint--;
+                            } else {
+                                tmpPoint = tmpPoint.concat('1');
+                            }
+                            syllablesScore.push(tmpPoint);
+                        } else if (syllable.pDpMessage == '漏读') {
+                            syllablesScore.push('000');
+                            pointCount += 3;
                         } else {
-                            tmpPoint = tmpPoint.concat('1');
-                        }
-                        if (Math.abs(syllable.yunmu.wpp) > 2) {
-                            tmpPoint = tmpPoint.concat('0');
-                            lostPoint--;
-                        } else {
-                            tmpPoint = tmpPoint.concat('1');
-                        }
-                        if (Math.abs(syllable.yunmu.tgpp) > 1) {
-                            tmpPoint = tmpPoint.concat('0');
-                            lostPoint--;
-                        } else {
-                            tmpPoint = tmpPoint.concat('1');
-                        }
-                        syllablesScore.push(tmpPoint);
-                    } else if (syllable.pDpMessage == '漏读') {
-                        syllablesScore.push('000');
-                        pointCount += 3;
-                    } else {
-                        if (syllable.pDpMessage == '增读') {
-                            lostPoint -= 1;
-                        } else if (syllable.pDpMessage == '回读') {
-                            lostPoint -= 1;
-                        } else if (syllable.pDpMessage == '替换') {
-                            lostPoint -= 1;
+                            if (syllable.pDpMessage == '增读') {
+                                lostPoint -= 1;
+                            } else if (syllable.pDpMessage == '回读') {
+                                lostPoint -= 1;
+                            } else if (syllable.pDpMessage == '替换') {
+                                lostPoint -= 1;
+                            }
                         }
                     }
                 }

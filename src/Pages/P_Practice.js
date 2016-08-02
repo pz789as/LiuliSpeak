@@ -49,9 +49,6 @@ class P_Practice extends Component {
         // 初始状态     
         this.state = {
             touch: {blnTouch: false, tx: 0, ty: 0},
-            // listDataSource: new ListView.DataSource({
-            //     rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
-            // }),
             blnDraw:true,
         };
         this.useTime = new Date();
@@ -200,7 +197,7 @@ class P_Practice extends Component {
              changePlayKind={this._changePlayK.bind(this)}
              changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />}
              </View>
-        );        
+        );
     }
     getAllGold(){
         return 20;

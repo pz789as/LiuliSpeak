@@ -49,7 +49,7 @@ export default class Sentence extends Component {
         words: PropTypes.string,
         pinyins: PropTypes.string,        
         touch: PropTypes.object,
-        arrScore:PropTypes.array,
+        arrScore:PropTypes.oneOfType([PropTypes.string,PropTypes.array]),
     };
     static defaultProps = {       
         touch: null,
@@ -95,7 +95,7 @@ export default class Sentence extends Component {
     }
 
     setSyllableColor = (arrScore)=>{
-        logf("arrScore:",arrScore);
+        //logf("arrScore:",arrScore);
         if(arrScore.length == 0){//给默认的颜色值
             for(var i=0;i<this.arrSyllablePY.length;i++){
                 this.arrSyllableColor[i] = '#434343';
@@ -114,7 +114,7 @@ export default class Sentence extends Component {
             //先检测实际汉字和分数数据的长度是否匹配
             var tmpWord = this.props.words;
             tmpWord = tmpWord.replace(/[，_。！？；“”‘’：]/g, "");
-            logf("tmpWord:",tmpWord);
+            //logf("tmpWord:",tmpWord);
             if(tmpWord.length != arrScore.length){
                 logf("检测到分数和实际字数不符");
             }else{

@@ -41,6 +41,7 @@ export default class AllBottons extends Component {
         this.state = {
             anim: this.arrBtn.map(()=>new Animated.Value(0)),
             blnDraw: false,
+            blnDrawTmp:false,//设置一个临时显示状态,当显示的按钮数量突然发生改变时,以这个形式显示
         };
         this.blnAnim = false;
         this.blnRelease = false;
@@ -85,7 +86,13 @@ export default class AllBottons extends Component {
         this.refs.btnPlay.playerAudio(RATE[this.props.getRate()]);
     }
 
-
+    componentWillReceiveProps(nProps) {
+        if(nProps.btnCount != this.props.btnCount){
+            this.setState({
+                blnDrawTmp:true,
+            })
+        }
+    }
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(()=> {
@@ -167,7 +174,7 @@ export default class AllBottons extends Component {
             logf("stopRecording中出现状态异常,在非录音的状态下,竟然停止录音,当前状态:", this.buttonStatus);
             return;
         }
-        this.buttonStatus = BUTTON_STATUS.NORMAL;
+        //..this.buttonStatus = BUTTON_STATUS.NORMAL;
         this.refs.btnRecord.stopRecord();
     }
 
@@ -197,7 +204,7 @@ export default class AllBottons extends Component {
         var testText = dialogInfo.itemWordCN.words;//获取text
         var fileName = this.recordFileName;
         testText = testText.replace(/_/g, "");
-        //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
+        logf(testText + " " + dialogInfo.itemIndex + " " + dialogInfo.gategory);
         this.refs.btnRecord.StartISE(testText,
             dialogInfo.gategory,
             fileName);
@@ -279,44 +286,51 @@ export default class AllBottons extends Component {
         this.refs.btnPlay.replayAudio(RATE[this.props.getRate()]);
     }
 
-    stopAutoplay = ()=> {//接收到父组件调用暂停自动播放的指令
-        
+    stopAutoplay = ()=> {//接收到父组件调用暂停自动播放的指令        
         if(this.refs.btnPlay){
             this.refs.btnPlay.stopAudio();
             this.buttonStatus = BUTTON_STATUS.NORMAL;
         }
     }
    
-    renderBottn = (i)=> {
+    renderButton = (i)=> {
         const {dialogInfo} = this.props;
         if (i == 0) {
-            return <BtnPlayer ref="btnPlay"
+            return <BtnPlayer key = {0} ref="btnPlay"
                               audioName={getMp3FilePath(dialogInfo.lesson, dialogInfo.course) + '/' + dialogInfo.audio}
                               btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>1}/>
         }
         if (i == 1) {
-            return <BtnRecord ref="btnRecord" btnCallback={this.callbackBtnRecord.bind(this)}/>
+            return <BtnRecord key = {1} ref="btnRecord" btnCallback={this.callbackBtnRecord.bind(this)}/>
         }
         if (i == 2) {
-            return <BtnRecPlayer ref="btnRecPlay"
+            return <BtnRecPlayer key = {2} ref="btnRecPlay"
                                  recordName={getAudioFilePath(dialogInfo.lesson, dialogInfo.course, dialogInfo.itemIndex)}
                                  btnCallback={this.callbackBtnRecPlay.bind(this)}/>
         }
         if (i == 3) {
-            return <BtnQuestion ref="btnQuestion" btnCallback={this.callbackBtnQuestion.bind(this)}/>
+            return <BtnQuestion key = {3} ref="btnQuestion" btnCallback={this.callbackBtnQuestion.bind(this)}/>
         }
+    }
+
+    renderTmp = ()=>{
+        var arrBtn = [];
+        for(var i=0;i<this.props.btnCount;i++){
+            arrBtn.push(this.renderButton(i)) ;
+        }
+        return arrBtn;
     }
 
     render() {
         var views = this.state.anim.map(
             ((value, i)=> <Animated.View key={i} style={{transform:[{scale:value}]}}>
-                {this.renderBottn(i)}
+                {this.renderButton(i)}
             </Animated.View>).bind(this)
         )
-
         return (
             <View style={styles.container}>
-                {this.state.blnDraw && views}
+                {this.state.blnDraw && !this.state.blnDrawTmp && views}
+                {this.state.blnDrawTmp && this.renderTmp()}
             </View>
         );
     }

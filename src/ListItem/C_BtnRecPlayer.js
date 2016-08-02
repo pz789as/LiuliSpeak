@@ -13,6 +13,7 @@ import ReactNative, {
     Animated,    
     NativeModules,
 }from 'react-native'
+
 import {
     ImageRes
 } from '../Resources';
@@ -39,8 +40,7 @@ export default class C_BtnRecPlayer extends Component {
             playerState: 0,//0:等待播放,1:播放中,2暂停播放
             //scaleAnim: this.props.blnAnimate ? new Animated.Value(0) : new Animated.Value(1),
             progress: 0,
-        };
-        this.useTime = new Date()
+        };        
     }
 
     static propTypes = {
