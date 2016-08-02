@@ -36,21 +36,27 @@ class P_Menu extends Component {
     };
     this.lessonSave = app.getLessonFromSave(tempLesson.key);
     if (!this.lessonSave) logf('存档错误:', tempLesson.key);
-    if (!this.lessonSave.practices){//如果没存档没有数据，则生成新的存档数据
+    if (!this.lessonSave.practices ){//如果没存档没有数据，则生成新的存档数据
       this.lessonSave.practices = [];
       for(var i=0;i<tempLesson.practices.length;i++){
         var p = {
           isLock: i==0 ? false : true,//是否解锁
           contents: [],//没一个章节保存的分数
+
         };
         for(var j=0;j<tempLesson.practices[i].contents.length;j++){
           p.contents.push({
             score: 0,//分数信息
+            p_SyllableScore:[],//练习中每一句音阶分数
+            e_SyllableScore:[],//闯关中每一句音阶分数
           });
         }
         this.lessonSave.practices.push(p);
       }
+      logf("初始化存档数据:",this.lessonSave.practices)
       app.saveData();//保存存档
+    }else{       
+      logf("成功获取存档数据:",this.lessonSave.practices)
     }
   }
   componentWillMount(){
