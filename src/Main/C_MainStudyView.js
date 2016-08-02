@@ -61,10 +61,12 @@ export default class C_MainStudyView extends Component {
 
   }
   render() {
+    console.log('studyView');
     return (
       <View style={styles.fill}>
         <View style={styles.studyList}>
-          <ListView renderRow={this.renderListItem.bind(this)}
+          <ListView key={this.props.realList}
+            renderRow={this.renderListItem.bind(this)}
             scrollEnabled={true}
             ref={'MainListView'}
             onScroll={this.selectBack.bind(this)}

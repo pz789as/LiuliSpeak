@@ -32,7 +32,7 @@ export default class P_Main extends Component {
     this.lessonCount = this.realCourseList.length;
     this.state = {
       courseDataSource: new ListView.DataSource({
-        rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
+        rowHasChanged:(oldRow, newRow)=>{ oldRow !== newRow}
       }),
       blnRefresh: false,
     };
@@ -158,6 +158,7 @@ export default class P_Main extends Component {
         </View>
         <MainStudyView selectListItem={this.selectListItem.bind(this)}
           courseDataSource={this.state.courseDataSource}
+          realList={this.realCourseList}
           parents={this}
           addLesson={this.addLesson.bind(this)} />
       </View>
