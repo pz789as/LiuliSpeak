@@ -278,7 +278,10 @@ export default class P_Exam extends Component {
                 }else{
                     var nextPS = lessonSave.practices[app.temp.courseID + 1];
                     nextPS.isLock = false;
+                    app.menu.setFresh(app.temp.courseID + 1);
                 }
+                app.studyView.Refresh();
+                app.menu.setFresh(app.temp.courseID);
                 app.saveData();
             }else{//闯关失败
                 logf('闯关失败');

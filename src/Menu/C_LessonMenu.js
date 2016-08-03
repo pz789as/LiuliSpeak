@@ -107,9 +107,13 @@ class C_LessonMenu extends Component {
           rowID={i}
           course={course}
           waitTime={i*60}
+          ref={i}
           key={i} />);
     }
     return array;
+  }
+  setFresh(id){
+    this.refs[id] && this.refs[id].setFresh();
   }
   drawMoreMenu(){
     if (!this.state.blnDraw) return;

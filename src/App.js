@@ -100,6 +100,10 @@ export default class App extends Component {
         }
       }
     }
+    // var nls = getNewSave(key, false, false);
+    // this.save.lessons.push(nls);
+    // this.saveData();
+    // return nls;
     return null;
   }
   lessonIsAdd(key){

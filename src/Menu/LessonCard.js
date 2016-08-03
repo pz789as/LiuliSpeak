@@ -37,18 +37,22 @@ class LessonCard extends Component {
 	constructor(props){
 		super(props);
 		this.progress = 1;
-		var practice = app.getPracticeSave(this.props.rowID);
 		this.state = {
 	  		blnDraw: false,
-			isLock: practice.isLock,
 			isDown: false,
+			blnFresh: false,
 	  	};
 	  	if (this.props.waitTime == 0) {
 	  		this.state.blnDraw = true;
 		}
 	}
+	setFresh(){
+		this.setState({
+			blnFresh: !this.state.blnFresh,
+		});
+	}
 	shouldComponentUpdate(nextProps, nextState) {
-		if (nextState != this.state) return true;
+		if (nextState != this.state || nextProps != this.props) return true;
 		else return false;
 	}
 	componentDidMount() {
@@ -92,7 +96,8 @@ class LessonCard extends Component {
 		);
 	}
 	drawButton(){
-		if (this.state.isLock) {
+		var practice = app.getPracticeSave(this.props.rowID);
+		if (practice.isLock) {
 			return (
 				<View style={styles.buttonView}>
 					<Image source={ImageRes.icon_lock_l_normal} 

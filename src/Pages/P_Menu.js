@@ -34,6 +34,7 @@ class P_Menu extends Component {
       }),
       blnMoreMenu: false,
     };
+    app.menu = this;
     // this.lessonSave = app.getLessonFromSave(tempLesson.key);
     // if (!this.lessonSave) logf('存档错误:', tempLesson.key);
     // if (!this.lessonSave.practices ){//如果没存档没有数据，则生成新的存档数据
@@ -112,6 +113,9 @@ class P_Menu extends Component {
           gotoMorePage={this.gotoMorePage.bind(this)}
           ref={'menu'} />
     );
+  }
+  setFresh(id){
+    this.refs.menu.setFresh(id);
   }
   cancelMore(){
     this.setState({
