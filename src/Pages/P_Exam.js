@@ -267,6 +267,22 @@ export default class P_Exam extends Component {
         if (this.examRoleIndex == 0) {
             var Score = this.getLastScore(this.sentenceScore);
             logf("exam is over:",Score);
+            var lessonSave = app.getLessonFromSave(app.temp.lesson.key);
+            var practiceSave = app.getPracticeSave(app.temp.courseID);
+            if (Score >= 60) {//分数大于等于60则通过闯关，解锁下一关
+                practiceSave.score = Score;
+                practiceSave.isPass = true;
+                if (app.temp.courseID + 1 >= lessonSave.practices.length) {
+                    //最后一关通过之后，更改lessonSave中的已完成
+                    lessonSave.isComplete = true;
+                }else{
+                    var nextPS = lessonSave.practices[app.temp.courseID + 1];
+                    nextPS.isLock = false;
+                }
+                app.saveData();
+            }else{//闯关失败
+                logf('闯关失败');
+            }
             app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
                 {
                     dialogData: this.props.dialogData,

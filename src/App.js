@@ -36,6 +36,14 @@ var testData = [
 
 let saveKey = 'save';
 
+var getNewSave = function(key, isAdd, isComplete){
+  return {
+    key: key,
+    isAdd: isAdd,
+    isComplete: isComplete,
+  };
+};
+
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -90,7 +98,10 @@ export default class App extends Component {
         return this.save.lessons[i];
       }
     }
-    return null;
+    var save = getNewSave(key, false, false);
+    this.save.lesson.push(save);
+    this.saveData();
+    return save;
   }
   lessonIsAdd(key){
     var sl = this.getLessonFromSave(key);
@@ -108,10 +119,7 @@ export default class App extends Component {
     }).catch((err) => {
       var lessons = [];
       for(var i=0;i<this.allLesson.length;i++){
-        lessons.push({
-          key: this.allLesson[i].key,
-          isAdd: false,
-        });
+        lessons.push(getNewSave(this.allLesson[i].key, false, false));
       }
       this.save.lessons = lessons;
       this.saveData();
@@ -128,10 +136,7 @@ export default class App extends Component {
       }
     }
     if (!blnIn){
-      this.save.lessons.push({
-        key: key,
-        isAdd: isAdd,
-      });
+      this.save.lessons.push(getNewSave(key, isAdd, false));
     }
     this.saveData();
   }
@@ -168,6 +173,7 @@ export default class App extends Component {
       var p = {
         isLock: i==0 ? false : true,//是否解锁
         isPass: false,//是否通过闯关
+        score: 0,//闯关分数，平均分数
         contents: [],//每个章节保存的分数
       };
       for(var j=0;j<lesson.practices[i].contents.length;j++){
