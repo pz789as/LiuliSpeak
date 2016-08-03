@@ -86,7 +86,6 @@ export default class C_MainStudyView extends Component {
         <View style={styles.studyList}>
           <ListView key={this.props.realList}
             renderRow={this.renderListItem.bind(this)}
-            scrollEnabled={true}
             ref={'MainListView'}
             onScroll={this.selectBack.bind(this)}
             style={[styles.fill, {overflow: 'hidden'}]}
@@ -202,12 +201,12 @@ export default class C_MainStudyView extends Component {
 
   closeScrollMove() {
     this.refs.MainListView.setNativeProps({
-      scrollEnabled: false,
+      canCancelContentTouches: false,
     });
   }
   openScrollMove() {
     this.refs.MainListView.setNativeProps({
-      scrollEnabled: true,
+      canCancelContentTouches: true,
     });
   }
 };
