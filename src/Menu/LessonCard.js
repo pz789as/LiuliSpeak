@@ -17,6 +17,10 @@ import {
   getMp3FilePath,
 } from '../Constant';
 
+import {
+	ImageRes,
+} from '../Resources';
+
 import Dimensions from 'Dimensions';
 let ScreenWidth = Dimensions.get('window').width;
 let ScreenHeight = Dimensions.get('window').height;
@@ -28,23 +32,27 @@ import IconButton from '../Common/IconButton';
 
 class LessonCard extends Component {
 	static defaultProps = {
-	  	waitTime: 200,
+		waitTime: 200,
 	};
 	constructor(props){
 		super(props);
 		this.progress = 1;
+		var practice = app.getPracticeSave(this.props.rowID);
 		this.state = {
 	  		blnDraw: false,
+			isLock: practice.isLock,
+			isDown: false,
 	  	};
 	  	if (this.props.waitTime == 0) {
 	  		this.state.blnDraw = true;
-	  	}
+		}
 	}
 	shouldComponentUpdate(nextProps, nextState) {
 		if (nextState != this.state) return true;
 		else return false;
 	}
 	componentDidMount() {
+		this.canExam();
 		if (this.props.waitTime > 0) {
 			InteractionManager.runAfterInteractions(()=>{
 				this.timer = setTimeout(()=>{
@@ -71,26 +79,45 @@ class LessonCard extends Component {
 				</View>
 				{/*选项，标题，介绍等*/}
 				<View style={[styles.msg, styles.border]}>
-							<View style={styles.titleView}>
-								<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
-								<Text style={styles.lessonTitleCN}>{this.props.course.titleCN}</Text>
-							</View>
-							<View style={styles.buttonView}>
-								<IconButton	onPress={this.onPress1.bind(this)} 
-										buttonStyle={styles.buttonStyle} 
-										text={'修炼'}
-										progress={this.progress}
-										ref={'download'} />
-								<IconButton	onPress={this.onPress2.bind(this)} 
-										buttonStyle={[styles.buttonStyle, {marginTop:minUnit*2}]} 
-										text={'闯关'}/>
-							</View>
+					<View style={styles.titleView}>
+						<Text style={styles.lessonTitle}>Lesson{parseInt(this.props.rowID) + 1}</Text>
+						<Text style={styles.lessonTitleCN}>{this.props.course.titleCN}</Text>
+					</View>
+					{this.drawButton()}
 				</View>
 				{/*下方其他信息*/}
 				<View style={[styles.bottom, styles.border]}>
 				</View>
 			</View>
 		);
+	}
+	drawButton(){
+		if (this.state.isLock) {
+			return (
+				<View style={styles.buttonView}>
+					<Image source={ImageRes.icon_lock_l_normal} 
+						style={styles.lockImage}
+						resizeMode={'contain'}/>
+				</View>
+			);
+		}else{
+			return (
+				<View style={styles.buttonView}>
+					<IconButton	onPress={this.onPress1.bind(this)} 
+							buttonStyle={styles.buttonStyle} 
+							text={'修炼'}
+							progress={this.progress}
+							ref={'download'} />
+					<IconButton onPress={this.onPress2.bind(this)} 
+							buttonStyle={[styles.buttonStyle, 
+								{
+									marginTop:minUnit*2, 
+									backgroundColor: this.state.isDown ? '#63D75C' : '#AAA'
+								}]} 
+							text={'闯关'}/>
+				</View>
+			);
+		}
 	}
 	componentWillMount(){
 	}
@@ -107,10 +134,44 @@ class LessonCard extends Component {
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
 	onPress2(){
-		this.props.onStart(parseInt(this.props.rowID), 1);
+		if (this.state.isDown){
+			this.props.onStart(parseInt(this.props.rowID), 1);
+		}
 	}
 	onPress3(){
 		this.props.onStart(parseInt(this.props.rowID), 2);
+	}
+	canExam(){
+		var path = fs.DocumentDirectoryPath + getMp3FilePath(app.temp.lesson.key, this.props.rowID);
+		fs.exists(path)
+		.then((result)=>{
+			if (result) {//路径存在
+				var count = 0;
+				var exits = 0;
+				for(var idx=0; idx < this.props.course.contents.length; idx++){
+					fs.exists(path+'/'+this.props.course.contents[0].mp3).
+					then((resultFile)=>{
+						count++;
+						if (resultFile){//存在的文件
+							exits++;
+						}
+						if (count == this.props.course.contents.length){
+							if (exits == count){//文件都存在就可以正常跳转
+								this.setState({
+									isDown: true,
+								});
+							}
+						}
+					})
+					.catch((err)=>{
+						logf(err);
+					});
+				}
+			}
+		})
+		.catch((err)=>{
+			logf(err);
+		});
 	}
 	checkMp3(path){
 		fs.exists(path)
@@ -203,6 +264,9 @@ class LessonCard extends Component {
 	}
 	clearProgress(){
 		this.refs.download && this.refs.download.setProgross(0, false);
+		this.setState({
+			isDown: true,
+		});
 		this.gotoNextTime = setTimeout(this.gotoNext.bind(this), 200);
 	}
 	gotoNext(){
@@ -251,17 +315,14 @@ const styles = StyleSheet.create({
 		justifyContent:'center',
 	},
 	lessonTitle:{
-		fontSize:12,
-		// position:'absolute',
-		// top:minUnit*2,
+		fontSize:minUnit*3,
 		width:width,
+		marginTop: minUnit*3,
 		textAlign:'center',
 	},
 	lessonTitleCN:{
-		fontSize:24,
-		// position:'absolute',
-		// top:minUnit*7,
-		marginTop: minUnit*2,
+		fontSize:minUnit*6,
+		marginTop: minUnit*3,
 		width:width,
 		textAlign:'center',
 	},
@@ -272,6 +333,10 @@ const styles = StyleSheet.create({
 	},
 	buttonStyle: {
 		width: width*0.6,
+	},
+	lockImage:{
+		width: width*0.25,
+		height: width*0.25,
 	}
 });
 

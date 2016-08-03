@@ -50,6 +50,7 @@ let ImageRes = {
 
     icon_newcourse: require('../res/UI/icon_newcourse.png'),
     icon_store_diamond: require('../res/UI/icon_store_diamond.png'),
+    icon_lock_l_normal: require('../res/UI/icon_lock_l_normal.png'),
 
     block_loading00: require('../res/Waiting/block_loading00.png'),
     block_loading01: require('../res/Waiting/block_loading01.png'),

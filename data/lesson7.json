@@ -1,0 +1,315 @@
+{
+	"key" : "7",
+	"titleCN" : "现在几点了？",
+	"titleEn" : "what time is it now?",
+	"degree" : "小成",
+	"kind" : "日常会话",
+	"introduction" : "想知道几点了吗？",
+	"kcimage" : "kc7_title.jpg",
+	"practices" : [{
+		"titleCN" : "几点了",
+		"titleEn" : "what time is it",
+		"ksimage" : "ks71_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "爸爸，_现在_几_点_了？",
+				"pinyins" : "bà ba_xiàn zài_jī_diǎn_le？",
+				},
+			"en" : "Dad, is it now?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "七点_钟。_我们_现在_去_学校_吧。",
+				"pinyins" : "qī diǎn_zhōng_wǒ men_xiàn zài_qù_xué xiào_ba",
+				},
+			"en" : "seven o'clock. We now go to school.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "但是_八_点_才_开始_上课。",
+				"pinyins" : "dàn shì_bā_diǎn_cái_kāi shǐ_shàng kè",
+				},
+			"en" : "But it began at eight classes.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "对，_但是_我们_住_的_离_学校_很_远。",
+				"pinyins" : "duì_dàn shì_wǒ men_zhù_de_lí_xué xiào_hěn_yuǎn",
+				},
+			"en" : "Yes, but we live very far from the school.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "好_的，_我_马上_准备_好。",
+				"pinyins" : "hǎo_de_wǒ_mǎ shàng_zhǔn bèi_hǎo",
+				},
+			"en" : "Okay, I'll be ready.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "别_忘记_带_书。",
+				"pinyins" : "bié_wàng jì_dài_shū",
+				},
+			"en" : "Do not forget to bring a book.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "3",
+			}],
+		},{
+		"titleCN" : "今天星期几",
+		"titleEn" : "What day is today",
+		"ksimage" : "ks72_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "爸爸，_今天_星期_几_啊？",
+				"pinyins" : "bà ba_jīn tiān_xīng qī_jī_ā",
+				},
+			"en" : "Dad, what day is today ah?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "13",
+			},{
+			"cn" : {
+				"words" : "今天_星期_天。",
+				"pinyins" : "jīn tiān_xīng qī_tiān",
+				},
+			"en" : "today is Sunday.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "我们_下午_要_去_公园_玩_是_吗？",
+				"pinyins" : "wǒ men_xià wǔ_yāo_qù_gōng yuán_wán_shì_ma",
+				},
+			"en" : "The afternoon we go to the park to play, right?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "13",
+			},{
+			"cn" : {
+				"words" : "是_的。",
+				"pinyins" : "shì_de",
+				},
+			"en" : "I wish it was.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "真_好，_我_从_星期三_就_开始_期待_了。",
+				"pinyins" : "zhēn_hǎo_wǒ_cóng_xīng qī sān_jiù_kāi shǐ_qī dài_le",
+				},
+			"en" : "Nice, I began to look forward to Wednesday.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "13",
+			}],
+		},{
+		"titleCN" : "今天几号",
+		"titleEn" : "The date today",
+		"ksimage" : "ks73_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_的_婚礼_在_几_号？",
+				"pinyins" : "nǐ_de_hūn lǐ_zài_jǐ_hào",
+				},
+			"en" : "Your wedding is the date?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "8月20号。",
+				"pinyins" : "8 yuè 20 hào",
+				},
+			"en" : "August 20.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "今天_几_号_啊？",
+				"pinyins" : "jīn tiān_jǐ_hào_a",
+				},
+			"en" : "Today, a few number ah?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "今天_是_7月20号。",
+				"pinyins" : "jīn tiān_shì_7 yuè 20 hào",
+				},
+			"en" : "Today is July 20.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "那_也_快_了。_紧张_吗？",
+				"pinyins" : "nà_yě_kuài_le_jǐn zhāng_ma",
+				},
+			"en" : "Today is July 20.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "还_好_吧。_有_一点点_紧张。",
+				"pinyins" : "hái_hǎo_ba_yǒu_yì diǎn diǎn_jǐn zhāng",
+				},
+			"en" : "Okay. A little bit nervous.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "6",
+			}],
+		},{
+		"titleCN" : "该睡觉了",
+		"titleEn" : "To sleep",
+		"ksimage" : "ks74_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "九点_半_了，_该_睡觉_了。",
+				"pinyins" : "jiǔ diǎn_bàn_le_gāi_shuì jiào_le",
+				},
+			"en" : "Half past nine, and the bed.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "我_今天_可以_晚睡_一会_吗？",
+				"pinyins" : "wǒ_jīn tiān_kě yǐ_wǎn shuì_yí huì_ma",
+				},
+			"en" : "I can stay up late today for a moment?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "13",
+			},{
+			"cn" : {
+				"words" : "为什么？_你_在_做_作业_吗？",
+				"pinyins" : "wèi shén me_nǐ_zài_zuò_zuò yè_ma",
+				},
+			"en" : "why? You do homework?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "是的，_我_差不多_写完_了。",
+				"pinyins" : "shì de_wǒ_chà bu duō_xiě wán_le",
+				},
+			"en" : "Yes, I'm almost finished.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "13",
+			},{
+			"cn" : {
+				"words" : "好的。_但是_早点_睡觉。",
+				"pinyins" : "hǎo de_dàn shì_zǎo diǎn_shuì jiào",
+				},
+			"en" : "Ok. But go to bed early.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "我_半_小时_后_睡。",
+				"pinyins" : "wǒ_bàn_xiǎo shí_hòu_shuì",
+				},
+			"en" : "I sleep after half an hour waiting.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "13",
+			}],
+		},{
+		"titleCN" : "看电视时间",
+		"titleEn" : "TV time",
+		"ksimage" : "ks75_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "现在_几点_了？",
+				"pinyins" : "xiàn zài_jǐ diǎn_le",
+				},
+			"en" : "what time is it now?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "晚上_7点钟。",
+				"pinyins" : "wǎn shàng _7 diǎn zhōng",
+				},
+			"en" : "7:00 o'clock.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "你_知道_吗？_现在_是_可以_看_电视_的_时间_啦。",
+				"pinyins" : "nǐ_zhī dào_ma_xiàn zài_shì_kě yǐ_kàn_diàn shì_de_shí jiān_la",
+				},
+			"en" : "do you know? Now is the time you can watch TV anyway.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "太_好了！",
+				"pinyins" : "tài_hǎo le",
+				},
+			"en" : "Great!",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "一起_去_看_吧。",
+				"pinyins" : "yì qǐ_qù_kàn_ba",
+				},
+			"en" : "See it together.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "5",
+			}],
+	}]
+}

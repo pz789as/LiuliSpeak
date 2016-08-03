@@ -1,0 +1,330 @@
+{
+	"key" : "10",
+	"titleCN" : "你喜欢运动吗？",
+	"titleEn" : "Do you like sports?",
+	"degree" : "小成",
+	"kind" : "五花八门",
+	"introduction" : "一起来学学如何去商店购物吧！",
+	"kcimage" : "kc10_title.jpg",
+	"practices" : [{
+		"titleCN" : "你喜欢做什么？",
+		"titleEn" : "What do you like to do?",
+		"ksimage" : "ks101_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_喜欢_做_什么？",
+				"pinyins" : "nǐ_xǐ huan_zuò_shén me ",
+				},
+			"en" : "What do you like to do?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "我_喜欢_游泳。",
+				"pinyins" : "wǒ_xǐ huan_yóu yǒng ",
+				},
+			"en" : "I like swimming.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "你_喜欢_去_游泳池_里，_还是_海里_游泳？",
+				"pinyins" : "nǐ_xǐ huān_qù_yóu yǒng chí_lǐ_hái shì_hǎi lǐ_yóu yǒng",
+				},
+			"en" : "Do you like to go to the swimming pool, or swim in the sea?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "我_比较_喜欢_在_游泳池_游。",
+				"pinyins" : "wǒ_bǐ jiào_xǐ huān_zài_yóu yǒng chí_yóu",
+				},
+			"en" : "I prefer to swim in the pool.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "今天_好_热_呀！_我们_去_游泳_好_吗？",
+				"pinyins" : "jīn tiān_hǎo_rè_ya_wǒ men_qù_yóu yǒng_hǎo_ma",
+				},
+			"en" : "Hot today ah! Let's go swimming, okay?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "好_主意。_我们_要_带_上_泳衣_和_浴巾。",
+				"pinyins" : "hǎo_zhǔ yì_wǒ men_yào_dài_shàng_yǒng yī_hé_yù jīn",
+				},
+			"en" : "good idea. We want to bring swimsuits and towels.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "4",
+			}],
+		},{
+		"titleCN" : "你喜欢跑步吗？",
+		"titleEn" : "Do you like running?",
+		"ksimage" : "ks102_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "假期_终于_到_了。_我_等_得_好_着急_啊。",
+				"pinyins" : "jià qī_zhōng yú_dào_le_wǒ_děng_dé_hǎo_zháo jí_a ",
+				},
+			"en" : "Holiday has finally arrived. I and other well anxious ah.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog7.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "对_啊，_你_有_什么_特别_的_计划_吗？",
+				"pinyins" : "duì_ā_nǐ_yǒu_shén me_tè bié_de_jì huà_ma",
+				},
+			"en" : "Ah, you have any particular plan?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog8.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "我_打算_每天_都_要_去_跑步。",
+				"pinyins" : "wǒ_dǎ suàn_měi tiān_dōu_yào_qù_pǎo bù",
+				},
+			"en" : "I'm going to go running every day.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog9.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "跑步？_你_喜欢_跑步_吗？",
+				"pinyins" : "pǎo bù_nǐ_xǐ huan_pǎo bù_ma",
+				},
+			"en" : "Run? Do you like running?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "很_喜欢。_跑步_可以_使_人_更_精神。",
+				"pinyins" : "hěn_xǐ huan_pǎo bù_kě yǐ_shǐ_rén_gèng_jīng shén",
+				},
+			"en" : "like very much. Running can make people more spiritual.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "是_的，_我_也_想_跑步_了。",
+				"pinyins" : "shì_de_wǒ_yě_xiǎng_pǎo bù_le ",
+				},
+			"en" : "Yes, I would like to run up.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "那_我们_一起_吧。",
+				"pinyins" : "nà_wǒ men_yì qǐ_ba",
+				},
+			"en" : "Then we together.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "好_呀，_动_起来。",
+				"pinyins" : "hǎo_ya_dòng_qǐ lai ",
+				},
+			"en" : "Okay, moving.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "5",
+			}],
+		},{
+		"titleCN" : "他们在玩什么？",
+		"titleEn" : "What are they playing?",
+		"ksimage" : "ks103_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "他们_在_玩_什么？",
+				"pinyins" : "tā men_zài_wán_shén me",
+				},
+			"en" : "What are they playing?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "他们_在_踢_足球。",
+				"pinyins" : "tā men_zài_tī_zú qiú",
+				},
+			"en" : "They are playing football.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "2",
+			},{
+			"cn" : {
+				"words" : "足球_好_玩_吗？",
+				"pinyins" : "zú qiú_hǎo_wán_ma",
+				},
+			"en" : "Football fun?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "很_好玩。_你_想_和_我_还有_我_朋友_一起_踢_足球_吗？",
+				"pinyins" : "hěn_hǎo wán_nǐ_xiǎng_hé_wǒ_hái yǒu_wǒ_péng you_yì qǐ_tī_zú qiú_ma",
+				},
+			"en" : "A lot of fun. Do you want me and my friends play football?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "2",
+			},{
+			"cn" : {
+				"words" : "好_啊，_但是_我_不_知道_规则。",
+				"pinyins" : "hǎo_a_dàn shì_wǒ_bù_zhī dào_guī zé ",
+				},
+			"en" : "Yeah, but I do not know the rules.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "很_简单。",
+				"pinyins" : "hěn_jiǎn dān",
+				},
+			"en" : "Very simple.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "2",
+			},{
+			"cn" : {
+				"words" : "真_的_吗？",
+				"pinyins" : "zhēn_de_ma",
+				},
+			"en" : "really?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "是_的，_每个_队_都_要_尽力_把_球_踢_到_对方_的_球门_里。",
+				"pinyins" : "shì_de_měi gè_duì_dōu_yào_jìn lì_bǎ_qiú_tī_dào_duì fāng_de_qiú mén_lǐ ",
+				},
+			"en" : "Yes, each team must try to kick the ball to the other side of the net.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "2",
+			},{
+			"cn" : {
+				"words" : "我_知道，_但是_其他_的_规则_我_不_懂。",
+				"pinyins" : "wǒ_zhī dao_dàn shì_qí tā_de_guī zé_wǒ_bù_dǒng",
+				},
+			"en" : "I know, but other rules I do not know.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "别_担心_那些_规则，_玩_得_高兴_就_好。",
+				"pinyins" : "bié_dān xīn_nà xiē_guī zé_wán_de_gāo xìng_jiù_hǎo",
+				},
+			"en" : "Do not worry about those rules and have fun like.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "2",
+			}],
+		},{
+		"titleCN" : "我不会滑冰",
+		"titleEn" : "I will not skate",
+		"ksimage" : "ks104_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_要_去_滑冰_对_吗？",
+				"pinyins" : "nǐ_yào_qù_huá bīng_duì_ma",
+				},
+			"en" : "You're going to skate on it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "不。_我_不_喜欢_滑冰。",
+				"pinyins" : "bù_wǒ_bù_xǐ huan_huá bīng",
+				},
+			"en" : "Do not. I do not like skating.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "你_知道_怎么_滑冰_吗？",
+				"pinyins" : "nǐ_zhī dao_zěn me_huá bīng_ma",
+				},
+			"en" : "Do you know how to skate?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "是_的，_我_知道。_但是_我_总是_摔倒。",
+				"pinyins" : "shì_de_wǒ_zhī dao_dàn shì_wǒ_zǒng shì_shuāi dǎo",
+				},
+			"en" : "Yeah, I know. But I always fall.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "别_担心，_我_可以_帮助_你。_一起_来_吧。",
+				"pinyins" : "bié_dān xīn_wǒ_kě yǐ_bāng zhù_nǐ_yì qǐ_lái_ba",
+				},
+			"en" : "Do not worry, I can help you. come together.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog29.mp3",
+			"user" : "1",
+			},{
+			"cn" : {
+				"words" : "嗯，_好_的。",
+				"pinyins" : "èn_hǎo_de",
+				},
+			"en" : "OK, all right.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog30.mp3",
+			"user" : "5",
+			}],
+	}]
+}

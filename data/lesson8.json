@@ -1,0 +1,500 @@
+{
+	"key" : "8",
+	"titleCN" : "学会问路",
+	"titleEn" : "Learn to ask the way",
+	"degree" : "进阶",
+	"kind" : "日常会话",
+	"introduction" : "出行必备问路宝典",
+	"kcimage" : "kc8_title.jpg",
+	"practices" : [{
+		"titleCN" : "该怎么走？",
+		"titleEn" : "How to get there?",
+		"ksimage" : "ks81_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "打扰_一下，_我_迷路_了。_你_能_帮_帮_我_吗？",
+				"pinyins" : "dǎ rǎo_yí xià_wǒ_mí lù_le_nǐ_néng_bāng_bāng_wǒ_ma？",
+				},
+			"en" : "Excuse me, I'm lost. can you help me?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "当然_可以。_你_想_去_哪儿？",
+				"pinyins" : "dāng rán_kě yǐ_nǐ_xiǎng_qù_nǎ er",
+				},
+			"en" : "central Park. My map shows nearby.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "中央_公园。_我_的_地图_显示_就_在_附近。",
+				"pinyins" : "zhōng yāng_gōng yuán_wǒ_de_dì tú_xiǎn shì_jiù_zài_fù jìn",
+				},
+			"en" : "But it began at eight classes.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "是的。_很_容易_找_到。_沿着_这条_路_走_1千米_就_到了。",
+				"pinyins" : "shì de_hěn_róng yì_zhǎo_dào_yán zhe_zhè tiáo_lù_zǒu_1 qiān mǐ_jiù_dào le",
+				},
+			"en" : "Yes. Very easy to find. 1 kilometer along this road to go.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "走到_那里_需要_多久？",
+				"pinyins" : "zǒu dào_nà lǐ_xū yào_duō jiǔ ",
+				},
+			"en" : "How long walk there needs?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "10分钟。",
+				"pinyins" : "10 fēn zhōng",
+				},
+			"en" : "10 fēn zhōng",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "4",
+			},{
+			"cn" : {
+				"words" : "谢谢_你。",
+				"pinyins" : "xiè xiè_nǐ",
+				},
+			"en" : "thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "不_客气。",
+				"pinyins" : "bú_kè qi",
+				},
+			"en" : "You're welcome.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "4",
+			}],
+		},{
+		"titleCN" : "你要去哪里？",
+		"titleEn" : "Where are you going?",
+		"ksimage" : "ks82_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你好，_你_是_不是_迷路_了？",
+				"pinyins" : "nǐ hǎo_nǐ_shì_bú shì_mí lù_le",
+				},
+			"en" : "Hello, you lost?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "是_的，_我_迷路_了。_我_在_找_图书馆。",
+				"pinyins" : "shì_de_wǒ_mí lù_le_wǒ_zài_zhǎo_tú shū guǎn ",
+				},
+			"en" : "Yes, I'm lost. I'm looking for the library.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "图书馆_离_这里_很_远_呢。",
+				"pinyins" : "tú shū guǎn_lí_zhè lǐ_hěn_yuǎn_ne",
+				},
+			"en" : "The library far from here yet.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "我_应该_坐_地铁_还是_打车？",
+				"pinyins" : "wǒ_yīng gāi_zuò_dì tiě_hái shì_dǎ chē",
+				},
+			"en" : "Should I take the subway or a taxi?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "你_第一次_来_这里，打车_可能_更_好_一些。",
+				"pinyins" : "nǐ_dì yī cì_lái_zhè lǐ dǎ chē_kě néng_gèng_hǎo_yī xiē",
+				},
+			"en" : "You first came here, a taxi may be better.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "打车_大概_多少_钱？",
+				"pinyins" : "dǎ chē_dà gài_duō shao_qián",
+				},
+			"en" : "Taxi about how much money?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "30元_左右。",
+				"pinyins" : "30 yuán_zuǒ yòu",
+				},
+			"en" : "about 30 yuan.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "好_的，谢谢_你。",
+				"pinyins" : "hǎo_de xiè xie_nǐ",
+				},
+			"en" : "okay, thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "3",
+			}],
+		},{
+		"titleCN" : "你现在在哪里？",
+		"titleEn" : "where are you now?",
+		"ksimage" : "ks83_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_现在_在_哪里？",
+				"pinyins" : "nǐ_xiàn zài_zài_nǎ lǐ",
+				},
+			"en" : "where are you now?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我_现在_在_车站。",
+				"pinyins" : "wǒ_xiàn zài_zài_chē zhàn",
+				},
+			"en" : "I'm at the station.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "我_以为_你_在_肯德基_里。",
+				"pinyins" : "wǒ_yǐ wéi_nǐ_zài_kěn dé jī_lǐ",
+				},
+			"en" : "I thought you were in KFC.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我_刚刚_在_那里，_我_现在_要_去_见_一个_朋友。",
+				"pinyins" : "wǒ_gāng gāng_zài_nà lǐ_wǒ_xiàn zài_yào_qù_jiàn_yí gè_péng yǒu",
+				},
+			"en" : "I was just there, but I want to see a friend.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "他_在_哪里？",
+				"pinyins" : "tā_zài_nǎ lǐ",
+				},
+			"en" : "where is he?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "他_在_商场_里。",
+				"pinyins" : "tā_zài_shāng chǎng_lǐ",
+				},
+			"en" : "He was at the mall.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "6",
+			}],
+		},{
+		"titleCN" : "去医院的路",
+		"titleEn" : "Way to the hospital",
+		"ksimage" : "ks84_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "请_问_一下，附近_有_医院_吗？",
+				"pinyins" : "qǐng_wèn_yí xià fù jìn_yǒu_yī yuàn_ma",
+				},
+			"en" : "Excuse me, there is a hospital nearby?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "在_离_这里_不_远_有_一个。",
+				"pinyins" : "zài_lí_zhè lǐ_bù _yuǎn_yǒu_yí gè",
+				},
+			"en" : "Oh, there is a far from here.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "你_可以_告诉_我_去_最近_的_医院_的_路_吗？",
+				"pinyins" : "nǐ_kě yǐ_gào sù_wǒ_qù_zuì jìn_de_yī yuàn_de_lù_ma",
+				},
+			"en" : "Can you tell me the way to the nearest hospital right?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "当然，沿着_这条_路_一直_走，在_第二_个_拐角_左拐，再_向前_直走_200米_就_到了。",
+				"pinyins" : "dāng rán yán zhe_zhè tiáo_lù_yī zhí_zǒu zài_dì èr_gè_guǎi jiǎo_zuǒ guǎi zài_xiàng qián_zhí zǒu_200 mǐ_jiù_dào le",
+				},
+			"en" : "Of course, had been walking along this road, turn left at the second corner, then straight ahead 200 meters to go.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "不好意思，_我_不能_完全_记得_你_刚才_说_的_那些，你_能_再说_一_遍_吗？",
+				"pinyins" : "bù hǎo yì sī_wǒ_bù néng_wán quán_jì de_nǐ_gāng cái_shuō_de_nà xiē nǐ_néng_zài shuō_yí_biàn_ma",
+				},
+			"en" : "Sorry, I can not quite remember what you just said that, can you repeat that?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "那_我_和_你_一起_去_吧。",
+				"pinyins" : "nà_wǒ_hé_nǐ_yì qǐ_qù_ba",
+				},
+			"en" : "I sleep after half an hour waiting.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "那_太_好_了，谢谢_你。",
+				"pinyins" : "nà_tài_hǎo_le xiè xiè_nǐ",
+				},
+			"en" : "That's great, thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog29.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "不_客气。",
+				"pinyins" : "bú_kè qi",
+				},
+			"en" : "You're welcome",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog30.mp3",
+			"user" : "5",
+			}],
+		},{
+		"titleCN" : "询问到站",
+		"titleEn" : "Asked the station",
+		"ksimage" : "ks85_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_好，_请问_这是_哪_一站？",
+				"pinyins" : "nǐ_hǎo_qǐng wèn_zhè shì_nǎ_yí zhàn",
+				},
+			"en" : "Hello, this is what station?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog31.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "中央_公园_站。",
+				"pinyins" : "zhōng yāng_gōng yuán_zhàn",
+				},
+			"en" : "Central Park Station.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog32.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "下一站_在_哪？",
+				"pinyins" : "xià yí zhàn_zài_nǎ",
+				},
+			"en" : "Where next?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog33.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "城市_广场。",
+				"pinyins" : "chéng shì_guǎng chǎng",
+				},
+			"en" : "Town square.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog34.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "我_要_去_博物馆，你_能_告诉_我_在_哪里_下车_吗？",
+				"pinyins" : "wǒ_yào_qù_bó wù guǎn nǐ_néng_gào sù_wǒ_zài_nǎ lǐ_xià chē_ma ",
+				},
+			"en" : "I'm going to the museum, you can tell me where to get it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog35.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "还有_3站，_我_会_提醒_你_的。",
+				"pinyins" : "hái yǒu_3 zhàn_wǒ_huì_tí xǐng_nǐ_de",
+				},
+			"en" : "There are three stations, I'll remind you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog36.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "好的，_谢谢_你。",
+				"pinyins" : "hǎo de_xìe xìe_nǐ",
+				},
+			"en" : "okay, thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog37.mp3",
+			"user" : "5",
+			},{
+			"cn" : {
+				"words" : "不_客气。",
+				"pinyins" : "bú_kè qi",
+				},
+			"en" : "You're welcome.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog38.mp3",
+			"user" : "11",
+			}],
+		},{
+		"titleCN" : "换乘公交",
+		"titleEn" : "Take bus",
+		"ksimage" : "ks86_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "爸爸，_你_知道_乘坐_哪_路_公交车_吗？",
+				"pinyins" : "bà ba_nǐ_zhī dào_chéng zuò_nǎ_lù_gōng jiāo chē_ma",
+				},
+			"en" : "Dad, you know which bus you take?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog39.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "当然，_让_我_先_看_一下_站牌。",
+				"pinyins" : "dāng rán_ràng_wǒ_xiān_kàn_yí xià_zhàn pái ",
+				},
+			"en" : "Of course, let me look at the stop sign.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog40.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "为什么_我_找_不_到_我们_要_去_的_地方_呢？",
+				"pinyins" : "wèi shén me_wǒ_zhǎo_bú_dào_wǒ men_yào_qù_de_dì fang_ne",
+				},
+			"en" : "Why I can not find where we're going yet?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog41.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "因为_我们_需要_转车。",
+				"pinyins" : "yīn wéi_wǒ men_xū yào_zhuǎn chē",
+				},
+			"en" : "Because we need to change trains.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog42.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "那_你_知道_该_怎么_转车_吗？",
+				"pinyins" : "nà_nǐ_zhī dào_gāi_zěn me_zhuǎn chē_ma",
+				},
+			"en" : "Do you know how to transfer it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog43.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "我们_应该_先_坐_52路_到_新街口，_然后_换乘_100路_就_到了。",
+				"pinyins" : "wǒ men_yīng gāi_xiān_zuò_52 lù_dào_xīn jiē kǒu_rán hòu_huàn chéng_100 lù_jiù_dào le ",
+				},
+			"en" : "We should take 52 to Xinjiekou Road, then take the road to the 100.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog44.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "我_知道_了。",
+				"pinyins" : "wǒ_zhī dào_le",
+				},
+			"en" : "I get it now.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog45.mp3",
+			"user" : "12",
+			},{
+			"cn" : {
+				"words" : "52路_来了，_我们_走。",
+				"pinyins" : "52 lù_lái le_wǒ men_zǒu",
+				},
+			"en" : "52 road here, we go.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog46.mp3",
+			"user" : "3",
+			}],
+	}]
+}

@@ -1,0 +1,485 @@
+{
+	"key" : "9",
+	"titleCN" : "购买衣服",
+	"titleEn" : "Buy clothes",
+	"degree" : "进阶",
+	"kind" : "日常会话",
+	"introduction" : "一起来学学如何去商店购物吧！",
+	"kcimage" : "kc9_title.jpg",
+	"practices" : [{
+		"titleCN" : "服装的款式和颜色",
+		"titleEn" : "Clothing styles and colors",
+		"ksimage" : "ks91_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "有_什么_可以_帮_您_的_吗？",
+				"pinyins" : "yǒu_shén me_kě yǐ_bāng_nín_de_ma",
+				},
+			"en" : "Is there anything I can help you with?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog01.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "我_想_买_一件_衬衫。",
+				"pinyins" : "wǒ_xiǎng_mǎi_yí jiàn_chèn shān",
+				},
+			"en" : "I want to buy a shirt.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog02.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "您_想_要_什么_款式_呢？",
+				"pinyins" : "nín_xiǎng_yào_shén me_kuǎnshì_ne",
+				},
+			"en" : "What style do you want?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog03.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "标准_款_就_可以_了。",
+				"pinyins" : "biāo zhǔn_kuǎn_jiù_kě yǐ_le",
+				},
+			"en" : "Standard models can be.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog04.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "您_看_这_一件_可以_吗？",
+				"pinyins" : "nín_kàn_zhè_yí jiàn_kě yǐ_ma",
+				},
+			"en" : "You can see this one do?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog05.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "嗯，_不错，_那_就_这_一件_吧。",
+				"pinyins" : "èn_bú cuò_nà_jiù_zhè_yí jiàn_ba",
+				},
+			"en" : "Well, yes, it would be this one.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog06.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "好_的，_请问_您_要_什么_颜色_呢？",
+				"pinyins" : "hǎo_de_qǐng wèn_nín_yào_shén me_yán sè_ne ",
+				},
+			"en" : "Well, what color do you want it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog07.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "这个_款式_有_什么_颜色_呢？",
+				"pinyins" : "zhè gè_kuǎn shì_yǒu_shén me_yán sè_ne",
+				},
+			"en" : "This style What color?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog08.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "现在_只有_黑色_和_白色。",
+				"pinyins" : "xiàn zài_zhǐ yǒu_hēi sè_hé_bái sè",
+				},
+			"en" : "Now only black and white.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog09.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "我_要_白色_的_这_件。",
+				"pinyins" : "wǒ_yào_bái sè_de_zhè_jiàn",
+				},
+			"en" : "I want this white.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog10.mp3",
+			"user" : "3",
+			}],
+		},{
+		"titleCN" : "试穿一下-尺码问询",
+		"titleEn" : "Try it - Size inquiry",
+		"ksimage" : "ks92_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "请问_这_件_衬衫_是_什么_尺码？",
+				"pinyins" : "qǐng wèn_zhè_jiàn_chèn shān_shì_shén me_chǐ mǎ",
+				},
+			"en" : "Does this shirt is what size?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog11.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "M码_的。_请问_您_平时_都_穿_什么_尺码？",
+				"pinyins" : "M mǎ_de_qǐng wèn_nín_píng shí_dōu_chuān_shén me_chǐ mǎ",
+				},
+			"en" : "M codes. What do you usually wear what size?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog12.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "我_平时_就_穿_M码_的。",
+				"pinyins" : "wǒ_píng shí_jiù_chuān_M mǎ_de",
+				},
+			"en" : "I usually wear M codes.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog13.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "那_您_需要_试穿_一下_吗？",
+				"pinyins" : "nà_nín_xū yào_shì chuān_yí xià_ma",
+				},
+			"en" : "Then you need to try it on?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog14.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "好_的。_请问_试衣间_在_哪？",
+				"pinyins" : "hǎo_de_qǐng wèn_shì yī jiān_zài_nǎ",
+				},
+			"en" : "Ok. Will the fitting room where?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog15.mp3",
+			"user" : "6",
+			},{
+			"cn" : {
+				"words" : "直走_右手_边_就是。",
+				"pinyins" : "zhí zǒu_yòu shǒu_biān_jiù shì",
+				},
+			"en" : "The right hand side is straight.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog16.mp3",
+			"user" : "15",
+			}],
+		},{
+		"titleCN" : "询问价格",
+		"titleEn" : "Asking price",
+		"ksimage" : "ks93_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_好，_女士。_确定_购买_这件_衬衫_吗？",
+				"pinyins" : "nǐ_hǎo_nǚ shì_què dìng_gòu mǎi_zhè jiàn_chèn shān_ma",
+				},
+			"en" : "Hello, ladies. OK Buy this shirt?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog17.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "是的。_能_给_我_包_起来_吗。",
+				"pinyins" : "shì de_néng_gěi_wǒ_bāo_qǐlái_ma",
+				},
+			"en" : "Yes. Can I wrap it.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog18.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "好_的，_您_稍_等。",
+				"pinyins" : "hǎo_de_nín_shāo_děng",
+				},
+			"en" : "Okay, wait a moment.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog19.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "谢谢。_这件_衬衫_多少_钱？",
+				"pinyins" : "xiè xiè_zhè jiàn_chèn shān_duō shao_qián",
+				},
+			"en" : "Thank you. How much is this shirt?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog20.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "180元。_刷卡_还是_现金？",
+				"pinyins" : "180 yuán_shuā kǎ_hái shì_xiàn jīn",
+				},
+			"en" : "180. Cash or credit card?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog21.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "现金。_给_你_200元。",
+				"pinyins" : "xiàn jīn_gěi_nǐ_200 yuán",
+				},
+			"en" : "cash. Give you 200 yuan.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog22.mp3",
+			"user" : "11",
+			},{
+			"cn" : {
+				"words" : "这是_您_的_找零。_欢迎_下次_光临。",
+				"pinyins" : "zhè shì_nín_de_zhǎo líng_huān yíng_xià cì_guāng lín",
+				},
+			"en" : "This is your change. Welcome to the next visit.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog23.mp3",
+			"user" : "15",
+			}],
+		},{
+		"titleCN" : "能便宜一点吗？",
+		"titleEn" : "Can a bit?",
+		"ksimage" : "ks94_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "我_很_喜欢_这件_蓝色_的_风衣，_我_可以_试穿_一下_吗？",
+				"pinyins" : "wǒ_hěn_xǐ huān_zhè jiàn_lán sè_de_fēng yī_wǒ_kě yǐ_shì chuān_yí xià_ma",
+				},
+			"en" : "I really like this blue coat, I can try it on?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog24.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "当然_可以，_试衣间_在_那边。",
+				"pinyins" : "dāng rán_kě yǐ_shì yī jiān_zài_nà biān",
+				},
+			"en" : "Of course, the dressing room is over there.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog25.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "好_的，_谢谢_你。",
+				"pinyins" : "hǎo_de_xiè xiè_nǐ",
+				},
+			"en" : "okay, thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog26.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "这件_衣服_很_适合_您。",
+				"pinyins" : "zhè jiàn_yī fú_hěn_shì hé_nín",
+				},
+			"en" : "This dress is for you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog27.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "那_我_买_下_了。_请问_多少_钱？",
+				"pinyins" : "nà_wǒ_mǎi_xià_le_qǐng wèn_duō shao_qián",
+				},
+			"en" : "OK, then I'll take it. How much is this?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog28.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "1200元。",
+				"pinyins" : "1200 yuán",
+				},
+			"en" : "1,200 yuan.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog29.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "太_贵_了，_可以_便宜_一点_吗？",
+				"pinyins" : "tài_guì_le_kě yǐ_pián yi_yì diǎn_ma",
+				},
+			"en" : "Too expensive, can be a little cheaper?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog30.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "这是_最_合理_的_价格_了。",
+				"pinyins" : "zhè shì_zuì_hé lǐ_de_jià gé_le",
+				},
+			"en" : "This is the most reasonable price.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog31.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "好_吧。_那_请_帮_我_包_起来_吧。",
+				"pinyins" : "hǎo_ba_nà_qǐng_bāng_wǒ_bāo_qǐ lái_ba",
+				},
+			"en" : "Ok. Then please help me to wrap it.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog32.mp3",
+			"user" : "3",
+			},{
+			"cn" : {
+				"words" : "好_的。_很_荣幸_为_您_服务。",
+				"pinyins" : "hǎo_de_hěn_róng xìng_wèi_nín_fú wù",
+				},
+			"en" : "Ok. We are proud to serve you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog33.mp3",
+			"user" : "15",
+			}],
+		},{
+		"titleCN" : "折扣",
+		"titleEn" : "DISCOUNTS",
+		"ksimage" : "ks95_title.jpg",
+		"contents" : [{
+			"cn" : {
+				"words" : "你_好，_有_什么_可以_帮忙_的_吗？",
+				"pinyins" : "nǐ_hǎo_yǒu_shén me_kě yǐ_bāng máng_de_ma",
+				},
+			"en" : "Hello, this is what station?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog34.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "是_的。_我_想_看_看_相机。",
+				"pinyins" : "shì_de_wǒ_xiǎng_kàn_kàn_xiàng jī",
+				},
+			"en" : "Yes. I want to look at the camera.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog35.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "我们_所有_的_相机_都_在_这儿_了。_这_一个_怎么_样?",
+				"pinyins" : "wǒ men_suǒ yǒu_de_xiàng jī_dōu_zài_zhè ér_le_zhè_yī gè_zěn me_yàng",
+				},
+			"en" : "All our cameras are here. How about this one?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog36.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "很_不错。_但是_我_想_要_一个_更_小_点_的。",
+				"pinyins" : "hěn_bú cuò_dàn shì_wǒ_xiǎng_yào_yí gè_gèng_xiǎo_diǎn_de ",
+				},
+			"en" : "Not bad. But I want a smaller point.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog37.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "那_这_一个_呢？",
+				"pinyins" : "nà_zhè_yí gè_ne",
+				},
+			"en" : "Well, this one?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog38.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "这_正是_我_想_要_的。_多少_钱?",
+				"pinyins" : "zhè_zhèng shì_wǒ_xiǎng_yào_de_duō shao_qián",
+				},
+			"en" : "This is what I want. how much is it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog39.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "这_一_款_400美元。",
+				"pinyins" : "zhè_yì_kuǎn_400 měi yuán",
+				},
+			"en" : "This is a US $ 400.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog40.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "有些_贵_了。_可以_打_个_折_吗？",
+				"pinyins" : "yǒu xiē_guì_le_kě yǐ_dǎ_gè_zhé_ma",
+				},
+			"en" : "Some expensive. You can make a discount?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog41.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "既然_你_这么_喜欢，_那_就_给_你_打_个_九折。",
+				"pinyins" : "jì rán_nǐ_zhè me_xǐ huān_nà_jiù_gěi_nǐ_dǎ_gè_jiǔ zhé",
+				},
+			"en" : "Since you like it, give you a discount.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog42.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "好_的。_可以_给_我_包_一下_吗？",
+				"pinyins" : "hǎo_de_kě yǐ_gěi_wǒ_bāo_yí xià_ma",
+				},
+			"en" : "Ok. Can you give me pack it?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog43.mp3",
+			"user" : "7",
+			},{
+			"cn" : {
+				"words" : "当然，_还有_什么_可以_帮忙_的_吗？",
+				"pinyins" : "dāng rán_hái yǒu_shén me_kě yǐ_bāng máng_de_ma",
+				},
+			"en" : "Of course, what else can I help you?",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog44.mp3",
+			"user" : "15",
+			},{
+			"cn" : {
+				"words" : "不用_了。_谢谢。",
+				"pinyins" : "bú yòng _le_xiè xiè",
+				},
+			"en" : "no need. Thank you.",
+			"Category" : "read_sentence",
+			"gold" : "4",
+			"mp3" : "dialog45.mp3",
+			"user" : "7",
+			}],
+	}]
+}
