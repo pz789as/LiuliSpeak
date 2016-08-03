@@ -59,6 +59,7 @@ export default class C_CardItem extends Component {
     parents: null,
     blnCanMove: false,
     blnRenderAdd: false,
+    blnRenderCom: false,          // 标记是否已完成
     renderRight: ()=>{return null},
     deleteBack: (key)=>{},
 
@@ -191,40 +192,49 @@ export default class C_CardItem extends Component {
     // app.main.subOldLesson(this.props.renderData.key);
   }
   renderLeft(course) {
+    var isAdd = app.lessonIsAdd(course.key);
+    var isCom = app.lessonIsComplete(course.key);
     if (this.props.blnRenderAdd) {
-      var isAdd = app.lessonIsAdd(course.key);
       if (isAdd) {
-        var isCom = app.lessonIsComplete(course.key);
         if (isCom) {
-          // 已完成
-          var info = app.getMainLessonInfo(course.key);
-          var progress = info.star/info.starAll;
-          return (
-            <View style={styles.left}>
-              <Progress.Circle style={styles.progress} thickness={minUnit*1.5} borderWidth={0}
-                                 progress={progress} size={minUnit*20} color="#F3B341" unfilledColor={'#FFFAFC'}>
-                <Image
-                  style={styles.cardLeftStar}
-                    source={ImageRes.ic_star_yellow} />
-              </Progress.Circle>
-              <Text style={styles.cardLeftWord}>{info.star}/{info.starAll}</Text>
-              <Text style={styles.cardLeftWord}>已完成</Text>
-            </View>
-          );
+          return this.renderCom(course);
         } else {
-          // 已添加
-          return (
-            <View style={styles.left}>
-              <Image
-                style={styles.cardLeftImage}
-                source={ImageRes.icon_course_list_already_add} />
-              <Text style={styles.cardLeftWord}>已添加</Text>
-            </View>
-          );
+          return this.renderAdd(course);
         }
-
+      }
+    } else if (this.props.blnRenderCom) {
+      if (isCom) {
+        return this.renderCom(course);
       }
     }
+  }
+  renderAdd(course) {
+    // 已添加
+    return (
+      <View style={styles.left}>
+        <Image
+          style={styles.cardLeftImage}
+          source={ImageRes.icon_course_list_already_add} />
+        <Text style={styles.cardLeftWord}>已添加</Text>
+      </View>
+    );
+  }
+  renderCom(course) {
+    // 已完成显示
+    var info = app.getMainLessonInfo(course.key);
+    var progress = info.star/info.starAll;
+    return (
+      <View style={styles.left}>
+        <Progress.Circle style={styles.progress} thickness={minUnit*1.5} borderWidth={0}
+                           progress={progress} size={minUnit*20} color="#F3B341" unfilledColor={'#FFFAFC'}>
+          <Image
+            style={styles.cardLeftStar}
+              source={ImageRes.ic_star_yellow} />
+        </Progress.Circle>
+        <Text style={styles.cardLeftWord}>{info.star}/{info.starAll}</Text>
+        <Text style={styles.cardLeftWord}>已完成</Text>
+      </View>
+    );
   }
   // 右侧信息显示
   renderMsg() {
