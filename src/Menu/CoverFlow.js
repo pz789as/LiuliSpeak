@@ -31,6 +31,12 @@ class CoverFlow extends Component {
 	  	this.move = this.props.SelectId*this.props.frameSpace;
 	  	this.state.translate.setValue(-this.move);
 	}
+	// 移动到特定位置（id为第几块）
+	setMoveTo(id) {
+		this.props.getSelectIndex(id);
+		this.move = id*this.props.frameSpace;
+	  	this.state.translate.setValue(-this.move);	
+	}
 	static propTypes = {
 		frameSpace: React.PropTypes.number,
 		horizontal: React.PropTypes.bool,
@@ -112,7 +118,6 @@ class CoverFlow extends Component {
 			children,
 			frameSpace,
 			horizontal,
-			SelectId,
 		} = this.props;
 
 		var anim = this.state.translate;
@@ -167,8 +172,8 @@ class CoverFlow extends Component {
 						endV,
 					}).start();
 				}
-				SelectId = -(value/frameSpace);
-				this.props.getSelectIndex(Math.round(SelectId));
+				var _index = -(value/frameSpace);
+				this.props.getSelectIndex(Math.round(_index));
 			});
 
 			Animated.decay(anim, {
@@ -179,17 +184,14 @@ class CoverFlow extends Component {
 				anim.removeListener(this._listener);
 			});
 		}
-		// SelectId = -(endX/frameSpace);
-		// this.props.getSelectIndex(SelectId);
 	}
 	setSelect(dis) {
 		var {
 			frameSpace,
-			SelectId,
 		} = this.props;
-		SelectId = -(dis/frameSpace);
-		this.props.getSelectIndex(Math.round(SelectId));
-		this.props.MoveEnd(Math.round(SelectId));
+		var _index = -(dis/frameSpace);
+		this.props.getSelectIndex(Math.round(_index));
+		this.props.MoveEnd(Math.round(_index));
 	}
 	// 保证中心位置
 	closestCenter(x, spacing) {
