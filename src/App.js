@@ -250,7 +250,7 @@ export default class App extends Component {
         }
       }
     }
-    if (info.passCount >= 0){
+    if (info.passCount > 0){
       info.averageScore /= info.passCount;
       info.averageScore = parseInt(info.averageScore);
     }
