@@ -37,7 +37,7 @@ import CardItem from '../Common/CardItem';
 // 主菜单 当前闯关信息
 const msg = [
   '还没有开始闯关',
-  '闯关中...',
+  '已完成40%,平均分54分',
   '不错，闯关成功!',
 ];
 import * as Progress from 'react-native-progress';
@@ -48,6 +48,25 @@ export default class C_MainStudyView extends Component {
   constructor(props) {
     super(props);
     app.studyView = this;
+
+    this.state = {
+      blnRefresh: false,
+    };
+
+    this.timer = setInterval(()=>{
+      this.getMainLessonInfo();
+    }, 100);
+  }
+  getMainLessonInfo() {
+    var info = app.getMainLessonInfo(1);
+    if (info.blnSuccess) {
+      for (var i=0;i<this.cardList.length;i++) {
+        if (this.cardList[i]) {
+          this.cardList[i].Refresh();
+        }
+      }
+      this.timer && clearInterval(this.timer);
+    }
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state || nextProps != this.props) return true;
@@ -56,12 +75,12 @@ export default class C_MainStudyView extends Component {
   componentWillMount(){
   }
   componentWillUnmount(){
+    this.timer && clearInterval(this.timer);
   }
   onSelected(selected){
 
   }
   render() {
-    console.log('studyView');
     return (
       <View style={styles.fill}>
         <View style={styles.studyList}>
@@ -119,15 +138,32 @@ export default class C_MainStudyView extends Component {
     this.cardSelect = index;
   }
   renderMsg(course) {
-    app.getMainLessonInfo(1);
+    var info = app.getMainLessonInfo(course.key);
+    var progress = info.passCount / info.allCount;
     return (
       <View style={[styles.fill, styles.cardFrame]}>
         {this.renderText([styles.cardFontName, styles.cardWordBottom], course.titleCN)}
-        {this.drawProgress(0.3)}
-        {this.renderText([styles.cardFontSmall, styles.cardWordH], msg[0])}
-        {this.drawStar(course, 5)}
+        {this.drawProgress(progress)}
+        {this.renderProgressMsg(progress, info.passCount)}
+        {this.drawStar(course, info.star, info.starAll)}
       </View>
     );
+  }
+  renderProgressMsg(progress, score) {
+    if (score == 0) {
+      return (
+        <View>
+          {this.renderText([styles.cardFontSmall, styles.cardWordH], '还没有开始闯关')}
+        </View>
+      );
+    } else {
+      var msg = '已完成'+parseInt(progress*100)+'%,平均分'+score+'分';
+      return (
+        <View>
+          {this.renderText([styles.cardFontSmall, styles.cardWordH], msg)}
+        </View>
+      );
+    }
   }
   renderText(style, text) {
     if (text == '') return null;
@@ -150,7 +186,7 @@ export default class C_MainStudyView extends Component {
         width={minUnit*50}/>
     );
   }
-  drawStar(course, star_n) {
+  drawStar(course, star_n, star_all) {
     size = course.practices.length;
     return (
       <View style={[Mingstyles.starPosition, ]}>
@@ -158,7 +194,7 @@ export default class C_MainStudyView extends Component {
           style={Mingstyles.starImg}
           source={ImageRes.ic_star_yellow} />
         <Text style={[styles.cardFontSmall, ]}>
-          {star_n}/{size*3}
+          {star_n}/{star_all}
         </Text>
       </View>
     );

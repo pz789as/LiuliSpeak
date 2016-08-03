@@ -255,7 +255,9 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'rgba(10,10,10,0.5)',
+    paddingVertical: minUnit*3,
   },
   message: {
     flex: 1,
@@ -264,7 +266,6 @@ const styles = StyleSheet.create({
   cardLeftImage: {
     width: minUnit*20,
     height: minUnit*20,
-    margin: minUnit*2,
   },
   cardLeftWord: {
     fontSize: minUnit*3.5,
