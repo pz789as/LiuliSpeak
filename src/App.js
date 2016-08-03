@@ -202,6 +202,36 @@ export default class App extends Component {
     }
     app.saveData();//保存存档
   }
+  getMainLessonInfo(key){
+    var tempLesson = this.temp.lesson;
+    var lessonSave = this.getLessonFromSave(tempLesson.key);
+    var practice = this.getPracticeSave(0);
+    var info = {
+      star: 0,//获得星星数量
+      starAll: 3 * lessonSave.practices.length,//总星星数量
+      averageScore: 0,//平均分数
+      passCount: 0,//过关的关卡数量
+      allCount: lessonSave.practices.length,//总关卡数量
+    };
+    for(var i=0;i<lessonSave.practices.length;i++){
+      practice = lessonSave.practices[i];
+      if (practice.isPass){
+        info.passCount++;
+        info.averageScore += practice.score;
+        if (practice.score >= 85){
+          info.star += 3;
+        }else if (practice.score >= 70){
+          info.star += 2;
+        }else{
+          info.star += 1;
+        }
+      }
+    }
+    if (passCount >= 0){
+      info.averageScore /= passCount;
+    }
+    return info;
+  }
   componentWillMount(){
   }
   componentDidMount(){
