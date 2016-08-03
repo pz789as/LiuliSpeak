@@ -93,15 +93,14 @@ export default class App extends Component {
     return false;
   }
   getLessonFromSave(key){
-    for(var i=0;i<this.save.lessons.length; i++){
-      if (this.save.lessons[i].key == key){
-        return this.save.lessons[i];
+    if (this.save.lesson){
+      for(var i=0;i<this.save.lessons.length; i++){
+        if (this.save.lessons[i].key == key){
+          return this.save.lessons[i];
+        }
       }
     }
-    var save = getNewSave(key, false, false);
-    this.save.lesson.push(save);
-    this.saveData();
-    return save;
+    return null;
   }
   lessonIsAdd(key){
     var sl = this.getLessonFromSave(key);
@@ -213,15 +212,19 @@ export default class App extends Component {
   getMainLessonInfo(key){
     var tempLesson = this.getLessonData(key);
     var lessonSave = this.getLessonFromSave(key);
+    if (!lessonSave){
+      return null;
+    }
     var practice = this.getPracticeSave(0);
+    var count = lessonSave.practices.length;
     var info = {
       star: 0,//获得星星数量
-      starAll: 3 * lessonSave.practices.length,//总星星数量
+      starAll: 3 * count,//总星星数量
       averageScore: 0,//平均分数
       passCount: 0,//过关的关卡数量
-      allCount: lessonSave.practices.length,//总关卡数量
+      allCount: count,//总关卡数量
     };
-    for(var i=0;i<lessonSave.practices.length;i++){
+    for(var i=0;i<count;i++){
       practice = lessonSave.practices[i];
       if (practice.isPass){
         info.passCount++;
@@ -235,8 +238,8 @@ export default class App extends Component {
         }
       }
     }
-    if (passCount >= 0){
-      info.averageScore /= passCount;
+    if (this.passCount >= 0){
+      info.averageScore /= this.passCount;
     }
     return info;
   }
