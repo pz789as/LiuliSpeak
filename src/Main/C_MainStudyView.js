@@ -119,6 +119,7 @@ export default class C_MainStudyView extends Component {
     this.cardSelect = index;
   }
   renderMsg(course) {
+    app.getMainLessonInfo(1);
     return (
       <View style={[styles.fill, styles.cardFrame]}>
         {this.renderText([styles.cardFontName, styles.cardWordBottom], course.titleCN)}

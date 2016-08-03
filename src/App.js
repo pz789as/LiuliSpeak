@@ -93,7 +93,7 @@ export default class App extends Component {
     return false;
   }
   getLessonFromSave(key){
-    if (this.save.lesson){
+    if (this.save.lessons){
       for(var i=0;i<this.save.lessons.length; i++){
         if (this.save.lessons[i].key == key){
           return this.save.lessons[i];
@@ -224,6 +224,7 @@ export default class App extends Component {
     if (!lessonSave){
       return info;
     }
+    this.temp.lesson = tempLesson;
     var practice = this.getPracticeSave(0);
     info.blnSuccess = true;
     for(var i=0;i<count;i++){
