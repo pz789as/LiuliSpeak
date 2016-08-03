@@ -107,6 +107,11 @@ export default class App extends Component {
     if (sl) return sl.isAdd;
     return false;
   }
+  lessonIsComplete(key){
+    var sl = this.getLessonFromSave(key);
+    if (sl) return sl.isComplete;
+    return false;
+  }
   getLessonData(key){
     for(var i=0;i<this.allLesson.length;i++){
       if (this.allLesson[i].key == key){
