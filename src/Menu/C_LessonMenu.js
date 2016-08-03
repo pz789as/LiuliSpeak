@@ -33,6 +33,7 @@ import {
 let MinWidth = 1/PixelRatio.get();
 
 import ShowNum from './ShowNum';
+import MenuBack from './C_MenuBack';
 
 var MoreMsgH = minUnit*49;
 class C_LessonMenu extends Component {
@@ -54,6 +55,7 @@ class C_LessonMenu extends Component {
         this.setState({
           blnDraw: true,
         });
+        this.moveEnd(0);
       },200);
     });
   }
@@ -67,10 +69,11 @@ class C_LessonMenu extends Component {
   render() {
     return (
       <View style={ming.menuBack}>
+        <MenuBack ref={'BackImage'}/>
         {/*上方 按钮 信息显示*/}
         <View style={[ming.menuTop, styles.horizontalList]}>
           <IconButton icon={ImageRes.ic_close} onPress={this.props.onClose}/>
-          <Text style={{fontSize:16,color:'white'}}>{app.temp.lesson.titleCN}</Text>
+          <Text style={{fontSize:minUnit*6,color:'white',backgroundColor:'#0000'}}>{app.temp.lesson.titleCN}</Text>
           <IconButton icon={ImageRes.more} onPress={this.AnimatedInt.bind(this)}/>
         </View>
         <View style={{alignItems:'center'}}>
@@ -80,7 +83,8 @@ class C_LessonMenu extends Component {
         <CoverFlow style={[styles.fill, {alignItems:'center'}, ming.cardHoriziontal]}
                 frameSpace={minUnit * 80} 
                 SelectId={0}
-                getSelectIndex={this.moveIndex.bind(this)}>
+                getSelectIndex={this.moveIndex.bind(this)}
+                MoveEnd={this.moveEnd.bind(this)}>
           {this.drawList()}
         </CoverFlow>
         {this.drawMoreMenu()}
@@ -89,6 +93,10 @@ class C_LessonMenu extends Component {
   }
   moveIndex(select){
     this.refs.ShowNum.setSelect(select);
+  }
+  moveEnd(select){
+    var name = app.temp.lesson.practices[select].ksimage;
+    this.refs.BackImage.setImage(name);
   }
   drawList(){
     var array = [];

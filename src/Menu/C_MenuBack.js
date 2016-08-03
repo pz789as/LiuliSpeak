@@ -7,13 +7,28 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  View,
   Image,
 } from 'react-native';
 
+import {
+  ScreenWidth,
+  ScreenHeight,
+  minUnit,
+  MinWidth,
+} from '../Styles';
+
+import {
+  BlurView,
+  VibrancyView,
+} from 'react-native-blur';
 
 export default class C_MenuBack extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      imageName: '',
+    };
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state || nextProps != this.props) return true;
@@ -25,29 +40,38 @@ export default class C_MenuBack extends Component {
   }
   componentWillUnmount(){
   }
+  setImage(name){
+    this.setState({
+      imageName: name,
+    });
+  }
   render() {
     return (
-      <Image source={{uri:this.props.image}}>
-        
-      </Image>
+      <View style={styles.container}>
+        <Image source={{uri:app.getImageUrl(this.state.imageName)}} style={styles.image}>
+          <BlurView blurType='light' style={styles.blur}/>
+        </Image>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
 	container: {
-    flex: 1,
+    position: 'absolute',
+    width: ScreenWidth,
+    height: ScreenHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#DBDDDD',
   },
-  menu:{
-    width: 200,
-    height: 200,
+  image:{
+    width: ScreenWidth,
+    height: ScreenHeight,
   },
   blur:{
-    width: 200,
-    height: 200,
+    width: ScreenWidth,
+    height: ScreenHeight,
   },
 });
 

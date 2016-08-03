@@ -177,6 +177,7 @@ class CoverFlow extends Component {
 				SelectId = -(end/frameSpace);
 				this.props.getSelectIndex(Math.round(SelectId));
 				anim.removeListener(this._listener);
+				this.props.MoveEnd(Math.round(SelectId));
 			});
 		}
 		// SelectId = -(endX/frameSpace);

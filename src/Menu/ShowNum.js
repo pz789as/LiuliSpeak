@@ -39,7 +39,8 @@ class ShowNum extends Component {
 const styles = StyleSheet.create({
 	font: {
 		fontSize: 20,
-		color: '#FFFFFF'
+		color: '#FFFFFF',
+		backgroundColor: '#0000',
 	}
 });
 
