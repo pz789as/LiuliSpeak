@@ -32,6 +32,7 @@ var height = minUnit*35;
 
 var MoveDis = minUnit*30;
 
+import* as Progress from 'react-native-progress';
 export default class C_CardItem extends Component {
   oldx = 0;
   touchKind = -1;
@@ -190,17 +191,39 @@ export default class C_CardItem extends Component {
     // app.main.subOldLesson(this.props.renderData.key);
   }
   renderLeft(course) {
-    var bln = app.lessonIsAdd(course.key);
-    if (!bln) return null;
     if (this.props.blnRenderAdd) {
-      return (
-        <View style={styles.left}>
-          <Image
-            style={styles.cardLeftImage}
-            source={ImageRes.icon_course_list_already_add} />
-          <Text style={styles.cardLeftWord}>已添加</Text>
-        </View>
-      );
+      var isAdd = app.lessonIsAdd(course.key);
+      if (isAdd) {
+        var isCom = app.lessonIsComplete(course.key);
+        if (isCom) {
+          // 已完成
+          var info = app.getMainLessonInfo(course.key);
+          var progress = info.star/info.starAll;
+          return (
+            <View style={styles.left}>
+              <Progress.Circle style={styles.progress} thickness={minUnit*1.5} borderWidth={0}
+                                 progress={progress} size={minUnit*20} color="#F3B341" unfilledColor={'#FFFAFC'}>
+                <Image
+                  style={styles.cardLeftStar}
+                    source={ImageRes.ic_star_yellow} />
+              </Progress.Circle>
+              <Text style={styles.cardLeftWord}>{info.star}/{info.starAll}</Text>
+              <Text style={styles.cardLeftWord}>已完成</Text>
+            </View>
+          );
+        } else {
+          // 已添加
+          return (
+            <View style={styles.left}>
+              <Image
+                style={styles.cardLeftImage}
+                source={ImageRes.icon_course_list_already_add} />
+              <Text style={styles.cardLeftWord}>已添加</Text>
+            </View>
+          );
+        }
+
+      }
     }
   }
   // 右侧信息显示
@@ -256,8 +279,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(10,10,10,0.5)',
     paddingVertical: minUnit*3,
+    backgroundColor: 'rgba(10,10,10,0.5)',
   },
   message: {
     flex: 1,
@@ -266,6 +289,13 @@ const styles = StyleSheet.create({
   cardLeftImage: {
     width: minUnit*20,
     height: minUnit*20,
+  },
+  cardLeftStar: {
+    position: 'absolute',
+    left: minUnit*4,
+    top: minUnit*4,
+    width: minUnit*12,
+    height: minUnit*12,
   },
   cardLeftWord: {
     fontSize: minUnit*3.5,
