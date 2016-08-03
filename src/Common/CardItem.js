@@ -40,8 +40,14 @@ export default class C_CardItem extends Component {
 
     this.state = {
       movex: new Animated.Value(0),
+      blnRefresh: false,
     };
     this.imagePath = app.getImageUrl(this.props.image);
+  }
+  Refresh() {
+    this.setState({
+      blnRefresh: !this.state.blnRefresh,
+    });
   }
   static propTypes = {
     renderData: React.PropTypes.any.isRequired,       //数据信息
@@ -51,7 +57,7 @@ export default class C_CardItem extends Component {
     onTouch: ()=>{console.log('Touched!')},
     parents: null,
     blnCanMove: false,
-    renderLeft: ()=>{return null},
+    blnRenderAdd: false,
     renderRight: ()=>{return null},
     deleteBack: (key)=>{},
 
@@ -162,7 +168,7 @@ export default class C_CardItem extends Component {
           <Image
             style={[styles.image, this.props.imgStyle?this.props.imgStyle:{}]}
             source={{uri:this.imagePath}}>
-            {this.renderLeft()}
+            {this.renderLeft(this.props.renderData)}
           </Image>
           {this.renderMsg()}
           {/*this.renderNew()*/}
@@ -183,12 +189,19 @@ export default class C_CardItem extends Component {
     this.props.deleteBack(this.props.renderData.key);
     // app.main.subOldLesson(this.props.renderData.key);
   }
-  renderLeft() {
-    return (
-      <View style={styles.left}>
-        {this.props.renderLeft()}
-      </View>
-    );
+  renderLeft(course) {
+    var bln = app.lessonIsAdd(course.key);
+    if (!bln) return null;
+    if (this.props.blnRenderAdd) {
+      return (
+        <View style={styles.left}>
+          <Image
+            style={styles.cardLeftImage}
+            source={ImageRes.icon_course_list_already_add} />
+          <Text style={styles.cardLeftWord}>已添加</Text>
+        </View>
+      );
+    }
   }
   // 右侧信息显示
   renderMsg() {
@@ -241,9 +254,20 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    alignItems: 'center',
+    backgroundColor: 'rgba(10,10,10,0.5)',
   },
   message: {
     flex: 1,
     overflow: 'hidden',
+  },
+  cardLeftImage: {
+    width: minUnit*20,
+    height: minUnit*20,
+    margin: minUnit*2,
+  },
+  cardLeftWord: {
+    fontSize: minUnit*3.5,
+    color: '#FFFFFF',
   },
 });

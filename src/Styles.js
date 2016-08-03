@@ -305,15 +305,6 @@ let styles = StyleSheet.create({
   shade: {
     backgroundColor: 'rgba(10,10,10,0.3)',
   },
-  cardLeftImage: {
-    width: minUnit*20,
-    height: minUnit*20,
-    margin: minUnit*2,
-  },
-  cardLeftWord: {
-    fontSize: minUnit*3.5,
-    color: '#FFFFFF',
-  }
 });
 
 var UtilStyles = StyleSheet.create({

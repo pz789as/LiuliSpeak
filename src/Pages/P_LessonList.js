@@ -39,6 +39,8 @@ import Waiting from '../Common/Waiting';
 import CardItem from '../Common/CardItem';
 
 export default class P_LessonList extends Component {
+  arrayCard = [];
+  cardSelect = -1;
   constructor(props){
     super(props);
     this.state = {
@@ -46,14 +48,13 @@ export default class P_LessonList extends Component {
       lessonDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{oldRow !== newRow}
       }),
-      blnRefresh: false,
     };
     app.lessonList = this;
   }
   Refresh() {
-    this.setState({
-      blnRefresh: !this.state.blnRefresh,
-    });
+    if (this.cardSelect != -1) {
+      this.arrayCard[this.cardSelect].Refresh();
+    }
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state) return true;
@@ -94,6 +95,7 @@ export default class P_LessonList extends Component {
     }else{
       app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
     }
+    this.cardSelect = index;
   }
   render() {
     return (
@@ -127,8 +129,9 @@ export default class P_LessonList extends Component {
     return (
         <CardItem image={lesson.kcimage}
           renderData={lesson}
-          renderLeft={this.renderLeft.bind(this, lesson)}
+          blnRenderAdd={true}
           renderRight={this.renderMsg.bind(this)}
+          ref={(ref)=>{this.arrayCard[rowID] = ref}}
           onTouch={this.onSelectLesson.bind(this, rowID)}/>
     );
   }
@@ -157,19 +160,6 @@ export default class P_LessonList extends Component {
       <Image
         style={Mstyles.imageNew}
         source={ImageRes.icon_newcourse} />
-    );
-  }
-
-  renderLeft(course) {
-    bln = app.lessonIsAdd(course.key);
-    if (!bln) return null;
-    return (
-      <View style={[styles.fill, styles.shade, {alignItems: 'center',}]}>
-        <Image
-          style={styles.cardLeftImage}
-          source={ImageRes.icon_course_list_already_add} />
-        <Text style={styles.cardLeftWord}>已添加</Text>
-      </View>
     );
   }
 
