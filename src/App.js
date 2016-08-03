@@ -108,6 +108,14 @@ export default class App extends Component {
     if (sl) return sl.isAdd;
     return false;
   }
+  getLessonData(key){
+    for(var i=0;i<this.allLesson.length;i++){
+      if (this.allLesson[i].key == key){
+        return this.allLesson[i];
+      }
+    }
+    return null;
+  }
   loadData(loadOk){
     // this.removeSave();
     storage.load({
@@ -203,8 +211,8 @@ export default class App extends Component {
     app.saveData();//保存存档
   }
   getMainLessonInfo(key){
-    var tempLesson = this.temp.lesson;
-    var lessonSave = this.getLessonFromSave(tempLesson.key);
+    var tempLesson = this.getLessonData(key);
+    var lessonSave = this.getLessonFromSave(key);
     var practice = this.getPracticeSave(0);
     var info = {
       star: 0,//获得星星数量
