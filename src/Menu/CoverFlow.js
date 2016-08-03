@@ -165,17 +165,22 @@ class CoverFlow extends Component {
 						endV,
 					}).start();
 				}
+				SelectId = -(value/frameSpace);
+				this.props.getSelectIndex(Math.round(SelectId));
 			});
 
 			Animated.decay(anim, {
 				...this.props.momentumDecayConfig,
 				velocity,
 			}).start(() => {
+				var end = anim._value;
+				SelectId = -(end/frameSpace);
+				this.props.getSelectIndex(Math.round(SelectId));
 				anim.removeListener(this._listener);
 			});
 		}
-		SelectId = -(endX/frameSpace);
-		this.props.getSelectIndex(SelectId);
+		// SelectId = -(endX/frameSpace);
+		// this.props.getSelectIndex(SelectId);
 	}
 	// 保证中心位置
 	closestCenter(x, spacing) {
