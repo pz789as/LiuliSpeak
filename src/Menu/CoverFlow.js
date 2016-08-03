@@ -130,6 +130,7 @@ class CoverFlow extends Component {
 				velocity,
 			}).start();
 			endX = min;
+			this.setSelect(min);
 		} else if (anim._value > max) {
 			Animated.spring(anim, {
 				...this.props.overshootSpringConfig,
@@ -137,6 +138,7 @@ class CoverFlow extends Component {
 				velocity,
 			}).start();
 			endX = max;
+			this.setSelect(max);
 		} else {
 			endX = this.momentumCenter(anim._value, velocity, frameSpace);
 			endX = Math.max(endX, min);
@@ -173,15 +175,21 @@ class CoverFlow extends Component {
 				...this.props.momentumDecayConfig,
 				velocity,
 			}).start(() => {
-				var end = anim._value;
-				SelectId = -(end/frameSpace);
-				this.props.getSelectIndex(Math.round(SelectId));
+				this.setSelect(anim._value);
 				anim.removeListener(this._listener);
-				this.props.MoveEnd(Math.round(SelectId));
 			});
 		}
 		// SelectId = -(endX/frameSpace);
 		// this.props.getSelectIndex(SelectId);
+	}
+	setSelect(dis) {
+		var {
+			frameSpace,
+			SelectId,
+		} = this.props;
+		SelectId = -(dis/frameSpace);
+		this.props.getSelectIndex(Math.round(SelectId));
+		this.props.MoveEnd(Math.round(SelectId));
 	}
 	// 保证中心位置
 	closestCenter(x, spacing) {
