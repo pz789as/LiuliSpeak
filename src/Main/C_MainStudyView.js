@@ -48,11 +48,6 @@ export default class C_MainStudyView extends Component {
   constructor(props) {
     super(props);
     app.studyView = this;
-
-    this.state = {
-      blnRefresh: false,
-    };
-
     this.timer = setInterval(()=>{
       this.getMainLessonInfo();
     }, 100);
@@ -67,6 +62,10 @@ export default class C_MainStudyView extends Component {
       }
       this.timer && clearInterval(this.timer);
     }
+  }
+  Refresh(key) {
+    var index = app.main.getIndexForRealList(key);
+    this.cardList[index].Refresh();
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state || nextProps != this.props) return true;
@@ -143,7 +142,7 @@ export default class C_MainStudyView extends Component {
       <View style={[styles.fill, styles.cardFrame]}>
         {this.renderText([styles.cardFontName, styles.cardWordBottom], course.titleCN)}
         {this.drawProgress(progress)}
-        {this.renderProgressMsg(progress, info.passCount)}
+        {this.renderProgressMsg(progress, info.averageScore)}
         {this.drawStar(course, info.star, info.starAll)}
       </View>
     );

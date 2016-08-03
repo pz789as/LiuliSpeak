@@ -280,7 +280,7 @@ export default class P_Exam extends Component {
                     nextPS.isLock = false;
                     app.menu.setFresh(app.temp.courseID + 1);
                 }
-                app.studyView.Refresh();
+                app.studyView.Refresh(app.temp.lesson.key);
                 app.menu.setFresh(app.temp.courseID);
                 app.saveData();
             }else{//闯关失败
