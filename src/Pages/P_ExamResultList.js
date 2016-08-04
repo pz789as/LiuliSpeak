@@ -48,12 +48,14 @@ export default class ExamResultList extends Component {
     }
     static defaultProps = {}
     renderTopBar = ()=> {
+        var title = this.props.Score>=60?"闯关成功":"闯关失败";
+        logf("title:",title,this.props.Score);
         return (
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={()=>{app.PopPage(Consts.POP_ROUTE, Scenes.MENU)}}>
                     <Image style={styles.backImg} source={ImageRes.ic_back}/>
                 </TouchableOpacity>
-                <Text style={styles.textTitle}>闯关结果</Text>
+                <Text style={styles.textTitle}>{title}</Text>
                 <ScoreCircle score={this.props.Score}/>
             </View>
         );
@@ -73,13 +75,30 @@ export default class ExamResultList extends Component {
         }
     }
 
+    nextGate = ()=>{
+
+    }
+
+    restartGate = ()=>{
+        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM, {
+            popRoute: app.GetLastPage(2),//进入下一个页面之后，返回到该屏的上一屏。             
+        });
+    }
+
     renderBottomBar = ()=> {
         return (
             <View style={styles.bottomBar}>
                 <TouchableOpacity onPress={this._onPressBtn.bind(this)}>
                      <Image style={styles.playImg} source={this.state.blnAutoPlay?ImageRes.btn_pause:ImageRes.btn_playing}/>
                 </TouchableOpacity>
-                <Text style={styles.textTitle}>播放成绩单</Text>
+
+                <TouchableOpacity style={styles.btn} onPress={this.nextGate.bind(this)}>
+                    <Text style={styles.btnText}>下一关</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.btn} onPress={this.restartGate.bind(this)}>
+                    <Text style={styles.btnText}>重来</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -367,7 +386,7 @@ const styles = StyleSheet.create({
         left: 0,
         top: ScreenHeight - fontSize * 4,
         backgroundColor: '#ffffff',
-        //justifyContent: 'space-between',
+        justifyContent: 'space-between',
         alignItems: 'center',
         borderTopWidth: MinWidth,
         borderTopColor: '#CBCBCB',
@@ -377,6 +396,22 @@ const styles = StyleSheet.create({
         width: minUnit * 9,
         height: minUnit * 9,
         marginRight: minUnit,
+    },
+    btn:{
+        height:minUnit*9,
+        paddingHorizontal:minUnit*2,
+        paddingVertical:minUnit,
+        borderWidth:2*MinWidth,
+        borderColor:'#49CD36',
+        borderRadius:minUnit*4,
+        alignItems:'center',
+        justifyContent:'center',
+
+    },
+    btnText:{
+        fontSize:fontSize*1.25,
+        color:'#49CD36',
+        backgroundColor:'transparent'
     },
     itemView: {
         borderBottomWidth: MinWidth,

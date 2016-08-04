@@ -69,8 +69,9 @@ export default class P_Exam extends Component {
 
     static propTypes = {
         dialogData: PropTypes.array,
-    };
 
+    };
+   
     getDialogData = (data)=> {
         this.dialogLength = data.length;
         for (var i = 0; i < this.dialogLength; i++) {
@@ -472,9 +473,16 @@ export default class P_Exam extends Component {
     }
 
     _onPressPause = ()=>{
-        this.stopAudio();
+        /*this.stopAudio();
         this.pauseRecord();
-        this.setState({blnExamPause:true});
+        this.setState({blnExamPause:true});*/
+        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
+            {
+                dialogData: this.props.dialogData,
+                arrSyllableScore: this.syllableScore,
+                arrSentenceScore: this.sentenceScore,
+                Score:40,
+            });
     }
 
     restartExam = ()=>{
