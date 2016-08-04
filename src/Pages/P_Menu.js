@@ -35,10 +35,10 @@ class P_Menu extends Component {
       blnMoreMenu: false,
     };
     app.menu = this;
-    this.lessonSave = app.getLessonFromSave(tempLesson.key);
+    var listPractice = app.getPracticeListSave();
     this.initPage = 0;
-    for(var i=0;i<this.lessonSave.practices.length;i++){
-      if (!this.lessonSave.practices[i].isLock){
+    for(var i=0;i<listPractice.length;i++){
+      if (!listPractice[i].isLock){
         this.initPage = i;
       }
     }

@@ -172,8 +172,7 @@ export default class App extends Component {
       key: saveKey,
     });
   }
-  //根据章节ID获取章节章节存档，前提是已经选中课程
-  getPracticeSave(practiceID){
+  getPracticeListSave(){
     var tempLesson = this.temp.lesson;
     var lessonSave = this.getLessonFromSave(tempLesson.key);
     if (!lessonSave) {
@@ -184,7 +183,12 @@ export default class App extends Component {
       this.createPracticeStorage(tempLesson, lessonSave);
       this.saveData();
     }
-    return lessonSave.practices[practiceID];
+    return lessonSave.practices;
+  }
+  //根据章节ID获取章节章节存档，前提是已经选中课程
+  getPracticeSave(practiceID){
+    var listPractise = this.getPracticeListSave()
+    return listPractise[practiceID];
   }
   //创建章节存档，不需要使用，如果要使用先@郭
   createPracticeStorage(lesson, lessonSave){
@@ -245,13 +249,7 @@ export default class App extends Component {
       if (practice.isPass){
         info.passCount++;
         info.averageScore += practice.score;
-        if (practice.score >= 85){
-          info.star += 3;
-        }else if (practice.score >= 70){
-          info.star += 2;
-        }else{
-          info.star += 1;
-        }
+        info.star += this.getStarCount(practice.score);
       }
     }
     if (info.passCount > 0){
@@ -259,6 +257,17 @@ export default class App extends Component {
       info.averageScore = parseInt(info.averageScore);
     }
     return info;
+  }
+  getStarCount(score){
+    if (score >= 85){
+      return 3;
+    }else if (score >= 70){
+      return 2;
+    }else if (score >= 60) {
+      return 1;
+    }else{
+      return 0;
+    }
   }
   componentWillMount(){
   }

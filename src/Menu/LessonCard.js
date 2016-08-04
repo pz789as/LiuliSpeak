@@ -94,12 +94,28 @@ class LessonCard extends Component {
 	}
 	drawImage(){
 		var practice = app.getPracticeSave(this.props.rowID);
+		var star = app.getStarCount(practice.score);
+		var score = practice.score + '分';
 		if (practice.isPass){
 			return (
 				<View style={[styles.top, styles.border]}>
 					<Image source={{uri:app.getImageUrl(this.props.course.ksimage)}}
-						style={styles.imageView}/>
-					
+						style={styles.imageView}>
+						<View style={styles.topPassMsg}>
+							<View style={styles.starAndScore}>
+								<Image source={star>=1 ? ImageRes.icon_star_l_hit : ImageRes.icon_star_l} 
+									style={styles.starImage} 
+									resizeMode='contain' />
+								<Image source={star>=2 ? ImageRes.icon_star_l_hit : ImageRes.icon_star_l}
+									style={styles.starImage}
+									resizeMode='contain' />
+								<Image source={star>=3 ? ImageRes.icon_star_l_hit : ImageRes.icon_star_l}
+									style={styles.starImage}
+									resizeMode='contain' />
+								<Text style={styles.scoreText}>{score}</Text>
+							</View>
+						</View>
+					</Image>
 				</View>
 			);
 		}else{
@@ -315,6 +331,29 @@ const styles = StyleSheet.create({
 	imageView:{
 		height: height * 0.4,
 		width: width,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	topPassMsg:{
+		height: height * 0.4,
+		width: width,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#FA08'
+	},
+	starAndScore:{
+		flexDirection: 'row',
+		height: minUnit * 15,
+		justifyContent: 'center',
+		alignItems: 'flex-end',
+	},
+	starImage:{
+		width: minUnit*18,
+		height: minUnit*15,
+	},
+	scoreText:{
+		fontSize: minUnit*5,
+		color: 'white',
 	},
 	msg: {
 		flex: 1,
