@@ -37,6 +37,7 @@ import {
     ListView,
 } from '../Practice';
 
+
 class P_Practice extends Component {
     myLayout = null;//..
     blnInTouch = false;//..
@@ -196,6 +197,7 @@ class P_Practice extends Component {
              onStart={this._onStart.bind(this)}
              changePlayKind={this._changePlayK.bind(this)}
              changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />}
+                
              </View>
         );
     }
@@ -232,12 +234,11 @@ class P_Practice extends Component {
         logf("kind: "+kind);
         this.refs.ViewList.setLoop(kind);
     }
-
+     
     _onStart() {
         app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM,
             {
-                dialogData: this.props.dialogData,   
-                
+                dialogData: this.props.dialogData,                   
             });
     }
 

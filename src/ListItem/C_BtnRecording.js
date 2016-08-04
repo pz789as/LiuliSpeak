@@ -178,8 +178,8 @@ export default class BtnRecording extends Component {
                 SAMPLE_RATE: '16000',
                 TEXT_ENCODING: 'utf-8',
                 ISE_RESULT_TYPE: 'xml',
-                VAD_BOS: '5000',//静音超时时间，即用户多长时间不说话则当做超时处理vad_bos 毫秒 ms
-                VAD_EOS: '1800',//后端点静音检测时间，即用户停止说话多长时间内即认为不再输入，自动停止录音 毫秒 ms
+                VAD_BOS: '3000',//静音超时时间，即用户多长时间不说话则当做超时处理vad_bos 毫秒 ms
+                VAD_EOS: '1000',//后端点静音检测时间，即用户停止说话多长时间内即认为不再输入，自动停止录音 毫秒 ms
                 ISE_CATEGORY: category,//read_syllable（单字，汉语专有）、read_word（词语）、read_sentence（句子）
                 LANGUAGE: 'zh_cn',//en_us（英语）、zh_cn（汉语）
                 ISE_RESULT_LEVEL: 'complete',
@@ -222,7 +222,7 @@ export default class BtnRecording extends Component {
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
         else if (data.code == XFiseBridge.CB_CODE_ERROR) {
-            this.props.btnCallback('error', data.result);//返回讯飞给的评测异常错误
+            this.props.btnCallback('error',0, data.result);//返回讯飞给的评测异常错误
             this.recordEnd();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
@@ -243,7 +243,7 @@ export default class BtnRecording extends Component {
         else {//..真的是未知的错误
             logf('传回其他参数', data.result);
             this.recordEnd();
-            this.props.btnCallback('error', 0);//返回未知的错误
+            this.props.btnCallback('error',0,'unKnow');//返回未知的错误
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
     }
@@ -386,8 +386,7 @@ export default class BtnRecording extends Component {
         logf("老算法得分:",lostPoint / pointCount * 100);*/
         logf("评测分数: " + score);
         logf("每个汉字情况:" + syllablesScore);
-        this.props.btnCallback("result", {syllableScore: syllablesScore, sentenctScore: parseInt(score)});
-
+        this.props.btnCallback("result", parseInt(score), syllablesScore);
     }
 }
 

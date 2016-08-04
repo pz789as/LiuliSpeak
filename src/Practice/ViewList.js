@@ -163,7 +163,8 @@ class ViewList extends Component {
     componentDidUpdate(prevProps, prevState) {
         this.moveScrollView();
         if (prevState.speedKind != this.state.speedKind) {
-            this.onPlay();
+            this.arrayList[this.state.select]._onAutoplay();
+            //..this.onPlay();
         }
     }
 

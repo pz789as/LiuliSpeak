@@ -210,7 +210,7 @@ export default class P_Exam extends Component {
         }
     }
 
-    callbackBtnRecord(msg, num) {
+    callbackBtnRecord(msg,score,date) {
         if (msg == "record") {
             this.initRecord(this.state.nowIndex);
         } else if (msg == "stop") {
@@ -220,7 +220,7 @@ export default class P_Exam extends Component {
             //弹出一个提示框
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
-            this.recordScore(this.state.nowIndex,num.syllableScore,num.sentenctScore);
+            this.recordScore(this.state.nowIndex,date,score);
             this.hideBtnRecord();
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
         }
@@ -273,7 +273,7 @@ export default class P_Exam extends Component {
             var Score = this.getLastScore(this.sentenceScore);
             logf("exam is over:",Score);
             var lessonSave = app.getLessonFromSave(app.temp.lesson.key);
-            var practiceSave = app.getPracticeSave(app.temp.lesson.key, app.temp.courseID);
+            var practiceSave = app.getPracticeSave(app.temp.lesson.key,app.temp.courseID);
             if (Score >= 60) {//分数大于等于60则通过闯关，解锁下一关
                 if (practiceSave.score != undefined && practiceSave.score < Score){
                     practiceSave.score = Score;
@@ -282,7 +282,6 @@ export default class P_Exam extends Component {
                 if (app.temp.courseID + 1 >= lessonSave.practices.length) {
                     //最后一关通过之后，更改lessonSave中的已完成
                     lessonSave.isComplete = true;
-                    // app.main.completeLesson(app.temp.lesson.key);//暂时不调用
                 }else{
                     var nextPS = lessonSave.practices[app.temp.courseID + 1];
                     nextPS.isLock = false;
@@ -380,7 +379,6 @@ export default class P_Exam extends Component {
 
     componentWillUnMount() {
         this.releaseDialog();
-        app.exam = null;
     }
 
     renderTop = ()=> {

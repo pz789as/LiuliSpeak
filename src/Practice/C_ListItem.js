@@ -31,6 +31,9 @@ import Sentence from '../ListItem/C_NewSentence';
 import AllBotton from  '../ListItem/C_AllButtons';
 import RNFS from 'react-native-fs'
 
+
+import Toast from 'react-native-root-toast';
+
 var totalWidth = ScreenWidth;
 var fontSize = parseInt(minUnit * 4);
 var spacing = fontSize * 1;//内容之间的间距
@@ -52,8 +55,8 @@ export default class ListItem extends Component {
         };
         this.syllableScore = [];
         this.useTime = new Date();
-        var strUser = "user"+ parseInt(this.props.dialogInfo.user);
-        logf("strUser:",strUser);
+        var strUser = "user" + this.props.dialogInfo.user;
+        //logf("strUser:", strUser);
         this.userIcon = ImageIcon[strUser];
         this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
     }
@@ -73,7 +76,6 @@ export default class ListItem extends Component {
 
     _onAutoplay = ()=> { //接收到父组要调用自动播放的指令        
         this.refs.allBotton.autoplay();
-
     }
 
     _onStopAutoplay = ()=> {//接收到父组件调用暂停自动播放的指令
@@ -87,7 +89,7 @@ export default class ListItem extends Component {
         //logf("WillMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
         //..this.existsRecordFile();//检查是否有录音文件
 
-        var practiceSave = app.getPracticeSave(app.temp.lesson.key, app.temp.courseID);
+        var practiceSave = app.getPracticeSave(app.temp.lesson.key,app.temp.courseID);
         //logf("C_ListItem PracticeSave:", practiceSave);
 
         this.syllableScore = practiceSave.contents[this.itemIndex].p_SyllableScore;
@@ -95,7 +97,7 @@ export default class ListItem extends Component {
         var saveSocre = practiceSave.contents[this.itemIndex].p_score;
         //logf("C_ListItem p_Score:", saveSocre);
         var blnHaveRecord = this.syllableScore.length > 0
-        this.setState({score: saveSocre,btnCount:blnHaveRecord?3:2});
+        this.setState({score: saveSocre, btnCount: blnHaveRecord ? 3 : 2});
     }
 
     componentDidMount() {
@@ -132,7 +134,7 @@ export default class ListItem extends Component {
     render() {
         const {dialogInfo} = this.props;//获取属性值
         const {itemWordCN, itemWordEN} = dialogInfo;
-        logf("render item:",this.itemIndex);
+        logf("render item:", this.itemIndex,this.props.blnAutoplay);
 
         return (
             <View
@@ -159,7 +161,7 @@ export default class ListItem extends Component {
                                                         getRate={this.props.getRate.bind(this)}/>
                     }
                 </View>
-                {this.drawScore()}                
+                {this.drawScore()}
             </View>
         );
     }
@@ -264,7 +266,7 @@ export default class ListItem extends Component {
         this.refs.mySentence.blnTouchSentence(touch, layout);//调用子组件的判断碰撞函数,将touch对象和myLayout传递给子组件
     }
     drawScore = ()=> {
-        if(this.state.btnCount == 2)return;
+        if (this.state.btnCount == 2)return;
         return (<ScoreCircle score={this.state.score}/>)
         //if (!this.state.blnHaveRecord) return;
         /*if (this.state.score >= 60) {
@@ -284,31 +286,55 @@ export default class ListItem extends Component {
     setPingceResult(result) {//唐7-11
         logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
 
-        const {blnSuccess, score, syllableScore, errorMsg} = result;
+        const {blnSuccess, score, syllableScore} = result;
         if (blnSuccess) {
             this.syllableScore = syllableScore;
             this.refs.mySentence.setPingce(syllableScore); //评测打分..
             var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
-            if (syllableScore < 60) { //如果没及格,就别给随机分数了
-                rndScore = syllableScore;
+            if (score < 63) { //如果没及格,就别给随机分数了
+                rndScore = score;
             }
             app.saveSingleScore(this.itemIndex, 0, rndScore, this.syllableScore)
-            if(this.state.btnCount == 2){
-                this.setState({score: rndScore,btnCount:3}); //评测打分..
-            }else {
-                this.setState({score: rndScore}); //评测打分..
-            }
-
         } else {
-            if (errorMsg == 0) {
+            if (syllableScore == 0) {
                 logf("未知的异常");
             } else {
-                logf("讯飞返回的错误代码:", errorMsg);
+                logf("讯飞返回的错误代码:", syllableScore.slice(0,5));
+                //var errMessage = this.getError()
+                this.showToast(syllableScore)
             }
             this.refs.mySentence.setPingce("error");
-
-            this.setState({score: 0});
+            app.saveSingleScore(this.itemIndex, 0, score, [])
         }
+        if (this.state.btnCount == 2) {
+            this.setState({score: rndScore, btnCount: 3}); //评测打分..
+        } else {
+            this.setState({score: rndScore}); //评测打分..
+        }
+    }
+    toast = null;
+    showToast = (msg)=> {
+        let message = '录音时间过短\n请对着麦克风再次朗读';
+        //message = '网络出现异常 \n 请稍候再试'
+        this.toast && this.toast.destroy();
+        this.setState({
+            message
+        });
+        this.toast = Toast.show(message, {
+            duration: 1200,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+            backgroundColor: 'rgba(0,0,0,88)',
+            shadowColor: '#000000',
+            textColor: 'white',
+            onHidden: () => {
+                this.toast.destroy();
+                this.toast = null;
+            }
+        });
     }
 
     _onSelectItem = ()=> {//选中item时调用        
