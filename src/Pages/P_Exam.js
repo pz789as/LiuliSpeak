@@ -68,15 +68,7 @@ export default class P_Exam extends Component {
         app.exam = this;
     }
     ResetComponent(){
-        this.setState({
-            opacityAnim: new Animated.Value(1),
-            translateYAnim: new Animated.Value(0),
-            recordAnim:new Animated.Value(0),
-            nowIndex: 0,
-            blnCountdown: true,//倒计时ing...
-            blnChangeRole: false,
-            blnExamPause:false,
-        });
+        this.restartExam();
     }
 
     static propTypes = {
@@ -485,16 +477,16 @@ export default class P_Exam extends Component {
     }
 
     _onPressPause = ()=>{
-        /*this.stopAudio();
+        this.stopAudio();
         this.pauseRecord();
-        this.setState({blnExamPause:true});*/
-        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
+        this.setState({blnExamPause:true});
+        /*app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
             {
                 dialogData: this.props.dialogData,
                 arrSyllableScore: this.syllableScore,
                 arrSentenceScore: this.sentenceScore,
                 Score:40,
-            });
+            });*/
     }
 
     restartExam = ()=>{
@@ -504,6 +496,8 @@ export default class P_Exam extends Component {
         this.blnShowPoint = false;
         this.state.opacityAnim.setValue(0);
         this.state.translateYAnim.setValue(0);
+        this.state.recordAnim.setValue(0);
+
         this.setState({
             nowIndex: 0,
             blnCountdown: true,//倒计时ing...

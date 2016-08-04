@@ -79,7 +79,7 @@ export default class ExamResultList extends Component {
     }
 
     nextGate = ()=>{
-
+        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
     }
 
     restartGate = ()=>{
@@ -97,10 +97,9 @@ export default class ExamResultList extends Component {
                 <TouchableOpacity onPress={this._onPressBtn.bind(this)}>
                      <Image style={styles.playImg} source={this.state.blnAutoPlay?ImageRes.btn_pause:ImageRes.btn_playing}/>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={styles.btn} onPress={this.nextGate.bind(this)}>
+                {this.props.Score>=60 &&<TouchableOpacity style={styles.btn} onPress={this.nextGate.bind(this)}>
                     <Text style={styles.btnText}>下一关</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
 
                 <TouchableOpacity style={styles.btn} onPress={this.restartGate.bind(this)}>
                     <Text style={styles.btnText}>重来</Text>
