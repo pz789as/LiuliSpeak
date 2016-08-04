@@ -29,9 +29,14 @@
 -(instancetype)init {
   self = [super init];
   
+  return self;
+}
+
+-(void)initISE:(NSDictionary*) infos
+{
   [IFlySetting showLogcat:NO];
   
-  NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@", APPID_VALUE];
+  NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@", [RCTConvert NSString:infos[@"APPID"]]];
   //所有服务启动前，需要确保执行createUtility
   [IFlySpeechUtility createUtility:initString];
   
@@ -41,9 +46,7 @@
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
   _pcmFilePath = [paths objectAtIndex:0];
-//  NSLog(@"%@", _pcmFilePath);
-  
-  return self;
+  //  NSLog(@"%@", _pcmFilePath);
 }
 
 -(void)setEvaluator:(NSDictionary *)infos

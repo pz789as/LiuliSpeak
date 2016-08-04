@@ -16,6 +16,12 @@
 
 RCT_EXPORT_MODULE();
 
+RCT_EXPORT_METHOD(initISE:(NSDictionary*)infos)
+{
+  NSLog(@"init ise");
+  [_xunfei initISE:infos];
+}
+
 RCT_EXPORT_METHOD(start:(NSDictionary*) infos)
 {
   NSLog(@"start ise");

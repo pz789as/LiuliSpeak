@@ -34,7 +34,6 @@
 -(void)iseCallback:(NSString*)code result:(NSString*) result;
 -(void)iseVolume:(NSString*)volume;
 -(void)playCallback:(NSString*)status msg:(NSString*)msg;
--(void)initPcm:(NSDictionary*) infos;
 -(void)playPcm;
 -(void)stopPcm;
 -(void)pausePcm;

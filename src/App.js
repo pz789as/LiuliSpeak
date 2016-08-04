@@ -21,6 +21,8 @@ import {
   serverUrl,
 } from './Constant';
 
+var XFiseBridge = NativeModules.XFiseBridge;
+
 import SceneList from './SceneList';
 import Storage from 'react-native-storage';
 import fs from 'react-native-fs';
@@ -72,6 +74,8 @@ export default class App extends Component {
     this.createStorage();//创建存储句柄
     
     global.deleteFile = this.deleteFile.bind(this);
+
+    XFiseBridge.initISE({"APPID": "57562d34"});//57562d34 5743f74a
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
@@ -111,6 +115,20 @@ export default class App extends Component {
     }
     return null;
   }
+  getLessonSaveIndex(key){
+    if (this.save.lessons){
+      for(var i=0;i<this.save.lessons.length; i++){
+        if (this.save.lessons[i].key == key){
+          return i;
+        }
+      }
+      var nls = getNewSave(key, false, false);
+      this.save.lessons.push(nls);
+      this.saveData();
+      return this.save.lessons.length - 1;
+    }
+    return -1;
+  }
   lessonIsAdd(key){
     var sl = this.getLessonFromSave(key);
     if (sl) return sl.isAdd;
@@ -140,9 +158,8 @@ export default class App extends Component {
       key: saveKey,
     }).then((ret)=>{
       this.save = ret;
-      loadOk();
-      console.log(this.save);
       this.orderLessonSave();
+      loadOk();
     }).catch((err) => {
       var lessons = [];
       for(var i=0;i<this.allLesson.length;i++){
@@ -156,22 +173,9 @@ export default class App extends Component {
     });
   }
   saveLessons(key, isAdd){
-    var lessonSave = null;
-    var blnIn = false;
-    for(var i=0;i<this.save.lessons.length;i++){
-      if (key == this.save.lessons[i].key){
-        blnIn = true;
-        this.save.lessons[i].isAdd = isAdd;
-        this.save.lessons[i].opTime = (new Date()).getTime();
-        lessonSave = this.save.lessons[i];
-        break;
-      }
-    }
-    if (!blnIn){
-      lessonSave = getNewSave(key, isAdd, false);
-      this.save.lessons.push(lessonSave);
-    }
-    this.orderLessonSave();
+    var lessonSave = this.getLessonFromSave(key);
+    lessonSave.isAdd = isAdd;
+    lessonSave.opTime = (new Date()).getTime();
     this.saveData();
     return lessonSave;
   }

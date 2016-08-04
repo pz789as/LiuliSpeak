@@ -19,6 +19,7 @@
 @property (nonatomic,strong)IFlySpeechEvaluator *evaluatorIns;
 @property (nonatomic, strong) NSString *pcmFilePath;//音频文件路径
 
+-(void)initISE:(NSDictionary*) infos;
 -(void)startEvaluator:(NSDictionary *)infos iseBridge:(XFiseBridge*)iseBridge;
 -(void)stopEvaluator;
 -(void)cancelEvaluator;
