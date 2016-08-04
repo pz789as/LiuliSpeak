@@ -189,7 +189,7 @@ export default class AllBottons extends Component {
         logf("检查pcResult.syllable:", pcResult.syllableScore);
         //..this.setPingceResult(pcResult);
         this.props.btnCallback("btnRecord", pcResult);
-        if (this.props.btnCount == 4) {
+        if (this.props.btnCount == 3) {
             this.refs.btnRecPlay.updateFile();
             //通知录音按钮更新录音文件
         } else {

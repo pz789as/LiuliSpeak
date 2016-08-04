@@ -12,6 +12,7 @@ import {
   Image,
   TouchableOpacity,
   ListView,
+  Alert,
 } from 'react-native';
 
 import {
@@ -109,7 +110,17 @@ export default class C_MainStudyView extends Component {
         blnCanMove={true}
         parents={this}
         index={rowID}
-        deleteBack={(key)=>{this.delectCard(key)}}
+        deleteBack={(key)=>{
+          // this.delectCard(key)
+          Alert.alert(
+            '删除课程',
+            '确定删除该课程吗？',
+            [
+              {text: '取消', onPress: ()=>{}},
+              {text: '确定', onPress: ()=>{this.delectCard(key)}},
+            ]
+          );
+        }}
         ref={(ref)=>{this.cardList[rowID] = ref}}
         onTouch={()=>{this.props.selectListItem(rowID)}}/>
     );
