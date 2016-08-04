@@ -321,26 +321,44 @@ export default class BtnRecording extends Component {
                         var syllable = word.syllables[idx];
                         if (syllable.pDpMessage == '正常') {
                             pointCount += 3;
+                            var preLostPoint = lostPoint;
                             lostPoint += 3;
                             var tmpPoint = '';
+                            logf("shengmu.wpp",syllable.shengmu.wpp);
                             if (Math.abs(syllable.shengmu.wpp) > 2) {
                                 lostPoint--;
                                 tmpPoint = tmpPoint.concat('0');
                             } else {
                                 tmpPoint = tmpPoint.concat('1');
                             }
+                            logf("yunmu.wpp",syllable.yunmu.wpp);
                             if (Math.abs(syllable.yunmu.wpp) > 2) {
                                 tmpPoint = tmpPoint.concat('0');
                                 lostPoint--;
                             } else {
                                 tmpPoint = tmpPoint.concat('1');
                             }
-                            if (Math.abs(syllable.yunmu.tgpp) > 1) {
+                            logf("yunmu.tgpp",syllable.yunmu.tgpp);
+                            if (Math.abs(syllable.yunmu.tgpp) > 1.5) {
                                 tmpPoint = tmpPoint.concat('0');
-                                lostPoint--;
+                                lostPoint-=1;
                             } else {
-                                tmpPoint = tmpPoint.concat('1');
+                                if((lostPoint - preLostPoint)==1){
+                                    tmpPoint = tmpPoint.concat('0');
+                                }else{
+                                    tmpPoint = tmpPoint.concat('1');
+                                }
+                                lostPoint-=0.5;
                             }
+                            var getPoint = lostPoint - preLostPoint;
+                            logf("getPoint:",getPoint);
+                            if(getPoint==0.5){ //这种情况是全读错了
+                                lostPoint -= 0.5;
+                            }else if(getPoint >= 2){//声母韵母都读对了,加0.5
+
+                                lostPoint += 0.5
+                            }
+                            logf("lostPoint:",lostPoint,"pointCount:",pointCount);
                             syllablesScore.push(tmpPoint);
                         } else if (syllable.pDpMessage == '漏读') {
                             syllablesScore.push('000');
@@ -361,6 +379,11 @@ export default class BtnRecording extends Component {
 
         if (lostPoint < 0) lostPoint = 0;
         var score = lostPoint / pointCount * 100;
+        /*logf("得分情况:",lostPoint,"总分:",pointCount);
+        var score = lostPoint + (100-pointCount);
+        logf("第一次算分",score);
+        score  = score - (score*(pointCount-lostPoint)/pointCount);
+        logf("老算法得分:",lostPoint / pointCount * 100);*/
         logf("评测分数: " + score);
         logf("每个汉字情况:" + syllablesScore);
         this.props.btnCallback("result", {syllableScore: syllablesScore, sentenctScore: parseInt(score)});

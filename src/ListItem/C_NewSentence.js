@@ -41,6 +41,7 @@ export default class Sentence extends Component {
         this.arrSyllableWord = [];
         this.arrSyllablePY = [];
         this.arrSyllableColor = [];
+        this.arrSyllableScore = [];
         this.setSyllable(this.props.words,this.props.pinyins);
         this.setSyllableColor(this.props.arrScore);
     }
@@ -122,8 +123,10 @@ export default class Sentence extends Component {
                 for(var i=0;i<this.arrSyllablePY.length;i++){
                     if(this.arrSyllablePY[i] == '\n'){
                         this.arrSyllableColor[i] = '#434343';
+                        this.arrSyllableScore[i] = ' '
                     }else{
                         this.arrSyllableColor[i] = this.getColor(arrScore[tmpIndex]);
+                        this.arrSyllableScore[i] = arrScore[tmpIndex];
                         tmpIndex += 1;
                     }
                 }
@@ -236,6 +239,7 @@ export default class Sentence extends Component {
                 <Text key={startIndex + i} style={[styles.pinyin,{color:this.arrSyllableColor[startIndex+i]}]}>
                     {this.arrSyllablePY[startIndex + i]}
                     <Text style={styles.word}>{this.arrSyllableWord[startIndex+i]}</Text>
+                    <Text >{'\n'}{this.arrSyllableScore[startIndex+i]}</Text>
                 </Text>
             );
         }
