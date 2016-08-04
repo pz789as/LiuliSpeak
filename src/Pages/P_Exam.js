@@ -275,7 +275,9 @@ export default class P_Exam extends Component {
             var lessonSave = app.getLessonFromSave(app.temp.lesson.key);
             var practiceSave = app.getPracticeSave(app.temp.courseID);
             if (Score >= 60) {//分数大于等于60则通过闯关，解锁下一关
-                practiceSave.score = Score;
+                if (practiceSave.score != undefined && practiceSave.score < Score){
+                    practiceSave.score = Score;
+                }
                 practiceSave.isPass = true;
                 if (app.temp.courseID + 1 >= lessonSave.practices.length) {
                     //最后一关通过之后，更改lessonSave中的已完成
