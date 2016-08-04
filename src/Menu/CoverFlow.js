@@ -28,12 +28,11 @@ class CoverFlow extends Component {
 	  	this.state = {
 	  		translate: new Animated.Value(0),	//控制显示时的移动动画
 	  	};
-	  	this.move = this.props.SelectId*this.props.frameSpace;
-	  	this.state.translate.setValue(-this.move);
+	  	// this.move = this.props.SelectId*this.props.frameSpace;
+	  	// this.state.translate.setValue(-this.move);
 	}
 	// 移动到特定位置（id为第几块）
 	setMoveTo(id) {
-		this.props.getSelectIndex(id);
 		this.move = id*this.props.frameSpace;
 	  	this.state.translate.setValue(-this.move);	
 	}
@@ -82,6 +81,7 @@ class CoverFlow extends Component {
       		onPanResponderMove: this.panResponderMove.bind(this),
       		onPanResponderRelease: this.panResponderRelease.bind(this),
     	});
+		this.setMoveTo(this.props.SelectId);
 	}
 	panResponderStart() {
 		var anim = this.state.translate;

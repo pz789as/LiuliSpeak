@@ -55,7 +55,7 @@ class C_LessonMenu extends Component {
         this.setState({
           blnDraw: true,
         });
-        this.moveEnd(0);
+        this.moveEnd(this.props.initPage);
       },200);
     });
   }
@@ -77,26 +77,32 @@ class C_LessonMenu extends Component {
           <IconButton icon={ImageRes.more} onPress={this.AnimatedInt.bind(this)}/>
         </View>
         <View style={{alignItems:'center'}}>
-          <ShowNum select={0} all={this.props.CardNum} ref={'ShowNum'} />
+          <ShowNum select={this.props.initPage} all={this.props.CardNum} ref={'ShowNum'} />
         </View>
         {/*中间课程显示，选择不同的打开方式*/}
         <CoverFlow style={[styles.fill, {alignItems:'center'}, ming.cardHoriziontal]}
                 frameSpace={minUnit * 80} 
-                SelectId={0}
+                SelectId={this.props.initPage}
                 getSelectIndex={this.moveIndex.bind(this)}
-                MoveEnd={this.moveEnd.bind(this)}>
+                MoveEnd={this.moveEnd.bind(this)}
+                ref={'coverflow'}>
           {this.drawList()}
         </CoverFlow>
         {this.drawMoreMenu()}
       </View>
     );
   }
+  setMoveTo(index){
+    this.refs.coverflow.setMoveTo(index);
+    this.moveIndex(index);
+    this.moveEnd(index);
+  }
   moveIndex(select){
-    this.refs.ShowNum.setSelect(select);
+    this.refs && this.refs.ShowNum && this.refs.ShowNum.setSelect(select);
   }
   moveEnd(select){
     var name = app.temp.lesson.practices[select].ksimage;
-    this.refs.BackImage.setImage(name);
+    this.refs && this.refs.BackImage && this.refs.BackImage.setImage(name);
   }
   drawList(){
     var array = [];
