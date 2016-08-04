@@ -52,13 +52,16 @@ export default class ExamResultList extends Component {
         logf("title:",title,this.props.Score);
         return (
             <View style={styles.topBar}>
-                <TouchableOpacity onPress={()=>{app.PopPage(Consts.POP_ROUTE, Scenes.MENU)}}>
+                <TouchableOpacity onPress={this._onBackBtn}>
                     <Image style={styles.backImg} source={ImageRes.ic_back}/>
                 </TouchableOpacity>
                 <Text style={styles.textTitle}>{title}</Text>
                 <ScoreCircle score={this.props.Score}/>
             </View>
         );
+    }
+    _onBackBtn = ()=>{
+        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
     }
 
     _onPressBtn = ()=> {
@@ -80,9 +83,12 @@ export default class ExamResultList extends Component {
     }
 
     restartGate = ()=>{
-        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM, {
-            popRoute: app.GetLastPage(2),//进入下一个页面之后，返回到该屏的上一屏。             
-        });
+        // app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM, {
+        //     popRoute: app.GetLastPage(2),//进入下一个页面之后，返回到该屏的上一屏。             
+        // });
+        // app.GotoPage(Consts.NAVI_RESETTO, Scenes.EXAM, {});
+        app.exam.ResetComponent();
+        app.PopPage(Consts.POP_ROUTE, Scenes.EXAM);
     }
 
     renderBottomBar = ()=> {

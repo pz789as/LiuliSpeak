@@ -32,6 +32,10 @@ var testData = [
     require('../data/lesson4.json'),
     require('../data/lesson5.json'),
     require('../data/lesson6.json'),
+    require('../data/lesson7.json'),
+    require('../data/lesson8.json'),
+    require('../data/lesson9.json'),
+    require('../data/lesson10.json'),
 ];
 
 let saveKey = 'save';
@@ -99,11 +103,11 @@ export default class App extends Component {
           return this.save.lessons[i];
         }
       }
+      var nls = getNewSave(key, false, false);
+      this.save.lessons.push(nls);
+      this.saveData();
+      return nls;
     }
-    // var nls = getNewSave(key, false, false);
-    // this.save.lessons.push(nls);
-    // this.saveData();
-    // return nls;
     return null;
   }
   lessonIsAdd(key){

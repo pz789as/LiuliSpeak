@@ -77,10 +77,7 @@ class LessonCard extends Component {
 		return (
 			<View style={[styles.back, this.props.style?this.props.style:{}, styles.border]}>
 				{/*上方图片*/}
-				<View style={[styles.top, styles.border]}>
-					<Image source={{uri:app.getImageUrl(this.props.course.ksimage)}}
-						style={styles.imageView}/>
-				</View>
+				{this.drawImage()}
 				{/*选项，标题，介绍等*/}
 				<View style={[styles.msg, styles.border]}>
 					<View style={styles.titleView}>
@@ -94,6 +91,25 @@ class LessonCard extends Component {
 				</View>
 			</View>
 		);
+	}
+	drawImage(){
+		var practice = app.getPracticeSave(this.props.rowID);
+		if (practice.isPass){
+			return (
+				<View style={[styles.top, styles.border]}>
+					<Image source={{uri:app.getImageUrl(this.props.course.ksimage)}}
+						style={styles.imageView}/>
+					
+				</View>
+			);
+		}else{
+			return (
+				<View style={[styles.top, styles.border]}>
+					<Image source={{uri:app.getImageUrl(this.props.course.ksimage)}}
+						style={styles.imageView}/>
+				</View>
+			);
+		}
 	}
 	drawButton(){
 		var practice = app.getPracticeSave(this.props.rowID);
@@ -342,7 +358,13 @@ const styles = StyleSheet.create({
 	lockImage:{
 		width: width*0.25,
 		height: width*0.25,
-	}
+	},
+	passView:{
+		height: height*0.4,
+		backgroundColor: '#CC0',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 });
 
 

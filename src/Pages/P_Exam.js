@@ -65,6 +65,18 @@ export default class P_Exam extends Component {
         this.blnShowPoint = false;
         this.syllableScore = new Array(this.dialogLength);//音节分数 二维
         this.sentenceScore = new Array(this.dialogLength);//句子的分数
+        app.exam = this;
+    }
+    ResetComponent(){
+        this.setState({
+            opacityAnim: new Animated.Value(1),
+            translateYAnim: new Animated.Value(0),
+            recordAnim:new Animated.Value(0),
+            nowIndex: 0,
+            blnCountdown: true,//倒计时ing...
+            blnChangeRole: false,
+            blnExamPause:false,
+        });
     }
 
     static propTypes = {
