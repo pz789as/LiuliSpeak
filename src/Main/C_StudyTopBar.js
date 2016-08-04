@@ -49,19 +49,24 @@ export default class C_StudyTopBar extends Component {
 
   }
   render() {
+    //临时设置，没有排行榜和已完成
     return (
-      <View style={[styles.studyTopView, ]}>
-        <TouchableOpacity>
-          <Text style={styles.studyTopLeftText}>排行榜</Text>
-        </TouchableOpacity>
-        
-          <Text style={styles.studyTopMiddleText}>我的课程</Text>
-        
-        <TouchableOpacity>
-          <Text style={styles.studyTopRightText}>已完成</Text>
-        </TouchableOpacity>
+      <View style={[styles.studyTopView, {justifyContent:'center'}]}>
+        <Text style={styles.studyTopMiddleText}>我的课程</Text>
       </View>
     );
+
+    // return (
+    //   <View style={[styles.studyTopView, ]}>
+    //     <TouchableOpacity>
+    //       <Text style={styles.studyTopLeftText}>排行榜</Text>
+    //     </TouchableOpacity>
+    //     <Text style={styles.studyTopMiddleText}>我的课程</Text>
+    //     <TouchableOpacity>
+    //       <Text style={styles.studyTopRightText}>已完成</Text>
+    //     </TouchableOpacity>
+    //   </View>
+    // );
   }
 }
 

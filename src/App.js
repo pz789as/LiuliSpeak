@@ -45,6 +45,7 @@ var getNewSave = function(key, isAdd, isComplete){
     key: key,
     isAdd: isAdd,
     isComplete: isComplete,
+    opTime: (new Date()).getTime(),
   };
 };
 
@@ -128,6 +129,11 @@ export default class App extends Component {
     }
     return null;
   }
+  orderLessonSave(){
+    this.save.lessons && this.save.lessons.sort(function(a, b){
+      return b.opTime - a.opTime;
+    });
+  }
   loadData(loadOk){
     // this.removeSave();
     storage.load({
@@ -136,29 +142,38 @@ export default class App extends Component {
       this.save = ret;
       loadOk();
       console.log(this.save);
+      this.orderLessonSave();
     }).catch((err) => {
       var lessons = [];
       for(var i=0;i<this.allLesson.length;i++){
         lessons.push(getNewSave(this.allLesson[i].key, false, false));
       }
       this.save.lessons = lessons;
+      this.orderLessonSave();
       this.saveData();
       loadOk();
       console.log(err);
     });
   }
   saveLessons(key, isAdd){
+    var lessonSave = null;
     var blnIn = false;
     for(var i=0;i<this.save.lessons.length;i++){
       if (key == this.save.lessons[i].key){
         blnIn = true;
         this.save.lessons[i].isAdd = isAdd;
+        this.save.lessons[i].opTime = (new Date()).getTime();
+        lessonSave = this.save.lessons[i];
+        break;
       }
     }
     if (!blnIn){
-      this.save.lessons.push(getNewSave(key, isAdd, false));
+      lessonSave = getNewSave(key, isAdd, false);
+      this.save.lessons.push(lessonSave);
     }
+    this.orderLessonSave();
     this.saveData();
+    return lessonSave;
   }
   saveData(){
     storage.save({
@@ -172,8 +187,8 @@ export default class App extends Component {
       key: saveKey,
     });
   }
-  getPracticeListSave(){
-    var tempLesson = this.temp.lesson;
+  getPracticeListSave(key){
+    var tempLesson = this.getLessonData(key);
     var lessonSave = this.getLessonFromSave(tempLesson.key);
     if (!lessonSave) {
       logf('存档错误:', tempLesson.key);
@@ -186,8 +201,8 @@ export default class App extends Component {
     return lessonSave.practices;
   }
   //根据章节ID获取章节章节存档，前提是已经选中课程
-  getPracticeSave(practiceID){
-    var listPractise = this.getPracticeListSave()
+  getPracticeSave(key, practiceID){
+    var listPractise = this.getPracticeListSave(key);
     return listPractise[practiceID];
   }
   //创建章节存档，不需要使用，如果要使用先@郭
@@ -216,7 +231,7 @@ export default class App extends Component {
   //dialogID: 对话id  //kind: 修炼/闯关（0、修炼；1、闯关)  
   //score: 评分  //syllableScore: 单个音节信息
   saveSingleScore(dialogID, kind, score, syllableScore){
-    var practice = this.getPracticeSave(this.temp.courseID);
+    var practice = this.getPracticeSave(this.temp.lesson.key, this.temp.courseID);
     if (kind == 0){
       practice.contents[dialogID].p_score = score;
       practice.contents[dialogID].p_SyllableScore = syllableScore;
@@ -241,8 +256,7 @@ export default class App extends Component {
     if (!lessonSave){
       return info;
     }
-    this.temp.lesson = tempLesson;
-    var practice = this.getPracticeSave(0);
+    var practice = this.getPracticeSave(key, 0);
     info.blnSuccess = true;
     for(var i=0;i<count;i++){
       practice = lessonSave.practices[i];
@@ -268,6 +282,12 @@ export default class App extends Component {
     }else{
       return 0;
     }
+  }
+  setLessonSaveTime(key){
+    var lessonSave = this.getLessonFromSave(key);
+    lessonSave.opTime = (new Date()).getTime();
+    this.saveData();
+    return lessonSave;
   }
   componentWillMount(){
   }

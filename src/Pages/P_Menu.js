@@ -35,7 +35,7 @@ class P_Menu extends Component {
       blnMoreMenu: false,
     };
     app.menu = this;
-    var listPractice = app.getPracticeListSave();
+    var listPractice = app.getPracticeListSave(app.temp.lesson.key);
     this.initPage = 0;
     for(var i=0;i<listPractice.length;i++){
       if (!listPractice[i].isLock){
@@ -49,6 +49,7 @@ class P_Menu extends Component {
     });
   }
   componentWillUnmount(){
+    app.menu = null;
   }
   onCancel() {
     if (this.props.popRoute) {

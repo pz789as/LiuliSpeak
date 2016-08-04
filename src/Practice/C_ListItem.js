@@ -87,7 +87,7 @@ export default class ListItem extends Component {
         //logf("WillMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
         //..this.existsRecordFile();//检查是否有录音文件
 
-        var practiceSave = app.getPracticeSave(app.temp.courseID);
+        var practiceSave = app.getPracticeSave(app.temp.lesson.key, app.temp.courseID);
         //logf("C_ListItem PracticeSave:", practiceSave);
 
         this.syllableScore = practiceSave.contents[this.itemIndex].p_SyllableScore;

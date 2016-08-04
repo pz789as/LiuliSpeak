@@ -29,7 +29,6 @@ export default class P_Main extends Component {
   constructor(props){
     super(props);
     this.realCourseList = new Array();
-    this.lessonCount = this.realCourseList.length;
     this.state = {
       courseDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{ oldRow !== newRow}
@@ -41,15 +40,18 @@ export default class P_Main extends Component {
   }
   loadOk(){
     var init = false;
+    this.realCourseList.length = 0;
     for(var i=0;i<app.save.lessons.length;i++){
       if (app.save.lessons[i].isAdd){
-        var l = this.getLessonForAllLesson(app.save.lessons[i].key);
-        this.realCourseList.push(l);
-        init = true;
+        // if (!app.save.lessons[i].isComplete){
+          var l = app.getLessonData(app.save.lessons[i].key);
+          l.opTime = app.save.lessons[i].opTime;
+          this.realCourseList.push(l);
+          init = true;
+        // }
       }
     }
     if (init){
-      this.lessonCount = this.realCourseList.length;
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
@@ -61,25 +63,11 @@ export default class P_Main extends Component {
     app.GotoPage(Consts.NAVI_PUSH, Scenes.MENU, {});
   }
   componentWillUpdate(){
-    // console.log('will update');
   }
   componentWillMount(){
-    // for(var i=0;i<5;i++){
-    //   this.realCourseList.push(lesson1)
-    // }
-    // this.setState({
-    //   courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-    // });
   }
   componentWillUnmount(){
-  }
-  getLessonForAllLesson(key){
-    for(var i=0;i<app.allLesson.length;i++){
-      if (app.allLesson[i].key == key){
-        return app.allLesson[i];
-      }
-    }
-    return null;
+    app.main = null;
   }
   getIndexForRealList(key){
     for(var i=0;i<this.realCourseList.length;i++){
@@ -89,27 +77,53 @@ export default class P_Main extends Component {
     }
     return -1;
   }
-  addNewLesson(key){
-    var l = this.getLessonForAllLesson(key);
-    if (l){
-      this.realCourseList.push(l);
-      app.saveLessons(key, true);
-    }
-
-    this.setState({
-      courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+  reorderList(){
+    this.realCourseList.sort(function(a, b){
+      return b.opTime - a.opTime;
     });
+  }
+  setLessonTime(key){//主要用于排序，当点击修炼或者闯关之后，选中课程要移动到最上端
+    var l = app.getLessonData(key);
+    if (l){
+      var lessonSave = app.setLessonSaveTime(key);
+      l.opTime = lessonSave.opTime;
+      this.reorderList();
+      this.setState({
+        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+      });
+      // this.Refresh();
+    }
+  }
+  addNewLesson(key){
+    var l = app.getLessonData(key);
+    if (l){
+      var lessonSave = app.saveLessons(key, true);
+      l.opTime = lessonSave.opTime;
+      this.realCourseList.push(l);
+      this.reorderList();
+      this.setState({
+        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+      });
+    }
   }
   subOldLesson(key){
     var pos = this.getIndexForRealList(key);
     if (pos >= 0){
+      var lessonSave = app.saveLessons(key, false);
       this.realCourseList.splice(pos, 1);
-      app.saveLessons(key, false);
+      this.setState({
+        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+      });
     }
-
-    this.setState({
-      courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-    });
+  }
+  completeLesson(key){
+    var pos = this.getIndexForRealList(key);
+    if (pos >= 0){
+      this.realCourseList.splice(pos, 1);
+      this.setState({
+        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+      });
+    }
   }
   Refresh() {
     this.setState({
@@ -129,24 +143,23 @@ export default class P_Main extends Component {
     
   }
   shouldComponentUpdate(nextProps, nextState) {
-    // if (this.lessonCount != this.realCourseList.length){
-    //   this.lessonCount = this.realCourseList.length;
-    //   // console.log('should update', this.lessonCount);
-    //   this.setState({
-    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-    //   });
-    //   return false;
-    // }
     if (nextState != this.state) return true;
     return false;
   }
   render() {
+    // return (
+    //   <View style={styles.fill}>
+    //     {this.drawBody()}
+    //     <View style={[styles.mainBottomBar, ]}>
+    //       <MainButtomBar />
+    //     </View>
+    //   </View>
+    // );
+
+    //临时设置，只有学习一个tab，其他的暂时不显示
     return (
       <View style={styles.fill}>
         {this.drawBody()}
-        <View style={[styles.mainBottomBar, ]}>
-          <MainButtomBar />
-        </View>
       </View>
     );
   }

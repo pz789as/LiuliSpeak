@@ -75,6 +75,7 @@ export default class C_MainStudyView extends Component {
   }
   componentWillUnmount(){
     this.timer && clearInterval(this.timer);
+    app.studyView = null;
   }
   onSelected(selected){
 
@@ -119,21 +120,22 @@ export default class C_MainStudyView extends Component {
     this.cardSelect = -1;
   }
   selectBack() {
-    if (this.cardSelect >= this.props.courseDataSource.length) {
-      this.cardSelect = -1;
-    }
     if (this.cardSelect != -1) {
-      this.cardList[this.cardSelect].AnimatedBack();
-      this.cardSelect = -1;
+      var index = app.main.getIndexForRealList(this.cardSelect);
+      if (index >= 0) {
+        this.cardList[index].AnimatedBack();
+        this.cardSelect = -1;
+      }
     }
   }
-  setSelect(index) {
-    if (this.cardSelect == index) return;
-    if (index == -1) return;
-    if (this.cardSelect != -1) {
-      this.cardList[this.cardSelect].AnimatedBack();
+  setSelect(key) {
+    if (this.cardSelect == key) return;
+    if (this.cardSelect == -1) this.cardSelect = key;
+    var index = app.main.getIndexForRealList(this.cardSelect);
+    if (index >= 0) {
+      this.cardList[index].AnimatedBack();
+      this.cardSelect = key;
     }
-    this.cardSelect = index;
   }
   renderMsg(course) {
     var info = app.getMainLessonInfo(course.key);

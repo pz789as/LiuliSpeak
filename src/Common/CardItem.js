@@ -95,7 +95,7 @@ export default class C_CardItem extends Component {
     this.touchKind = 0;
     this.oldx = this.state.movex._value;
     if (this.props.blnCanMove) {
-      this.props.parents.setSelect(this.props.index);
+      this.props.parents.setSelect(this.props.renderData.key);
     }
   }
   // 移动

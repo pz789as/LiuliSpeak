@@ -74,6 +74,7 @@ export default class P_LessonList extends Component {
     }
   }
   componentWillUnmount(){
+    app.lessonList = null;
     this.getlessons && clearTimeout(this.getlessons);
   }
   showListInfo(){

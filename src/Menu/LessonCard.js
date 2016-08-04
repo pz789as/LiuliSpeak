@@ -93,7 +93,7 @@ class LessonCard extends Component {
 		);
 	}
 	drawImage(){
-		var practice = app.getPracticeSave(this.props.rowID);
+		var practice = app.getPracticeSave(app.temp.lesson.key, this.props.rowID);
 		var star = app.getStarCount(practice.score);
 		var score = practice.score + '分';
 		if (practice.isPass){
@@ -128,7 +128,7 @@ class LessonCard extends Component {
 		}
 	}
 	drawButton(){
-		var practice = app.getPracticeSave(this.props.rowID);
+		var practice = app.getPracticeSave(app.temp.lesson.key, this.props.rowID);
 		if (practice.isLock) {
 			return (
 				<View style={styles.buttonView}>
@@ -165,12 +165,14 @@ class LessonCard extends Component {
 		this.timer && clearTimeout(this.timer);
 	}
 	onPress1(){
+		app.main && app.main.setLessonTime(app.temp.lesson.key);
 		this.refs.download && this.refs.download.setProgross(0, true);
 		var path = fs.DocumentDirectoryPath + getMp3FilePath(app.temp.lesson.key, this.props.rowID);
 		logf(path);
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
 	onPress2(){
+		app.main && app.main.setLessonTime(app.temp.lesson.key);
 		if (this.state.isDown){
 			this.props.onStart(parseInt(this.props.rowID), 1);
 		}
