@@ -32,7 +32,7 @@ export default class P_Main extends Component {
     this.state = {
       courseDataSource: new ListView.DataSource({
         rowHasChanged:(oldRow, newRow)=>{ 
-          return oldRow !== newRow || oldRow.key != newRow.key;
+          return oldRow !== newRow || oldRow.orderIndex != newRow.orderIndex;
         }
       }),
       blnRefresh: false,
@@ -48,6 +48,7 @@ export default class P_Main extends Component {
         // if (!app.save.lessons[i].isComplete){
           var l = app.getLessonData(app.save.lessons[i].key);
           l.opTime = app.save.lessons[i].opTime;
+          l.orderIndex = i;
           this.realCourseList.push(l);
           init = true;
         // }
@@ -80,9 +81,13 @@ export default class P_Main extends Component {
     return -1;
   }
   reorderList(){
-    this.realCourseList.sort(function(a, b){
-      return b.opTime - a.opTime;
-    });
+    return;//由于listview不刷新排序后的列表，暂时在app中不排序。
+    // this.realCourseList.sort(function(a, b){
+    //   return b.opTime - a.opTime;
+    // });
+    // for(var i=0;i<this.realCourseList.length;i++){
+    //   this.realCourseList[i].orderIndex = i;
+    // }
   }
   setLessonTime(key){//主要用于排序，当点击修炼或者闯关之后，选中课程要移动到最上端
     var lessonSave = app.setLessonSaveTime(key);
@@ -132,6 +137,7 @@ export default class P_Main extends Component {
     if (pos >= 0){
       var lessonSave = app.saveLessons(key, false);
       this.realCourseList.splice(pos, 1);
+      this.reorderList();
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
@@ -141,6 +147,7 @@ export default class P_Main extends Component {
     var pos = this.getIndexForRealList(key);
     if (pos >= 0){
       this.realCourseList.splice(pos, 1);
+      this.reorderList();
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
