@@ -21,10 +21,14 @@ import ReactNative, {
 }from 'react-native'
 import {
     minUnit,
-    MinWidth
+    MinWidth,    
+    ScreenWidth,
+    ScreenHeight,
 } from '../Styles';
+var aspectRatio = ScreenWidth/ScreenHeight;
+var fontSize = aspectRatio>0.6?parseInt(minUnit*3):parseInt(minUnit*4);
+//var fontSize = parseInt(minUnit*4);
  
-var fontSize = parseInt(minUnit*4);
 const PUNCTUATION = ['，', '。', '？', '“', '”', '！', '：', '（', '）', '；'];//标点符号集(中文符号)
 
 

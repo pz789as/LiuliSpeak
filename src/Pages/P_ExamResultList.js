@@ -61,6 +61,7 @@ export default class ExamResultList extends Component {
         );
     }
     _onBackBtn = ()=>{
+        this.arrList[this.selectIndex].stopAudio();
         app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
     }
 
@@ -79,6 +80,7 @@ export default class ExamResultList extends Component {
     }
 
     nextGate = ()=>{
+        this.arrList[this.selectIndex].stopAudio();
         if (app.temp.courseID + 1 < app.temp.lesson.practices.length) {
             app.menu.setMoveTo(app.temp.courseID+1);
         }
@@ -86,6 +88,7 @@ export default class ExamResultList extends Component {
     }
 
     restartGate = ()=>{
+        this.arrList[this.selectIndex].stopAudio();
         app.exam.ResetComponent();
         app.PopPage(Consts.POP_ROUTE, Scenes.EXAM);
     }

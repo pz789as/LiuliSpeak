@@ -30,9 +30,9 @@ import Toast from 'react-native-root-toast';
  
 var totalWidth = ScreenWidth;
 var totalHeight = ScreenHeight;
-var aspectRatio = ScreenWidth/ScreenHeight;
-var fontSize = aspectRatio>0.6?minUnit*3:parseInt(minUnit*4);
-
+//var aspectRatio = ScreenWidth/ScreenHeight;
+//var fontSize = aspectRatio>0.6?parseInt(minUnit*2.5):parseInt(minUnit*4);
+var fontSize = parseInt(minUnit*4);
 var ScentenceSpace = fontSize * 5;
 var AnimTransfromY = ScentenceSpace * 3 / 2;
 export default class P_Exam extends Component {
@@ -222,7 +222,7 @@ export default class P_Exam extends Component {
             var errKey = date.slice(0,5);
             logf("练习中讯飞返回的错误代码:", errKey);
             var errMessage = app.getErrorMsg(errKey);
-            this.showToast(errMessage + '\n' + '点击录音按钮重试')
+            this.showToast(errMessage + '\n' + '\n' + '点击录音按钮重试')
             //弹出一个提示框
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
@@ -245,11 +245,12 @@ export default class P_Exam extends Component {
             shadow: true,
             animation: true,
             hideOnPress: true,
+            padding:fontSize*1.5,
             delay: 0,
             backgroundColor: 'rgba(0,0,0,88)',
             shadowColor: '#000000',
             textColor: 'white',
-            fontSize:fontSize*4,
+            fontSize:fontSize*1.5,
             onHidden: () => {
                 this.toast.destroy();
                 this.toast = null;
@@ -291,7 +292,7 @@ export default class P_Exam extends Component {
         if (this.state.nowIndex == this.dialogLength) {
             this.changeRole();
         } else {
-            if (this.dialogRole[this.state.nowIndex] != this.examRole ) {
+            if (this.dialogRole[this.state.nowIndex] != this.examRole) {
                 this.initAudio(this.state.nowIndex);
             } else {
                 this.showBtnRecord();
@@ -484,7 +485,7 @@ export default class P_Exam extends Component {
         if (this.state.blnCountdown) return;
         return (
             <View style={styles.bottom}>
-                <Animated.View style = { {transform:[{scale:1.35}],opacity:this.state.recordAnim}}>
+                <Animated.View style = { {transform:[{scale:1.25}],opacity:this.state.recordAnim}}>
                     <BtnRecord blnOpacityAnimate={true} ref={'btnRecord'}
                                btnCallback={this.callbackBtnRecord.bind(this)}/>
                 </Animated.View>
@@ -512,6 +513,7 @@ export default class P_Exam extends Component {
     }
 
     _onPressPause = ()=>{
+        this.toast && this.toast.destroy();
         this.stopAudio();
         this.pauseRecord();
         this.setState({blnExamPause:true});
@@ -569,19 +571,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        padding: fontSize,
+        padding: fontSize*1.5,
         justifyContent: 'space-between',
     },
     top: {
         //backgroundColor: '#ffff0011',
         width: totalWidth - fontSize * 2,
-        height: fontSize * 8,
+        height: fontSize * 6,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
     content: {
         width: totalWidth - fontSize * 2,
-        height: totalHeight - fontSize * 22,
+        height: totalHeight - fontSize * 18,
         //backgroundColor: '#ff000011',
         paddingTop: fontSize * 1,
         overflow: 'hidden',

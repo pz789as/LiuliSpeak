@@ -329,7 +329,8 @@ export default class ListItem extends Component {
             backgroundColor: 'rgba(0,0,0,88)',
             shadowColor: '#000000',
             textColor: 'white',
-            fontSize:fontSize*3,
+            fontSize:fontSize*1.5,
+            padding:fontSize*1.5,
             onHidden: () => {
                 this.toast.destroy();
                 this.toast = null;
