@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "9",
 	"titleCN" : "购买衣服",
 	"titleEn" : "Buy clothes",
@@ -33,7 +33,7 @@
 			},{
 			"cn" : {
 				"words" : "您_想_要_什么_款式_呢？",
-				"pinyins" : "nín_xiǎng_yào_shén me_kuǎnshì_ne",
+				"pinyins" : "nín_xiǎng_yào_shén me_kuǎn shì_ne",
 				},
 			"en" : "What style do you want?",
 			"Category" : "read_sentence",
