@@ -40,7 +40,6 @@ export default class BtnRecording extends Component {
         this.listener = null;
         this.volumeListener = null;
         this.speechStatus = XFiseBridge.SPEECH_STOP;
-
         this.useTime = new Date();
     }
 
@@ -178,8 +177,8 @@ export default class BtnRecording extends Component {
                 SAMPLE_RATE: '16000',
                 TEXT_ENCODING: 'utf-8',
                 ISE_RESULT_TYPE: 'xml',
-                VAD_BOS: '3000',//静音超时时间，即用户多长时间不说话则当做超时处理vad_bos 毫秒 ms
-                VAD_EOS: '1000',//后端点静音检测时间，即用户停止说话多长时间内即认为不再输入，自动停止录音 毫秒 ms
+                VAD_BOS: '3600',//静音超时时间，即用户多长时间不说话则当做超时处理vad_bos 毫秒 ms
+                VAD_EOS: '1800',//后端点静音检测时间，即用户停止说话多长时间内即认为不再输入，自动停止录音 毫秒 ms
                 ISE_CATEGORY: category,//read_syllable（单字，汉语专有）、read_word（词语）、read_sentence（句子）
                 LANGUAGE: 'zh_cn',//en_us（英语）、zh_cn（汉语）
                 ISE_RESULT_LEVEL: 'complete',
