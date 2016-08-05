@@ -36,3 +36,20 @@ jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"j
 音频和图片数据，我们现在是在自己的临时服务器（Apache），资源网址：
 https://github.com/pz789as/Other/tree/master
 里面有说明。
+
+
+插件问题：
+项目中使用了很多第三方插件，如果运行 npm install 之后，
+运行项目提示插件未安装的插件可以通过下面的方式安装：
+
+很多组件可以在下面网址搜索到：输入关键字既可以
+https://js.coach/react-native#content
+里面也有安装说明
+
+本项目用到的插件：
+react-native-blur   //毛玻璃效果
+react-native-fs     //文件系统
+react-native-progress   //进度条插件
+react-native-sound  //音频播放
+react-native-storage    //存档管理
+react-native-root-toast //弹框插件
