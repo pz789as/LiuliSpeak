@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "1",
 	"titleCN" : "我要学汉语",
 	"titleEn" : "I want to learn Chinese",
@@ -113,7 +113,7 @@
 			"en" : "Chinese class is very interesting.",
 			"Category" : "read_sentence",
 			"gold" : "s",
-			"mp3" : "dialog010.mp3",
+			"mp3" : "dialog10.mp3",
 			"user" : "15",
 			}],
 	}]

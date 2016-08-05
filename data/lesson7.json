@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "7",
 	"titleCN" : "现在几点了？",
 	"titleEn" : "what time is it now?",
@@ -273,7 +273,7 @@
 			},{
 			"cn" : {
 				"words" : "晚上_七点钟。",
-				"pinyins" : "wǎn shàng _qī diǎn zhōng",
+				"pinyins" : "wǎn shàng_qī diǎn zhōng",
 				},
 			"en" : "7:00 o'clock.",
 			"Category" : "read_sentence",

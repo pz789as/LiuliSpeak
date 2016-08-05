@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "2",
 	"titleCN" : "假期到了",
 	"titleEn" : "Holidays coming",
@@ -43,7 +43,7 @@
 			},{
 			"cn" : {
 				"words" : "我_还_没有_决定。_你_有_什么_建议_吗？",
-				"pinyins" : "wǒ_hái_méi yǒu_jué dìng_Nǐ_yǒu_shén me_jiàn yì_ma",
+				"pinyins" : "wǒ_hái_méi yǒu_jué dìng_nǐ_yǒu_shén me_jiàn yì_ma",
 				},
 			"en" : "I have not decided. Do you have any advice?",
 			"Category" : "read_sentence",
@@ -193,7 +193,7 @@
 			},{
 			"cn" : {
 				"words" : "好吧。_可_这样_可以_增加_我们_的_记忆。",
-				"pinyins" : "hǎo ba_Kě_zhè yàng_kě yǐ_zēng jiā_wǒ men_de_jì yì",
+				"pinyins" : "hǎo ba_kě_zhè yàng_kě yǐ_zēng jiā_wǒ men_de_jì yì",
 				},
 			"en" : "Ok. This can increase our memory.",
 			"Category" : "read_sentence",

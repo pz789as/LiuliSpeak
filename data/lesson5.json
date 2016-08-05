@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "5",
 	"titleCN" : "外出就餐",
 	"titleEn" : "Eating out",
@@ -78,7 +78,7 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "中午_好，_先生_们。_欢迎_来_到_百丽_西餐厅。_请问_总共_有_几_位_呢？",
-				"pinyins" : "zhōng wǔ_hǎo_xiān shēng_men_huān yíng_lái_dào_bǎi lì_xī cān tīng_ qǐng wèn_zǒng gòng_yǒu_jǐ_wèi_ne",
+				"pinyins" : "zhōng wǔ_hǎo_xiān shēng_men_huān yíng_lái_dào_bǎi lì_xī cān tīng_qǐng wèn_zǒng gòng_yǒu_jǐ_wèi_ne",
 				},
 			"en" : "Good afternoon, gentlemen. Welcome to our restaurant. There are several to ask it?",
 			"Category" : "read_sentence",
@@ -117,8 +117,8 @@
 			"user" : "6",
 			},{
 			"cn" : {
-				"words" : "请_跟_我_来。_我_给_你们_找_位子。_这_张_桌子_可以_吗",
-				"pinyins" : "qǐng_gēn_wǒ_lái_Wǒ_gěi_nǐ men_zhǎo_wèi zǐ_Zhè_zhāng_zhuō zǐ_kě yǐ_ma",
+				"words" : "请_跟_我_来。_我_给_您们_找_位子。_这_张_桌子_可以_吗？",
+				"pinyins" : "qǐng_gēn_wǒ_lái_wǒ_gěi_nín men_zhǎo_wèi zǐ_zhè_zhāng_zhuō zǐ_kě yǐ_ma",
 				},
 			"en" : "Follow me ,please.I'll seat you.How about this table?",
 			"Category" : "read_sentence",
@@ -223,7 +223,7 @@
 			},{
 			"cn" : {
 				"words" : "好_的，_先生。_我_马上_回来。",
-				"pinyins" : "hǎo_de_xiān shēng_Wǒ_mǎ shàng_huí lái",
+				"pinyins" : "hǎo_de_xiān shēng_wǒ_mǎ shàng_huí lái",
 				},
 			"en" : "Very good, sir. I’ll be with you in a moment. ",
 			"Category" : "read_sentence",
@@ -244,7 +244,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
-			"user" : "11",
+			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "哦，_不用_了。_我们_已经_吃饱_了。",
@@ -264,7 +264,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
-			"user" : "11",
+			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "请_给_我_结账_好_吗？",
@@ -284,7 +284,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
-			"user" : "11",
+			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "总共_多少_钱？",
@@ -304,7 +304,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog28.mp3",
-			"user" : "11",
+			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "现金。_这是_两百_元。",
@@ -324,7 +324,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog30.mp3",
-			"user" : "11",
+			"user" : "3",
 			}],
 	}]
 }

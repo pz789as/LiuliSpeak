@@ -192,8 +192,8 @@
 			"user" : "15",
 			},{
 			"cn" : {
-				"words" : "是的。_能_给_我_包_起来_吗。",
-				"pinyins" : "shì de_néng_gěi_wǒ_bāo_qǐlái_ma",
+				"words" : "是的。_能_给_我_包_起来_吗？",
+				"pinyins" : "shì de_néng_gěi_wǒ_bāo_qǐ lái_ma",
 				},
 			"en" : "Yes. Can I wrap it.",
 			"Category" : "read_sentence",
@@ -365,7 +365,7 @@
 				"words" : "你_好，_有_什么_可以_帮忙_的_吗？",
 				"pinyins" : "nǐ_hǎo_yǒu_shén me_kě yǐ_bāng máng_de_ma",
 				},
-			"en" : "Hello, this is what station?",
+			"en" : "Hello, What can I do for you?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog34.mp3",
@@ -393,7 +393,7 @@
 			},{
 			"cn" : {
 				"words" : "很_不错。_但是_我_想_要_一个_更_小_点_的。",
-				"pinyins" : "hěn_bú cuò_dàn shì_wǒ_xiǎng_yào_yí gè_gèng_xiǎo_diǎn_de ",
+				"pinyins" : "hěn_bú cuò_dàn shì_wǒ_xiǎng_yào_yí gè_gèng_xiǎo_diǎn_de",
 				},
 			"en" : "Not bad. But I want a smaller point.",
 			"Category" : "read_sentence",
@@ -473,7 +473,7 @@
 			},{
 			"cn" : {
 				"words" : "不用_了。_谢谢。",
-				"pinyins" : "bú yòng _le_xiè xiè",
+				"pinyins" : "bú yòng_le_xiè xiè",
 				},
 			"en" : "no need. Thank you.",
 			"Category" : "read_sentence",

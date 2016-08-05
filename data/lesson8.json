@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "8",
 	"titleCN" : "学会问路",
 	"titleEn" : "Learn to ask the way",
@@ -25,7 +25,7 @@
 				"words" : "当然_可以。_你_想_去_哪儿？",
 				"pinyins" : "dāng rán_kě yǐ_nǐ_xiǎng_qù_nǎ er",
 				},
-			"en" : "central Park. My map shows nearby.",
+			"en" : "of course can. where do you want to go?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
@@ -35,7 +35,7 @@
 				"words" : "中央_公园。_我_的_地图_显示_就_在_附近。",
 				"pinyins" : "zhōng yāng_gōng yuán_wǒ_de_dì tú_xiǎn shì_jiù_zài_fù jìn",
 				},
-			"en" : "But it began at eight classes.",
+			"en" : "central Park. My map shows nearby.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
@@ -53,7 +53,7 @@
 			},{
 			"cn" : {
 				"words" : "走到_那里_需要_多久？",
-				"pinyins" : "zǒu dào_nà lǐ_xū yào_duō jiǔ ",
+				"pinyins" : "zǒu dào_nà lǐ_xū yào_duō jiǔ",
 				},
 			"en" : "How long walk there needs?",
 			"Category" : "read_sentence",
@@ -108,7 +108,7 @@
 			},{
 			"cn" : {
 				"words" : "是_的，_我_迷路_了。_我_在_找_图书馆。",
-				"pinyins" : "shì_de_wǒ_mí lù_le_wǒ_zài_zhǎo_tú shū guǎn ",
+				"pinyins" : "shì_de_wǒ_mí lù_le_wǒ_zài_zhǎo_tú shū guǎn",
 				},
 			"en" : "Yes, I'm lost. I'm looking for the library.",
 			"Category" : "read_sentence",
@@ -137,8 +137,8 @@
 			"user" : "3",
 			},{
 			"cn" : {
-				"words" : "你_第一次_来_这里，打车_可能_更_好_一些。",
-				"pinyins" : "nǐ_dì yī cì_lái_zhè lǐ dǎ chē_kě néng_gèng_hǎo_yī xiē",
+				"words" : "你_第一次_来_这里，_打车_可能_更_好_一些。",
+				"pinyins" : "nǐ_dì yī cì_lái_zhè lǐ_dǎ chē_kě néng_gèng_hǎo_yī xiē",
 				},
 			"en" : "You first came here, a taxi may be better.",
 			"Category" : "read_sentence",
@@ -167,8 +167,8 @@
 			"user" : "15",
 			},{
 			"cn" : {
-				"words" : "好_的，谢谢_你。",
-				"pinyins" : "hǎo_de xiè xie_nǐ",
+				"words" : "好_的，_谢谢_你。",
+				"pinyins" : "hǎo_de_xiè xiè_nǐ",
 				},
 			"en" : "okay, thank you.",
 			"Category" : "read_sentence",
@@ -247,8 +247,8 @@
 		"ksimage" : "ks84_title.jpg",
 		"contents" : [{
 			"cn" : {
-				"words" : "请_问_一下，附近_有_医院_吗？",
-				"pinyins" : "qǐng_wèn_yí xià fù jìn_yǒu_yī yuàn_ma",
+				"words" : "请_问_一下，_附近_有_医院_吗？",
+				"pinyins" : "qǐng_wèn_yí xià_fù jìn_yǒu_yī yuàn_ma",
 				},
 			"en" : "Excuse me, there is a hospital nearby?",
 			"Category" : "read_sentence",
@@ -277,8 +277,8 @@
 			"user" : "11",
 			},{
 			"cn" : {
-				"words" : "当然，沿着_这条_路_一直_走，在_第二_个_拐角_左拐，再_向前_直走_二百_米_就_到了。",
-				"pinyins" : "dāng rán yán zhe_zhè tiáo_lù_yī zhí_zǒu zài_dì èr_gè_guǎi jiǎo_zuǒ guǎi zài_xiàng qián_zhí zǒu_èr bǎi_mǐ_jiù_dào le",
+				"words" : "当然，_沿着_这条_路_一直_走，_在_第二_个_拐角_左拐，_再_向前_直走_二百_米_就_到了。",
+				"pinyins" : "dāng rán_yán zhe_zhè tiáo_lù_yī zhí_zǒu_zài_dì èr_gè_guǎi jiǎo_zuǒ guǎi_zài_xiàng qián_zhí zǒu_èr bǎi_mǐ_jiù_dào le",
 				},
 			"en" : "Of course, had been walking along this road, turn left at the second corner, then straight ahead 200 meters to go.",
 			"Category" : "read_sentence",
@@ -287,8 +287,8 @@
 			"user" : "5",
 			},{
 			"cn" : {
-				"words" : "不好意思，_我_不能_完全_记得_你_刚才_说_的_那些，你_能_再说_一_遍_吗？",
-				"pinyins" : "bù hǎo yì sī_wǒ_bù néng_wán quán_jì de_nǐ_gāng cái_shuō_de_nà xiē nǐ_néng_zài shuō_yí_biàn_ma",
+				"words" : "不好意思，_我_不能_完全_记得_你_刚才_说_的_那些，_你_能_再说_一_遍_吗？",
+				"pinyins" : "bù hǎo yì sī_wǒ_bù néng_wán quán_jì de_nǐ_gāng cái_shuō_de_nà xiē_nǐ_néng_zài shuō_yí_biàn_ma",
 				},
 			"en" : "Sorry, I can not quite remember what you just said that, can you repeat that?",
 			"Category" : "read_sentence",
@@ -307,8 +307,8 @@
 			"user" : "5",
 			},{
 			"cn" : {
-				"words" : "那_太_好_了，谢谢_你。",
-				"pinyins" : "nà_tài_hǎo_le xiè xiè_nǐ",
+				"words" : "那_太_好_了，_谢谢_你。",
+				"pinyins" : "nà_tài_hǎo_le_xìe xie_nǐ",
 				},
 			"en" : "That's great, thank you.",
 			"Category" : "read_sentence",
@@ -372,8 +372,8 @@
 			"user" : "11",
 			},{
 			"cn" : {
-				"words" : "我_要_去_博物馆，你_能_告诉_我_在_哪里_下车_吗？",
-				"pinyins" : "wǒ_yào_qù_bó wù guǎn nǐ_néng_gào sù_wǒ_zài_nǎ lǐ_xià chē_ma ",
+				"words" : "我_要_去_博物馆，_你_能_告诉_我_在_哪里_下车_吗？",
+				"pinyins" : "wǒ_yào_qù_bó wù guǎn_nǐ_néng_gào sù_wǒ_zài_nǎ lǐ_xià chē_ma",
 				},
 			"en" : "I'm going to the museum, you can tell me where to get it?",
 			"Category" : "read_sentence",
@@ -428,7 +428,7 @@
 			},{
 			"cn" : {
 				"words" : "当然，_让_我_先_看_一下_站牌。",
-				"pinyins" : "dāng rán_ràng_wǒ_xiān_kàn_yí xià_zhàn pái ",
+				"pinyins" : "dāng rán_ràng_wǒ_xiān_kàn_yí xià_zhàn pái",
 				},
 			"en" : "Of course, let me look at the stop sign.",
 			"Category" : "read_sentence",
@@ -468,7 +468,7 @@
 			},{
 			"cn" : {
 				"words" : "我们_应该_先_坐_五十二_路_到_新街口，_然后_换乘_一百_路_就_到了。",
-				"pinyins" : "wǒ men_yīng gāi_xiān_zuò_wǚ shí èr_lù_dào_xīn jiē kǒu_rán hòu_huàn chéng_yì bǎi_lù_jiù_dào le ",
+				"pinyins" : "wǒ men_yīng gāi_xiān_zuò_wǔ shí èr_lù_dào_xīn jiē kǒu_rán hòu_huàn chéng_yì bǎi_lù_jiù_dào le ",
 				},
 			"en" : "We should take 52 to Xinjiekou Road, then take the road to the 100.",
 			"Category" : "read_sentence",

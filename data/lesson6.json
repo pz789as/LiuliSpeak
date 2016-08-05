@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "6",
 	"titleCN" : "讨论天气",
 	"titleEn" : "Weather discussion",
@@ -113,7 +113,7 @@
 			},{
 			"cn" : {
 				"words" : "真的_吗？_吃_完_午饭_你_想_堆雪人_吗？",
-				"pinyins" : "zhēn de_ma_Chī_wán_wǔ fàn_nǐ_xiǎng_duī xuě rén_ma",
+				"pinyins" : "zhēn de_ma_chī_wán_wǔ fàn_nǐ_xiǎng_duī xuě rén_ma",
 				},
 			"en" : "really? After lunch you do want to make a snowman?",
 			"Category" : "read_sentence",
@@ -213,7 +213,7 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "你好，_李雷。_我_是_韩梅梅。_我_从_三亚_来。",
-				"pinyins" : "nǐ hǎo_lǐ léi_Wǒ_shì_hán méi méi_Wǒ_cóng_sān yà_lái",
+				"pinyins" : "nǐ hǎo_lǐ léi_wǒ_shì_hán méi méi_wǒ_cóng_sān yà_lái",
 				},
 			"en" : "Hello, Li Lei. I Han Meimei. I come from Sanya.",
 			"Category" : "read_sentence",
@@ -223,7 +223,7 @@
 			},{
 			"cn" : {
 				"words" : "三亚？_你_在_三亚_做_什么？",
-				"pinyins" : "sān yà_Nǐ_zài_sān yà_zuò_shén me",
+				"pinyins" : "sān yà_nǐ_zài_sān yà_zuò_shén me",
 				},
 			"en" : "Sanya? What do you do in Sanya?",
 			"Category" : "read_sentence",

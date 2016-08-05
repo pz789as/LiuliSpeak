@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "3",
 	"titleCN" : "见面和问好",
 	"titleEn" : "Meet and greet",
@@ -42,8 +42,8 @@
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "是的，欢迎_你_来_北京。",
-				"pinyins" : "shì de, huān yíng_nǐ_lái_běi jīng",
+				"words" : "是的，_欢迎_你_来_北京。",
+				"pinyins" : "shì de,_huān yíng_nǐ_lái_běi jīng",
 				},
 			"en" : "Yes, welcome to Beijing.",
 			"Category" : "read_sentence",

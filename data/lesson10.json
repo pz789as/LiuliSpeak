@@ -1,4 +1,4 @@
-{
+﻿{
 	"key" : "10",
 	"titleCN" : "你喜欢运动吗？",
 	"titleEn" : "Do you like sports?",
@@ -13,7 +13,7 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "你_喜欢_做_什么？",
-				"pinyins" : "nǐ_xǐ huan_zuò_shén me ",
+				"pinyins" : "nǐ_xǐ huan_zuò_shén me",
 				},
 			"en" : "What do you like to do?",
 			"Category" : "read_sentence",
@@ -23,7 +23,7 @@
 			},{
 			"cn" : {
 				"words" : "我_喜欢_游泳。",
-				"pinyins" : "wǒ_xǐ huan_yóu yǒng ",
+				"pinyins" : "wǒ_xǐ huan_yóu yǒng",
 				},
 			"en" : "I like swimming.",
 			"Category" : "read_sentence",
@@ -78,7 +78,7 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "假期_终于_到_了。_我_等_得_好_着急_啊。",
-				"pinyins" : "jià qī_zhōng yú_dào_le_wǒ_děng_dé_hǎo_zháo jí_a ",
+				"pinyins" : "jià qī_zhōng yú_dào_le_wǒ_děng_dé_hǎo_zháo jí_a",
 				},
 			"en" : "Holiday has finally arrived. I and other well anxious ah.",
 			"Category" : "read_sentence",
@@ -128,7 +128,7 @@
 			},{
 			"cn" : {
 				"words" : "是_的，_我_也_想_跑步_了。",
-				"pinyins" : "shì_de_wǒ_yě_xiǎng_pǎo bù_le ",
+				"pinyins" : "shì_de_wǒ_yě_xiǎng_pǎo bù_le",
 				},
 			"en" : "Yes, I would like to run up.",
 			"Category" : "read_sentence",
@@ -148,7 +148,7 @@
 			},{
 			"cn" : {
 				"words" : "好_呀，_动_起来。",
-				"pinyins" : "hǎo_ya_dòng_qǐ lai ",
+				"pinyins" : "hǎo_ya_dòng_qǐ lai",
 				},
 			"en" : "Okay, moving.",
 			"Category" : "read_sentence",
@@ -203,7 +203,7 @@
 			},{
 			"cn" : {
 				"words" : "好_啊，_但是_我_不_知道_规则。",
-				"pinyins" : "hǎo_a_dàn shì_wǒ_bù_zhī dào_guī zé ",
+				"pinyins" : "hǎo_a_dàn shì_wǒ_bù_zhī dào_guī zé",
 				},
 			"en" : "Yeah, but I do not know the rules.",
 			"Category" : "read_sentence",
@@ -233,7 +233,7 @@
 			},{
 			"cn" : {
 				"words" : "是_的，_每个_队_都_要_尽力_把_球_踢_到_对方_的_球门_里。",
-				"pinyins" : "shì_de_měi gè_duì_dōu_yào_jìn lì_bǎ_qiú_tī_dào_duì fāng_de_qiú mén_lǐ ",
+				"pinyins" : "shì_de_měi gè_duì_dōu_yào_jìn lì_bǎ_qiú_tī_dào_duì fāng_de_qiú mén_lǐ",
 				},
 			"en" : "Yes, each team must try to kick the ball to the other side of the net.",
 			"Category" : "read_sentence",
