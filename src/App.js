@@ -39,7 +39,7 @@ var testData = [
     require('../data/lesson9.json'),
     require('../data/lesson10.json'),
 ];
-
+var ErrorMsg = require('../data/errMsg.json');
 let saveKey = 'save';
 
 var getNewSave = function(key, isAdd, isComplete){
@@ -76,6 +76,7 @@ export default class App extends Component {
     global.deleteFile = this.deleteFile.bind(this);
 
     XFiseBridge.initISE({"APPID": "57562d34"});//57562d34 5743f74a
+
   }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
@@ -247,6 +248,7 @@ export default class App extends Component {
   }
   getMainLessonInfo(key){
     var tempLesson = this.getLessonData(key);
+
     var count = tempLesson.practices.length;
     var info = {
       star: 0,//获得星星数量
@@ -445,7 +447,7 @@ export default class App extends Component {
   }
   Logf(message, ...optionalParams) {
     // var args = arguments.length;
-    console.log(message, ...optionalParams);
+    //console.log(message, ...optionalParams);
   }
   createStorage(){
     var storage = new Storage({
@@ -484,5 +486,9 @@ export default class App extends Component {
   }
   getImageUrl(name){
     return serverUrl + '/LiuliSpeak/lessons/images/' + name;
+  }
+  getErrorMsg(key){
+      console.log("错误key:",key,"错误value:",ErrorMsg[key].value);
+      return ErrorMsg[key].display;
   }
 }
