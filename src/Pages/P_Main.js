@@ -31,7 +31,9 @@ export default class P_Main extends Component {
     this.realCourseList = new Array();
     this.state = {
       courseDataSource: new ListView.DataSource({
-        rowHasChanged:(oldRow, newRow)=>{ oldRow !== newRow}
+        rowHasChanged:(oldRow, newRow)=>{ 
+          return oldRow !== newRow || oldRow.key != newRow.key;
+        }
       }),
       blnRefresh: false,
     };

@@ -169,7 +169,7 @@ export default class App extends Component {
       this.orderLessonSave();
       this.saveData();
       loadOk();
-      console.log(err);
+      logf(err);
     });
   }
   saveLessons(key, isAdd){

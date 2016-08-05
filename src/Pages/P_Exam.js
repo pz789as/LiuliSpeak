@@ -230,8 +230,8 @@ export default class P_Exam extends Component {
         this.sentenceScore[index] = sentScore;
         this.syllableScore[index] = syllScore;
         app.saveSingleScore(index,1,sentScore,syllScore);
-        console.log("this.sentenceScore:",index,this.sentenceScore);
-        console.log("this.syllableScore:",index,this.syllableScore);
+        logf("this.sentenceScore:",index,this.sentenceScore);
+        logf("this.syllableScore:",index,this.syllableScore);
     }
 
     getLastScore = (arrScore)=>{

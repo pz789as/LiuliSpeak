@@ -55,7 +55,7 @@ export default class C_CardItem extends Component {
     onTouch: React.PropTypes.func,                    //点击效果
 	};
   static defaultProps = {
-    onTouch: ()=>{console.log('Touched!')},
+    onTouch: ()=>{logf('Touched!')},
     parents: null,
     blnCanMove: false,
     blnRenderAdd: false,
