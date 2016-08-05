@@ -109,10 +109,14 @@ class C_LessonMenu extends Component {
     var rowIDs = this.props.listDataSource.rowIdentities[0];
     for(var i=0;i<rowIDs.length;i++){
       var course = this.props.listDataSource.getRowData(0,i);
+      var wait_t = 0;
+      if (i!=this.props.initPage) {
+        wait_t = Math.abs(i - this.props.initPage)*30;
+      }
       array.push(<LessonCard onStart={this.gotoLesson.bind(this)} 
           rowID={i}
           course={course}
-          waitTime={i*60}
+          waitTime={wait_t}
           ref={i}
           key={i} />);
     }
