@@ -35,7 +35,7 @@
 				"words" : "拜托_啦。_我_会_打_雨伞_的。",
 				"pinyins" : "bài tuō_lā_wǒ_huì_dǎ_yǔ sǎn_de",
 				},
-			"en" : "what have you got? A headache? A cold?",
+			"en" : "please. I will use an umbrella.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
@@ -67,8 +67,8 @@
 			"user" : "6",
 			},{
 			"cn" : {
-				"words" : "是的，今天_天气_真好。",
-				"pinyins" : "shì de, jīn tiān_tiān qì_zhēn hǎo",
+				"words" : "是的，_今天_天气_真好。",
+				"pinyins" : "shì de_jīn tiān_tiān qì_zhēn hǎo",
 				},
 			"en" : "Yes, nice weather today.",
 			"Category" : "read_sentence",
@@ -122,7 +122,7 @@
 			"user" : "11",
 			},{
 			"cn" : {
-				"words" : "是的!_我们_可以_去_公园_吗？",
+				"words" : "是的！_我们_可以_去_公园_吗？",
 				"pinyins" : "shì de_wǒ men_kě yǐ_qù_gōng yuán_ma",
 				},
 			"en" : "yes! We can go to the park?",
@@ -272,8 +272,8 @@
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "30度。",
-				"pinyins" : "30 dù",
+				"words" : "三十_度。",
+				"pinyins" : "sān shí_dù",
 				},
 			"en" : "30 degrees.",
 			"Category" : "read_sentence",

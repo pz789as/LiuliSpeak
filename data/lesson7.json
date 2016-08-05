@@ -142,8 +142,8 @@
 			"user" : "4",
 			},{
 			"cn" : {
-				"words" : "8月20号。",
-				"pinyins" : "8 yuè 20 hào",
+				"words" : "八_月_二十_号。",
+				"pinyins" : "bā_yuè_èr shí_hào",
 				},
 			"en" : "August 20.",
 			"Category" : "read_sentence",
@@ -162,8 +162,8 @@
 			"user" : "4",
 			},{
 			"cn" : {
-				"words" : "今天_是_7月20号。",
-				"pinyins" : "jīn tiān_shì_7 yuè 20 hào",
+				"words" : "今天_是_七月_二十_号。",
+				"pinyins" : "jīn tiān_shì_qī yuè_èr shí_hào",
 				},
 			"en" : "Today is July 20.",
 			"Category" : "read_sentence",
@@ -272,8 +272,8 @@
 			"user" : "5",
 			},{
 			"cn" : {
-				"words" : "晚上_7点钟。",
-				"pinyins" : "wǎn shàng _7 diǎn zhōng",
+				"words" : "晚上_七点钟。",
+				"pinyins" : "wǎn shàng _qī diǎn zhōng",
 				},
 			"en" : "7:00 o'clock.",
 			"Category" : "read_sentence",

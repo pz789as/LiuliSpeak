@@ -83,7 +83,7 @@
 			"en" : "Holiday has finally arrived. I and other well anxious ah.",
 			"Category" : "read_sentence",
 			"gold" : "4",
-			"mp3" : "dialog7.mp3",
+			"mp3" : "dialog07.mp3",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -93,7 +93,7 @@
 			"en" : "Ah, you have any particular plan?",
 			"Category" : "read_sentence",
 			"gold" : "4",
-			"mp3" : "dialog8.mp3",
+			"mp3" : "dialog08.mp3",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -103,7 +103,7 @@
 			"en" : "I'm going to go running every day.",
 			"Category" : "read_sentence",
 			"gold" : "4",
-			"mp3" : "dialog9.mp3",
+			"mp3" : "dialog09.mp3",
 			"user" : "1",
 			},{
 			"cn" : {

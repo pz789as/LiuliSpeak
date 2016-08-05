@@ -127,8 +127,8 @@
 			"user" : "6",
 			},{
 			"cn" : {
-				"words" : "M码_的。_请问_您_平时_都_穿_什么_尺码？",
-				"pinyins" : "M mǎ_de_qǐng wèn_nín_píng shí_dōu_chuān_shén me_chǐ mǎ",
+				"words" : "小_码_的。_请问_您_平时_都_穿_什么_尺码？",
+				"pinyins" : "xiǎo_mǎ_de_qǐng wèn_nín_píng shí_dōu_chuān_shén me_chǐ mǎ",
 				},
 			"en" : "M codes. What do you usually wear what size?",
 			"Category" : "read_sentence",
@@ -137,8 +137,8 @@
 			"user" : "15",
 			},{
 			"cn" : {
-				"words" : "我_平时_就_穿_M码_的。",
-				"pinyins" : "wǒ_píng shí_jiù_chuān_M mǎ_de",
+				"words" : "我_平时_就_穿_小_码_的。",
+				"pinyins" : "wǒ_píng shí_jiù_chuān_xiǎo_mǎ_de",
 				},
 			"en" : "I usually wear M codes.",
 			"Category" : "read_sentence",
@@ -222,8 +222,8 @@
 			"user" : "11",
 			},{
 			"cn" : {
-				"words" : "180元。_刷卡_还是_现金？",
-				"pinyins" : "180 yuán_shuā kǎ_hái shì_xiàn jīn",
+				"words" : "一百八十_元。_刷卡_还是_现金？",
+				"pinyins" : "yì bǎi bā shí_yuán_shuā kǎ_hái shì_xiàn jīn",
 				},
 			"en" : "180. Cash or credit card?",
 			"Category" : "read_sentence",
@@ -232,8 +232,8 @@
 			"user" : "15",
 			},{
 			"cn" : {
-				"words" : "现金。_给_你_200元。",
-				"pinyins" : "xiàn jīn_gěi_nǐ_200 yuán",
+				"words" : "现金。_给_你_二百_元。",
+				"pinyins" : "xiàn jīn_gěi_nǐ_èr bǎi_yuán",
 				},
 			"en" : "cash. Give you 200 yuan.",
 			"Category" : "read_sentence",
@@ -307,8 +307,8 @@
 			"user" : "3",
 			},{
 			"cn" : {
-				"words" : "1200元。",
-				"pinyins" : "1200 yuán",
+				"words" : "一千二百_元。",
+				"pinyins" : "yì qiān èr bǎi_yuán",
 				},
 			"en" : "1,200 yuan.",
 			"Category" : "read_sentence",
@@ -382,7 +382,7 @@
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "我们_所有_的_相机_都_在_这儿_了。_这_一个_怎么_样?",
+				"words" : "我们_所有_的_相机_都_在_这儿_了。_这_一个_怎么_样？",
 				"pinyins" : "wǒ men_suǒ yǒu_de_xiàng jī_dōu_zài_zhè ér_le_zhè_yī gè_zěn me_yàng",
 				},
 			"en" : "All our cameras are here. How about this one?",
@@ -412,7 +412,7 @@
 			"user" : "15",
 			},{
 			"cn" : {
-				"words" : "这_正是_我_想_要_的。_多少_钱?",
+				"words" : "这_正是_我_想_要_的。_多少_钱？",
 				"pinyins" : "zhè_zhèng shì_wǒ_xiǎng_yào_de_duō shao_qián",
 				},
 			"en" : "This is what I want. how much is it?",
@@ -422,8 +422,8 @@
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "这_一_款_400美元。",
-				"pinyins" : "zhè_yì_kuǎn_400 měi yuán",
+				"words" : "这_一_款_四百_美元。",
+				"pinyins" : "zhè_yì_kuǎn_sì bǎi_měi yuán",
 				},
 			"en" : "This is a US $ 400.",
 			"Category" : "read_sentence",

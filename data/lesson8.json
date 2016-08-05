@@ -42,8 +42,8 @@
 			"user" : "6",
 			},{
 			"cn" : {
-				"words" : "是的。_很_容易_找_到。_沿着_这条_路_走_1千米_就_到了。",
-				"pinyins" : "shì de_hěn_róng yì_zhǎo_dào_yán zhe_zhè tiáo_lù_zǒu_1 qiān mǐ_jiù_dào le",
+				"words" : "是的。_很_容易_找_到。_沿着_这条_路_走_一_千米_就_到了。",
+				"pinyins" : "shì de_hěn_róng yì_zhǎo_dào_yán zhe_zhè tiáo_lù_zǒu_yì_qiān mǐ_jiù_dào le",
 				},
 			"en" : "Yes. Very easy to find. 1 kilometer along this road to go.",
 			"Category" : "read_sentence",
@@ -62,8 +62,8 @@
 			"user" : "6",
 			},{
 			"cn" : {
-				"words" : "10分钟。",
-				"pinyins" : "10 fēn zhōng",
+				"words" : "十_分钟。",
+				"pinyins" : "shí_fēn zhōng",
 				},
 			"en" : "10 fēn zhōng",
 			"Category" : "read_sentence",
@@ -157,8 +157,8 @@
 			"user" : "3",
 			},{
 			"cn" : {
-				"words" : "30元_左右。",
-				"pinyins" : "30 yuán_zuǒ yòu",
+				"words" : "三十_元_左右。",
+				"pinyins" : "sān shí_yuán_zuǒ yòu",
 				},
 			"en" : "about 30 yuan.",
 			"Category" : "read_sentence",
@@ -277,8 +277,8 @@
 			"user" : "11",
 			},{
 			"cn" : {
-				"words" : "当然，沿着_这条_路_一直_走，在_第二_个_拐角_左拐，再_向前_直走_200米_就_到了。",
-				"pinyins" : "dāng rán yán zhe_zhè tiáo_lù_yī zhí_zǒu zài_dì èr_gè_guǎi jiǎo_zuǒ guǎi zài_xiàng qián_zhí zǒu_200 mǐ_jiù_dào le",
+				"words" : "当然，沿着_这条_路_一直_走，在_第二_个_拐角_左拐，再_向前_直走_二百_米_就_到了。",
+				"pinyins" : "dāng rán yán zhe_zhè tiáo_lù_yī zhí_zǒu zài_dì èr_gè_guǎi jiǎo_zuǒ guǎi zài_xiàng qián_zhí zǒu_èr bǎi_mǐ_jiù_dào le",
 				},
 			"en" : "Of course, had been walking along this road, turn left at the second corner, then straight ahead 200 meters to go.",
 			"Category" : "read_sentence",
@@ -382,8 +382,8 @@
 			"user" : "5",
 			},{
 			"cn" : {
-				"words" : "还有_3站，_我_会_提醒_你_的。",
-				"pinyins" : "hái yǒu_3 zhàn_wǒ_huì_tí xǐng_nǐ_de",
+				"words" : "还有_三_站，_我_会_提醒_你_的。",
+				"pinyins" : "hái yǒu_sān_zhàn_wǒ_huì_tí xǐng_nǐ_de",
 				},
 			"en" : "There are three stations, I'll remind you.",
 			"Category" : "read_sentence",
@@ -467,8 +467,8 @@
 			"user" : "12",
 			},{
 			"cn" : {
-				"words" : "我们_应该_先_坐_52路_到_新街口，_然后_换乘_100路_就_到了。",
-				"pinyins" : "wǒ men_yīng gāi_xiān_zuò_52 lù_dào_xīn jiē kǒu_rán hòu_huàn chéng_100 lù_jiù_dào le ",
+				"words" : "我们_应该_先_坐_五十二_路_到_新街口，_然后_换乘_一百_路_就_到了。",
+				"pinyins" : "wǒ men_yīng gāi_xiān_zuò_wǚ shí èr_lù_dào_xīn jiē kǒu_rán hòu_huàn chéng_yì bǎi_lù_jiù_dào le ",
 				},
 			"en" : "We should take 52 to Xinjiekou Road, then take the road to the 100.",
 			"Category" : "read_sentence",
@@ -487,8 +487,8 @@
 			"user" : "12",
 			},{
 			"cn" : {
-				"words" : "52路_来了，_我们_走。",
-				"pinyins" : "52 lù_lái le_wǒ men_zǒu",
+				"words" : "五十二_路_来了，_我们_走。",
+				"pinyins" : "wǔ shí èr_lù_lái le_wǒ men_zǒu",
 				},
 			"en" : "52 road here, we go.",
 			"Category" : "read_sentence",

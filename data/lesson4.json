@@ -82,8 +82,8 @@
 			"user" : "5",
 			},{
 			"cn" : {
-				"words" : "对_啊。_我_约_了_10_点_钟，_我_要_走_了。",
-				"pinyins" : "duì_a_wǒ_yuē_le_10_diǎn_zhōng_wǒ_yào_zǒu_le",
+				"words" : "对_啊。_我_约_了_十_点_钟，_我_要_走_了。",
+				"pinyins" : "duì_a_wǒ_yuē_le_shí_diǎn_zhōng_wǒ_yào_zǒu_le",
 				},
 			"en" : "yes, he is. I’ve make an appointment for 10 o’clock, so I’d better move along.",
 			"Category" : "read_sentence",
@@ -107,7 +107,7 @@
 		"ksimage" : "ks42_title.jpg",
 		"contents" : [{
 			"cn" : {
-				"words" : "早上_好，_哪儿_不_舒服?",
+				"words" : "早上_好，_哪儿_不_舒服？",
 				"pinyins" : "zǎo shàng_hǎo_nǎ er_bù_shū fú",
 				},
 			"en" : "Good morning. What's the matter?",
@@ -127,7 +127,7 @@
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "还_有些_别的_症状_吗?",
+				"words" : "还_有些_别的_症状_吗？",
 				"pinyins" : "hái_yǒu xiē_bié de_zhèng zhuàng_ma",
 				},
 			"en" : "Do you have any other symptoms?",
@@ -157,7 +157,7 @@
 			"user" : "8",
 			},{
 			"cn" : {
-				"words" : "医生，_我_现在_的_体温_是_多少?",
+				"words" : "医生，_我_现在_的_体温_是_多少？",
 				"pinyins" : "yī shēng_wǒ_xiàn zài_de_tǐ wēn_shì_duō shǎo",
 				},
 			"en" : "Doctor, how about my temperature now?",
@@ -177,7 +177,7 @@
 			"user" : "8",
 			},{
 			"cn" : {
-				"words" : "医生，_我_严重_吗?",
+				"words" : "医生，_我_严重_吗？",
 				"pinyins" : "yī shēng_wǒ_yán zhòng_ma",
 				},
 			"en" : "Doctor,am I serious?",
@@ -292,7 +292,7 @@
 			"user" : "9",
 			},{
 			"cn" : {
-				"words" : "你_觉得_我_还_应该_注意_些_什么_吗?",
+				"words" : "你_觉得_我_还_应该_注意_些_什么_吗？",
 				"pinyins" : "nǐ_jué de_wǒ_hái_yīng gāi_zhù yì_xiē_shí me_ma",
 				},
 			"en" : "What else do you advise me to do?",
@@ -367,7 +367,7 @@
 			"user" : "3",
 			},{
 			"cn" : {
-				"words" : "刘易斯_先生?",
+				"words" : "刘易斯_先生？",
 				"pinyins" : "liú yì sī_xiān shēng",
 				},
 			"en" : "Mr.Lewis?",
@@ -397,7 +397,7 @@
 			"user" : "9",
 			},{
 			"cn" : {
-				"words" : "这些_胶囊_怎么_吃?",
+				"words" : "这些_胶囊_怎么_吃？",
 				"pinyins" : "zhè xiē_jiāo náng_zěn me_chī",
 				},
 			"en" : "How about the capsules?",
@@ -417,7 +417,7 @@
 			"user" : "9",
 			},{
 			"cn" : {
-				"words" : "还有_别_的_药_吗?",
+				"words" : "还有_别_的_药_吗？",
 				"pinyins" : "hái yǒu_bié_de_yào_ma",
 				},
 			"en" : "Anything else?",
