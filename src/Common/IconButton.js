@@ -113,7 +113,7 @@ class IconButton extends Component {
 			var pg = this.state.blnProgress ? <Progress.Bar style={{flex:1}}
 						progress={this.state.progress}
 						unfilledColor='#C0C0C000'
-						color='rgb(99,205,92)'
+						color='rgb(69,175,62)'
 						borderWidth={0}
 						borderRadius={height/2}
 						width={this.pw}

@@ -84,25 +84,34 @@ export default class P_Main extends Component {
   }
   setLessonTime(key){//主要用于排序，当点击修炼或者闯关之后，选中课程要移动到最上端
     var lessonSave = app.setLessonSaveTime(key);
-    // this.loadOk();
-
     var pos = this.getIndexForRealList(key);
     if (pos >= 0){
-      this.realCourseList.splice(pos, 1);
-      this.setState({
-        courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-      });
-    }
-
-    var l = app.getLessonData(key);
-    if (l){
-      l.opTime = lessonSave.opTime;
-      this.realCourseList.push(l);
+      this.realCourseList[pos].opTime = lessonSave.opTime;
       this.reorderList();
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
     }
+
+    // this.loadOk();
+
+    // var pos = this.getIndexForRealList(key);
+    // if (pos >= 0){
+    //   this.realCourseList.splice(pos, 1);
+    //   this.setState({
+    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+    //   });
+    // }
+
+    // var l = app.getLessonData(key);
+    // if (l){
+    //   l.opTime = lessonSave.opTime;
+    //   this.realCourseList.push(l);
+    //   this.reorderList();
+    //   this.setState({
+    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
+    //   });
+    // }
   }
   addNewLesson(key){
     var l = app.getLessonData(key);

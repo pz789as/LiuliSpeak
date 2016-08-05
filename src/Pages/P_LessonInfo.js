@@ -135,7 +135,7 @@ export default class P_LessonInfo extends Component {
                   resizeMode='stretch'/>
                 <View style={ss.topTextContainer}>
                   <Text style={ss.topTextTitle}>{app.temp.lesson.titleCN}</Text>
-                  <Text style={ss.topTextTitleEN}>{app.temp.lesson.titleEN}</Text>
+                  <Text style={ss.topTextTitleEN}>{app.temp.lesson.titleEn}</Text>
                   <Text style={[ss.topTextTitleEN, {marginTop: minUnit * 6}]}>
                     来源: CheerData</Text>
                   <Text style={[ss.topTextTitleEN, {marginTop: minUnit * 6}]}>
@@ -195,7 +195,7 @@ export default class P_LessonInfo extends Component {
               <Text style={ss.listIndex}>{type == 0 ? i : i+1}</Text>
               <Text style={[ss.listIndex, {marginLeft: minUnit*6}]}>
                 {l.practices[type == 0 ? i-1 : i].titleCN + '\n'}
-                <Text style={{color:'#888'}}>{l.practices[type == 0 ? i-1 : i].titleEN}</Text>
+                <Text style={{color:'#888'}}>{l.practices[type == 0 ? i-1 : i].titleEn}</Text>
               </Text>
             </View>
           </View>
@@ -292,7 +292,7 @@ let ss = StyleSheet.create({
     color:'#000',
   },
   topTextTitleEN:{
-    fontSize: minUnit * 3, 
+    fontSize: minUnit * 4, 
     color:'#888',
   },
   topTextPriceContainer:{
@@ -338,7 +338,7 @@ let ss = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   listMoreText:{
-    fontSize:minUnit*3,
+    fontSize:minUnit*4,
     color:'#777',
   },
   listMoreIcon:{
