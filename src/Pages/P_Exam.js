@@ -30,8 +30,10 @@ import {
  
 var totalWidth = ScreenWidth;
 var totalHeight = ScreenHeight;
-var fontSize = parseInt(minUnit*4);
-var ScentenceSpace = fontSize * 6;
+var aspectRatio = ScreenWidth/ScreenHeight;
+var fontSize = aspectRatio>0.6?minUnit*3:parseInt(minUnit*4);
+
+var ScentenceSpace = fontSize * 5;
 var AnimTransfromY = ScentenceSpace * 3 / 2;
 export default class P_Exam extends Component {
     // 构造
@@ -309,7 +311,9 @@ export default class P_Exam extends Component {
         this.examRoleIndex = (this.examRoleIndex + 1) % (this.Roles.length);//获取下一个角色
         this.examRole = this.Roles[this.examRoleIndex];//标记当前考试的Role,如果有多个角色,从第1个来
         this.blnShowPoint = true;
+        this._onStartIconAnim();
         this.setState({nowIndex: 0, blnChangeRole: false});
+
     }
 
     componentDidMount() {
@@ -371,7 +375,7 @@ export default class P_Exam extends Component {
                     easing: Easing.linear,
                 })
             })).start(this.onNextDialog)
-            if (this.state.nowIndex > 0) {
+            if (this.state.nowIndex >= 0) {
                 this._onStartIconAnim();
             }
         }

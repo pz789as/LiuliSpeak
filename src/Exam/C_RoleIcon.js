@@ -36,6 +36,7 @@ export default class RoleIcon extends Component {
     };
 
     hiddenIcon = (roleIndex)=> {
+        if(this.nowIndex == roleIndex) return ;
         this.nowIndex = roleIndex;
         Animated.timing(this.state.roateYAnim, {
             toValue: 0,

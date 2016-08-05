@@ -211,7 +211,7 @@ class P_Practice extends Component {
     }
 
     _onPressBack() {
-        this._onPause();
+        this.refs.ViewList.onJumpPage();
         app.PopPage();
     }
 
@@ -236,6 +236,7 @@ class P_Practice extends Component {
     }
      
     _onStart() {
+        this.refs.ViewList.onJumpPage();
         app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAM,
             {
                 dialogData: this.props.dialogData,                   

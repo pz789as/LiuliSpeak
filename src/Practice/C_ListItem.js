@@ -351,8 +351,8 @@ export default class ListItem extends Component {
         }
     }
 
-    _onPreviousPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
-        this.refs.allBotton.releaseBotton();
+    _onJumpPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
+        this.refs.allBotton.releaseComponent();
 
     }
 }

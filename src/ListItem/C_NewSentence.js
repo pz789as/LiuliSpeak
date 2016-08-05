@@ -226,6 +226,7 @@ export default class Sentence extends Component {
         }
         if(nProps.words != this.props.words){
             this.setSyllable(nProps.words,nProps.pinyins);
+            this.setSyllableColor(this.props.arrScore);
             return true;
         }
         return false;
@@ -234,7 +235,7 @@ export default class Sentence extends Component {
     getSyllable = (index)=>{
         var arrWord = [];
         for(var i=0;i<this.arrWordLength[index];i++){
-            var startIndex = this.arrWordStart[index]
+            var startIndex = this.arrWordStart[index];
             arrWord.push(
                 <Text key={startIndex + i} style={[styles.pinyin,{color:this.arrSyllableColor[startIndex+i]}]}>
                     {this.arrSyllablePY[startIndex + i]}
@@ -295,9 +296,10 @@ export default class Sentence extends Component {
 
 const styles = StyleSheet.create({
     container: {//主背景
-        //backgroundColor:'#ffff0011',
+        //backgroundColor:'#11001111',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        
     },
     words: {
         //backgroundColor:'#ff000011',

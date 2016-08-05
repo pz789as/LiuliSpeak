@@ -240,6 +240,10 @@ class ViewList extends Component {
             this.arrayList[i].setPointEvent("auto");
         }
     }
+    
+    onJumpPage(){
+        this.arrayList[this.state.select]._onJumpPage()
+    }
 
     // 自动播放下一条
     playNext() {
