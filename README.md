@@ -16,6 +16,7 @@ Mac上要把xcode升级到7.0以上。
 
 获取项目：
 第一种方式，直接从网址上下载代码 https://github.com/pz789as/LiuliSpeak/tree/master 
+
 1.  在本页点击clone and download按钮，将项目代码下载到本地。
 2.  打开终端命令行，cd到项目的根目录下(.../LiuliSpeak)，然后运行下面的命令：
 npm install
@@ -24,9 +25,11 @@ npm install
 jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.108:8081/index.ios.bundle?platform=ios&dev=true"];
 把里面ip替换成自己的mac地址。
 要测试流畅，可以把最后的dev=true改成dev=false。
+
 5.  离线包，可以将上面那一句替换成：
 jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 6.  运行项目（离线包不需要等终端启动服务）。
+
 
 第二种方式，先下载github的电脑软件，从软件中下载 https://desktop.github.com/
 安装github desktop之后就可以通过该软件关联到网页上的项目地址。
