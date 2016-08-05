@@ -50,9 +50,10 @@ https://js.coach/react-native#content
 里面也有安装说明
 
 本项目用到的插件：
-react-native-blur   //毛玻璃效果
-react-native-fs     //文件系统
-react-native-progress   //进度条插件
-react-native-sound  //音频播放
-react-native-storage    //存档管理
-react-native-root-toast //弹框插件
+
+    react-native-blur   //毛玻璃效果
+    react-native-fs     //文件系统
+    react-native-progress   //进度条插件
+    react-native-sound  //音频播放
+    react-native-storage    //存档管理
+    react-native-root-toast //弹框插件
