@@ -298,10 +298,11 @@ export default class ListItem extends Component {
         } else {
             if (syllableScore == 0) {
                 logf("未知的异常");
-            } else {
-                logf("讯飞返回的错误代码:", syllableScore.slice(0,5));
-                //var errMessage = this.getError()
-                this.showToast(syllableScore)
+            } else {                
+                var errKey = syllableScore.slice(0,5);
+                logf("练习中讯飞返回的错误代码:", errKey);
+                var errMessage = app.getErrorMsg(errKey);
+                this.showToast(errMessage)
             }
             this.refs.mySentence.setPingce("error");
             app.saveSingleScore(this.itemIndex, 0, score, [])
@@ -313,15 +314,13 @@ export default class ListItem extends Component {
         }
     }
     toast = null;
-    showToast = (msg)=> {
-        let message = '录音时间过短\n请对着麦克风再次朗读';
+    showToast = (message)=> {
+        //let message = '录音时间过短\n请对着麦克风再次朗读';
         //message = '网络出现异常 \n 请稍候再试'
-        this.toast && this.toast.destroy();
-        this.setState({
-            message
-        });
+
+        this.toast && this.toast.destroy();         
         this.toast = Toast.show(message, {
-            duration: 1200,
+            duration: 2000,
             position: Toast.positions.CENTER,
             shadow: true,
             animation: true,
@@ -330,6 +329,7 @@ export default class ListItem extends Component {
             backgroundColor: 'rgba(0,0,0,88)',
             shadowColor: '#000000',
             textColor: 'white',
+            fontSize:fontSize*3,
             onHidden: () => {
                 this.toast.destroy();
                 this.toast = null;
@@ -353,7 +353,6 @@ export default class ListItem extends Component {
 
     _onJumpPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
         this.refs.allBotton.releaseComponent();
-
     }
 }
 

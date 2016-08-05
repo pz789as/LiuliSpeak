@@ -26,7 +26,7 @@ import {
     ScreenWidth,
     ScreenHeight,
 } from '../Styles';
-
+import Toast from 'react-native-root-toast';
  
 var totalWidth = ScreenWidth;
 var totalHeight = ScreenHeight;
@@ -219,6 +219,10 @@ export default class P_Exam extends Component {
             this.refs.btnRecord.stopRecord();
         } else if (msg == "error") {
             this.refs.btnRecord.stopRecord();
+            var errKey = date.slice(0,5);
+            logf("练习中讯飞返回的错误代码:", errKey);
+            var errMessage = app.getErrorMsg(errKey);
+            this.showToast(errMessage + '\n' + '点击录音按钮重试')
             //弹出一个提示框
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
@@ -226,6 +230,31 @@ export default class P_Exam extends Component {
             this.hideBtnRecord();
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
         }
+    }
+
+    toast = null;
+    showToast = (message)=> {
+        //let message = '录音时间过短\n请对着麦克风再次朗读';
+        //message = '网络出现异常 \n 请稍候再试'
+
+        this.toast && this.toast.destroy();
+
+        this.toast = Toast.show(message, {
+            duration: 2000,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+            backgroundColor: 'rgba(0,0,0,88)',
+            shadowColor: '#000000',
+            textColor: 'white',
+            fontSize:fontSize*4,
+            onHidden: () => {
+                this.toast.destroy();
+                this.toast = null;
+            }
+        });
     }
 
     recordScore = (index,syllScore,sentScore)=>{
