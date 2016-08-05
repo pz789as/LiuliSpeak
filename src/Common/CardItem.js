@@ -106,7 +106,8 @@ export default class C_CardItem extends Component {
     }
     if (this.props.blnCanMove && this.touchKind == 1) {
       var newx = this.oldx+dx;
-      if (newx > 0) newx = 0
+      if (newx > 0) newx = 0;
+      else if (newx < -MoveDis*1.5) newx = -MoveDis*1.5;
       this.state.movex.setValue(newx);
       if (dx != 0 && this.props.parents!=null) {
         this.props.parents.closeScrollMove();
@@ -125,32 +126,54 @@ export default class C_CardItem extends Component {
     }
     if (this.props.blnCanMove && this.touchKind == 1) {
       var movex = this.state.movex;
-      this._listener = movex.addListener(({
-        value
-      }) => {
-        if (value > 0) {
-          movex.setValue(0);
-        } else if (value < -MoveDis) {
-          Animated.spring(movex, {
-            ...this.props.overshootSpringConfig,
-            toValue: -MoveDis,
-          }).start();
-        }
-      });
 
       var dis = Math.abs(movex._value);
       var target = 0;
       if (dis > MoveDis/2) target = -MoveDis;
-      Animated.decay(movex, {
-        ...this.props.momentumDecayConfig,
-        toValue: target,
-        velocity: vx
-      }).start(()=>{
-        movex.removeListener(this._listener);
-      });
+      if (vx > 0 && dis == 0) return;
+      if (Math.abs(vx) < 0.2) {
+        this.endMove();
+      } else {
+        if (Math.abs(vx) < 0.5) {
+          if (vx > 0) vx += 0.5;
+          else vx -= 0.5;
+        }
+        this._listener = movex.addListener(({
+          value
+        }) => {
+          if (value > 0) {
+            movex.setValue(0);
+          } else if (value < -MoveDis) {
+            Animated.spring(movex, {
+              ...this.props.overshootSpringConfig,
+              toValue: -MoveDis,
+            }).start();
+          }
+        });
+        Animated.decay(movex, {
+          ...this.props.momentumDecayConfig,
+          toValue: target,
+          velocity: vx
+        }).start(()=>{
+          movex.removeListener(this._listener);
+        });
+      }
     }
   }
-
+  endMove() {
+    if (Math.abs(this.state.movex._value) > MoveDis/2) {
+      // console.log('AnimatedShow');
+      this.AnimatedShow();
+    } else {
+      // console.log('AnimatedBack');
+      this.AnimatedBack();
+    }
+  }
+  AnimatedShow() {
+    Animated.timing(this.state.movex, {
+      toValue: -MoveDis,
+    }).start();
+  }
   AnimatedBack() {
     if (this.state.movex._value == 0) return;
     Animated.timing(this.state.movex, {
