@@ -37,7 +37,6 @@ export default class ExamResultList extends Component {
         this.selectIndex = -1;
         this.arrList = [];
         this.time = new Date();
-
     }
 
     static propTypes = {
@@ -166,7 +165,7 @@ export default class ExamResultList extends Component {
     }
 
     componentDidMount() {
-        logf("--P_ExamResultList Did Mount:--", this.time - new Date());
+        console.log("--P_ExamResultList Did Mount:--", this.time - new Date());
     }
 
     componentWillUpdate(nProps, nStates) {
@@ -183,13 +182,12 @@ export default class ExamResultList extends Component {
                 {this.renderTopBar()}
                 <ListView
                     ref="list"
-                    //initialListSize={6}
-                    //pageSize={1}
+                    initialListSize={6}
+                    pageSize={1}
                     scrollRenderAheadDistance={minUnit}
                     removeClippedSubviews={true}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderItem.bind(this)}
-
                 />
                 {this.renderBottomBar()}
             </View>
