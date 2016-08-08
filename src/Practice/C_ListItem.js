@@ -25,7 +25,6 @@ import {
     getMp3FilePath,
 } from '../Constant';
 
-
 import ScoreCircle from '../Common/ScoreCircle'
 import Sentence from '../ListItem/C_NewSentence';
 import AllBotton from  '../ListItem/C_AllButtons';

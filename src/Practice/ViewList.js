@@ -170,6 +170,7 @@ class ViewList extends Component {
 
     // 显示列表（listView方式）
     renderListFrame(course, sectionID, rowID) {         
+        // console.log('highlightRow: ', highlightRow);
         var i = rowID;
         var dialogInfo = {
             lesson: app.temp.lesson.key,
@@ -188,14 +189,11 @@ class ViewList extends Component {
                 activeOpacity={1}
                 key={i}
             >
-
                 <ListItem
                     itemShowType={this.state.showKind}
                     itemScore={0}
-                    //itemCoins={course.gold}
                     blnAutoplay = {this.blnAutoplay}
                     ref={(ref)=>{this.arrayList[rowID]=ref}}
-                    //ref={(ref)=>{logf("show index:",this.arrayList.indexOf(ref)); if(this.arrayList.indexOf(ref)<0){ this.arrayList.push(ref)}}}
                     dialogInfo={dialogInfo}
                     playNext={this.playNext.bind(this)}
                     getRate = {this.getSpeedKind.bind(this)}
@@ -265,18 +263,33 @@ class ViewList extends Component {
     // 控制列表移动（主要是自动播放时，根据当前选中项，判断列表是否移动）
     moveScrollView() {
         if (this.scrollLayout == null) return;
+        // scrollProperties.offset得到偏移值
+        var movey = this.refs.ScrollView.scrollProperties.offset;
         var layout = this.listItemLayout[this.state.select];
-        if (layout.y == 0) {
+        if (layout.y < movey) {
             this.refs.ScrollView.scrollTo({
-                y: 0
+                y: layout.y,
             });
         }
-        if (layout.y + layout.height > this.scrollLayout.height) {
-            var _move = layout.y + layout.height - this.scrollLayout.height;
+        var endy = layout.y + layout.height;
+        if (endy > movey+this.scrollLayout.height) {
             this.refs.ScrollView.scrollTo({
-                y: _move
+                y: endy - this.scrollLayout.height
             });
         }
+
+
+        // if (layout.y == 0) {
+        //     this.refs.ScrollView.scrollTo({
+        //         y: 0
+        //     });
+        // }
+        // if (layout.y + layout.height > this.scrollLayout.height) {
+        //     var _move = layout.y + layout.height - this.scrollLayout.height;
+        //     this.refs.ScrollView.scrollTo({
+        //         y: _move
+        //     });
+        // }
     }
 
     // 添加金币
