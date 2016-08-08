@@ -920,7 +920,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.gjc.LiuliSpeak;
 				PRODUCT_NAME = LiuliSpeak;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -952,7 +952,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.gjc.LiuliSpeak;
 				PRODUCT_NAME = LiuliSpeak;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

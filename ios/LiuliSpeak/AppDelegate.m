@@ -10,7 +10,6 @@
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
-#import "RCTBundleURLProvider.h"
 
 @implementation AppDelegate
 
@@ -32,11 +31,7 @@
    * on the same Wi-Fi network.
    */
 
-//  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.108:8081/index.ios.bundle?platform=ios&dev=true"];
-  
-  [[RCTBundleURLProvider sharedSettings] setJsLocation:@"192.168.1.108"];
-  [RCTBundleURLProvider sharedSettings].enableDev = false;
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.108:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
