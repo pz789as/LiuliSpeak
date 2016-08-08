@@ -85,7 +85,7 @@ class P_Menu extends Component {
     return false;
   }
   render() {
-    logf("Hello Menu!");
+    // logf("Hello Menu!");
     return (
       <LessonMenu onClose={this.onCancel.bind(this)}
           onMore={this.gotoMore.bind(this)}

@@ -69,6 +69,8 @@ export default class C_MainStudyView extends Component {
     this.cardList[index].Refresh();
   }
   shouldComponentUpdate(nextProps, nextState) {
+    // logf('study view', nextProps != this.props);
+    if (app.getStatus() != Scenes.MAIN) return false;
     if (nextState != this.state || nextProps != this.props) return true;
     return false;
   }
@@ -102,6 +104,8 @@ export default class C_MainStudyView extends Component {
     );
   }
   renderListItem(course, sectionID, rowID){
+    // logf('course item:', course.titleCN);
+    // logf('course image:', course.kcimage);
     return (
       <CardItem
         image={course.kcimage}

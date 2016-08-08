@@ -78,6 +78,9 @@ export default class App extends Component {
     XFiseBridge.initISE({"APPID": "57562d34"});//57562d34 5743f74a
 
   }
+  getStatus(){
+    return this.state.appStatus;
+  }
   shouldComponentUpdate(nextProps, nextState) {
     //如果要比较js对象如：
     // var {List, Map} = Immutable;

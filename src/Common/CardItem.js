@@ -182,10 +182,12 @@ export default class C_CardItem extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    // logf('carditem update:', nextProps != this.props, nextProps.image);
     if (nextState != this.state || nextProps != this.props) return true;
     return false;
   }
   render() {
+    this.imagePath = app.getImageUrl(this.props.image);
     return (
       <View style={[styles.container, ]}>
         {this.renderDelete()}

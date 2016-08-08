@@ -31,12 +31,13 @@ export default class P_Main extends Component {
     this.realCourseList = new Array();
     this.state = {
       courseDataSource: new ListView.DataSource({
-        rowHasChanged:(oldRow, newRow)=>{ 
-          return oldRow !== newRow || oldRow.orderIndex != newRow.orderIndex;
+        rowHasChanged:(oldRow, newRow)=>{
+          return true;
         }
       }),
       blnRefresh: false,
     };
+    this.shouldUpdate = false;
     app.main = this;
     app.loadData(this.loadOk.bind(this));
   }
@@ -48,7 +49,6 @@ export default class P_Main extends Component {
         // if (!app.save.lessons[i].isComplete){
           var l = app.getLessonData(app.save.lessons[i].key);
           l.opTime = app.save.lessons[i].opTime;
-          l.orderIndex = i;
           this.realCourseList.push(l);
           init = true;
         // }
@@ -81,13 +81,10 @@ export default class P_Main extends Component {
     return -1;
   }
   reorderList(){
-    return;//由于listview不刷新排序后的列表，暂时在app中不排序。
-    // this.realCourseList.sort(function(a, b){
-    //   return b.opTime - a.opTime;
-    // });
-    // for(var i=0;i<this.realCourseList.length;i++){
-    //   this.realCourseList[i].orderIndex = i;
-    // }
+    // return;//由于listview不刷新排序后的列表，暂时在app中不排序。
+    this.realCourseList.sort(function(a, b){
+      return b.opTime - a.opTime;
+    });
   }
   setLessonTime(key){//主要用于排序，当点击修炼或者闯关之后，选中课程要移动到最上端
     var lessonSave = app.setLessonSaveTime(key);
@@ -98,27 +95,8 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
+      this.shouldUpdate = true;
     }
-
-    // this.loadOk();
-
-    // var pos = this.getIndexForRealList(key);
-    // if (pos >= 0){
-    //   this.realCourseList.splice(pos, 1);
-    //   this.setState({
-    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-    //   });
-    // }
-
-    // var l = app.getLessonData(key);
-    // if (l){
-    //   l.opTime = lessonSave.opTime;
-    //   this.realCourseList.push(l);
-    //   this.reorderList();
-    //   this.setState({
-    //     courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
-    //   });
-    // }
   }
   addNewLesson(key){
     var l = app.getLessonData(key);
@@ -130,6 +108,7 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
+      this.shouldUpdate = true;
     }
   }
   subOldLesson(key){
@@ -141,6 +120,7 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
+      this.shouldUpdate = true;
     }
   }
   completeLesson(key){
@@ -151,6 +131,7 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
+      this.shouldUpdate = true;
     }
   }
   Refresh() {
@@ -171,6 +152,11 @@ export default class P_Main extends Component {
     
   }
   shouldComponentUpdate(nextProps, nextState) {
+    // logf('main should updata', app.getStatus() == Scenes.MAIN && this.shouldUpdate);
+    if (app.getStatus() == Scenes.MAIN && this.shouldUpdate){
+      this.shouldUpdate = false;
+      return true;
+    }
     if (nextState != this.state) return true;
     return false;
   }
