@@ -447,7 +447,7 @@ export default class App extends Component {
   }
   Logf(message, ...optionalParams) {
     // var args = arguments.length;
-    //console.log(message, ...optionalParams);
+    console.log(message, ...optionalParams);
   }
   createStorage(){
     var storage = new Storage({
