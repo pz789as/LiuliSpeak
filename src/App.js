@@ -102,6 +102,7 @@ export default class App extends Component {
     //     );
     //   }
     // });
+    console.log('shouldComponentUpdate');
     if (nextState != this.nextState) return true;
     return false;
   }
@@ -348,6 +349,12 @@ export default class App extends Component {
           name: SceneList[this.state.appStatus].name,
           index: SceneList[this.state.appStatus].index,
           configure: SceneList[this.state.appStatus].configure,
+        }}
+        onDidFocus={(route)=>{}}
+        onWillFocus={(route)=>{
+          this.setState({
+            appStatus: route.index,
+          });
         }}
         configureScene={this.configureScene.bind(this)}
         renderScene={this.renderScene.bind(this)} />
