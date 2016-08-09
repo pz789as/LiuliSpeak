@@ -86,9 +86,9 @@ class LessonCard extends Component {
 					</View>
 					{this.drawButton()}
 				</View>
-				{/*下方其他信息*/}
+				{/*下方其他信息
 				<View style={[styles.bottom, styles.border]}>
-				</View>
+				</View>*/}
 			</View>
 		);
 	}
