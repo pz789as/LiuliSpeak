@@ -196,20 +196,36 @@ class LessonCard extends Component {
 						}
 						if (count == this.props.course.contents.length){
 							if (exits == count){//文件都存在就可以正常跳转
-								this.setState({
-									isDown: true,
-								});
+								exits = 0;
+								count = 0;
+								for(var l=0;l<this.props.course.contents.length;l++){
+									fs.stat(path + '/' + this.props.course.contents[0].mp3)
+									.then((resultFile) => {
+										count++;
+										if (resultFile.size > 0){
+											exits++;
+										}
+										if (count == exits){//音频文件都大于0
+											this.setState({
+												isDown: true,
+											});
+										}
+									})
+									.catch((err)=>{
+										logf('err:', err);
+									});
+								}
 							}
 						}
 					})
 					.catch((err)=>{
-						logf(err);
+						logf('err:', err);
 					});
 				}
 			}
 		})
 		.catch((err)=>{
-			logf(err);
+			logf('err:', err);
 		});
 	}
 	checkMp3(path){
@@ -226,15 +242,34 @@ class LessonCard extends Component {
 							exits++;
 						}
 						if (count == this.props.course.contents.length){
-							if (exits == count){//文件都存在就可以正常跳转
-								this.gotoNext();
+							if (exits == count){//文件都存在
+								exits = 0;
+								count = 0;
+								for(var l=0;l<this.props.course.contents.length;l++){
+									fs.stat(path + '/' + this.props.course.contents[0].mp3)
+									.then((resultFile) => {
+										count++;
+										if (resultFile.size > 0){
+											exits++;
+										}
+										if (count == exits){//音频文件都大于0
+											this.gotoNext();
+										}else{
+											this.downLoadMp3(path);
+										}
+									})
+									.catch((err)=>{
+										logf('err:', err);
+									});
+								}
+								// this.gotoNext();
 							}else{//有文件不存在就要去下载
 								this.downLoadMp3(path);
 							}
 						}
 					})
 					.catch((err)=>{
-						logf(err);
+						logf('err', err);
 					});
 				}
 			}else{
@@ -242,7 +277,7 @@ class LessonCard extends Component {
 			}
 		})
 		.catch((err)=>{
-			logf(err);
+			logf('err:', err);
 		});
 	}
 	makeDir(path){
@@ -255,7 +290,7 @@ class LessonCard extends Component {
 			}
 		})
 		.catch((err)=>{
-			logf(err);
+			logf('err:', err);
 		});
 	}
 	downLoadMp3(path){
@@ -288,7 +323,7 @@ class LessonCard extends Component {
 				}
 			})
 			.catch((err)=>{
-				logf(err);
+				logf('err:', err);
 			});
 		}
 	}

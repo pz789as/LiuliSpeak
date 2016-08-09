@@ -44,6 +44,7 @@ class C_LessonMenu extends Component {
       moveY: new Animated.Value(0),
       blnDraw: false,
     };
+    this.blnInMoreAction = false;
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state || nextProps != this.props) return true;
@@ -153,17 +154,26 @@ class C_LessonMenu extends Component {
     this.props.selectListItem(rowID, kind);
   }
   AnimatedInt() {
-    this.state.moreH.setValue(ScreenHeight);
-    Animated.timing(this.state.moveY, {
-			toValue: -MoreMsgH,
-		}).start();
+    if (!this.blnInMoreAction){
+      this.blnInMoreAction = true;
+      this.state.moreH.setValue(ScreenHeight);
+      Animated.timing(this.state.moveY, {
+        toValue: -MoreMsgH,
+      }).start(()=>{
+        this.blnInMoreAction = false;
+      });
+    }
   }
   AnimatedOut(){
-    Animated.timing(this.state.moveY, {
-			toValue: 0,
-		}).start(()=>{
-      this.state.moreH.setValue(0);
-    });
+    if (!this.blnInMoreAction){
+      this.blnInMoreAction = true;
+      Animated.timing(this.state.moveY, {
+        toValue: 0,
+      }).start(()=>{
+        this.state.moreH.setValue(0);
+        this.blnInMoreAction = false;
+      });
+    }
   }
 }
 
