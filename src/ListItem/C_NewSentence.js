@@ -244,7 +244,7 @@ export default class Sentence extends Component {
                 <Text key={startIndex + i} style={[styles.pinyin,{color:this.arrSyllableColor[startIndex+i]}]}>
                     {this.arrSyllablePY[startIndex + i]}
                     <Text style={styles.word}>{this.arrSyllableWord[startIndex+i]}</Text>
-                    {/*<Text >{'\n'}{this.arrSyllableScore[startIndex+i]}</Text>*/}
+                    {<Text >{'\n'}{this.arrSyllableScore[startIndex+i]}</Text>}
                 </Text>
             );
         }
@@ -309,6 +309,7 @@ const styles = StyleSheet.create({
         //..backgroundColor:'#ff000011',
         flexDirection: 'row',
         marginHorizontal: fontSize*0.25,
+        height:fontSize*3.5
     },
     pinyin: {
         fontSize: fontSize * 0.70,
