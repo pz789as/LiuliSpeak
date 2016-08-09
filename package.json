@@ -11,6 +11,8 @@
     "react-native-fs": "^1.5.1",
     "react-native-progress": "^3.0.1",
     "react-native-sound": "^0.8.3",
-    "react-native-storage": "^0.1.2"
+    "react-native-storage": "^0.1.2",
+    "react-native-blur": "^1.0.0",
+    "react-native-root-toast": "^1.0.3"
   }
 }
