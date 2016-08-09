@@ -64,7 +64,8 @@ let getLessonsPath = function(){//课程所有资源路径
     return '/lessons';
 }
 
-let serverUrl = 'http://192.169.1.19:8080';
+// let serverUrl = 'http://192.169.1.19:8080';
+let serverUrl = 'http://www.5ying.com/';
 
 module.exports = {
     Scenes,
