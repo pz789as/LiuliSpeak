@@ -171,7 +171,7 @@ class ViewList extends Component {
     // 显示列表（listView方式）
     renderListFrame(course, sectionID, rowID) {         
         // console.log('highlightRow: ', highlightRow);
-        var i = rowID;
+        var i = Number(rowID);
         var dialogInfo = {
             lesson: app.temp.lesson.key,
             course: app.temp.courseID,
