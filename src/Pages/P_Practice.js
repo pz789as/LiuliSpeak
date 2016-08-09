@@ -177,6 +177,7 @@ class P_Practice extends Component {
      changePlayKind={this._changePlayK.bind(this)}
      changeOption={this._changeOption.bind(this)} ref={'BottomBar'} />
      </View>*/
+     // {this.state.blnDraw&&<ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />}
     render() {
         logf('Hello Practice!');
         return (
@@ -184,8 +185,6 @@ class P_Practice extends Component {
             <View style={ming.container} onLayout={this._onLayout.bind(this)} {...this._panResponder.panHandlers} >
                 {this.state.blnDraw&&
              <TopBar onPressBack={this._onPressBack.bind(this)} />}
-
-                {this.state.blnDraw&&<ProgressBar GoldAllNum={this.getAllGold()} ref='ProgressBar' />}
 
                 {this.state.blnDraw&&<ViewList dialogData={this.props.dialogData} 
                      showKind={this.showKind} speedKind={this.speedKind} ref={'ViewList'}
