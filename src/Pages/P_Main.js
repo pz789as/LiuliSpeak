@@ -95,7 +95,9 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
-      this.shouldUpdate = true;
+      if (app.getStatus() != Scenes.MAIN){
+        this.shouldUpdate = true;
+      }
     }
   }
   addNewLesson(key){
@@ -108,7 +110,9 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
-      this.shouldUpdate = true;
+      if (app.getStatus() != Scenes.MAIN){
+        this.shouldUpdate = true;
+      }
     }
   }
   subOldLesson(key){
@@ -120,7 +124,9 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
-      this.shouldUpdate = true;
+      if (app.getStatus() != Scenes.MAIN){
+        this.shouldUpdate = true;
+      }
     }
   }
   completeLesson(key){
@@ -131,7 +137,9 @@ export default class P_Main extends Component {
       this.setState({
         courseDataSource:this.state.courseDataSource.cloneWithRows(this.realCourseList),
       });
-      this.shouldUpdate = true;
+      if (app.getStatus() != Scenes.MAIN){
+        this.shouldUpdate = true;
+      }
     }
   }
   Refresh() {
