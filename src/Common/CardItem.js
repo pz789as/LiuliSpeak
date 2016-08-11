@@ -126,43 +126,37 @@ export default class C_CardItem extends Component {
     }
     if (this.props.blnCanMove && this.touchKind == 1) {
       var movex = this.state.movex;
-
+      var old = movex._value;
       var dis = Math.abs(movex._value);
+      // 根据速度方向确定目标值
       var target = 0;
-      if (dis > MoveDis/2) target = -MoveDis;
+      if (vx <= 0) target = -MoveDis;
       if (vx > 0 && dis == 0) return;
-      if (Math.abs(vx) < 0.1) {
-        this.endMove();
-      } else {
-        // if (Math.abs(vx) < 0.5) {
-        //   var addV = MoveDis/200;
-        //   console.log(addV);
-        //   if (vx > 0) vx += addV;
-        //   else vx -= addV;
-        // }
-        this._listener = movex.addListener(({
-          value
-        }) => {
-          if (value > 0) {
-            movex.setValue(0);
-          } else if (value < -MoveDis) {
-            Animated.spring(movex, {
-              ...this.props.overshootSpringConfig,
-              toValue: -MoveDis,
-            }).start();
-          }
-        });
-        Animated.decay(movex, {
-          ...this.props.momentumDecayConfig,
-          toValue: target,
-          velocity: vx
-        }).start(()=>{
-          movex.removeListener(this._listener);
-          if (Math.abs(movex._value) > 0 && Math.abs(movex._value) < MoveDis) {
-            this.endMove();
-          }
-        });
-      }
+      // 移动监听
+      this._listener = movex.addListener(({
+        value
+      }) => {
+        if (value > 0) {
+          movex.setValue(0);
+        } else if (value < -MoveDis) {
+          Animated.spring(movex, {
+            ...this.props.overshootSpringConfig,
+            toValue: -MoveDis,
+          }).start();
+        }
+      });
+      // 开始移动
+      Animated.decay(movex, {
+        ...this.props.momentumDecayConfig,
+        toValue: target,
+        velocity: vx
+      }).start(()=>{
+        // 移动结束（删除监听）
+        movex.removeListener(this._listener);
+        if (movex._value < 0 && movex._value > -MoveDis) {
+          this.endMove();
+        }
+      });
     }
   }
   endMove() {
