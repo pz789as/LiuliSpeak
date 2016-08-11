@@ -165,6 +165,11 @@ class LessonCard extends Component {
 		this.timer && clearTimeout(this.timer);
 	}
 	onPress1(){
+		if (app.menu && app.menu.isInDownload){
+			console.log(111);
+			return;
+		}
+		app.menu && app.menu.setDownload(true);
 		app.main && app.main.setLessonTime(app.temp.lesson.key);
 		this.refs.download && this.refs.download.setProgross(0, true);
 		var path = fs.DocumentDirectoryPath + getMp3FilePath(app.temp.lesson.key, this.props.rowID);
@@ -172,8 +177,8 @@ class LessonCard extends Component {
 		this.checkMp3Time = setTimeout(this.checkMp3.bind(this,path), 200);
 	}
 	onPress2(){
-		app.main && app.main.setLessonTime(app.temp.lesson.key);
 		if (this.state.isDown){
+			app.main && app.main.setLessonTime(app.temp.lesson.key);
 			this.props.onStart(parseInt(this.props.rowID), 1);
 		}
 	}
@@ -294,6 +299,7 @@ class LessonCard extends Component {
 		});
 	}
 	downLoadMp3(path){
+		app.menu && app.menu.setDownload(true);
 		this.course = this.props.course;
 		this.allIdx = this.course.contents.length;
 		this.goIdx = 0;
@@ -344,6 +350,7 @@ class LessonCard extends Component {
 		this.gotoNextTime = setTimeout(this.gotoNext.bind(this), 200);
 	}
 	gotoNext(){
+		app.menu && app.menu.setDownload(false);
 		this.props.onStart(parseInt(this.props.rowID), 0);
 	}
 }

@@ -42,6 +42,7 @@ class P_Menu extends Component {
         this.initPage = i;
       }
     }
+    this.isInDownload = false;
   }
   componentWillMount(){
     this.setState({
@@ -52,6 +53,7 @@ class P_Menu extends Component {
     app.menu = null;
   }
   onCancel() {
+    if (this.isInDownload) return;
     if (this.props.popRoute) {
       app.PopPage(Consts.POP_ROUTE, this.props.popRoute);
     } else {
@@ -59,6 +61,7 @@ class P_Menu extends Component {
     }
   }
   gotoMore() {
+    if (this.isInDownload) return;
     this.setState({
       blnMoreMenu: true,
     });
@@ -68,6 +71,7 @@ class P_Menu extends Component {
     app.GotoPage(Consts.NAVI_PUSH, Scenes.LESSONINFO, {});
   }
   selectListItem(rowID, kind){
+    if (this.isInDownload) return;
     app.temp.courseID = rowID;
     var pageIdx = Scenes.PRACTICE;
     if (kind == 0) {
@@ -83,6 +87,10 @@ class P_Menu extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState != this.state) return true;
     return false;
+  }
+  setDownload(bln){
+    this.isInDownload = bln;
+    console.log(bln);
   }
   render() {
     // logf("Hello Menu!");
