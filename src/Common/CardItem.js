@@ -69,7 +69,7 @@ export default class C_CardItem extends Component {
       tension: 40
     },
     momentumDecayConfig: {
-      deceleration: 0.993
+      deceleration: 0.994
     },
     // springOriginConfig: {
     //  friction: 7,
@@ -131,13 +131,15 @@ export default class C_CardItem extends Component {
       var target = 0;
       if (dis > MoveDis/2) target = -MoveDis;
       if (vx > 0 && dis == 0) return;
-      if (Math.abs(vx) < 0.2) {
+      if (Math.abs(vx) < 0.1) {
         this.endMove();
       } else {
-        if (Math.abs(vx) < 0.5) {
-          if (vx > 0) vx += 0.5;
-          else vx -= 0.5;
-        }
+        // if (Math.abs(vx) < 0.5) {
+        //   var addV = MoveDis/200;
+        //   console.log(addV);
+        //   if (vx > 0) vx += addV;
+        //   else vx -= addV;
+        // }
         this._listener = movex.addListener(({
           value
         }) => {
@@ -156,6 +158,9 @@ export default class C_CardItem extends Component {
           velocity: vx
         }).start(()=>{
           movex.removeListener(this._listener);
+          if (Math.abs(movex._value) > 0 && Math.abs(movex._value) < MoveDis) {
+            this.endMove();
+          }
         });
       }
     }
