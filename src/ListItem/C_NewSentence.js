@@ -17,7 +17,7 @@ import ReactNative, {
     StyleSheet,
     View,
     Text,
-    
+    TouchableOpacity,
 }from 'react-native'
 import {
     minUnit,
@@ -39,15 +39,17 @@ export default class Sentence extends Component {
         this.state = {
             blnRefresh:false,
         };
-        this.wordCount = 0;
-        this.arrWordStart = [];
-        this.arrWordLength = [];
-        this.arrSyllableWord = [];
-        this.arrSyllablePY = [];
-        this.arrSyllableColor = [];
-        this.arrSyllableScore = [];
+        this.wordCount = 0; //词汇数量
+        this.arrWordStart = [];//词汇的起始位置
+        this.arrWordLength = [];//词汇长度
+        this.arrWord = [];//每个词汇的内容
+        this.arrSyllableWord = [];//每个音节汉字的内容
+        this.arrSyllablePY = [];//每个音节的拼音
+        this.arrSyllableColor = [];//颜色
+        this.arrSyllableScore = [];//分数
         this.setSyllable(this.props.words,this.props.pinyins);
         this.setSyllableColor(this.props.arrScore);
+        logf("arrWord",this.arrWord)
     }
 
     static propTypes = {
@@ -67,6 +69,7 @@ export default class Sentence extends Component {
         var sentWords = dataSentWords.split("_");//汉字内容第一层解析
         var sentPys = dataSentPys.split("_");//拼音内容第一层解析
         var syllCount = 0;
+        this.arrWord = sentWords;
         if(sentWords.length != sentPys.length){//检查词汇格式是否匹配
             logf("句子的词汇数与拼音数据中不符");
         }else{
@@ -251,13 +254,20 @@ export default class Sentence extends Component {
         return arrWord;
     }
 
+    onPressWord = (ref,index)=>{
+        var selectWord = this.arrWord[index];//去符号
+        console.log("onPressWord:",selectWord);
+    }
+
     renderSentence = ()=>{
         var arrSentence = [];
         for(var i=0;i<this.wordCount;i++){
             arrSentence.push(
-                <View key={i} style={styles.words}>
+                <TouchableOpacity activeOpacity={1} key={i} style={styles.words} ref={"word"+i}
+                                  onLongPress = {this.onPressWord.bind(this,"word"+i,i) } delayLongPress={500}
+                >
                     {this.getSyllable(i)}
-                </View>
+                </TouchableOpacity>
             )
         }
         return arrSentence;
@@ -306,10 +316,10 @@ const styles = StyleSheet.create({
         
     },
     words: {
-        //..backgroundColor:'#ff000011',
+        //backgroundColor:'#ff000011',
         flexDirection: 'row',
         marginHorizontal: fontSize*0.25,
-        height:fontSize*3.5
+        height:fontSize*3.5,
     },
     pinyin: {
         fontSize: fontSize * 0.70,
