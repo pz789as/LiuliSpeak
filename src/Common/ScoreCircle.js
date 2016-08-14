@@ -41,7 +41,9 @@ export default class ScoreCircle extends Component {
 
     renderBad = ()=>{
         return (
-            <Image style={styles.container}  source = {ImageRes.icon_bad}/>
+            <Image style={styles.container}  source = {ImageRes.icon_bad}>
+                <Text>{this.props.score}</Text>
+            </Image>
         );
     }
     render(){

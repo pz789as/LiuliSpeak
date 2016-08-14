@@ -19,24 +19,31 @@ import {
     ScreenHeight,
     MinWidth,
 } from '../Styles';
-import Sentence from '../ListItem/C_NewSentence';
+import ResultItem from '../Exam/C_ResultItem'
 import ScoreCircle from '../Common/ScoreCircle'
 
-fontSize = minUnit * 4;
+var fontSize = parseInt(minUnit * 4);
 
 export default class ExamResultList extends Component {
     // 构造
     constructor(props) {
         super(props);
         // 初始状态         
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => {logf("rowHasChange:",(r1 !== r2));return( r1 !== r2)}
+        });
+        this.listData = this.getListData();
+        
         this.state = {
-            dataSource: ds.cloneWithRows(this.props.dialogData),
-            blnAutoPlay: false,
+            dataSource: ds.cloneWithRows(this.listData),
+            blnAutoplay: false,
         };
         this.selectIndex = -1;
-        this.arrList = [];
+        this.arrListRefs = [];
+        this.myLayout = {};
         this.time = new Date();
+        this.listLayout = {y: 0, x: 0, width: 0, height: 0};
+        this.listViewHeight = 0;//ListView的内容的高度
     }
 
     static propTypes = {
@@ -46,9 +53,134 @@ export default class ExamResultList extends Component {
         Score: PropTypes.number,
     }
     static defaultProps = {}
+
+    getListData() {        
+        const {dialogData,arrSentenceScore,arrSyllableScore} = this.props;
+        var arrData = [];
+        for (var i = 0; i < dialogData.length; i++) {
+            arrData[i] = {
+                blnPlay: false,
+                dialogData: dialogData[i],
+                sentenceScore:arrSentenceScore[i],
+                syllableScore: arrSyllableScore[i],                
+            }
+        }
+        return arrData;
+    }    
+    
+    _onBackBtn = ()=>{
+        // if(this.selectIndex >=0){
+        //     this.arrListRefs[this.selectIndex].stopAudio();
+        // }
+        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
+    }
+
+    _onPressBtn = ()=> {
+        var newData = this.listData.slice();
+        var blnAutoplay = this.state.blnAutoplay;
+        if (blnAutoplay) {            
+            this.itemStopPlay(newData,this.selectIndex)
+            blnAutoplay = false;
+        } else {
+            if (this.selectIndex != -1) {                
+                this.itemStartPlay(newData,this.selectIndex);
+            }else{
+                this.itemStartPlay(newData,0);
+                this.selectIndex = 0;
+            }
+            blnAutoplay = true;
+        }
+        this.listData = newData;
+        this.setState({
+            blnAutoplay:blnAutoplay,
+            dataSource: this.state.dataSource.cloneWithRows(newData)
+        })
+    }
+
+    nextGate = ()=>{
+        // if(this.selectIndex >=0){
+        //     this.arrListRefs[this.selectIndex].stopAudio();
+        // }
+        if (app.temp.courseID + 1 < app.temp.lesson.practices.length) {
+            app.menu.setMoveTo(app.temp.courseID+1);
+        }
+        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
+    }
+
+    itemCallback = (msg, index)=> {
+        logf("itemCallBack",index,msg,this.selectIndex);
+        var blnAutoplay = this.state.blnAutoplay;
+        if(blnAutoplay){
+            if(msg == "play" || msg == "stop"){//处理自动播放时,点击item无响应
+                return;
+            }
+        }
+        var newData = this.listData.slice();
+
+        if(msg == "play"){
+            if(this.selectIndex != index && this.selectIndex != -1){
+                this.itemStopPlay(newData,this.selectIndex);
+            }
+            this.selectIndex = index;
+            this.onScrollListView();
+            this.itemStartPlay(newData,index);
+        }else if(msg == "stop"){
+            if(index != this.selectIndex){
+                console.log("ERROR:播放录音异常,关闭了一个并没有播放的item",index);
+            }
+            this.itemStopPlay(newData,this.selectIndex);
+        }else if(msg == "over"){
+            if(index != this.selectIndex){
+                console.log("ERROR:播放录音异常,通知一个并没有播放的item已经播放完毕",index);
+            }
+            this.itemStopPlay(newData,this.selectIndex);
+            if(blnAutoplay){
+                if(this.selectIndex < this.listData.length-1){
+                    this.itemStartPlay(newData,this.selectIndex + 1);
+                    this.selectIndex += 1
+                    this.onScrollListView();
+                }else{
+                    blnAutoPlay = false
+                }
+            }
+        }
+
+        this.listData = newData;
+        this.setState({
+            blnAutoplay:blnAutoplay,
+            dataSource: this.state.dataSource.cloneWithRows(newData)
+        })
+    }
+
+    itemStartPlay = (data,index)=>{
+        data[index] = {
+            blnPlay: true,
+            dialogData: data[index].dialogData,
+            sentenceScore:data[index].sentenceScore,
+            syllableScore: data[index].syllableScore,
+        }
+    }
+
+    itemStopPlay = (data,index)=>{
+        data[index] = {
+            blnPlay: false,
+            dialogData: data[index].dialogData,
+            sentenceScore:data[index].sentenceScore,
+            syllableScore: data[index].syllableScore,
+        }
+    }
+
+    restartGate = ()=>{
+        // if(this.selectIndex >=0){
+        //     this.arrListRefs[this.selectIndex].stopAudio();
+        // }
+        app.exam.ResetComponent();
+        app.PopPage(Consts.POP_ROUTE, Scenes.EXAM);
+    }
+
     renderTopBar = ()=> {
         var title = this.props.Score>=60?"闯关成功":"闯关失败";
-        logf("title:",title,this.props.Score);
+        //logf("title:",title,this.props.Score);
         return (
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={this._onBackBtn}>
@@ -59,50 +191,12 @@ export default class ExamResultList extends Component {
             </View>
         );
     }
-    _onBackBtn = ()=>{
-        if(this.selectIndex >=0){
-            this.arrList[this.selectIndex].stopAudio();
-        }
-        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
-    }
-
-    _onPressBtn = ()=> {
-        if (this.state.blnAutoPlay) {
-            this.arrList[this.selectIndex].stopAudio();
-            this.selectIndex = -1;
-            this.setState({blnAutoPlay: false});
-        } else {
-            if (this.selectIndex != -1) {
-                this.arrList[this.selectIndex].stopAudio();
-            }
-            this.selectIndex = 0;
-            this.setState({blnAutoPlay: true});
-        }
-    }
-
-    nextGate = ()=>{
-        if(this.selectIndex >=0){
-            this.arrList[this.selectIndex].stopAudio();
-        }
-        if (app.temp.courseID + 1 < app.temp.lesson.practices.length) {
-            app.menu.setMoveTo(app.temp.courseID+1);
-        }
-        app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
-    }
-
-    restartGate = ()=>{
-        if(this.selectIndex >=0){
-            this.arrList[this.selectIndex].stopAudio();
-        }
-        app.exam.ResetComponent();
-        app.PopPage(Consts.POP_ROUTE, Scenes.EXAM);
-    }
-
+    
     renderBottomBar = ()=> {
         return (
             <View style={styles.bottomBar}>
                 <TouchableOpacity onPress={this._onPressBtn.bind(this)}>
-                     <Image style={styles.playImg} source={this.state.blnAutoPlay?ImageRes.btn_pause:ImageRes.btn_playing}/>
+                     <Image style={styles.playImg} source={this.state.blnAutoplay?ImageRes.btn_pause:ImageRes.btn_playing}/>
                 </TouchableOpacity>
                 {this.props.Score>=60 &&<TouchableOpacity style={styles.btn} onPress={this.nextGate.bind(this)}>
                     <Text style={styles.btnText}>下一关</Text>
@@ -115,252 +209,154 @@ export default class ExamResultList extends Component {
         );
     }
 
-    itemCallback = (msg, index)=> {
-        nowSelect = index;
-        preSelect = this.selectIndex;
-
-        if (msg == "play") {
-            if (this.selectIndex >= 0) {
-                this.arrList[preSelect].stopAudio();
-            }
-            //..this.arrList[nowSelect].playerAudio();
-            this.arrList[nowSelect].InitPcm();
-            this.selectIndex = index;
-        } else if (msg == "stop") {
-            if (this.selectIndex >= 0) {
-                this.arrList[nowSelect].stopAudio();
-                this.selectIndex = -1;
-            } else {
-                logf("itemCallback 出现异常:", this.selectIndex, index);
-            }
-        } else if (msg == "over") {
-            if (this.state.blnAutoPlay) {
-                if(this.selectIndex < this.props.dialogData.length-1){
-                    this.selectIndex += 1;
-                    this.arrList[this.selectIndex]._onPress();
-                }else{
-                    this.selectIndex = -1;
-                    this.setState({blnAutoPlay:false})
-                }
-            } else {
-                if (this.selectIndex >= 0) {
-                    this.selectIndex = -1;
-                } else {
-                    logf("itemCallback 出现异常:", this.selectIndex, index);
-                }
-            }
+    addListRefs = (rowID, ref)=> {
+        console.log("addListRefs:",rowID,ref);
+        if (this.arrListRefs.length == this.listData.length) {
+            return;
         }
+        this.arrListRefs[rowID] = ref;
     }
 
+    getInitListSize = ()=>{
+        var height = 0;
+        var lineShowWord = 11;
+        if(ScreenWidth/ScreenHeight > 0.6){
+            lineShowWord = 14;
+        }
+        var size = 0;
+        for(var i=0;i<this.listData.length;i++){
+            var words = this.listData[i].dialogData.cn.words;
+            words = words.replace(/_/g, "");
+            var showLine = Math.ceil(words.length/lineShowWord)
+            height += (showLine * fontSize*5);
+            size++;
+            if(height > ScreenHeight*1.5){
+                break;
+            }
+        }
+        return size;
+    }
+
+    _onScroll=(event)=>{
+        //console.log("_onScroll Offset:",event.nativeEvent.contentOffset);
+        //console.log("_onScroll Offset:",event.nativeEvent.contentSize);
+        this.listLayout.x = event.nativeEvent.contentOffset.x;
+        this.listLayout.y = -event.nativeEvent.contentOffset.y;
+        this.listLayout.width = event.nativeEvent.contentSize.width;
+        this.listLayout.height = event.nativeEvent.contentSize.height;
+    }
+
+    _onContentSizeChange =(width,height)=>{
+        console.log("_onContentSizeChange",width,height);
+        this.listViewHeight = height;
+    }
+
+    onScrollListView = ()=>{
+        var topH = fontSize*5;//顶部TabBar的高度
+        var bottomH = fontSize*4;//底部TabBar的高度
+        var changeHight = 0//选中时高度的变化值(由于无法及时捕获到子对象的高度变化)
+        var itemLayout = this.arrListRefs[this.selectIndex].getLayout();//获取被选中的item相对于ListView的位置值
+
+        var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置
+        var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置
+        var itemY = listViewY + itemLayout.y ; //被选中的item在屏幕中的位置
+        var itemOffY = targetY - itemY//计算出item与屏幕中心的差距
+        if(targetY > itemY){
+            itemOffY -= changeHight/2;
+        }else{
+            itemOffY += changeHight/2;
+        }
+        var nextListY = this.listLayout.y + itemOffY; //通过当前位置与差距,计算出下一个位置
+        nextListY = Math.min(0,nextListY);
+        var maxListY = -(Math.max(this.listViewHeight,(ScreenHeight - topH - bottomH)) +changeHight/2 - (ScreenHeight - bottomH)+topH);
+        nextListY = Math.max(maxListY,nextListY);//处理上下极端值
+        this.refs.list.scrollTo({
+            x:this.listLayout.x,
+            y:-nextListY, //注意,这里传递的是相对位置的取反
+            animated:true,
+        });
+    }
+
+    /*onScrollListView = ()=>{
+        logf("ScreenH:",ScreenHeight,"fontSize:",fontSize);
+        var topH = fontSize*5;//顶部TabBar的高度
+        var bottomH = fontSize*4;//底部TabBar的高度
+        var changeHight = 0//选中时高度的变化值(由于无法及时捕获到子对象的高度变化)
+        var itemLayout = this.arrListRefs[this.selectIndex].getLayout();//获取被选中的item相对于ListView的位置值
+        console.log("itemLayout 高度:",this.selectIndex,itemLayout.height,itemLayout.y)
+
+        var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置
+        console.log("目标位置的Y坐标:",targetY);
+        console.log("此时listView Y的偏移:",this.listLayout.y);
+        var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置
+        console.log("listView相对屏幕的位置:",listViewY);
+        var itemY = listViewY + itemLayout.y ; //被选中的item在屏幕中的位置
+        console.log("被选中的item在屏幕中位置:",itemY);
+        var itemOffY = targetY - itemY//计算出item与屏幕中心的差距
+        if(targetY > itemY){
+            itemOffY -= changeHight/2;
+        }else{
+            itemOffY += changeHight/2;
+        }
+
+        console.log("被选中Item 与目标位置差距:",itemOffY);
+        var nextListY = this.listLayout.y + itemOffY; //通过当前位置与差距,计算出下一个位置
+        logf("计算出的nextListY:",nextListY);
+
+        nextListY = Math.min(0,nextListY);
+        var maxListY = -(Math.max(this.listViewHeight,(ScreenHeight - topH - bottomH)) +changeHight/2 - (ScreenHeight - bottomH)+topH);
+        logf("maxNextListY:",maxListY);
+        nextListY = Math.max(maxListY,nextListY);//处理上下极端值
+        logf("极值运算后的nextListY:",nextListY);
+        this.refs.list.scrollTo({
+            x:this.listLayout.x,
+            y:-nextListY, //注意,这里传递的是相对位置的取反
+            animated:true,
+        });
+    }*/ //带log的代码
+    
     renderItem = (rowData, sectionID, rowID, highlightRow)=> {
         var index = Number(rowID);
         var refName = "item" + rowID;
-        return (<ResultItem ref={(ref)=>{this.arrList[index]=ref}} itemIndex={index} itemWords={rowData.cn.words}
-                            itemPinyins={rowData.cn.pinyins} itemEN={rowData.en}
-                            arrSyllableScore={this.props.arrSyllableScore[index]}
-                            sentenceScore={this.props.arrSentenceScore[index]}
-                            itemCallback={this.itemCallback.bind(this)}
+        return (<ResultItem ref={this.addListRefs.bind(this,index)} itemIndex={index}
+                            blnPlay={rowData.blnPlay}
+                            itemWords={rowData.dialogData.cn.words} itemPinyins={rowData.dialogData.cn.pinyins}
+                            itemEN={rowData.dialogData.en}
+                            arrSyllableScore={rowData.syllableScore}
+                            sentenceScore={rowData.sentenceScore}
+                            itemCallback={this.itemCallback.bind(this)}                            
                             recordName={getExamFilePath(app.temp.lesson.key, app.temp.courseID, index)}
         />);
-    }
-
-    componentDidMount() {
-        console.log("--P_ExamResultList Did Mount:--", this.time - new Date());
-    }
-
-    componentWillUpdate(nProps, nStates) {
-        if (nStates.blnAutoPlay != this.state.blnAutoPlay) {
-            if (nStates.blnAutoPlay) {
-                this.arrList[this.selectIndex].InitPcm();
-            }
-        }
-    }
+    }    
 
     render() {
+        var initialListSize = this.getInitListSize();//最后写个算法,计算出来先临时顶一下
+        logf("闯关结果初始化列表数:",initialListSize);
         return (
             <View style={styles.container}>
                 {this.renderTopBar()}
                 <ListView
-                    ref="list"
-                    initialListSize={6}
-                    pageSize={1}
-                    scrollRenderAheadDistance={minUnit}
-                    removeClippedSubviews={true}
+                    ref="list" style={{flex:1}}
+                    initialListSize={initialListSize}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderItem.bind(this)}
+                    pageSize={1}
+                    //removeClippedSubviews={true}
+
+                    scrollRenderAheadDistance={ScreenHeight/2} //离屏幕底部多少距离时渲染
+                    onScroll= {this._onScroll.bind(this)}
+                    scrollEventThrottle={100} //对onScroll回调频率的控制(仅限IOS)
+                    onContentSizeChange={this._onContentSizeChange.bind(this)}
                 />
                 {this.renderBottomBar()}
             </View>
         );
     }
-}
-
-
-var XFiseBridge = NativeModules.XFiseBridge;
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-
-class ResultItem extends Component {
-    // 构造
-    constructor(props) {
-        super(props);
-        // 初始状态
-        this.pcmListener = null;
-        this.audioCurrentTime = 0;
-        this.audioTime = 0;
-        this.time = null;//定时器
-        this.state = {
-            progress: 0,
-            playerState: 0,//0:等待播放,1:播放中
-        };
-    }
-
-    static propTypes = {
-        itemIndex: PropTypes.number,
-        itemWords: PropTypes.string,
-        itemPinyins: PropTypes.string,
-        itemEN: PropTypes.string,
-        arrSyllableScore: PropTypes.array,
-        sentenceScore: PropTypes.number,
-        recordName: PropTypes.string,//录音文件名
-        itemCallback: PropTypes.func,
-    };
-    static defaultProps = {};
-
-
-    playerAudio = ()=> {//开始播放声音
-        logf("Run PlayerAudio:", this.audioTime);
-        this.PlayPcm();
-        this.time = setInterval(this.getNowTime, 50);
-        this.setState({
-            playerState: 1,
-            progress: 0,
-        });
-    }
-
-    pauseAudio = ()=> {//暂停播放声音
-        this.PausePcm();
-        clearInterval(this.time);
-        this.time = null;
-        this.setState({
-            playerState: 2,
-        });
-    }
-
-    audioPlayerEnd = ()=> {//声音播放完毕时调用
-        if (this.time == null)return;
-        clearInterval(this.time);
-        this.time = null;
-        this.props.itemCallback("over", this.props.itemIndex);
-        this.setState({
-            playerState: 0,
-            progress: 0,//..解决再次播放进度条不归零问题
-        });
-    }
-    stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
-        if (this.state.playerState != 0) {//只有当已经启动播放后 此函数才起作用
-            this.StopPcm();
-            clearInterval(this.time);
-            this.time = null;
-            this.setState({
-                playerState: 0,
-                progress: 0,//..解决再次播放进度条不归零问题
-            });
-        }
-    }
-
-    getNowTime = ()=> {
-        this.GetCurrentTime();
-    }
-
-    async GetCurrentTime() {
-        try {
-            this.audioCurrentTime = await XFiseBridge.getPcmCurrentTime();
-            if (this.time == null) return;
-            this.setState({progress: this.audioCurrentTime / this.audioTime});
-
-        } catch (error) {
-            logf("GetCurrentTime", error);
-        }
-    }
-
-    async InitPcm() {
-        var filePath = this.props.recordName;
-        logf("PCM filePath:", this.props.itemIndex, filePath);
-        var initInfo = {
-            FILE_PATH: filePath,
-            SAMPLE_RATE: '16000',
-        };
-
-        try {
-            var ret = await XFiseBridge.initPcm(initInfo);
-            this.audioCurrentTime = 0;
-            this.audioTime = ret;
-            this.playerAudio();
-        } catch (error) {
-            logf('InitPcm', error);
-        }
-    }
-
-    PlayPcm() {
-        XFiseBridge.playPcm();
-    }
-
-    StopPcm() {
-        XFiseBridge.stopPcm();
-    }
-
-    PausePcm() {
-        XFiseBridge.pausePcm();
-    }
-
-    playCallback(data) {
-        if (data.status == XFiseBridge.PCM_TOTALTIME) {
-
-        } else if (data.status == XFiseBridge.PCM_PLAYOVER) {
-            logf('play over! ' + data.msg);
-            this.audioPlayerEnd();
-        } else if (data.status == XFiseBridge.PCM_CURRENTTIME) {
-
-        } else if (data.status == XFiseBridge.PCM_ERROR) {
-
-        }
-    }
 
     componentDidMount() {
-        this.pcmListener = RCTDeviceEventEmitter.addListener('playCallback', this.playCallback.bind(this));
-        /*this.InitPcm(this.props.recordName);*/
-    }
-
-    componentWillUnmount() {
-        this.pcmListener.remove();
-        clearInterval(this.time);
-        this.time = null;
-    }
-
-    _onPress = ()=> {
-        if (this.state.playerState == 1) {
-            this.props.itemCallback("stop", this.props.itemIndex);
-        } else {
-            this.props.itemCallback("play", this.props.itemIndex);
-        }
-    }
-
-    render() {
-        return (
-            <TouchableOpacity style={styles.itemView} onPress={this._onPress.bind(this)} activeOpacity={0.5}>
-                <View style={styles.itemContent}>
-                    <Sentence words={this.props.itemWords} pinyins={this.props.itemPinyins}
-                              arrScore={this.props.arrSyllableScore}/>
-                    <Text
-                        style={{fontSize:fontSize,color:'#757575',marginTop:fontSize*0.4,marginLeft:fontSize/2}}>{this.props.itemEN}</Text>
-                </View>
-                {this.state.progress>0&&<ProgressViewIOS style={styles.progress} progress={this.state.progress} progressTintColor="#4ACE35"/>}
-                <ScoreCircle score={this.props.sentenceScore}/>
-            </TouchableOpacity>
-        );
+        console.log("--P_ExamResultList Did Mount:--", this.time - new Date());
     }
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -390,12 +386,12 @@ const styles = StyleSheet.create({
         fontSize: fontSize * 1.25,
     },
     bottomBar: {
-        position: 'absolute',
+        //position: 'absolute',
         flexDirection: 'row',
         width: ScreenWidth,
         height: fontSize * 4,
-        left: 0,
-        top: ScreenHeight - fontSize * 4,
+        //left: 0,
+        //top: ScreenHeight - fontSize * 4,
         backgroundColor: '#ffffff',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -424,23 +420,4 @@ const styles = StyleSheet.create({
         color:'#49CD36',
         backgroundColor:'transparent'
     },
-    itemView: {
-        borderBottomWidth: MinWidth,
-        borderBottomColor: '#CBCBCB',
-        paddingHorizontal: fontSize,
-        paddingVertical: fontSize * 0.5,
-        width: ScreenWidth,
-        flexDirection: 'row',
-        overflow: 'hidden',
-    },
-    itemContent: {
-        width: ScreenWidth - minUnit * 16,
-        //backgroundColor:'#00ff0011',
-    },
-    progress: {
-        width: ScreenWidth,
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-    }
 })

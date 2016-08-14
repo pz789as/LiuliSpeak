@@ -4,9 +4,9 @@
 import React, {Component, PropTypes} from 'react'
 import {View, Text, StyleSheet, Image,TouchableOpacity, Animated, Easing, InteractionManager} from 'react-native'
 
-import Sentence from '../ListItem/C_NewSentence';
+import Sentence from '../Practice/C_NewSentence';
 import RoleIcon from '../Exam/C_RoleIcon';
-import BtnRecord from '../ListItem/C_BtnRecording'
+import BtnRecord from '../Practice/C_BtnRecording'
 import Countdown from '../Exam/C_Countdown'
 import GreenPoint from '../Exam/C_GreenPoint'
 import ExamPause from  '../Exam/C_ExamPause';
@@ -35,6 +35,7 @@ var totalHeight = ScreenHeight;
 var fontSize = parseInt(minUnit*4);
 var ScentenceSpace = fontSize * 5;
 var AnimTransfromY = ScentenceSpace * 3 / 2;
+
 export default class P_Exam extends Component {
     // 构造
     constructor(props) {
@@ -208,7 +209,7 @@ export default class P_Exam extends Component {
 
     pauseRecord = ()=>{//暂停时调用此函数,将录音暂停
         if(this.refs.btnRecord){
-            this.refs.btnRecord.stopRecord();
+            this.refs.btnRecord.cancelRecord();
         }
     }
 
@@ -236,7 +237,7 @@ export default class P_Exam extends Component {
     showToast = (message)=> {
         //let message = '录音时间过短\n请对着麦克风再次朗读';
         //message = '网络出现异常 \n 请稍候再试'
-
+        if(this.state.blnExamPause) return;
         this.toast && this.toast.destroy();
 
         this.toast = Toast.show(message, {
@@ -487,7 +488,7 @@ export default class P_Exam extends Component {
             <View style={styles.bottom}>
                 <Animated.View style = { {transform:[{scale:1.25}],opacity:this.state.recordAnim}}>
                     <BtnRecord blnOpacityAnimate={true} ref={'btnRecord'}
-                               btnCallback={this.callbackBtnRecord.bind(this)}/>
+                               btnCallback={this.callbackBtnRecord.bind(this)} nowPage = {'Exam'}/>
                 </Animated.View>
                 <TouchableOpacity onPress = {this._onPressPause.bind(this)}>
                     <Image style={styles.btnPause} source={ImageRes.circle_btn_pause_26}/>
@@ -517,12 +518,15 @@ export default class P_Exam extends Component {
         this.stopAudio();
         this.pauseRecord();
         this.setState({blnExamPause:true});
-        /*app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
+
+        /*this.stopAudio();
+        this.pauseRecord();
+        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
             {
                 dialogData: this.props.dialogData,
                 arrSyllableScore: this.syllableScore,
                 arrSentenceScore: this.sentenceScore,
-                Score:40,
+                Score:0,
             });*/
     }
 

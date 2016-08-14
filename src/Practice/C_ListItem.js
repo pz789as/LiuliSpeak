@@ -26,9 +26,8 @@ import {
 } from '../Constant';
 
 import ScoreCircle from '../Common/ScoreCircle'
-import Sentence from '../ListItem/C_NewSentence';
-import AllBotton from  '../ListItem/C_AllButtons';
-import RNFS from 'react-native-fs'
+import Sentence from './C_NewSentence';
+import AllBotton from  './C_AllButtons';
 
 
 import Toast from 'react-native-root-toast';
@@ -42,35 +41,30 @@ export default class ListItem extends Component {
 
     constructor(props) {
         super(props);
-        // 初始状态
-        this.itemIndex = this.props.dialogInfo.itemIndex;
-        this.state = {
-            score: this.props.itemScore,
-            //coins: this.props.itemCoins,
-            blnLow: false,
-            blnSelect: (this.itemIndex == 0),
-            showType: this.props.itemShowType,//默认的显示类型由属性传递
-            btnCount: 2,
-        };
-        this.syllableScore = [];
+        this.itemIndex = this.props.itemIndex;
+        this.state = {};
+        this.syllableScore = this.props.syllableScore;
         this.useTime = new Date();
         var strUser = "user" + this.props.dialogInfo.user;
-        //logf("strUser:", strUser);
+
         this.userIcon = ImageIcon[strUser];
-        this.recordFileName = getAudioFilePath(this.props.dialogInfo.lesson, this.props.dialogInfo.course, this.props.dialogInfo.itemIndex);
+        this.recordFileName = getAudioFilePath(app.temp.lesson.key, app.temp.courseID, this.itemIndex);
     }
 
     myLayout = null;//记录item的位置
     contentLayout = null;//记录item中的内容部分view的位置
     blnInTouch = false;//一个标记,判断自己是否属于手势控制范围
+
     static propTypes = {
         itemShowType: PropTypes.number,//当前item展示类型(0只显示中文,1只显示英文,2都显示 默认应该为2的)
         itemScore: PropTypes.number,//从数据库中获取的分数
-        //itemCoins: PropTypes.number,//从数据库中获取的金币数量
         dialogInfo: PropTypes.object,//对话信息
-        playNext: PropTypes.func,
         getRate: PropTypes.func,
-        blnAutoplay: PropTypes.bool,
+        blnSelect:PropTypes.bool,
+        blnHaveRecord:PropTypes.bool,
+        //blnAutoplay: PropTypes.bool,
+        //playNext: PropTypes.func,
+        //itemCoins: PropTypes.number,//从数据库中获取的金币数量
     };
 
     _onAutoplay = ()=> { //接收到父组要调用自动播放的指令        
@@ -81,22 +75,18 @@ export default class ListItem extends Component {
         this.refs.allBotton.stopAutoplay();
     }
 
+    _onStopAllWork = ()=>{
+        this.refs.allBotton.stopAllWork();
+    } 
+
     componentWillMount() {
-        var time = new Date();
-        //logf("C_ListItem WillMount User time:", this.itemIndex, time - this.useTime);
+        /*var time = new Date();
         this.useTime = time;
-        //logf("WillMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
-        //..this.existsRecordFile();//检查是否有录音文件
-
         var practiceSave = app.getPracticeSave(app.temp.lesson.key,app.temp.courseID);
-        //logf("C_ListItem PracticeSave:", practiceSave);
-
         this.syllableScore = practiceSave.contents[this.itemIndex].p_SyllableScore;
-        //logf("C_ListItem syllableScore:", this.syllableScore);
         var saveSocre = practiceSave.contents[this.itemIndex].p_score;
-        //logf("C_ListItem p_Score:", saveSocre);
         var blnHaveRecord = this.syllableScore.length > 0
-        this.setState({score: saveSocre, btnCount: blnHaveRecord ? 3 : 2});
+        this.setState({score: saveSocre, btnCount: blnHaveRecord ? 3 : 2});*/
     }
 
     componentDidMount() {
@@ -104,22 +94,12 @@ export default class ListItem extends Component {
         logf("C_ListItem DidMount User time:", this.itemIndex, time - this.useTime);
         this.useTime = time;
         logf("DidMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
-    }
-
-    shouldComponentUpdate(nextProps, nextStates) {
-        var blnUpdate = false;
-        if (nextStates != this.state) {
-            //..logf("nextState:",nextStates);
-            //..logf("this.state:",this.state);
-            blnUpdate = true;
-        }
-        return blnUpdate;
-    }
+    } 
 
     callbackAllBtn = (btn, msg)=> {
         if (btn == "btnPlay") {
             if (msg == "playover") {
-                this.props.playNext();
+                this.props.itemCallback(this.itemIndex,"playover")
             }
         } else if (btn == "btnRecord") {
             this.setPingceResult(msg);
@@ -130,38 +110,46 @@ export default class ListItem extends Component {
         }
     }
 
+    _onPress = ()=>{
+        if(practiceInAutoplay)return
+        this.props.itemCallback(this.itemIndex,"select");
+    }
+
     render() {
         const {dialogInfo} = this.props;//获取属性值
-        const {itemWordCN, itemWordEN} = dialogInfo;
-        logf("render item:", this.itemIndex,this.props.blnAutoplay);
+        //console.log("dialogInfo",this.itemIndex,dialogInfo);
+        var itemWordCN = dialogInfo.cn;
+        var itemWordEN = dialogInfo.en;
+        logf("render item:", this.itemIndex);
 
         return (
-            <View
-                ref="item"
-                pointerEvents={this.props.blnAutoplay?"box-only":"auto"}
-                style={[styles.container,{backgroundColor:this.state.blnSelect?'#FFFFFF':'#EBEBEB'}]}
+            <TouchableOpacity  activeOpacity={1} ref="item"
+                onPress={this._onPress.bind(this)}
+                //pointerEvents={this.props.blnAutoplay?"box-only":"auto"}
+                style={[styles.container,{backgroundColor:this.props.blnSelect?'#FFFFFF':'#EBEBEB'}]}
                 onLayout={this._onLayout.bind(this)}>
 
                 <Image style={styles.iconImage} source={this.userIcon}/>
                 <View style={styles.contentView} onLayout={this._onLayoutContentView.bind(this)}>
-                    {(this.state.showType != 1) &&
+                    {(this.props.itemShowType != 1) &&
                     <Sentence ref="mySentence" words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
                               touch={this.state.touch}
                               arrScore={this.syllableScore}
                     /> }
 
-                    {(this.state.showType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
+                    {(this.props.itemShowType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}
 
-                    {this.state.blnSelect && <AllBotton ref="allBotton"
-                                                        btnCount={this.state.btnCount}
+                    {this.props.blnSelect && <AllBotton ref="allBotton"
+                                                        blnHaveRecord={this.props.blnHaveRecord}
                                                         dialogInfo={dialogInfo}
+                                                        itemIndex = {this.itemIndex}
                                                         btnCallback={this.callbackAllBtn.bind(this)}
                                                         getRate={this.props.getRate.bind(this)}/>
                     }
                 </View>
                 {this.drawScore()}
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -171,22 +159,16 @@ export default class ListItem extends Component {
 
     _onLayout = (event)=> {
         this.myLayout = event.nativeEvent.layout;
-        var getHeight = this.myLayout.height;
-        this.height = getHeight;
-        //logf('height:', getHeight)
-        //logf('6*fontSize', 6 * fontSize);
-        if (getHeight < 5 * fontSize) { //当内容很少时,为了适配右下角金币显示的位置而做的特殊处理
-            logf('低于最小高度了亲...');
-            this.setState({
-                blnLow: true,
-            });
-        }
+    }
+
+    getLayout =()=>{
+        return this.myLayout
     }
 
     _onLayoutContentView = (event)=> {
         this.contentLayout = event.nativeEvent.layout;//获取contentView的位置,这个是要传递给子组件"句子".
     }
-
+    /*
     existsRecordFile = ()=> {
         var basePath = RNFS.CachesDirectoryPath + '/';
         var fileName = this.recordFileName;
@@ -199,19 +181,8 @@ export default class ListItem extends Component {
                 this.setState({btnCount: 2});
             }
         })
-    }
+    }*/
 
-    getScoreViewColor = function () {//通过当前分数获取 "分数"背景色
-        let color = 'white';
-        if (this.state.score >= 80) {
-            color = '#49CD36';
-        } else if (this.state.score >= 60) {
-            color = '#F2B225';
-        } else {
-            color = '#FF3B2F';
-        }
-        return color;
-    }
 
     blnTouchItem = (touch, fatherLayout)=> { //从外面传递进来的手势位置 //..
         //判断当前的touch是否在自己的位置
@@ -265,35 +236,22 @@ export default class ListItem extends Component {
         this.refs.mySentence.blnTouchSentence(touch, layout);//调用子组件的判断碰撞函数,将touch对象和myLayout传递给子组件
     }
     drawScore = ()=> {
-        if (this.state.btnCount == 2)return;
-        return (<ScoreCircle score={this.state.score}/>)
-        //if (!this.state.blnHaveRecord) return;
-        /*if (this.state.score >= 60) {
-         return (
-         <View style={[styles.scoreView,{backgroundColor:this.getScoreViewColor()}]}>
-         <Text style={{fontSize:fontSize,color:'#F0FFE7'}}>{this.state.score}</Text>
-         </View>
-         );
-         } else {
-         return (
-         <Image  style={styles.badImage} source={ImageRes.icon_bad}/>
-         )
-         }*/
-
+        if (!this.props.blnHaveRecord)return;
+        return (<ScoreCircle score={this.props.itemScore}/>)
     }
 
     setPingceResult(result) {//唐7-11
         logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
-
         const {blnSuccess, score, syllableScore} = result;
         if (blnSuccess) {
             this.syllableScore = syllableScore;
-            this.refs.mySentence.setPingce(syllableScore); //评测打分..
+            //..this.refs.mySentence.setPingce(syllableScore); //评测打分..
             var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
             if (score < 63) { //如果没及格,就别给随机分数了
                 rndScore = score;
             }
             app.saveSingleScore(this.itemIndex, 0, rndScore, this.syllableScore)
+            this.props.itemCallback(this.itemIndex,"PingCe",rndScore,this.syllableScore)
         } else {
             if (syllableScore == 0) {
                 logf("未知的异常");
@@ -303,16 +261,15 @@ export default class ListItem extends Component {
                 var errMessage = app.getErrorMsg(errKey);
                 this.showToast(errMessage)
             }
-            this.refs.mySentence.setPingce("error");
-            app.saveSingleScore(this.itemIndex, 0, score, [])
-        }
-        if (this.state.btnCount == 2) {
-            this.setState({score: rndScore, btnCount: 3}); //评测打分..
-        } else {
-            this.setState({score: rndScore}); //评测打分..
-        }
+            this.syllableScore = "error";
+            //..this.refs.mySentence.setPingce("error");
+            app.saveSingleScore(this.itemIndex, 0, score, "error")
+            this.props.itemCallback(this.itemIndex,"PingCe",score,"error")
+        }  
     }
-    toast = null;
+    
+    
+    toast = null;    
     showToast = (message)=> {
         //let message = '录音时间过短\n请对着麦克风再次朗读';
         //message = '网络出现异常 \n 请稍候再试'
@@ -336,20 +293,7 @@ export default class ListItem extends Component {
             }
         });
     }
-
-    _onSelectItem = ()=> {//选中item时调用        
-        this.setState({blnSelect: true});
-    }
-
-    _onHiddenItem = ()=> {//item由选中到非选中时调用       
-        this.setState({blnSelect: false});
-    }
-
-    _onChangeShowType = (type)=> {
-        if (this.state.showType != type) {
-            this.setState({showType: type});
-        }
-    }
+    
 
     _onJumpPage = ()=> {//当P_Practice页面点击"返回上一级"时"当前选中的item"调用此函数
         this.refs.allBotton.releaseComponent();
@@ -360,9 +304,9 @@ const styles = StyleSheet.create({
     container: {//主背景
         flexDirection: 'row',
         width: totalWidth,
-        borderBottomWidth: MinWidth,
+        borderBottomWidth: MinWidth*2,
         borderBottomColor: '#CBCBCB',
-        paddingVertical: spacing,//给个1个汉字大小的内边距
+        paddingVertical: spacing*0.5,//给个1个汉字大小的内边距
         paddingHorizontal: spacing / 4,
         overflow: 'hidden',
     },
