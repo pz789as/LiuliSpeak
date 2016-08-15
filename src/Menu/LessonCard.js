@@ -151,6 +151,7 @@ class LessonCard extends Component {
 									marginTop:minUnit*2, 
 									backgroundColor: this.state.isDown ? '#63D75C' : '#AAA'
 								}]} 
+							enable={this.state.isDown}
 							text={'闯关'}/>
 				</View>
 			);

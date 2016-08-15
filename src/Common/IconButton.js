@@ -65,14 +65,36 @@ class IconButton extends Component {
 				</View>
 			);
 		}
-		return (
-			<TouchableOpacity
-				style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
-				onPress={this.keyPress.bind(this)}
-				activeOpacity={opacity}>
-				{this.renderButton()}
-			</TouchableOpacity>
-		);
+		if (this.props.enable != undefined){
+			if (this.props.enable){
+				return (
+					<TouchableOpacity
+						style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
+						onPress={this.keyPress.bind(this)}
+						activeOpacity={opacity}>
+						{this.renderButton()}
+					</TouchableOpacity>
+				);
+			}else{
+				return (
+					<View
+						style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
+						onPress={this.keyPress.bind(this)}
+						activeOpacity={opacity}>
+						{this.renderButton()}
+					</View>
+				);
+			}
+		}else{
+			return (
+				<TouchableOpacity
+					style={[styles.center, this.props.style?this.props.style:{}, styles.border]}
+					onPress={this.keyPress.bind(this)}
+					activeOpacity={opacity}>
+					{this.renderButton()}
+				</TouchableOpacity>
+			);
+		}
 	}
 	componentDidMount() {
 		InteractionManager.runAfterInteractions(()=>{
