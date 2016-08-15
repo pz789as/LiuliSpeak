@@ -194,38 +194,22 @@ class LessonCard extends Component {
 				var count = 0;
 				var exits = 0;
 				for(var idx=0; idx < this.props.course.contents.length; idx++){
-					fs.exists(path+'/'+this.props.course.contents[0].mp3).
-					then((resultFile)=>{
+					fs.stat(path+'/'+this.props.course.contents[idx].mp3)
+					.then((resultFile)=>{
 						count++;
-						if (resultFile){//存在的文件
+						if (resultFile.size > 0){
 							exits++;
 						}
 						if (count == this.props.course.contents.length){
-							if (exits == count){//文件都存在就可以正常跳转
-								exits = 0;
-								count = 0;
-								for(var l=0;l<this.props.course.contents.length;l++){
-									fs.stat(path + '/' + this.props.course.contents[0].mp3)
-									.then((resultFile) => {
-										count++;
-										if (resultFile.size > 0){
-											exits++;
-										}
-										if (count == exits){//音频文件都大于0
-											this.setState({
-												isDown: true,
-											});
-										}
-									})
-									.catch((err)=>{
-										logf('err:', err);
-									});
-								}
+							if (exits == this.props.course.contents.length){//音频文件都大于0
+								this.setState({
+									isDown: true,
+								});
 							}
 						}
 					})
 					.catch((err)=>{
-						logf('err:', err);
+						count++;
 					});
 				}
 			}
@@ -241,41 +225,25 @@ class LessonCard extends Component {
 				var count = 0;
 				var exits = 0;
 				for(var idx=0; idx < this.props.course.contents.length; idx++){
-					fs.exists(path+'/'+this.props.course.contents[0].mp3).
-					then((resultFile)=>{
+					fs.stat(path+'/'+this.props.course.contents[idx].mp3)
+					.then((resultFile)=>{
 						count++;
-						if (resultFile){//存在的文件
+						if (resultFile.size > 0){//存在却大于零
 							exits++;
 						}
-						if (count == this.props.course.contents.length){
-							if (exits == count){//文件都存在
-								exits = 0;
-								count = 0;
-								for(var l=0;l<this.props.course.contents.length;l++){
-									fs.stat(path + '/' + this.props.course.contents[0].mp3)
-									.then((resultFile) => {
-										count++;
-										if (resultFile.size > 0){
-											exits++;
-										}
-										if (count == exits){//音频文件都大于0
-											this.gotoNext();
-										}else{
-											this.downLoadMp3(path);
-										}
-									})
-									.catch((err)=>{
-										logf('err:', err);
-									});
-								}
-								// this.gotoNext();
-							}else{//有文件不存在就要去下载
+						if (count == this.props.course.contents.length){//音频文件都大于0
+							if (exits == this.props.course.contents.length){
+								this.gotoNext();
+							}else{
 								this.downLoadMp3(path);
 							}
 						}
 					})
 					.catch((err)=>{
-						logf('err', err);
+						count++;
+						if (count == this.props.course.contents.length){//不存在或者其他错误
+							this.downLoadMp3(path);
+						}
 					});
 				}
 			}else{
@@ -306,6 +274,7 @@ class LessonCard extends Component {
 		this.goIdx = 0;
 		this.tmpLen = [];
 		this.intIdx = 0;
+		var count = 0;
 		for(var idx=0; idx < this.allIdx; idx++){
 			var localPath = path + '/' + this.course.contents[idx].mp3;
 			var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
@@ -320,17 +289,43 @@ class LessonCard extends Component {
 				progress: this.downloadProgress.bind(this),
 			})
 			.then((response)=>{
+				count++;
 				if (response.statusCode == 200){//下载成功
 					this.intIdx++;
+				}
+				if (count == this.allIdx){
 					if (this.intIdx == this.allIdx){
 						this.clearProgressTime = setTimeout(this.clearProgress.bind(this), 100);
+					}else{
+						Alert.alert(
+							'提示',
+							'下载资源出错，请稍后再试！',
+							[{
+								text: '确定', 
+								onPress: ()=>{
+									app.menu && app.menu.setDownload(false);
+									this.refs.download && this.refs.download.setProgross(0, false);
+								}
+							},]
+						);
 					}
-				}else{
-					logf(response);
 				}
 			})
 			.catch((err)=>{
-				logf('err:', err);
+				count++;
+				if (count == this.allIdx){
+					Alert.alert(
+						'提示',
+						'网络信号不好，请稍后再试！',
+						[{
+							text: '确定', 
+							onPress: ()=>{
+								app.menu && app.menu.setDownload(false);
+								this.refs.download && this.refs.download.setProgross(0, false);
+							}
+						}]
+					);
+				}
 			});
 		}
 	}
