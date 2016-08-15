@@ -92,8 +92,8 @@ export default class ListItem extends Component {
     componentDidMount() {
         var time = new Date();
         logf("C_ListItem DidMount User time:", this.itemIndex, time - this.useTime);
-        this.useTime = time;
-        logf("DidMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
+        //this.useTime = time;
+        //logf("DidMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
     } 
 
     callbackAllBtn = (btn, msg)=> {
@@ -136,6 +136,8 @@ export default class ListItem extends Component {
                               pinyins={itemWordCN.pinyins}
                               touch={this.state.touch}
                               arrScore={this.syllableScore}
+                              clickEvent = {this._onPress.bind(this)}
+                              touchDisabled = {false}
                     /> }
 
                     {(this.props.itemShowType != 0) && <Text style={[styles.textWordEN]}>{itemWordEN}</Text>}

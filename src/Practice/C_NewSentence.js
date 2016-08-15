@@ -59,11 +59,13 @@ export default class Sentence extends Component {
         touch: PropTypes.object,
         arrScore:PropTypes.oneOfType([PropTypes.string,PropTypes.array]),
         clickEvent:PropTypes.func,
+        touchDisabled:PropTypes.bool,
     };
     static defaultProps = {       
         touch: null,
         arrScore:[],
         clickEvent:noop,
+        touchDisabled:true,
     };
 
     setSyllable = (words,pinyins)=>{
@@ -261,9 +263,7 @@ export default class Sentence extends Component {
 
     onPressWord = (ref,index)=>{
         var selectWord = this.arrWord[index];//去符号
-
         selectWord = selectWord.replace(/[，_。！？；“”‘’：]/g, "");
-
         logf("onPressWord:",selectWord);
         AlertIOS.alert("词汇","\""+selectWord +"\""+"这个词的意思是:bulabulabula")
     }
@@ -272,7 +272,7 @@ export default class Sentence extends Component {
         var arrSentence = [];
         for(var i=0;i<this.wordCount;i++){
             arrSentence.push(
-                <TouchableOpacity activeOpacity={1} key={i} style={styles.words} ref={"word"+i}
+                <TouchableOpacity disabled = {this.props.touchDisabled} activeOpacity={1} key={i} style={styles.words} ref={"word"+i}
                                   onPress={this.props.clickEvent} onLongPress = {this.onPressWord.bind(this,"word"+i,i) } delayLongPress={500}
                 >
                     {this.getSyllable(i)}
