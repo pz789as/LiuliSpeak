@@ -130,7 +130,10 @@ export default class C_CardItem extends Component {
       var dis = Math.abs(movex._value);
       // 根据速度方向确定目标值
       var target = 0;
-      if (vx <= 0) target = -MoveDis;
+      if (vx <= 0) {
+        target = -MoveDis;
+        this.blnSelect = true;
+      }
       if (vx > 0 && dis == 0) return;
       // 移动监听
       this._listener = movex.addListener(({
@@ -160,11 +163,13 @@ export default class C_CardItem extends Component {
     }
   }
   endMove() {
+    if (this.blnSelect == false) {
+      // console.log("blnSelect: ", this.blnSelect);
+      return;
+    }
     if (Math.abs(this.state.movex._value) > MoveDis/2) {
-      // console.log('AnimatedShow');
       this.AnimatedShow();
     } else {
-      // console.log('AnimatedBack');
       this.AnimatedBack();
     }
   }
@@ -174,6 +179,7 @@ export default class C_CardItem extends Component {
     }).start();
   }
   AnimatedBack() {
+    this.blnSelect = false;
     if (this.state.movex._value == 0) return;
     Animated.timing(this.state.movex, {
       toValue: 0,
