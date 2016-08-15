@@ -126,6 +126,7 @@ export default class C_CardItem extends Component {
     }
     if (this.props.blnCanMove && this.touchKind == 1) {
       var movex = this.state.movex;
+
       var old = movex._value;
       var dis = Math.abs(movex._value);
       // 根据速度方向确定目标值
@@ -135,6 +136,12 @@ export default class C_CardItem extends Component {
         this.blnSelect = true;
       }
       if (vx > 0 && dis == 0) return;
+      var endx = this.momentumCenter(movex._value, vx);
+      if (endx < -MoveDis/2) {
+        endx = -MoveDis;
+      } else {
+        endx = 0;
+      }
       // 移动监听
       this._listener = movex.addListener(({
         value
@@ -146,6 +153,11 @@ export default class C_CardItem extends Component {
             ...this.props.overshootSpringConfig,
             toValue: -MoveDis,
           }).start();
+        } else {
+          Animated.spring(movex, {
+            ...this.props.overshootSpringConfig,
+            toValue: endx,
+          }).start();
         }
       });
       // 开始移动
@@ -156,22 +168,27 @@ export default class C_CardItem extends Component {
       }).start(()=>{
         // 移动结束（删除监听）
         movex.removeListener(this._listener);
-        if (movex._value < 0 && movex._value > -MoveDis) {
-          this.endMove();
-        }
       });
     }
   }
-  endMove() {
-    if (this.blnSelect == false) {
-      // console.log("blnSelect: ", this.blnSelect);
-      return;
+  // 确定结束位置
+  momentumCenter(x0, vx) {
+    var t = 0;
+    var deceleration = this.props.momentumDecayConfig.deceleration || 0.997;
+    var x1 = x0;
+    var x = x1;
+
+    while (true) {
+      t += 16;
+      x = x0 + (vx / (1 - deceleration)) *
+        (1 - Math.exp(-(1 - deceleration) * t));
+      if (Math.abs(x - x1) < 0.1) {
+        x1 = x;
+        break;
+      }
+      x1 = x;
     }
-    if (Math.abs(this.state.movex._value) > MoveDis/2) {
-      this.AnimatedShow();
-    } else {
-      this.AnimatedBack();
-    }
+    return x1;
   }
   AnimatedShow() {
     Animated.timing(this.state.movex, {
