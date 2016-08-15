@@ -1,6 +1,4 @@
-/**
- * Created by tangweishu on 16/8/11.
- */
+'use strict';
 import React, {Component, PropTypes} from 'react'
 import {View, Image, Text, TouchableOpacity, StyleSheet, ListView, InteractionManager, AlertIOS} from 'react-native'
 import {
@@ -50,6 +48,8 @@ export default class NewPractice extends Component {
         this.listViewHeight = 0;//ListView的内容的高度
         global.practiceInAutoplay = false;
         this.blnOnScroll = true;
+        this.useTime = new Date();
+        logf("打印时间:",this.useTime.getTime())
     }
 
     static propTypes = {
@@ -144,6 +144,9 @@ export default class NewPractice extends Component {
     }
 
     componentDidMount() {
+        var tempTime = new Date();
+        console.log("Page Practice Did Mount:",tempTime.getTime()-this.useTime.getTime())
+
         InteractionManager.runAfterInteractions(
             ()=> {
                 this.pressItem(0);
@@ -287,13 +290,14 @@ export default class NewPractice extends Component {
     renderListView = ()=> {
         var initialListSize = this.getInitListSize();//最后写个算法,计算出来先临时顶一下
         logf("此课程初始化列表数:",initialListSize);
+
         return (
             <ListView ref="listView" key={this.listData} style={styles.listView} scrollEnabled={!this.state.blnAutoplay}
                       dataSource={this.state.dataSource}
                       renderRow={this.renderRow.bind(this)}
                       initialListSize={initialListSize}
                       pageSize={1} //每次新增渲染多少条
-                      scrollRenderAheadDistance={ScreenHeight/2} //离屏幕底部多少距离时渲染
+                      scrollRenderAheadDistance={ScreenHeight/4} //离屏幕底部多少距离时渲染
                       onScroll= {this._onScroll.bind(this)}
                       scrollEventThrottle={100} //对onScroll回调频率的控制(仅限IOS)
                       onContentSizeChange={this._onContentSizeChange.bind(this)}
