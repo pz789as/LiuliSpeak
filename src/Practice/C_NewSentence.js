@@ -18,6 +18,7 @@ import ReactNative, {
     View,
     Text,
     TouchableOpacity,
+    AlertIOS,
 }from 'react-native'
 import {
     minUnit,
@@ -30,7 +31,7 @@ var fontSize = aspectRatio>0.6?parseInt(minUnit*3):parseInt(minUnit*4);
 //var fontSize = parseInt(minUnit*4);
  
 const PUNCTUATION = ['，', '。', '？', '“', '”', '！', '：', '（', '）', '；'];//标点符号集(中文符号)
-
+var noop = () => {};//空函数
 
 export default class Sentence extends Component {
     constructor(props) {
@@ -57,10 +58,12 @@ export default class Sentence extends Component {
         pinyins: PropTypes.string,        
         touch: PropTypes.object,
         arrScore:PropTypes.oneOfType([PropTypes.string,PropTypes.array]),
+        clickEvent:PropTypes.func,
     };
     static defaultProps = {       
         touch: null,
         arrScore:[],
+        clickEvent:noop,
     };
 
     setSyllable = (words,pinyins)=>{
@@ -257,20 +260,23 @@ export default class Sentence extends Component {
     }
 
     onPressWord = (ref,index)=>{
-        return;
         var selectWord = this.arrWord[index];//去符号
-        console.log("onPressWord:",selectWord);
+
+        selectWord = selectWord.replace(/[，_。！？；“”‘’：]/g, "");
+
+        logf("onPressWord:",selectWord);
+        AlertIOS.alert("词汇","\""+selectWord +"\""+"这个词的意思是:bulabulabula")
     }
 
     renderSentence = ()=>{
         var arrSentence = [];
         for(var i=0;i<this.wordCount;i++){
             arrSentence.push(
-                <View activeOpacity={1} key={i} style={styles.words} ref={"word"+i}
-                                  onLongPress = {this.onPressWord.bind(this,"word"+i,i) } delayLongPress={500}
+                <TouchableOpacity activeOpacity={1} key={i} style={styles.words} ref={"word"+i}
+                                  onPress={this.props.clickEvent} onLongPress = {this.onPressWord.bind(this,"word"+i,i) } delayLongPress={500}
                 >
                     {this.getSyllable(i)}
-                </View>
+                </TouchableOpacity>
             )
         }
         return arrSentence;
