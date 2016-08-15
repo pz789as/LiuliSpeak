@@ -126,12 +126,12 @@ export default class ExamResultList extends Component {
             this.itemStartPlay(newData,index);
         }else if(msg == "stop"){
             if(index != this.selectIndex){
-                console.log("ERROR:播放录音异常,关闭了一个并没有播放的item",index);
+                logf("ERROR:播放录音异常,关闭了一个并没有播放的item",index);
             }
             this.itemStopPlay(newData,this.selectIndex);
         }else if(msg == "over"){
             if(index != this.selectIndex){
-                console.log("ERROR:播放录音异常,通知一个并没有播放的item已经播放完毕",index);
+                logf("ERROR:播放录音异常,通知一个并没有播放的item已经播放完毕",index);
             }
             this.itemStopPlay(newData,this.selectIndex);
             if(blnAutoplay){
@@ -209,8 +209,7 @@ export default class ExamResultList extends Component {
         );
     }
 
-    addListRefs = (rowID, ref)=> {
-        console.log("addListRefs:",rowID,ref);
+    addListRefs = (rowID, ref)=> {       
         if (this.arrListRefs.length == this.listData.length) {
             return;
         }
@@ -238,8 +237,8 @@ export default class ExamResultList extends Component {
     }
 
     _onScroll=(event)=>{
-        //console.log("_onScroll Offset:",event.nativeEvent.contentOffset);
-        //console.log("_onScroll Offset:",event.nativeEvent.contentSize);
+        //logf("_onScroll Offset:",event.nativeEvent.contentOffset);
+        //logf("_onScroll Offset:",event.nativeEvent.contentSize);
         this.listLayout.x = event.nativeEvent.contentOffset.x;
         this.listLayout.y = -event.nativeEvent.contentOffset.y;
         this.listLayout.width = event.nativeEvent.contentSize.width;
@@ -247,7 +246,7 @@ export default class ExamResultList extends Component {
     }
 
     _onContentSizeChange =(width,height)=>{
-        console.log("_onContentSizeChange",width,height);
+        logf("_onContentSizeChange",width,height);
         this.listViewHeight = height;
     }
 
@@ -283,15 +282,15 @@ export default class ExamResultList extends Component {
         var bottomH = fontSize*4;//底部TabBar的高度
         var changeHight = 0//选中时高度的变化值(由于无法及时捕获到子对象的高度变化)
         var itemLayout = this.arrListRefs[this.selectIndex].getLayout();//获取被选中的item相对于ListView的位置值
-        console.log("itemLayout 高度:",this.selectIndex,itemLayout.height,itemLayout.y)
+        logf("itemLayout 高度:",this.selectIndex,itemLayout.height,itemLayout.y)
 
         var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置
-        console.log("目标位置的Y坐标:",targetY);
-        console.log("此时listView Y的偏移:",this.listLayout.y);
+        logf("目标位置的Y坐标:",targetY);
+        logf("此时listView Y的偏移:",this.listLayout.y);
         var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置
-        console.log("listView相对屏幕的位置:",listViewY);
+        logf("listView相对屏幕的位置:",listViewY);
         var itemY = listViewY + itemLayout.y ; //被选中的item在屏幕中的位置
-        console.log("被选中的item在屏幕中位置:",itemY);
+        logf("被选中的item在屏幕中位置:",itemY);
         var itemOffY = targetY - itemY//计算出item与屏幕中心的差距
         if(targetY > itemY){
             itemOffY -= changeHight/2;
@@ -299,7 +298,7 @@ export default class ExamResultList extends Component {
             itemOffY += changeHight/2;
         }
 
-        console.log("被选中Item 与目标位置差距:",itemOffY);
+        logf("被选中Item 与目标位置差距:",itemOffY);
         var nextListY = this.listLayout.y + itemOffY; //通过当前位置与差距,计算出下一个位置
         logf("计算出的nextListY:",nextListY);
 
