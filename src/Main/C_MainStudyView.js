@@ -112,6 +112,7 @@ export default class C_MainStudyView extends Component {
         renderData={course}
         renderRight={this.renderMsg.bind(this)}
         blnCanMove={true}
+        blnRenderCom={true}
         parents={this}
         index={rowID}
         deleteBack={(key)=>{
