@@ -362,9 +362,9 @@ let ss = StyleSheet.create({
   },
   addBotton:{
     position: 'absolute',
-    bottom: 0,
+    bottom: -1,
     left: 0,
-    height: ScreenHeight * 0.1,
+    height: parseInt(ScreenHeight * 0.1) + 1,
     width: ScreenWidth,
     alignItems: 'center',
     justifyContent: 'center',

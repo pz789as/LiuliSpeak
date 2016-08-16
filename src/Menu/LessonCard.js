@@ -191,67 +191,47 @@ class LessonCard extends Component {
 		fs.exists(path)
 		.then((result)=>{
 			if (result) {//路径存在
-				var count = 0;
-				var exits = 0;
-				for(var idx=0; idx < this.props.course.contents.length; idx++){
-					fs.stat(path+'/'+this.props.course.contents[idx].mp3)
-					.then((resultFile)=>{
-						count++;
-						if (resultFile.size > 0){
-							exits++;
-						}
-						if (count == this.props.course.contents.length){
-							if (exits == this.props.course.contents.length){//音频文件都大于0
-								this.setState({
-									isDown: true,
-								});
-							}
-						}
-					})
-					.catch((err)=>{
-						count++;
+				this.readExam(path, 0);
+			}
+		})
+		.catch((err)=>{
+			console.log('err:', err);
+		});
+	}
+	readExam(path, idx) {
+		fs.stat(path+'/'+this.props.course.contents[idx].mp3)
+		.then((resultFile)=>{
+			if (resultFile.size == this.props.course.contents[idx].mp3size){
+				console.log(idx);
+				idx ++;
+				if (idx == this.props.course.contents.length) {
+					this.setState({
+						isDown: true,
 					});
+				}else {
+					this.readExam(path, idx);
 				}
 			}
 		})
 		.catch((err)=>{
-			logf('err:', err);
+			console.log('err', err);
 		});
 	}
-	checkMp3(path){
+ 	checkMp3(path){
 		fs.exists(path)
 		.then((result)=>{
 			if (result) {//路径存在
-				var count = 0;
-				var exits = 0;
-				for(var idx=0; idx < this.props.course.contents.length; idx++){
-					fs.stat(path+'/'+this.props.course.contents[idx].mp3)
-					.then((resultFile)=>{
-						count++;
-						if (resultFile.size > 0){//存在却大于零
-							exits++;
-						}
-						if (count == this.props.course.contents.length){//音频文件都大于0
-							if (exits == this.props.course.contents.length){
-								this.gotoNext();
-							}else{
-								this.downLoadMp3(path);
-							}
-						}
-					})
-					.catch((err)=>{
-						count++;
-						if (count == this.props.course.contents.length){//不存在或者其他错误
-							this.downLoadMp3(path);
-						}
-					});
+				if (this.state.isDown){
+					this.gotoNext();
+				}else{
+					this.downLoadMp3(path);
 				}
 			}else{
 				this.makeDir(path);
 			}
 		})
 		.catch((err)=>{
-			logf('err:', err);
+			console.log('err:', err);
 		});
 	}
 	makeDir(path){
