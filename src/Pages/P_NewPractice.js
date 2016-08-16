@@ -241,7 +241,7 @@ export default class NewPractice extends Component {
                     <Image style={styles.backImg} source={ImageRes.ic_back}/>
                 </TouchableOpacity>
                 <Text style={styles.title}>修炼</Text>
-                {/*<View style={styles.backImg}></View>*/}<View style={styles.arrow}></View>{/*左边这个纯粹用来对齐,无其他功能*/}
+                {<View style={styles.backImg}></View>}{/*左边这个纯粹用来对齐,无其他功能*/}
             </View>
         );
     }
@@ -301,7 +301,7 @@ export default class NewPractice extends Component {
                       pageSize={1} //每次新增渲染多少条
                       scrollRenderAheadDistance={ScreenHeight/4} //离屏幕底部多少距离时渲染
                       onScroll= {this._onScroll.bind(this)}
-                      scrollEventThrottle={100} //对onScroll回调频率的控制(仅限IOS)
+                      scrollEventThrottle={10} //对onScroll回调频率的控制(仅限IOS)
                       onContentSizeChange={this._onContentSizeChange.bind(this)}
             />
         );
@@ -315,12 +315,13 @@ export default class NewPractice extends Component {
        
         var topH = fontSize*4;//顶部TabBar的高度
         var bottomH = fontSize*4;//底部TabBar的高度
-        var changeHight = fontSize*7//选中时高度的变化值(由于无法及时补货到子对象的高度变化)
+        var changeHight = 0//选中时高度的变化值(由于无法及时补货到子对象的高度变化)
         var itemLayout = this.listItemRefs[this.selectIndex].getLayout();//获取被选中的item相对于ListView的位置值
         //console.log("itemLayout 高度:",this.selectIndex,itemLayout.height,itemLayout.y)
 
-        var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置         
-        var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置        
+        var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置
+        var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置
+        //..logf("OnScrollListView targetY:",targetY);
         var itemY = listViewY + itemLayout.y ; //被选中的item在屏幕中的位置
         
         var itemOffY = targetY - itemY//计算出item与屏幕中心的差距
@@ -330,6 +331,7 @@ export default class NewPractice extends Component {
             itemOffY += changeHight/2;
         }        
         var nextListY = this.listLayout.y + itemOffY; //通过当前位置与差距,计算出下一个位置
+        //..logf("OnScrollListView nextListY:",nextListY);
         nextListY = Math.min(0,nextListY);
         var maxListY = -(Math.max(this.listViewHeight,(ScreenHeight - topH - bottomH))  - (ScreenHeight - bottomH) + topH);
         
@@ -473,13 +475,15 @@ const styles = StyleSheet.create({
         height: fontSize * 2.3,
     },
     arrow:{
-        backgroundColor:"green",
-        width:fontSize,
-        height:fontSize,
-        borderTopWidth: fontSize / 2,
-        borderRightWidth: fontSize / 2,
-        borderBottomWidth: fontSize / 2,
-        borderLeftWidth: fontSize / 2,
+        //backgroundColor:'red',
+        width:0,
+        height:0,
+        borderBottomColor:"green",
+        borderBottomWidth:20,
+        borderLeftWidth:10,
+        borderLeftColor:'transparent',
+        borderRightWidth:10,
+        borderRightColor:'transparent',
     },
     listView:{
         flex:1,
