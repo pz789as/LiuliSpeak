@@ -186,7 +186,7 @@ export default class P_Exam extends Component {
         var fileName = getExamFilePath(app.temp.lesson.key, app.temp.courseID, index);
         testText = testText.replace(/_/g, "");
         //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
-        this.refs.btnRecord.StartISE(testText, category, fileName);
+        this.refs.btnRecord.StartISE(testText, category, fileName,index);
     }
 
     showBtnRecord = ()=> {//将录音按钮显示出来
@@ -213,7 +213,10 @@ export default class P_Exam extends Component {
         }
     }
 
-    callbackBtnRecord(msg,score,date) {
+    callbackBtnRecord(msg,score,date,index) {
+        if(this.state.nowIndex != index){
+            console.log("Exam界面评测异常,评测返回的数据并不是当前评测的数据")
+        }
         if (msg == "record") {
             this.initRecord(this.state.nowIndex);
         } else if (msg == "stop") {

@@ -33,32 +33,33 @@ export default class BtnRecording extends Component {
         // 初始状态
         this.state = {
             recordState: 0,//0:等待录音,1:录音中,2计算成绩
-            progress: 0,//录音音量
-            //scaleAnim: this.props.blnScaleAnimate ? new Animated.Value(0) : new Animated.Value(1),
+            progress: 0,//录音音量            
             opacityAnim: this.props.blnOpacityAnimate ? new Animated.Value(0) : new Animated.Value(1),
         };
         this.listener = null;
         this.volumeListener = null;
         this.speechStatus = XFiseBridge.SPEECH_STOP;
         this.useTime = new Date();
+
+        XFiseBridge.getStatus((error, event)=>{
+            this.speechStatus = event;
+        });
     }
 
-    static propTypes = {
-        //blnScaleAnimate: PropTypes.bool,//是否有出现动画
-        blnOpacityAnimate: PropTypes.bool,//是否有出现动画
-        //animateDialy: PropTypes.number,//如果blnAnimate为true,必须设置该值              
+    static propTypes = {        
+        blnOpacityAnimate: PropTypes.bool,//是否有出现动画                    
         btnCallback: PropTypes.func,
         nowPage:PropTypes.string,
     };
 
-    static defaultProps = {
-        //blnScaleAnimate:false,
+    static defaultProps = {        
         animateDialy: 0,
         blnOpacityAnimate: false,
         nowPage:'Practice'
     };
 
     componentWillUnmount() {
+        logf("录音按钮被释放了");
         this.cancelRecord();
         this._releaseRecordListener();
     }
@@ -70,22 +71,33 @@ export default class BtnRecording extends Component {
         this.volumeListener = null;
     }
 
-    _onPress = ()=> {//发送点击事件     
+    _onPress = ()=> {//发送点击事件
         if(this.props.nowPage == 'Practice'){
             if(practiceInAutoplay){
                 return;
             }
         }
 
-        logf("C_BtnRecording on Press");
-        if (this.state.recordState == 0) {
-            this.props.btnCallback("record");
-        } else if (this.state.recordState == 1) {
-            this.props.btnCallback("stop");
-        }
+        XFiseBridge.getStatus((error, event)=>{
+            this.speechStatus = event;
+            logf("this.speechStatus:",this.speechStatus);
+            if (this.speechStatus != XFiseBridge.SPEECH_STOP){
+                logf("这样能行吗,能正确的获取到值吗")
+                if(this.state.recordState == 0){
+                    return;
+                }
+            }
+            //logf("C_BtnRecording on Press");
+            if (this.state.recordState == 0) {
+                this.props.btnCallback("record");
+            } else if (this.state.recordState == 1) {
+                this.props.btnCallback("stop");
+            }
+        });
     }
 
     componentWillMount() {
+        logf("录音按钮被加载了")
         this.listener = RCTDeviceEventEmitter.addListener('iseCallback', this.iseCallback.bind(this));
         this.volumeListener = RCTDeviceEventEmitter.addListener('iseVolume', this.iseVolume.bind(this));
     }
@@ -173,12 +185,12 @@ export default class BtnRecording extends Component {
         );
     }
 
-    StartISE(msg, category, fileName) {
-        this.category = category;
-        this.startRecord(msg, category, fileName);
+    StartISE(msg, category, fileName,index) {
+        this.startRecord(msg, category, fileName,index);
     }
 
-    startRecord(msg, category, fileName) {
+    startRecord(msg, category, fileName,index) {
+        logf("StartRecord Now INDEX:",index+"")
         if (this.speechStatus == XFiseBridge.SPEECH_STOP) {
             var startInfo = {
                 SAMPLE_RATE: '16000',
@@ -193,7 +205,7 @@ export default class BtnRecording extends Component {
                 TEXT: msg,//需要评测的内容
                 ISE_AUDIO_PATH: fileName,
             };
-            XFiseBridge.start(startInfo);
+            XFiseBridge.start(startInfo,index+"",category);
         } else if (this.speechStatus == XFiseBridge.SPEECH_WORK) {
             XFiseBridge.stop();
         } else if (this.speechStatus == XFiseBridge.SPEECH_START) {
@@ -223,12 +235,12 @@ export default class BtnRecording extends Component {
 
     iseCallback(data) {//接受到讯飞原生传过来的数据,包含引擎当前状态和数值 data={code:,result:}        
         if (data.code == XFiseBridge.CB_CODE_RESULT) {
-            //logf("录音结束,返回结果,调用 this.resultParse");
-            this.resultParse(data.result);//录音结束返回结果数据去前端解析,并调用btnCallback将结果给父组件
+            logf("录音结束,返回结果,调用 this.resultParse,",data.index,data.category);
+            this.resultParse(data.result,data.index,data.category);//录音结束返回结果数据去前端解析,并调用btnCallback将结果给父组件
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
         else if (data.code == XFiseBridge.CB_CODE_ERROR) {
-            this.props.btnCallback('error',0, data.result);//返回讯飞给的评测异常错误
+            this.props.btnCallback('error',0, data.result,data.index);//返回讯飞给的评测异常错误
             this.recordEnd();
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
@@ -249,18 +261,20 @@ export default class BtnRecording extends Component {
         else {//..真的是未知的错误
             logf('传回其他参数', data.result);
             this.recordEnd();
-            this.props.btnCallback('error',0,'unKnow');//返回未知的错误
+            this.props.btnCallback('error',0,'unKnow',data.index);//返回未知的错误
             this.speechStatus = XFiseBridge.SPEECH_STOP;
         }
     }
 
-    resultParse(result) { //唐7-11 根据结果计算分数
+    resultParse(result,index,category) { //唐7-11 根据结果计算分数
+        //logf("resultParse:",result);
         var obj = eval('(' + result + ')');
         var isLost = false;
         var pointCount = 0;//总点数 = 字数X3；3表示声母，韵母，声调。详细规则可以再探讨
         var lostPoint = 0;
         var syllablesScore = [];//每个字的评测情况
-        if (this.category == 'read_syllable') {
+        logf("this.category:",category);
+        if (category == 'read_syllable') {
             var syllable = obj.sentences[0].words[0].syllables[0];
             pointCount += 3;
             lostPoint += 3;
@@ -278,7 +292,7 @@ export default class BtnRecording extends Component {
                 lostPoint--;
             }
             syllablesScore.push(tmpPoint);
-        } else if (this.category == 'read_word') {
+        } else if (category == 'read_word') {
             var word = obj.sentences[0].words[0];
             for (var idx = 0; idx < word.syllables.length; idx++) {
                 var syllable = word.syllables[idx];
@@ -318,7 +332,7 @@ export default class BtnRecording extends Component {
                     }
                 }
             }
-        } else if (this.category === 'read_sentence') {
+        } else if (category === 'read_sentence') {
             for(var i=0;i<obj.sentences.length;i++){
                 var sentence = obj.sentences[i];
                 for (var j = 0; j < sentence.words.length; j++) {
@@ -382,7 +396,7 @@ export default class BtnRecording extends Component {
                 }
             }
         }
-
+        logf("lostPoint:",lostPoint,"pointCount:",pointCount);
         if (lostPoint < 0) lostPoint = 0;
         var score = lostPoint / pointCount * 100;
         /*logf("得分情况:",lostPoint,"总分:",pointCount);
@@ -392,7 +406,7 @@ export default class BtnRecording extends Component {
         logf("老算法得分:",lostPoint / pointCount * 100);*/
         logf("评测分数: " + score);
         logf("每个汉字情况:" + syllablesScore);
-        this.props.btnCallback("result", parseInt(score), syllablesScore);
+        this.props.btnCallback("result", parseInt(score), syllablesScore,index);
     }
 }
 

@@ -55,7 +55,6 @@ export default class AllBottons extends Component {
         this.blnRelease = false;
         this.buttonStatus = BUTTON_STATUS.NORMAL;
         this.recordFileName = getAudioFilePath(app.temp.lesson.key, app.temp.courseID, this.props.itemIndex);
-        
     }
 
     static propTypes = {
@@ -63,6 +62,7 @@ export default class AllBottons extends Component {
         dialogInfo: PropTypes.object,
         btnCallback: PropTypes.func,
         getRate: PropTypes.func,
+        itemIndex:PropTypes.number,
     };
 
     static defaultProps = {
@@ -73,7 +73,7 @@ export default class AllBottons extends Component {
         if (this.blnRelease)return;
         this.blnAnim = true;
         var timing = Animated.timing;
-        logf("-----startAnim-----", this.props.itemIndex, this.blnRelease)
+        //..logf("-----startAnim-----", this.props.itemIndex, this.blnRelease)
         Animated.parallel(this.state.anim.map(
             (parallel, i)=> {
                 return timing(parallel, {toValue: 1, duration: 200, delay: i * 50})
@@ -187,7 +187,7 @@ export default class AllBottons extends Component {
         this.refs.btnRecord.stopRecord();
     }
 
-    overRecording(msg,score,data) {//录音结束
+    overRecording(msg,score,data,index) {//录音结束
         if (this.buttonStatus != BUTTON_STATUS.RECORDING) {
             logf("overRecording,录音按钮给我返回正确结果,此时item状态却不是录音状态,当前状态:", this.buttonStatus);
             logf("可能是在录音评测阶段被其他操作给打断了,可结果还是被异步的返回了");
@@ -196,16 +196,18 @@ export default class AllBottons extends Component {
             this.buttonStatus = BUTTON_STATUS.NORMAL;//只有在状态没被打断时才将状态置回
         }
 
-        var blnSuccess = true;         
+        var blnSuccess = true;
         if(msg == 'error'){
             blnSuccess = false;
         }
-        var pcResult = {blnSuccess: blnSuccess, score: score, syllableScore: data};
-        logf("检查pcResult.syllable:", pcResult.syllableScore);
+        var pcResult = {blnSuccess: blnSuccess, score: score, syllableScore: data,index:Number(index)};
+        logf("检查pcResult.syllable:",index, pcResult.syllableScore);
         //..this.setPingceResult(pcResult);
         this.props.btnCallback("btnRecord", pcResult);
         if (this.btnCount == 3) {
-            this.refs.btnRecPlay.updateFile();
+            if(index == this.props.itemIndex){//只有在当前返回结果正是此组件需要的结果时才需要更新录音音频
+                this.refs.btnRecPlay.updateFile();
+            }
             //通知录音按钮更新录音文件
         } else {
             logf("显示播放录音的按钮咧")
@@ -222,7 +224,7 @@ export default class AllBottons extends Component {
         logf(testText + " " + itemIndex + " " + dialogInfo.Category);
         this.refs.btnRecord.StartISE(testText,
             dialogInfo.Category,
-            fileName);
+            fileName,this.props.itemIndex);
     }
 
     playRecordAudio() {
@@ -263,16 +265,16 @@ export default class AllBottons extends Component {
         }
     }
 
-    callbackBtnRecord(msg, score,data) {
+    callbackBtnRecord(msg, score,data,index) {
         if (this.blnRelease)return;
         if (msg == "record") {
             this.startRecording();
         } else if (msg == "stop") {
             this.stopRecording();
         } else if (msg == "error") {
-            this.overRecording(msg,score,data);//如果出现异常,参数这样传
+            this.overRecording(msg,score,data,index);//如果出现异常,参数这样传
         } else if (msg == "result") {
-            this.overRecording(msg,score,data);//这样处理貌似不太合理,先凑合用吧~~
+            this.overRecording(msg,score,data,index);//这样处理貌似不太合理,先凑合用吧~~
         }
     }
 
@@ -316,7 +318,7 @@ export default class AllBottons extends Component {
                               btnCallback={this.callbackBtnPlay.bind(this)} rate={()=>1}/>
         }
         if (i == 1) {
-            return <BtnRecord key={1} ref="btnRecord" btnCallback={this.callbackBtnRecord.bind(this)}/>
+            return <BtnRecord key={1} ref={"btnRecord"} btnCallback={this.callbackBtnRecord.bind(this)}/>
         }
         if (i == 2) {
             return <BtnRecPlayer key={2} ref="btnRecPlay"

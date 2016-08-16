@@ -19,12 +19,17 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(initISE:(NSDictionary*)infos)
 {
   NSLog(@"init ise");
+  self.bridgeStatus = SPEECH_STOP;
   [_xunfei initISE:infos];
 }
 
-RCT_EXPORT_METHOD(start:(NSDictionary*) infos)
+RCT_EXPORT_METHOD(start:(NSDictionary*) infos bridgeIndex:(NSString*)index bridgeCategory:(NSString*)category)
 {
   NSLog(@"start ise");
+  //NSNumber* numVolume = [NSNumber numberWithInt:volume];
+  self.bridgeIndex = [NSString stringWithString:index];
+  self.bridgeCategory = [NSString stringWithString:category];
+  //NSLog(@"BridgeIndex In Start:%@",self.bridgeIndex);
   [_xunfei startEvaluator:infos iseBridge:self];
 }
 
@@ -58,6 +63,11 @@ RCT_EXPORT_METHOD(stopPcm)
 RCT_EXPORT_METHOD(pausePcm)
 {
   [_xunfei pausePcm];
+}
+
+RCT_EXPORT_METHOD(getStatus:(RCTResponseSenderBlock)callback)
+{
+  callback(@[[NSNull null], self.bridgeStatus]);
 }
 
 RCT_REMAP_METHOD(getPcmCurrentTime,
@@ -116,11 +126,18 @@ RCT_REMAP_METHOD(initPcm,
 
 -(void)iseCallback:(NSString*)code result:(NSString*) result
 {
+  if ([code isEqualToString:CB_CODE_STATUS]){
+    self.bridgeStatus = result;
+  }else if ([code isEqualToString:CB_CODE_RESULT] || [code isEqualToString:CB_CODE_ERROR]){
+    self.bridgeStatus = SPEECH_STOP;
+  }
   [_bridge.eventDispatcher
    sendDeviceEventWithName:@"iseCallback"
    body:@{
           @"code":code,
-          @"result":result
+          @"result":result,
+          @"index":self.bridgeIndex,
+          @"category":self.bridgeCategory
           }];
 }
 

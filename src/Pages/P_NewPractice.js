@@ -1,4 +1,5 @@
 'use strict';
+
 import React, {Component, PropTypes} from 'react'
 import {View, Image, Text, TouchableOpacity, StyleSheet, ListView, InteractionManager, AlertIOS} from 'react-native'
 import {
@@ -188,9 +189,10 @@ export default class NewPractice extends Component {
 
     setItemScore = (index, score, syllableScore)=> {
         logf("setItemScore:",syllableScore);
+
         var newData = this.listData.slice();
         newData[index] = {
-            blnSelect: true,
+            blnSelect: this.listData[index].blnSelect,
             dialogData: this.listData[index].dialogData,
             showType: this.listData[index].showType,
             p_Score: score,
@@ -239,7 +241,7 @@ export default class NewPractice extends Component {
                     <Image style={styles.backImg} source={ImageRes.ic_back}/>
                 </TouchableOpacity>
                 <Text style={styles.title}>修炼</Text>
-                <View style={styles.backImg}></View>{/*左边这个纯粹用来对齐,无其他功能*/}
+                {/*<View style={styles.backImg}></View>*/}<View style={styles.arrow}></View>{/*左边这个纯粹用来对齐,无其他功能*/}
             </View>
         );
     }
@@ -469,6 +471,15 @@ const styles = StyleSheet.create({
     backImg: {
         width: fontSize * 2.3,
         height: fontSize * 2.3,
+    },
+    arrow:{
+        backgroundColor:"green",
+        width:fontSize,
+        height:fontSize,
+        borderTopWidth: fontSize / 2,
+        borderRightWidth: fontSize / 2,
+        borderBottomWidth: fontSize / 2,
+        borderLeftWidth: fontSize / 2,
     },
     listView:{
         flex:1,

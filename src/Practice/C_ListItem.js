@@ -43,7 +43,6 @@ export default class ListItem extends Component {
         super(props);
         this.itemIndex = this.props.itemIndex;
         this.state = {};
-        this.syllableScore = this.props.syllableScore;
         this.useTime = new Date();
         var strUser = "user" + this.props.dialogInfo.user;
 
@@ -135,7 +134,7 @@ export default class ListItem extends Component {
                     <Sentence ref="mySentence" words={itemWordCN.words}
                               pinyins={itemWordCN.pinyins}
                               touch={this.state.touch}
-                              arrScore={this.syllableScore}
+                              arrScore={this.props.syllableScore}
                               clickEvent = {this._onPress.bind(this)}
                               touchDisabled = {false}
                     /> }
@@ -243,32 +242,63 @@ export default class ListItem extends Component {
     }
 
     setPingceResult(result) {//唐7-11
-        logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore);
-        const {blnSuccess, score, syllableScore} = result;
+        logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore + "--Index--",result.index);
+        const {blnSuccess, score, syllableScore,index} = result;
         if (blnSuccess) {
-            this.syllableScore = syllableScore;
             //..this.refs.mySentence.setPingce(syllableScore); //评测打分..
             var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
             if (score < 63) { //如果没及格,就别给随机分数了
                 rndScore = score;
             }
-            app.saveSingleScore(this.itemIndex, 0, rndScore, this.syllableScore)
-            this.props.itemCallback(this.itemIndex,"PingCe",rndScore,this.syllableScore)
+            app.saveSingleScore(index, 0, rndScore, syllableScore)
+            this.props.itemCallback(index,"PingCe",rndScore,syllableScore)
+            //..app.saveSingleScore(this.itemIndex, 0, rndScore, syllableScore)
+            //..this.props.itemCallback(this.itemIndex,"PingCe",rndScore,syllableScore)
         } else {
             if (syllableScore == 0) {
                 logf("未知的异常");
-            } else {                
+            } else {
                 var errKey = syllableScore.slice(0,5);
                 logf("练习中讯飞返回的错误代码:", errKey);
                 var errMessage = app.getErrorMsg(errKey);
                 this.showToast(errMessage)
             }
-            this.syllableScore = "error";
-            //..this.refs.mySentence.setPingce("error");
-            app.saveSingleScore(this.itemIndex, 0, score, "error")
-            this.props.itemCallback(this.itemIndex,"PingCe",score,"error")
-        }  
+            app.saveSingleScore(index, 0, score, "error")
+            this.props.itemCallback(index,"PingCe",score,"error")
+            // app.saveSingleScore(this.itemIndex, 0, score, "error")
+            // this.props.itemCallback(this.itemIndex,"PingCe",score,"error")
+        }
     }
+    // setPingceResult(result) {//唐7-11
+    //     logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore + "--Index--",result.index);
+    //     const {blnSuccess, score, syllableScore,index} = result;
+    //     if (blnSuccess) {
+    //         this.syllableScore = syllableScore;
+    //         //..this.refs.mySentence.setPingce(syllableScore); //评测打分..
+    //         var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
+    //         if (score < 63) { //如果没及格,就别给随机分数了
+    //             rndScore = score;
+    //         }
+    //         app.saveSingleScore(index, 0, rndScore, this.syllableScore)
+    //         this.props.itemCallback(index,"PingCe",rndScore,this.syllableScore)
+    //         //..app.saveSingleScore(this.itemIndex, 0, rndScore, this.syllableScore)
+    //         //..this.props.itemCallback(this.itemIndex,"PingCe",rndScore,this.syllableScore)
+    //     } else {
+    //         if (syllableScore == 0) {
+    //             logf("未知的异常");
+    //         } else {
+    //             var errKey = syllableScore.slice(0,5);
+    //             logf("练习中讯飞返回的错误代码:", errKey);
+    //             var errMessage = app.getErrorMsg(errKey);
+    //             this.showToast(errMessage)
+    //         }
+    //         this.syllableScore = "error";
+    //         app.saveSingleScore(index, 0, score, "error")
+    //         this.props.itemCallback(index,"PingCe",score,"error")
+    //         // app.saveSingleScore(this.itemIndex, 0, score, "error")
+    //         // this.props.itemCallback(this.itemIndex,"PingCe",score,"error")
+    //     }
+    // }
     
     
     toast = null;    

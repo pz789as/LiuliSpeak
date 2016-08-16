@@ -28,7 +28,7 @@
 
 @interface XFiseBridge : NSObject<RCTBridgeModule>
 
--(void)start:(NSDictionary*) infos;
+-(void)start:(NSDictionary*) infos bridgeIndex:(NSString*)index bridgeCategory:(NSString*)category;
 -(void)stop;
 -(void)cancel;
 -(void)iseCallback:(NSString*)code result:(NSString*) result;
@@ -39,5 +39,7 @@
 -(void)pausePcm;
 
 @property (nonatomic, retain)XunfeiISE* xunfei;
-
+@property(nonatomic,strong)NSString* bridgeIndex;
+@property(nonatomic,strong)NSString* bridgeCategory;
+@property(nonatomic,strong)NSString* bridgeStatus;
 @end
