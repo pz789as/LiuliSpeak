@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "10",
 	"titleCN" : "你喜欢运动吗？",
 	"titleEn" : "Do you like sports?",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "40660",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "25540",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "87460",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "43540",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -59,6 +63,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "79540",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -69,6 +74,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "70900",
 			"user" : "4",
 			}],
 		},{
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "75220",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "73780",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -104,6 +112,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "47860",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -114,6 +123,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "61540",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -124,6 +134,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "66580",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -134,6 +145,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "55060",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -144,6 +156,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "25540",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -154,6 +167,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "48580",
 			"user" : "5",
 			}],
 		},{
@@ -169,6 +183,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "39940",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -179,6 +194,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "43540",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -189,6 +205,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "40660",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -199,6 +216,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "109780",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -209,6 +227,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "75220",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -219,6 +238,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog20.mp3",
+			"mp3size" : "20499",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -229,6 +249,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog21.mp3",
+			"mp3size" : "32304",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -239,6 +260,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
+			"mp3size" : "104020",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -249,6 +271,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog23.mp3",
+			"mp3size" : "83860",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -259,6 +282,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
+			"mp3size" : "84580",
 			"user" : "2",
 			}],
 		},{
@@ -274,6 +298,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog25.mp3",
+			"mp3size" : "42100",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -284,6 +309,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
+			"mp3size" : "49300",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -294,6 +320,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog27.mp3",
+			"mp3size" : "42820",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -304,6 +331,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog28.mp3",
+			"mp3size" : "78820",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -314,6 +342,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog29.mp3",
+			"mp3size" : "86020",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -324,6 +353,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog30.mp3",
+			"mp3size" : "41380",
 			"user" : "5",
 			}],
 	}]

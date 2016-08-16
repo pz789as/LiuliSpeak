@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "6",
 	"titleCN" : "讨论天气",
 	"titleEn" : "Weather discussion",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "61824",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "44544",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "78384",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "62544",
 			"user" : "11",
 			}],
 		},{
@@ -64,6 +68,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "61824",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -74,6 +79,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "70464",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "76224",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "28704",
 			"user" : "15",
 			}],
 		},{
@@ -109,16 +117,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "40944",
 			"user" : "12",
 			},{
 			"cn" : {
 				"words" : "真的_吗？_吃_完_午饭_你_想_堆雪人_吗？",
-				"pinyins" : "zhēn de_ma_chī_wán_wǔ fàn_nǐ_xiǎng_duī xuě rén_ma",
+				"pinyins" : "zhēn de_ma_Chī_wán_wǔ fàn_nǐ_xiǎng_duī xuě rén_ma",
 				},
 			"en" : "really? After lunch you do want to make a snowman?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "60384",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -129,6 +139,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "71184",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -139,6 +150,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "81264",
 			"user" : "11",
 			}],
 		},{
@@ -154,6 +166,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "98544",
 			"user" : "14",
 			},{
 			"cn" : {
@@ -164,6 +177,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "35904",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -174,6 +188,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "61824",
 			"user" : "14",
 			},{
 			"cn" : {
@@ -184,6 +199,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "70464",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -194,6 +210,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "122304",
 			"user" : "14",
 			},{
 			"cn" : {
@@ -204,6 +221,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "69744",
 			"user" : "11",
 			}],
 		},{
@@ -219,6 +237,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "113664",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -229,6 +248,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog20.mp3",
+			"mp3size" : "68304",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -239,6 +259,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog21.mp3",
+			"mp3size" : "35184",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -249,6 +270,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
+			"mp3size" : "52464",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -259,6 +281,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog23.mp3",
+			"mp3size" : "66864",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -269,6 +292,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
+			"mp3size" : "19344",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -279,6 +303,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog25.mp3",
+			"mp3size" : "32304",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -289,6 +314,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
+			"mp3size" : "34464",
 			"user" : "7",
 			}],
 	}]

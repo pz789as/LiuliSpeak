@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "3",
 	"titleCN" : "见面和问好",
 	"titleEn" : "Meet and greet",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "28988",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "28988",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -39,16 +41,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "53125",
 			"user" : "7",
 			},{
 			"cn" : {
-				"words" : "是的，_欢迎_你_来_北京。",
-				"pinyins" : "shì de,_huān yíng_nǐ_lái_běi jīng",
+				"words" : "是的，欢迎_你_来_北京。",
+				"pinyins" : "shì de, huān yíng_nǐ_lái_běi jīng",
 				},
 			"en" : "Yes, welcome to Beijing.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "40899",
 			"user" : "5",
 			}],
 		},{
@@ -64,6 +68,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "32304",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -74,6 +79,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "30144",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "30864",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "18624",
 			"user" : "15",
 			}],
 		},{
@@ -103,12 +111,13 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "你好，_迈克。_好久不见。",
-				"pinyins" : "nǐ hǎo_mài kè_hǎo jiǔbújiàn",
+				"pinyins" : "nǐ hǎo_mài kè_hǎo jiǔ bú jiàn",
 				},
 			"en" : "Hello, Mike. long time no see.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "77664",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -119,6 +128,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "81264",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -129,6 +139,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "39504",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -139,6 +150,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "58224",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -149,6 +161,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "52464",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -159,6 +172,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "38784",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -169,6 +183,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "41664",
 			"user" : "3",
 			}],
 	}]

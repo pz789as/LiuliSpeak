@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "7",
 	"titleCN" : "现在几点了？",
 	"titleEn" : "what time is it now?",
@@ -13,12 +13,13 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "爸爸，_现在_几_点_了？",
-				"pinyins" : "bà ba_xiàn zài_jī_diǎn_le？",
+				"pinyins" : "bà ba_xiàn zài_jī_diǎn_le",
 				},
 			"en" : "Dad, is it now?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "56160",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "87840",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "57600",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "64800",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -59,6 +63,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "61200",
 			"user" : "12",
 			},{
 			"cn" : {
@@ -69,6 +74,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "41760",
 			"user" : "3",
 			}],
 		},{
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "61920",
 			"user" : "13",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "40320",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -104,6 +112,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "69120",
 			"user" : "13",
 			},{
 			"cn" : {
@@ -114,6 +123,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "27984",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -124,6 +134,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "90000",
 			"user" : "13",
 			}],
 		},{
@@ -139,6 +150,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "43920",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -149,6 +161,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "37344",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -159,6 +172,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "44544",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -169,6 +183,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "50400",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -179,6 +194,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "61824",
 			"user" : "4",
 			},{
 			"cn" : {
@@ -189,6 +205,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "65424",
 			"user" : "6",
 			}],
 		},{
@@ -204,6 +221,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "59664",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -214,6 +232,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "61920",
 			"user" : "13",
 			},{
 			"cn" : {
@@ -224,6 +243,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog20.mp3",
+			"mp3size" : "59760",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -234,6 +254,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog21.mp3",
+			"mp3size" : "67680",
 			"user" : "13",
 			},{
 			"cn" : {
@@ -244,6 +265,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
+			"mp3size" : "62640",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -254,6 +276,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog23.mp3",
+			"mp3size" : "40320",
 			"user" : "13",
 			}],
 		},{
@@ -269,16 +292,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
+			"mp3size" : "34560",
 			"user" : "5",
 			},{
 			"cn" : {
 				"words" : "晚上_七点钟。",
-				"pinyins" : "wǎn shàng_qī diǎn zhōng",
+				"pinyins" : "wǎn shàng _qī diǎn zhōng",
 				},
 			"en" : "7:00 o'clock.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog25.mp3",
+			"mp3size" : "37440",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -289,6 +314,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
+			"mp3size" : "97920",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -299,6 +325,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog27.mp3",
+			"mp3size" : "28800",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -309,6 +336,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog28.mp3",
+			"mp3size" : "44544",
 			"user" : "5",
 			}],
 	}]

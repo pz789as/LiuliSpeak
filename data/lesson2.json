@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "2",
 	"titleCN" : "假期到了",
 	"titleEn" : "Holidays coming",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "43824",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "40944",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -39,16 +41,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "76224",
 			"user" : "7",
 			},{
 			"cn" : {
 				"words" : "我_还_没有_决定。_你_有_什么_建议_吗？",
-				"pinyins" : "wǒ_hái_méi yǒu_jué dìng_nǐ_yǒu_shén me_jiàn yì_ma",
+				"pinyins" : "wǒ_hái_méi yǒu_jué dìng_Nǐ_yǒu_shén me_jiàn yì_ma",
 				},
 			"en" : "I have not decided. Do you have any advice?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "48960",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -59,6 +63,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "65520",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -69,6 +74,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "26544",
 			"user" : "2",
 			}],
 		},{
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "48144",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "80544",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -104,6 +112,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "66240",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -114,6 +123,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "144000",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -124,6 +134,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "78480",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -134,6 +145,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "80640",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -144,6 +156,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "108720",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -154,6 +167,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "84240",
 			"user" : "5",
 			}],
 		},{
@@ -169,6 +183,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "84144",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -179,6 +194,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "69744",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -189,6 +205,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "62544",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -199,6 +216,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "93504",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -209,6 +227,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "92064",
 			"user" : "5",
 			}],
 	}]

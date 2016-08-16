@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "1",
 	"titleCN" : "我要学汉语",
 	"titleEn" : "I want to learn Chinese",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "40899",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "53125",
 			"user" : "1",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "28988",
 			"user" : "2",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "40899",
 			"user" : "1",
 			}],
 		},{
@@ -64,6 +68,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "16752",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -74,6 +79,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "16752",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -84,6 +90,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "16752",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -94,6 +101,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "20784",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -104,6 +112,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "20784",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -112,8 +121,9 @@
 				},
 			"en" : "Chinese class is very interesting.",
 			"Category" : "read_sentence",
-			"gold" : "s",
+			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "20784",
 			"user" : "15",
 			}],
 	}]

@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "9",
 	"titleCN" : "购买衣服",
 	"titleEn" : "Buy clothes",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "49300",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "35184",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "47140",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "29860",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -59,6 +63,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "52900",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -69,16 +74,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "36340",
 			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "好_的，_请问_您_要_什么_颜色_呢？",
-				"pinyins" : "hǎo_de_qǐng wèn_nín_yào_shén me_yán sè_ne ",
+				"pinyins" : "hǎo_de_qǐng wèn_nín_yào_shén me_yán sè_ne",
 				},
 			"en" : "Well, what color do you want it?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "69460",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -89,6 +96,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "44980",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -99,6 +107,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "54340",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -109,6 +118,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "27700",
 			"user" : "3",
 			}],
 		},{
@@ -124,6 +134,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "66144",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -134,6 +145,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "87460",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -144,6 +156,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "52464",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -154,6 +167,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "55060",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -164,6 +178,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "65860",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -174,6 +189,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "44260",
 			"user" : "15",
 			}],
 		},{
@@ -189,6 +205,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "92500",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -199,6 +216,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "65140",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -209,6 +227,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "51744",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -219,6 +238,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog20.mp3",
+			"mp3size" : "70180",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -229,6 +249,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog21.mp3",
+			"mp3size" : "76660",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -239,6 +260,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
+			"mp3size" : "58660",
 			"user" : "11",
 			},{
 			"cn" : {
@@ -249,6 +271,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog23.mp3",
+			"mp3size" : "78820",
 			"user" : "15",
 			}],
 		},{
@@ -264,6 +287,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
+			"mp3size" : "110500",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -274,6 +298,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog25.mp3",
+			"mp3size" : "68740",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -284,6 +309,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
+			"mp3size" : "49300",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -294,6 +320,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog27.mp3",
+			"mp3size" : "49300",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -304,6 +331,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog28.mp3",
+			"mp3size" : "71620",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -314,6 +342,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog29.mp3",
+			"mp3size" : "34900",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -324,6 +353,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog30.mp3",
+			"mp3size" : "68740",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -334,6 +364,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog31.mp3",
+			"mp3size" : "47860",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -344,6 +375,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog32.mp3",
+			"mp3size" : "78100",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -354,6 +386,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog33.mp3",
+			"mp3size" : "69024",
 			"user" : "15",
 			}],
 		},{
@@ -365,10 +398,11 @@
 				"words" : "你_好，_有_什么_可以_帮忙_的_吗？",
 				"pinyins" : "nǐ_hǎo_yǒu_shén me_kě yǐ_bāng máng_de_ma",
 				},
-			"en" : "Hello, What can I do for you?",
+			"en" : "Hello, what can I help you?",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog34.mp3",
+			"mp3size" : "70464",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -379,6 +413,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog35.mp3",
+			"mp3size" : "63700",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -389,6 +424,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog36.mp3",
+			"mp3size" : "90340",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -399,6 +435,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog37.mp3",
+			"mp3size" : "88180",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -409,6 +446,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog38.mp3",
+			"mp3size" : "35620",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -419,6 +457,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog39.mp3",
+			"mp3size" : "71620",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -429,6 +468,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog40.mp3",
+			"mp3size" : "41380",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -439,6 +479,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog41.mp3",
+			"mp3size" : "72340",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -449,6 +490,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog42.mp3",
+			"mp3size" : "85300",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -459,6 +501,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog43.mp3",
+			"mp3size" : "70900",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -469,6 +512,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog44.mp3",
+			"mp3size" : "72340",
 			"user" : "15",
 			},{
 			"cn" : {
@@ -479,6 +523,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog45.mp3",
+			"mp3size" : "51460",
 			"user" : "7",
 			}],
 	}]

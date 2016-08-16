@@ -1,4 +1,4 @@
-﻿{
+{
 	"key" : "4",
 	"titleCN" : "生病就医",
 	"titleEn" : "Sick medical treatment",
@@ -19,6 +19,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog01.mp3",
+			"mp3size" : "27984",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -29,6 +30,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog02.mp3",
+			"mp3size" : "117264",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -39,6 +41,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog03.mp3",
+			"mp3size" : "41664",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -49,6 +52,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog04.mp3",
+			"mp3size" : "61824",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -59,6 +63,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog05.mp3",
+			"mp3size" : "105744",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -69,6 +74,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog06.mp3",
+			"mp3size" : "61824",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -79,6 +85,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog07.mp3",
+			"mp3size" : "74784",
 			"user" : "5",
 			},{
 			"cn" : {
@@ -89,16 +96,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog08.mp3",
+			"mp3size" : "48144",
 			"user" : "3",
 			},{
 			"cn" : {
 				"words" : "好。_祝_你_早日_康复。_放松_点。_我_相信_医生_会_治好_的。",
-				"pinyins" : "hǎo_zhù_nǐ_zǎo rì_kāng fù_fàng sōng_diǎn_wǒ_xiāng xìn_yī shēng_huì_zhì hǎo_de",
+				"pinyins" : "hǎo_Zhù_nǐ_zǎo rì_kāng fù_fàng sōng_diǎn_wǒ_xiāng xìn_yī shēng_huì_zhì hǎo_de",
 				},
 			"en" : "OK. Hope you feel better soon. You should take it easy. I’m sure the doctor will prescribe rest, you know.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog09.mp3",
+			"mp3size" : "96384",
 			"user" : "5",
 			}],
 		},{
@@ -114,6 +123,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog10.mp3",
+			"mp3size" : "40224",
 			"user" : "8",
 			},{
 			"cn" : {
@@ -124,6 +134,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog11.mp3",
+			"mp3size" : "99984",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -134,6 +145,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog12.mp3",
+			"mp3size" : "38064",
 			"user" : "8",
 			},{
 			"cn" : {
@@ -144,6 +156,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog13.mp3",
+			"mp3size" : "94944",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -154,6 +167,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog14.mp3",
+			"mp3size" : "92064",
 			"user" : "8",
 			},{
 			"cn" : {
@@ -164,6 +178,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog15.mp3",
+			"mp3size" : "70464",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -174,6 +189,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog16.mp3",
+			"mp3size" : "30144",
 			"user" : "8",
 			},{
 			"cn" : {
@@ -184,6 +200,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog17.mp3",
+			"mp3size" : "56064",
 			"user" : "7",
 			},{
 			"cn" : {
@@ -194,6 +211,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog18.mp3",
+			"mp3size" : "24384",
 			"user" : "8",
 			},{
 			"cn" : {
@@ -204,6 +222,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog19.mp3",
+			"mp3size" : "59664",
 			"user" : "7",
 			}],
 		},{
@@ -219,6 +238,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog20.mp3",
+			"mp3size" : "79824",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -229,6 +249,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog21.mp3",
+			"mp3size" : "39504",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -239,6 +260,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog22.mp3",
+			"mp3size" : "46704",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -249,6 +271,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog23.mp3",
+			"mp3size" : "65520",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -259,6 +282,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog24.mp3",
+			"mp3size" : "36624",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -269,6 +293,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog25.mp3",
+			"mp3size" : "71280",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -279,6 +304,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog26.mp3",
+			"mp3size" : "48240",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -289,6 +315,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog27.mp3",
+			"mp3size" : "101520",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -299,6 +326,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog28.mp3",
+			"mp3size" : "64080",
 			"user" : "6",
 			},{
 			"cn" : {
@@ -309,16 +337,18 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog29.mp3",
+			"mp3size" : "91440",
 			"user" : "9",
 			},{
 			"cn" : {
 				"words" : "这是_你_的_处方。_把_它_拿到_药房_去_交给_药剂师，_他_会_告诉_你_该_怎么_服药_的。",
-				"pinyins" : "zhè shì_nǐ_de_chǔ fāng_bǎ_tā_ná dào_yào fáng_qù_jiāo gěi_yào jì shī_tā_huì_gào sù_nǐ_gāi_zěn me_fú yào_de",
+				"pinyins" : "zhè shì_nǐ_de_chù fāng_Bǎ_tā_ná dào_yào fáng_qù_jiāo gěi_yào jì shī_tā_huì_gào sù_nǐ_gāi_zěn me_fú yào_de",
 				},
 			"en" : "Here is your prescription .Take it to the chemist at the dispensary and he will tell you the dosage.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog30.mp3",
+			"mp3size" : "124464",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -329,6 +359,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog31.mp3",
+			"mp3size" : "57600",
 			"user" : "6",
 			}],
 		},{
@@ -338,12 +369,13 @@
 		"contents" : [{
 			"cn" : {
 				"words" : "早上_好，_我_想_让_你_按照_处方_配药。",
-				"pinyins" : "zǎo shàng_hǎo_wǒ_xiǎng_ràng_nǐ_àn zhào_chù fāng_pèi yào",
+				"pinyins" : "zǎo shàng_hǎo_wǒ_xiǎng_ràng_nǐ_àn zhào_chǔ fāng_pèi yào",
 				},
 			"en" : "Good morning, I'd like to have these prescriptions filled, please.",
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog32.mp3",
+			"mp3size" : "61824",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -354,6 +386,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog33.mp3",
+			"mp3size" : "133824",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -364,6 +397,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog34.mp3",
+			"mp3size" : "15744",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -374,6 +408,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog35.mp3",
+			"mp3size" : "23664",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -384,6 +419,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog36.mp3",
+			"mp3size" : "27984",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -394,6 +430,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog37.mp3",
+			"mp3size" : "20784",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -404,6 +441,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog38.mp3",
+			"mp3size" : "43824",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -414,6 +452,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog39.mp3",
+			"mp3size" : "79104",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -424,6 +463,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog40.mp3",
+			"mp3size" : "40944",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -434,6 +474,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog41.mp3",
+			"mp3size" : "45264",
 			"user" : "9",
 			},{
 			"cn" : {
@@ -444,6 +485,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog42.mp3",
+			"mp3size" : "40224",
 			"user" : "3",
 			},{
 			"cn" : {
@@ -454,6 +496,7 @@
 			"Category" : "read_sentence",
 			"gold" : "4",
 			"mp3" : "dialog43.mp3",
+			"mp3size" : "52464",
 			"user" : "9",
 			}],
 	}]
