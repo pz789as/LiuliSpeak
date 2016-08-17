@@ -254,60 +254,56 @@ class LessonCard extends Component {
 		this.goIdx = 0;
 		this.tmpLen = [];
 		this.intIdx = 0;
-		var count = 0;
-		for(var idx=0; idx < this.allIdx; idx++){
-			var localPath = path + '/' + this.course.contents[idx].mp3;
-			var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
-							(parseInt(app.temp.lesson.key)) + '/' + 
-							this.course.contents[idx].mp3;
-			logf(fromUrl);
-			logf(localPath);
-			fs.downloadFile({
-				fromUrl: fromUrl,
-				toFile: localPath,
-				begin: this.downLoadBegin.bind(this),
-				progress: this.downloadProgress.bind(this),
-			})
-			.then((response)=>{
-				count++;
-				if (response.statusCode == 200){//下载成功
-					this.intIdx++;
+		this.downLoadOne(path, this.intIdx);
+	}
+	downLoadOne(path, idx){
+		var localPath = path + '/' + this.course.contents[idx].mp3;
+		var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
+						(parseInt(app.temp.lesson.key)) + '/' + 
+						this.course.contents[idx].mp3;
+		logf(fromUrl);
+		logf(localPath);
+		fs.downloadFile({
+			fromUrl: fromUrl,
+			toFile: localPath,
+			begin: this.downLoadBegin.bind(this),
+			progress: this.downloadProgress.bind(this),
+		})
+		.then((response)=>{
+			if (response.statusCode == 200){//下载成功
+				this.intIdx++;
+				if (this.intIdx == this.allIdx){//全部下载完毕之后
+					this.clearProgressTime = setTimeout(this.clearProgress.bind(this), 100);
+				}else{
+					this.downLoadOne(path, this.intIdx);
 				}
-				if (count == this.allIdx){
-					if (this.intIdx == this.allIdx){
-						this.clearProgressTime = setTimeout(this.clearProgress.bind(this), 100);
-					}else{
-						Alert.alert(
-							'提示',
-							'下载资源出错，请稍后再试！',
-							[{
-								text: '确定', 
-								onPress: ()=>{
-									app.menu && app.menu.setDownload(false);
-									this.refs.download && this.refs.download.setProgross(0, false);
-								}
-							},]
-						);
+			}else{
+				Alert.alert(
+					'提示',
+					'下载资源出错，请稍后再试！',
+					[{
+						text: '确定', 
+						onPress: ()=>{
+							app.menu && app.menu.setDownload(false);
+							this.refs.download && this.refs.download.setProgross(0, false);
+						}
+					},]
+				);
+			}
+		})
+		.catch((err)=>{
+			Alert.alert(
+				'提示',
+				'网络信号不好，请稍后再试！',
+				[{
+					text: '确定', 
+					onPress: ()=>{
+						app.menu && app.menu.setDownload(false);
+						this.refs.download && this.refs.download.setProgross(0, false);
 					}
-				}
-			})
-			.catch((err)=>{
-				count++;
-				if (count == this.allIdx){
-					Alert.alert(
-						'提示',
-						'网络信号不好，请稍后再试！',
-						[{
-							text: '确定', 
-							onPress: ()=>{
-								app.menu && app.menu.setDownload(false);
-								this.refs.download && this.refs.download.setProgross(0, false);
-							}
-						}]
-					);
-				}
-			});
-		}
+				}]
+			);
+		});
 	}
 	downLoadBegin(result){
 		this.tmpLen[result.jobId] = 0;
