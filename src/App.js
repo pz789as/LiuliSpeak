@@ -330,7 +330,9 @@ export default class App extends Component {
         '网络未连接，请打开网络！',
         [{
           text: '确定', 
-          onPress: ()=>{}
+          onPress: ()=>{
+            app.menu && app.menu.isInDownload && app.menu.setDownload(false);
+          }
         },]
       );
     }else if (state == 'unknown' || state == 'UNKNOWN'){
@@ -340,7 +342,9 @@ export default class App extends Component {
         '当前网络不稳定，请检查网络！',
         [{
           text: '确定', 
-          onPress: ()=>{}
+          onPress: ()=>{
+            app.menu && app.menu.isInDownload && app.menu.setDownload(false);
+          }
         },]
       );
     }else{
