@@ -13,6 +13,7 @@ import {
   StatusBar,
   Navigator,
   Platform,
+  NetInfo,
 } from 'react-native';
 
 import {
@@ -77,6 +78,7 @@ export default class App extends Component {
 
     XFiseBridge.initISE({"APPID": "57562d34"});//57562d34 5743f74a
 
+    this.netState = 0;
   }
   getStatus(){
     return this.state.appStatus;
@@ -302,8 +304,48 @@ export default class App extends Component {
   componentWillMount(){
   }
   componentDidMount(){
+    NetInfo.addEventListener(
+      'change',
+      this._handleConnectionInfoChange.bind(this)
+    );
   }
   componentWillUnmount(){
+    NetInfo.removeEventListener(
+      'change',
+      this._handleConnectionInfoChange.bind(this)
+    );
+    NetInfo.fetch().done((connectionInfo)=>{
+      this.setNetState(connectionInfo);
+    });
+  }
+  _handleConnectionInfoChange(connectionInfo){
+    this.setNetState(connectionInfo);
+  }
+  setNetState(state){
+    console.log(state);
+    if (state == 'none' || state == 'NONE'){
+      this.netState = -1;
+      Alert.alert(
+        '提示',
+        '网络未连接，请打开网络！',
+        [{
+          text: '确定', 
+          onPress: ()=>{}
+        },]
+      );
+    }else if (state == 'unknown' || state == 'UNKNOWN'){
+      this.netState = -2;
+      Alert.alert(
+        '提示',
+        '当前网络不稳定，请检查网络！',
+        [{
+          text: '确定', 
+          onPress: ()=>{}
+        },]
+      );
+    }else{
+      this.netState = 0;
+    }
   }
   configureScene(route, routeStack){
     let configure = Navigator.SceneConfigs.PushFromRight;

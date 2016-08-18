@@ -248,13 +248,26 @@ class LessonCard extends Component {
 		});
 	}
 	downLoadMp3(path){
-		app.menu && app.menu.setDownload(true);
-		this.course = this.props.course;
-		this.allIdx = this.course.contents.length;
-		this.goIdx = 0;
-		this.tmpLen = [];
-		this.intIdx = 0;
-		this.downLoadOne(path, this.intIdx);
+		if (app.netState == 0){
+			this.course = this.props.course;
+			this.allIdx = this.course.contents.length;
+			this.goIdx = 0;
+			this.tmpLen = [];
+			this.intIdx = 0;
+			this.downLoadOne(path, this.intIdx);
+		}else{
+			Alert.alert(
+				'提示',
+				'当前网络未连接或不稳定，请检查网络，稍后再试！',
+				[{
+					text: '确定', 
+					onPress: ()=>{
+						app.menu && app.menu.setDownload(false);
+						this.refs.download && this.refs.download.setProgross(0, false);
+					}
+				}]
+			);
+		}
 	}
 	downLoadOne(path, idx){
 		var localPath = path + '/' + this.course.contents[idx].mp3;
@@ -312,7 +325,7 @@ class LessonCard extends Component {
 		this.goIdx += (result.bytesWritten - this.tmpLen[result.jobId])/result.contentLength;
 		this.tmpLen[result.jobId] = result.bytesWritten;
 		logf(this.goIdx);
-		this.refs.download.setProgross(this.goIdx/this.allIdx, true);
+		this.refs.download && this.refs.download.setProgross(this.goIdx/this.allIdx, true);
 	}
 	clearProgress(){
 		this.refs.download && this.refs.download.setProgross(0, false);
