@@ -192,6 +192,7 @@ export default class C_MainStudyView extends Component {
     return (
       <Progress.Bar
         style={styles.cardWordH}
+        animated={false}
         progress={progress}
         unfilledColor='#C0C0C0'
         borderWidth={1}
