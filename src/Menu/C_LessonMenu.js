@@ -154,6 +154,9 @@ class C_LessonMenu extends Component {
     this.props.selectListItem(rowID, kind);
   }
   AnimatedInt() {
+    if (app.menu && app.menu.isInDownload){
+			return;
+		}
     if (!this.blnInMoreAction){
       this.blnInMoreAction = true;
       this.state.moreH.setValue(ScreenHeight);
@@ -165,6 +168,9 @@ class C_LessonMenu extends Component {
     }
   }
   AnimatedOut(){
+    if (app.menu && app.menu.isInDownload){
+			return;
+		}
     if (!this.blnInMoreAction){
       this.blnInMoreAction = true;
       Animated.timing(this.state.moveY, {
