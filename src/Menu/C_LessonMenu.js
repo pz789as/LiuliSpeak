@@ -126,6 +126,10 @@ class C_LessonMenu extends Component {
   setFresh(id){
     this.refs[id] && this.refs[id].setFresh();
   }
+  gotoMorePage(){
+    this.AnimatedOut();
+    this.props.gotoMorePage();
+  }
   drawMoreMenu(){
     if (!this.state.blnDraw) return;
     return (
@@ -134,7 +138,7 @@ class C_LessonMenu extends Component {
         </TouchableOpacity>
         <Animated.View style={[ming.moreMenu, {transform:[{translateY: this.state.moveY}]}]}>
           <View style={ming.upMenu}>
-            <TouchableOpacity style={[ming.buttonMenu, styles.center, ming.menuLine]} onPress={this.props.gotoMorePage} activeOpacity={0.5} >
+            <TouchableOpacity style={[ming.buttonMenu, styles.center, ming.menuLine]} onPress={this.gotoMorePage.bind(this)} activeOpacity={0.5} >
               <Text style={ming.menuFont}>详情</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[ming.buttonMenu, styles.center]} onPress={()=>{}} activeOpacity={0.5} >
@@ -154,9 +158,6 @@ class C_LessonMenu extends Component {
     this.props.selectListItem(rowID, kind);
   }
   AnimatedInt() {
-    if (app.menu && app.menu.isInDownload){
-			return;
-		}
     if (!this.blnInMoreAction){
       this.blnInMoreAction = true;
       this.state.moreH.setValue(ScreenHeight);
@@ -168,9 +169,6 @@ class C_LessonMenu extends Component {
     }
   }
   AnimatedOut(){
-    if (app.menu && app.menu.isInDownload){
-			return;
-		}
     if (!this.blnInMoreAction){
       this.blnInMoreAction = true;
       Animated.timing(this.state.moveY, {

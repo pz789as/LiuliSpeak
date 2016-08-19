@@ -164,12 +164,10 @@ class LessonCard extends Component {
 		this.clearProgressTime && clearTimeout(this.clearProgressTime);
 		this.gotoNextTime && clearTimeout(this.gotoNextTime);
 		this.timer && clearTimeout(this.timer);
+		this.downloadTime && clearTimeout(this.downloadTime);
+		this.stopDownloadOne();
 	}
 	onPress1(){
-		if (app.menu && app.menu.isInDownload){
-			console.log(111);
-			return;
-		}
 		app.menu && app.menu.setDownload(true);
 		app.main && app.main.setLessonTime(app.temp.lesson.key);
 		this.refs.download && this.refs.download.setProgross(0, true);
@@ -240,7 +238,17 @@ class LessonCard extends Component {
 			if (result[0]){
 				this.downLoadMp3(path);
 			}else{
-				logf(result);
+				Alert.alert(
+					'提示',
+					'创建缓存文件出错，请重新再试！',
+					[{
+						text: '确定', 
+						onPress: ()=>{
+							app.menu && app.menu.setDownload(false);
+							this.refs.download && this.refs.download.setProgross(0, false);
+						}
+					}]
+				);
 			}
 		})
 		.catch((err)=>{
@@ -269,6 +277,26 @@ class LessonCard extends Component {
 			);
 		}
 	}
+	stopDownloadOne(){
+		if (this.downloadJobId){
+			fs.stopDownload(this.downloadJobId);
+			console.log('stop download: ', this.downloadJobId);
+		}
+	}
+	downloadTimeout(){
+		this.stopDownloadOne();
+		Alert.alert(
+			'网络超时',
+			'下载失败，请稍后再试！',
+			[{
+				text: '确定', 
+				onPress: ()=>{
+					app.menu && app.menu.setDownload(false);
+					this.refs.download && this.refs.download.setProgross(0, false);
+				}
+			}]
+		);
+	}
 	downLoadOne(path, idx){
 		var localPath = path + '/' + this.course.contents[idx].mp3;
 		var fromUrl = serverUrl + '/LiuliSpeak/lessons/lesson' + 
@@ -276,6 +304,8 @@ class LessonCard extends Component {
 						this.course.contents[idx].mp3;
 		logf(fromUrl);
 		logf(localPath);
+		this.downloadTime = setTimeout(this.downloadTimeout.bind(this), 9000);
+		this.downloadJobId = null;
 		fs.downloadFile({
 			fromUrl: fromUrl,
 			toFile: localPath,
@@ -283,6 +313,8 @@ class LessonCard extends Component {
 			progress: this.downloadProgress.bind(this),
 		})
 		.then((response)=>{
+			this.downloadJobId = null;
+			this.downloadTime && clearTimeout(this.downloadTime);
 			if (response.statusCode == 200){//下载成功
 				this.intIdx++;
 				if (this.intIdx == this.allIdx){//全部下载完毕之后
@@ -305,6 +337,8 @@ class LessonCard extends Component {
 			}
 		})
 		.catch((err)=>{
+			this.downloadJobId = null;
+			this.downloadTime && clearTimeout(this.downloadTime);
 			Alert.alert(
 				'提示',
 				'网络信号不好，请稍后再试！',
@@ -319,6 +353,7 @@ class LessonCard extends Component {
 		});
 	}
 	downLoadBegin(result){
+		this.downloadJobId = result.jobId;
 		this.tmpLen[result.jobId] = 0;
 	}
 	downloadProgress(result){

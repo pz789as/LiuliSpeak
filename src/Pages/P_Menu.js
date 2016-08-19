@@ -90,21 +90,27 @@ class P_Menu extends Component {
   }
   setDownload(bln){
     this.isInDownload = bln;
-    console.log(bln);
+    if (this.refs.body){
+      this.refs.body.setNativeProps({
+        pointerEvents: bln ? 'none' : 'auto',
+      });
+    }
   }
   render() {
     // logf("Hello Menu!");
     return (
-      <LessonMenu onClose={this.onCancel.bind(this)}
-          onMore={this.gotoMore.bind(this)}
-          CardNum={this.realPractices.length}
-          listDataSource={this.state.listDataSource}
-          selectListItem={this.selectListItem.bind(this)}
-          blnMoreMenu={this.state.blnMoreMenu}
-          cancelMore={this.cancelMore.bind(this)}
-          gotoMorePage={this.gotoMorePage.bind(this)}
-          initPage={this.initPage}
-          ref={'menu'} />
+      <View style={{flex: 1}} pointerEvents={'auto'} ref={'body'}>
+        <LessonMenu onClose={this.onCancel.bind(this)}
+            onMore={this.gotoMore.bind(this)}
+            CardNum={this.realPractices.length}
+            listDataSource={this.state.listDataSource}
+            selectListItem={this.selectListItem.bind(this)}
+            blnMoreMenu={this.state.blnMoreMenu}
+            cancelMore={this.cancelMore.bind(this)}
+            gotoMorePage={this.gotoMorePage.bind(this)}
+            initPage={this.initPage}
+            ref={'menu'} />
+        </View>
     );
   }
   setFresh(id){

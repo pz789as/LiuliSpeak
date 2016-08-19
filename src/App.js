@@ -403,7 +403,8 @@ export default class App extends Component {
           });
         }}
         configureScene={this.configureScene.bind(this)}
-        renderScene={this.renderScene.bind(this)} />
+        renderScene={this.renderScene.bind(this)}
+        onStartShouldSetResponder={()=>false}/>
     );
   }
   GotoPage(kind, index, params){
