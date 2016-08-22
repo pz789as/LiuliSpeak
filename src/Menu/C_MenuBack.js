@@ -23,7 +23,7 @@ import {
   VibrancyView,
 } from 'react-native-blur';
 
-// import FXBlurView from 'react-native-fxblurview';
+import FXBlurView from 'react-native-fxblurview';
 
 export default class C_MenuBack extends Component {
   constructor(props){
@@ -48,28 +48,28 @@ export default class C_MenuBack extends Component {
     });
   }
   render() {
-    return (
-      <View style={styles.container}>
-        <Image 
-          source={{uri:app.getImageUrl(this.state.imageName)}} 
-          style={styles.image}>
-          <BlurView 
-            blurType='light' 
-            style={styles.blur}/>
-        </Image>
-      </View>
-    );
-
     // return (
-    //   <FXBlurView style={styles.container}
-    //     blurRadius={50}
-    //     blurEnabled={true}
-    //     dynamic={true}>
+    //   <View style={styles.container}>
     //     <Image 
     //       source={{uri:app.getImageUrl(this.state.imageName)}} 
-    //       style={styles.image}/>
-    //   </FXBlurView>
+    //       style={styles.image}>
+    //       <BlurView 
+    //         blurType='light' 
+    //         style={styles.blur}/>
+    //     </Image>
+    //   </View>
     // );
+
+    return (
+      <FXBlurView style={styles.container}
+        blurRadius={50}
+        blurEnabled={true}
+        dynamic={true}>
+        <Image 
+          source={{uri:app.getImageUrl(this.state.imageName)}} 
+          style={styles.image}/>
+      </FXBlurView>
+    );
   }
 }
 
