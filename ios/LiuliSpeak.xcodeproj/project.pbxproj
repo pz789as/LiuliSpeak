@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -52,7 +53,6 @@
 		9050114F1D20F6F800DFACF6 /* ISEResultWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011431D20F6F800DFACF6 /* ISEResultWord.m */; };
 		905011501D20F6F800DFACF6 /* ISEResultXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011451D20F6F800DFACF6 /* ISEResultXmlParser.m */; };
 		905011551D20F72200DFACF6 /* PcmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011531D20F72200DFACF6 /* PcmPlayer.m */; };
-		01DEDFFC218A40598C1898D8 /* libRCTFXBlurView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9306855BEB2F4189B78ADB4E /* libRCTFXBlurView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,8 +231,6 @@
 		905011541D20F72200DFACF6 /* PcmPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcmPlayerDelegate.h; path = LiuliSpeak/pcmPlayerCode/PcmPlayerDelegate.h; sourceTree = "<group>"; };
 		A06469797AA342A38F118A64 /* RNBlur.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		A1EEFC89371746958CA45CFB /* libRNBlur.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBlur.a; sourceTree = "<group>"; };
-		DDFF181EB4274009B8E575F5 /* RCTFXBlurView.xcodeproj */ = {isa = PBXFileReference; name = "RCTFXBlurView.xcodeproj"; path = "../node_modules/react-native-fxblurview/RCTFXBlurView/RCTFXBlurView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		9306855BEB2F4189B78ADB4E /* libRCTFXBlurView.a */ = {isa = PBXFileReference; name = "libRCTFXBlurView.a"; path = "libRCTFXBlurView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,7 +272,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				399B4B81F7C345FBA9409C26 /* libRNBlur.a in Frameworks */,
-				01DEDFFC218A40598C1898D8 /* libRCTFXBlurView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +404,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				A06469797AA342A38F118A64 /* RNBlur.xcodeproj */,
-				DDFF181EB4274009B8E575F5 /* RCTFXBlurView.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -915,7 +911,6 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
-					"$(SRCROOT)/../node_modules/react-native-fxblurview/RCTFXBlurView/RCTFXBlurView/**",
 				);
 				INFOPLIST_FILE = LiuliSpeak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -948,7 +943,6 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
-					"$(SRCROOT)/../node_modules/react-native-fxblurview/RCTFXBlurView/RCTFXBlurView/**",
 				);
 				INFOPLIST_FILE = LiuliSpeak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
