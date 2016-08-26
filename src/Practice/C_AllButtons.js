@@ -127,6 +127,18 @@ export default class AllBottons extends Component {
         this.buttonStatus = BUTTON_STATUS.NORMAL
     }
 
+    _onInactive = ()=>{
+        if(this.buttonStatus == BUTTON_STATUS.PLAYAUDIO){
+            this.refs.btnPlay.pauseAudio();
+        }
+        if(this.buttonStatus == BUTTON_STATUS.RECORDING){
+            this.refs.btnRecord.stopRecord();
+        }
+        if (this.buttonStatus == BUTTON_STATUS.PLAYRECORD ) {
+            this.refs.btnRecPlay.pauseAudio();
+        }
+    }
+
     releaseComponent = ()=> {
         this.blnRelease = true;
         this.stopAnim();
@@ -136,7 +148,8 @@ export default class AllBottons extends Component {
     playDialogAudio() {//播放音频
         if (this.buttonStatus == BUTTON_STATUS.RECORDING) { //如果正在录音,强制关闭录音
             this.refs.btnRecord.stopRecord();
-        } else if (this.buttonStatus == BUTTON_STATUS.PLAYRECORD) {//如果正在播放录音,强制关闭播放录音
+        } else if (this.buttonStatus == BUTTON_STATUS.PLAYRECORD ) {//如果正在播放录音,强制关闭播放录音
+            logf("打断了录音播放")
             this.refs.btnRecPlay.stopAudio();
         }
         this.buttonStatus = BUTTON_STATUS.PLAYAUDIO;
@@ -228,7 +241,7 @@ export default class AllBottons extends Component {
     }
 
     playRecordAudio() {
-        if (this.buttonStatus == BUTTON_STATUS.PLAYAUDIO || this.buttonStatus == BUTTON_STATUS.PAUSEAUDIO) {
+        if (this.buttonStatus == BUTTON_STATUS.PLAYAUDIO ) {
             this.refs.btnPlay.stopAudio();
         } else if (this.buttonStatus == BUTTON_STATUS.RECORDING) {
             this.refs.btnRecord.stopRecord();

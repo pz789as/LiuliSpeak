@@ -10,7 +10,8 @@ import {
     ScreenWidth,
     ScreenHeight,
 } from '../Styles';
-fontSize = parseInt(minUnit * 4);
+var fontSize = parseInt(minUnit * 4);
+
 export default class Setting extends Component {
     constructor(props) {
         super(props);
@@ -117,6 +118,7 @@ export default class Setting extends Component {
                         {this.renderOpition(1)}
                     </View>
                 </TouchableOpacity>
+                <View style={styles.arrow}></View>
             </TouchableOpacity>
         );
     }
@@ -134,8 +136,8 @@ const styles = StyleSheet.create({
     },
     contentBack: {
         position: 'absolute',
-        width: ScreenWidth * 0.75,
-        height: ScreenHeight * 0.35,
+        width: fontSize*21,
+        height: fontSize*14,
         borderRadius: minUnit * 3,
         backgroundColor: '#fff',
         bottom: minUnit * 4,
@@ -145,9 +147,9 @@ const styles = StyleSheet.create({
     },
     content: {
         //backgroundColor:'#ffff0011',
-        width: ScreenWidth * 0.75,
-        height: ScreenHeight * 0.15,
-        paddingHorizontal: fontSize / 2,
+        width: fontSize*21,
+        height: fontSize*7,
+        paddingHorizontal: fontSize*1.5,
         paddingVertical: fontSize,
     },
     centerLine: {
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
         borderRadius: fontSize * 2,
         borderWidth: MinWidth,
         borderColor: '#ccc',
-        marginVertical: fontSize * 0.5,
+        marginVertical: fontSize/2,
         flexDirection: 'row',
         overflow: 'hidden',
     },
@@ -186,5 +188,17 @@ const styles = StyleSheet.create({
     word: {
         fontSize: fontSize,
         color: '#464646'
+    },
+    arrow:{
+        position: 'absolute',
+        bottom: minUnit * 4 - ScreenWidth*0.022,
+        right: minUnit * 4 + ScreenWidth*0.04,
+
+        borderTopWidth:ScreenWidth*0.025,
+        borderLeftWidth:ScreenWidth*0.025,
+        borderRightWidth:ScreenWidth*0.025,
+        borderTopColor:'#fff',
+        borderLeftColor:'transparent',
+        borderRightColor:'transparent',
     },
 })

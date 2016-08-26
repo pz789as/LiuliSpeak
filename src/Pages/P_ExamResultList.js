@@ -60,6 +60,7 @@ export default class ExamResultList extends Component {
         for (var i = 0; i < dialogData.length; i++) {
             arrData[i] = {
                 blnPlay: false,
+                blnReplay:false,
                 dialogData: dialogData[i],
                 sentenceScore:arrSentenceScore[i],
                 syllableScore: arrSyllableScore[i],                
@@ -83,7 +84,7 @@ export default class ExamResultList extends Component {
             blnAutoplay = false;
         } else {
             if (this.selectIndex != -1) {                
-                this.itemStartPlay(newData,this.selectIndex);
+                this.itemStartPlay(newData,this.selectIndex,true);
             }else{
                 this.itemStartPlay(newData,0);
                 this.selectIndex = 0;
@@ -140,7 +141,7 @@ export default class ExamResultList extends Component {
                     this.selectIndex += 1
                     this.onScrollListView();
                 }else{
-                    blnAutoPlay = false
+                    blnAutoplay = false
                 }
             }
         }
@@ -152,9 +153,10 @@ export default class ExamResultList extends Component {
         })
     }
 
-    itemStartPlay = (data,index)=>{
+    itemStartPlay = (data,index,blnReplay = false)=>{
         data[index] = {
             blnPlay: true,
+            blnReplay:blnReplay,
             dialogData: data[index].dialogData,
             sentenceScore:data[index].sentenceScore,
             syllableScore: data[index].syllableScore,
@@ -164,6 +166,7 @@ export default class ExamResultList extends Component {
     itemStopPlay = (data,index)=>{
         data[index] = {
             blnPlay: false,
+            blnReplay:false,
             dialogData: data[index].dialogData,
             sentenceScore:data[index].sentenceScore,
             syllableScore: data[index].syllableScore,
@@ -319,6 +322,7 @@ export default class ExamResultList extends Component {
         var refName = "item" + rowID;
         return (<ResultItem ref={this.addListRefs.bind(this,index)} itemIndex={index}
                             blnPlay={rowData.blnPlay}
+                            blnReplay = {rowData.blnReplay}
                             itemWords={rowData.dialogData.cn.words} itemPinyins={rowData.dialogData.cn.pinyins}
                             itemEN={rowData.dialogData.en}
                             arrSyllableScore={rowData.syllableScore}
@@ -344,7 +348,7 @@ export default class ExamResultList extends Component {
 
                     scrollRenderAheadDistance={ScreenHeight/2} //离屏幕底部多少距离时渲染
                     onScroll= {this._onScroll.bind(this)}
-                    scrollEventThrottle={100} //对onScroll回调频率的控制(仅限IOS)
+                    scrollEventThrottle={200} //对onScroll回调频率的控制(仅限IOS)
                     onContentSizeChange={this._onContentSizeChange.bind(this)}
                 />
                 {this.renderBottomBar()}

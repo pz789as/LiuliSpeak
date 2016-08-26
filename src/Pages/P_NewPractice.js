@@ -1,7 +1,8 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react'
-import {View, Image, Text, TouchableOpacity, StyleSheet, ListView, InteractionManager, AlertIOS} from 'react-native'
+import {View, Image, Text, TouchableOpacity, Modal,
+    StyleSheet, ListView, InteractionManager, AppState} from 'react-native'
 import {
     MinWidth,
     minUnit,
@@ -40,6 +41,7 @@ export default class NewPractice extends Component {
             blnAutoplay: false,
             autoplayType: 0,
             dataSource: ds.cloneWithRows(this.listData),
+            modalVisible:false,
         };
         this.showType = 2;
         this.playerRate = 1;
@@ -50,7 +52,9 @@ export default class NewPractice extends Component {
         global.practiceInAutoplay = false;
         this.blnOnScroll = true;
         this.useTime = new Date();
-        logf("打印时间:",this.useTime.getTime())
+        //logf("打印时间:",this.useTime.getTime())
+        this.blnPageDidMount = false;
+        this.blnPressHomeKey = false;
     }
 
     static propTypes = {
@@ -82,6 +86,9 @@ export default class NewPractice extends Component {
             return;
         }
         this.listItemRefs[rowID] = ref;
+        if(this.listItemRefs[rowID] == null){
+            console.log("addListRefs is null:",rowID);
+        }
     }
 
     _onPressBackPage = ()=> {
@@ -145,14 +152,57 @@ export default class NewPractice extends Component {
     }
 
     componentDidMount() {
+        AppState.addEventListener('change',this._handleAppStateChange.bind(this));
         var tempTime = new Date();
         console.log("Page Practice Did Mount:",tempTime.getTime()-this.useTime.getTime())
 
         InteractionManager.runAfterInteractions(
             ()=> {
-                this.pressItem(0);
+                if(this.blnPressHomeKey == false){
+                    this.pressItem(0);
+                }
             }
         )
+    }
+
+    componentWillUpdate(){
+        logf("Will Update:",this.blnPageDidMount);
+        if(this.blnPageDidMount){
+            this.blnPageDidMount = false;
+        }
+    }
+
+    componentDidUpdate() {
+        logf("Did Update:",this.blnPageDidMount)
+        if(this.blnPageDidMount == false){
+            this.blnPageDidMount = true;
+        }
+    }
+
+    _handleAppStateChange = (state)=>{
+        logf("当前APP的状态是:",state,this.blnPageDidMount,this.selectIndex)
+        if(state == 'inactive'){
+            this.blnPressHomeKey = true;
+            if(this.blnPageDidMount){
+                if(this.listItemRefs[this.selectIndex]){
+                    this.listItemRefs[this.selectIndex]._onInactive();
+                }else{
+                    logf("又红屏~~大爷的",this.listItemRefs.length);
+                    /*for(var i=0;i<this.listItemRefs.length;i++){
+                        logf(i+":"+this.listItemRefs[i]);
+                    }*/
+                }
+            }
+        }else if(state == 'active'){
+            this.blnPressHomeKey = false;
+            if(this.blnPageDidMount == false){
+                this.pressItem(0);
+            }
+        }
+    }
+
+    componentWillUnMount() {
+        AppState.removeEventListener('change',this._handleAppStateChange.bind(this));
     }
 
     pressItem(rowId) {
@@ -206,7 +256,7 @@ export default class NewPractice extends Component {
     }
 
     itemCallback = (index, msg, ...other)=> {
-        logf("是否运行到这个里面了0:", msg)
+        //logf("是否运行到这个里面了0:", msg)
         if (msg == "select") {
             this.pressItem(index);
         } else if (msg == "playover") {
@@ -301,7 +351,7 @@ export default class NewPractice extends Component {
                       pageSize={1} //每次新增渲染多少条
                       scrollRenderAheadDistance={ScreenHeight/4} //离屏幕底部多少距离时渲染
                       onScroll= {this._onScroll.bind(this)}
-                      scrollEventThrottle={10} //对onScroll回调频率的控制(仅限IOS)
+                      scrollEventThrottle={1000} //对onScroll回调频率的控制(仅限IOS)
                       onContentSizeChange={this._onContentSizeChange.bind(this)}
             />
         );
@@ -309,16 +359,21 @@ export default class NewPractice extends Component {
 
     onScrollListView = ()=>{
         if(!this.blnOnScroll ){
-            logf("成功啦我不是一个人")
             return;//如果并没有移动过列表,就不需要再调用这个了
         }
-       
+        if(this.listItemRefs[this.selectIndex] == null){
+            return;
+        }
+
         var topH = fontSize*4;//顶部TabBar的高度
         var bottomH = fontSize*4;//底部TabBar的高度
         var changeHight = 0//选中时高度的变化值(由于无法及时补货到子对象的高度变化)
         var itemLayout = this.listItemRefs[this.selectIndex].getLayout();//获取被选中的item相对于ListView的位置值
         //console.log("itemLayout 高度:",this.selectIndex,itemLayout.height,itemLayout.y)
-
+        if(itemLayout == null){
+            logf("又在itemLayout这里红屏了~~");
+            return;
+        }
         var targetY = (ScreenHeight)/2 - (itemLayout.height + changeHight)/2 + topH - bottomH ;//设定目标item要对齐的屏幕位置
         var listViewY = this.listLayout.y + topH; //此时listView 相对屏幕的Y位置
         //..logf("OnScrollListView targetY:",targetY);
@@ -399,6 +454,8 @@ export default class NewPractice extends Component {
         );
     }
 
+
+
     render() {
         return (
             <View style={styles.container}>
@@ -408,6 +465,15 @@ export default class NewPractice extends Component {
                 {this.state.blnSetting &&
                 <Setting showType={this.showType} playerRate={this.playerRate} setCallback={this.changeSet.bind(this)}/>
                 }
+
+                {/*<Modal
+                    animationType = {'fade'}
+                    modalVisible = {this.state.modalVisible}
+                    transparent={true}
+                    onRequestClose = {()=>{console.log("调用了onRequestClose");this.setState({modalVisible:true})}}
+                >
+                    <View style={styles.tempView}></View>
+                </Modal>*/}
             </View>
         );
     }
@@ -536,5 +602,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
+    tempView:{
+        position:'absolute',
+        backgroundColor:'blue',
+        left:0,
+        top:0,
+        width:ScreenWidth,
+        height:ScreenHeight,
+    },
 })

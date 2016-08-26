@@ -10,7 +10,7 @@ import ReactNative, {
     Text,
     TouchableOpacity,
     Image,
-    Animated,   
+    Animated,
 }from 'react-native'
 import {
     ImageRes
@@ -39,6 +39,7 @@ export default class BtnPlayer extends Component {
         this.audioCurrentTime = 0;//当前时间
         this.audioTimes = 0;//音频总时间
         this.useTime = new Date();
+        this.unLoadPlay = false;//判断是否在声音未载入时,就调用到播放函数
     }
 
     static propTypes = {
@@ -57,18 +58,23 @@ export default class BtnPlayer extends Component {
 
     handleInitDialog = (error)=> {
         if (error != null) {
-            logf('failed to load the sound! ', error.message);
+            console.log('failed to load the sound! ', error.message);
         } else {
-            //logf('success to load the sound');
-            if(this.dialogSound != null){
+            console.log('success to load the sound');
+            if (this.dialogSound != null) {
                 this.audioCurrentTime = 0;
                 this.audioTimes = this.dialogSound.getDuration();
+                if (this.unLoadPlay) {
+                    this.unLoadPlay = false;
+                    this.playerAudio();
+                }
             }
         }
     }
     initDialog = ()=> {
         this.dialogSound = new Sound(this.props.audioName, Sound.DOCUMENT, this.handleInitDialog.bind(this));
     }
+
     releaseDialog = ()=> {
         this.stopAudio();
         if (this.dialogSound) {
@@ -78,7 +84,12 @@ export default class BtnPlayer extends Component {
     }
 
     playerAudio = (rate = 1)=> {//开始播放声音
-        logf(" Run to playerAudio")
+        if (this.audioTimes == 0) {//表示声音未被成功载入
+            console.log("本次播放由于没有载入声音而未能成功")
+            this.unLoadPlay = true;
+            return;
+        }
+        console.log(" Run to playerAudio")
         this.dialogSound.setRate(rate);
         this.dialogSound.play(this.audioPlayerEnd);
         this.time = setInterval(this.getNowTime.bind(this), 100);
@@ -107,6 +118,10 @@ export default class BtnPlayer extends Component {
         this.props.btnCallback("over");
     }
     stopAudio = ()=> {//强制停止声音播放--当播放时外界出现其他操作强行停止播放时调用
+        if (this.unLoadPlay) {
+            console.log("应该是极小概率事件")
+            this.unLoadPlay = false;
+        }
         if (this.state.playerStatus != 0) {//只有当已经启动播放后 此函数才起作用
             clearInterval(this.time);
             this.time = null;
@@ -119,7 +134,7 @@ export default class BtnPlayer extends Component {
     }
 
     replayAudio = (rate = 1)=> {//父组件中,接收到自动播放指令时,当前的item会调用这个播放函数
-        logf("Going TO RelplayAudio",this.state.playerStatus);
+        logf("Going TO RelplayAudio", this.state.playerStatus);
         if (this.state.playerStatus == 0) {
             this.playerAudio(rate);
         } else if (this.state.playerStatus == 1) {
@@ -132,13 +147,13 @@ export default class BtnPlayer extends Component {
     }
 
     _onPress = ()=> {//发送点击事件
-        if(practiceInAutoplay)return ;
+        if (practiceInAutoplay)return;
         logf("onPress BtnPlayer:", this.state.playerStatus);
         if (this.state.playerStatus != 1) {
             this.props.btnCallback("play");
         } else {
-            logf("onPress Pause:",this.audioCurrentTime,this.audioTimes)
-            if(this.audioCurrentTime < this.audioTimes*0.9){
+            logf("onPress Pause:", this.audioCurrentTime, this.audioTimes)
+            if (this.audioCurrentTime < this.audioTimes * 0.9) {
                 this.props.btnCallback("pause");
             }
 
@@ -146,13 +161,15 @@ export default class BtnPlayer extends Component {
     }
 
     getNowTime = ()=> { //获取当前播放时间,当获取成功后,设置进度条数值
-        this.dialogSound.getCurrentTime(
-            (time)=> {
-                if (this.time) {
-                    this.audioCurrentTime = time;
-                    this.setState({progress: this.audioCurrentTime / this.audioTimes});
-                }
-            })
+        if (this.dialogSound) {
+            this.dialogSound.getCurrentTime(
+                (time)=> {
+                    if (this.time) {
+                        this.audioCurrentTime = time;
+                        this.setState({progress: this.audioCurrentTime / this.audioTimes});
+                    }
+                })
+        }
     }
 
     componentWillMount() {

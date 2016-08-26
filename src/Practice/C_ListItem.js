@@ -75,8 +75,16 @@ export default class ListItem extends Component {
     }
 
     _onStopAllWork = ()=>{
-        this.refs.allBotton.stopAllWork();
+        if(this.refs.allBotton){
+            this.refs.allBotton.stopAllWork();
+        }
     } 
+    
+    _onInactive = ()=>{
+        if(this.refs.allBotton){
+            this.refs.allBotton._onInactive();
+        }
+    }
 
     componentWillMount() {
         /*var time = new Date();
@@ -90,7 +98,7 @@ export default class ListItem extends Component {
 
     componentDidMount() {
         var time = new Date();
-        logf("C_ListItem DidMount User time:", this.itemIndex, time - this.useTime);
+        //..logf("C_ListItem DidMount User time:", this.itemIndex, time - this.useTime);
         //this.useTime = time;
         //logf("DidMount:", this.itemIndex, "当前时间:", this.useTime.getTime());
     } 
@@ -119,7 +127,7 @@ export default class ListItem extends Component {
         //console.log("dialogInfo",this.itemIndex,dialogInfo);
         var itemWordCN = dialogInfo.cn;
         var itemWordEN = dialogInfo.en;
-        logf("render item:", this.itemIndex);
+        //..logf("render item:", this.itemIndex);
 
         return (
             <TouchableOpacity  activeOpacity={1} ref="item"
@@ -244,6 +252,7 @@ export default class ListItem extends Component {
     setPingceResult(result) {//唐7-11
         logf("运行C_listITEM 的 setPingceResult:" + result.blnSuccess + result.score + result.syllableScore + "--Index--",result.index);
         const {blnSuccess, score, syllableScore,index} = result;
+        logf("评测返回的分数:",score);
         if (blnSuccess) {
             //..this.refs.mySentence.setPingce(syllableScore); //评测打分..
             var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);

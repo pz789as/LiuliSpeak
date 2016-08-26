@@ -202,6 +202,7 @@ typedef struct Wavehead
 {
   if (self.isPlaying) {
     self.isPlaying = NO;
+    self.isPauseing = NO;
     [self.player stop];
     self.player.currentTime = 0;
   }

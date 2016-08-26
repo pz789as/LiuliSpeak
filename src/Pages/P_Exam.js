@@ -2,7 +2,7 @@
  * Created by tangweishu on 16/7/19.
  */
 import React, {Component, PropTypes} from 'react'
-import {View, Text, StyleSheet, Image,TouchableOpacity, Animated, Easing, InteractionManager} from 'react-native'
+import {View, Text, StyleSheet, Image, TouchableOpacity, Animated, Easing, InteractionManager} from 'react-native'
 
 import Sentence from '../Practice/C_NewSentence';
 import RoleIcon from '../Exam/C_RoleIcon';
@@ -27,12 +27,12 @@ import {
     ScreenHeight,
 } from '../Styles';
 import Toast from 'react-native-root-toast';
- 
+
 var totalWidth = ScreenWidth;
 var totalHeight = ScreenHeight;
 //var aspectRatio = ScreenWidth/ScreenHeight;
 //var fontSize = aspectRatio>0.6?parseInt(minUnit*2.5):parseInt(minUnit*4);
-var fontSize = parseInt(minUnit*4);
+var fontSize = parseInt(minUnit * 4);
 var ScentenceSpace = fontSize * 5;
 var AnimTransfromY = ScentenceSpace * 3 / 2;
 
@@ -44,11 +44,12 @@ export default class P_Exam extends Component {
         this.state = {
             opacityAnim: new Animated.Value(1),
             translateYAnim: new Animated.Value(0),
-            recordAnim:new Animated.Value(0),
+            recordAnim: new Animated.Value(0),
             nowIndex: 0,
             blnCountdown: true,//倒计时ing...
             blnChangeRole: false,
-            blnExamPause:false,
+            blnExamPause: false,
+            blnShowBtnRecord: false,
         };
         this.dialogLength = 0;
         this.words = [];
@@ -62,7 +63,7 @@ export default class P_Exam extends Component {
         this.dialogSound = null;//音频
         this.audioCurrentTime = 0;//当前时间
         this.audioTimes = 0;//音频总时间
-        this.blnShowBtnRecord = false;
+
         this.examRoleIndex = Math.min((this.Roles.length - 1), 1);
         this.examRole = this.Roles[this.examRoleIndex];//标记当前考试的Role,如果有多个角色,从第1个来
         this.blnShowPoint = false;
@@ -70,21 +71,21 @@ export default class P_Exam extends Component {
         this.sentenceScore = new Array(this.dialogLength);//句子的分数
         app.exam = this;
     }
-    ResetComponent(){
+
+    ResetComponent() {
         this.restartExam();
     }
 
     static propTypes = {
         dialogData: PropTypes.array,
-
     };
-   
+
     getDialogData = (data)=> {
         this.dialogLength = data.length;
         for (var i = 0; i < this.dialogLength; i++) {
             this.words[i] = data[i].cn.words;
             this.pinyins[i] = data[i].cn.pinyins;
-            this.audio[i] = getMp3FilePath(app.temp.lesson.key,app.temp.courseID) + '/' + data[i].mp3;
+            this.audio[i] = getMp3FilePath(app.temp.lesson.key, app.temp.courseID) + '/' + data[i].mp3;
             this.category[i] = data[i].Category;
             this.dialogRole[i] = 'user' + data[i].user;//数据中还没有,先留个变量
             this.setRoles(this.dialogRole[i]);
@@ -107,14 +108,14 @@ export default class P_Exam extends Component {
             this.Roles[this.Roles.length] = role;
         }
     }
-    
-    blnExamRole = ()=>{
-        if(this.examRole == this.dialogRole[this.state.nowIndex]){
+
+    blnExamRole = ()=> {
+        if (this.examRole == this.dialogRole[this.state.nowIndex]) {
             return true;
         }
         return false;
     }
-    
+
     _onStartIconAnim = ()=> {//控制两个头像的动画
         if (this.state.nowIndex < this.dialogLength) {
             this.refs.roleIcon.hiddenIcon(this.state.nowIndex);
@@ -186,51 +187,61 @@ export default class P_Exam extends Component {
         var fileName = getExamFilePath(app.temp.lesson.key, app.temp.courseID, index);
         testText = testText.replace(/_/g, "");
         //logf(testText + " " + dialogInfo.dIndex + " " + dialogInfo.gategory);
-        this.refs.btnRecord.StartISE(testText, category, fileName,index);
+        this.refs.btnRecord.StartISE(testText, category, fileName, index);
     }
 
     showBtnRecord = ()=> {//将录音按钮显示出来
-        this.blnShowBtnRecord = true;
-        Animated.timing(this.state.recordAnim,{
-            toValue:1,
-            duration:300,
-        }).start(this.initRecord(this.state.nowIndex))
-        //this.refs.btnRecord.setOpacityAnim(1);
+        logf("运行 showBtnRecord函数:");
+        this.setState({
+            blnShowBtnRecord: true
+        })
+        /*Animated.timing(this.state.recordAnim, {
+            toValue: 1,
+            duration: 300,
+        }).start(this.initRecord(this.state.nowIndex))*/
+
     }
 
     hideBtnRecord = ()=> { //将录音按钮隐藏
-        this.blnShowBtnRecord = false;
-        Animated.timing(this.state.recordAnim,{
-            toValue:0,
-            duration:300,
-        }).start(this.onDialogOver())
-        //this.refs.btnRecord.setOpacityAnim(0);
+        this.setState({
+            blnShowBtnRecord: false
+        })
+        /*Animated.timing(this.state.recordAnim, {
+            toValue: 0,
+            duration: 300,
+        }).start(this.onDialogOver())*/
+
     }
 
-    pauseRecord = ()=>{//暂停时调用此函数,将录音暂停
-        if(this.refs.btnRecord){
+    pauseRecord = ()=> {//暂停时调用此函数,将录音暂停
+        if (this.refs.btnRecord) {
             this.refs.btnRecord.cancelRecord();
         }
     }
 
-    callbackBtnRecord(msg,score,date,index) {
-        if(this.state.nowIndex != index){
+    callbackBtnRecord(msg, score, date, index) {
+        if (this.state.nowIndex != index) {
             console.log("Exam界面评测异常,评测返回的数据并不是当前评测的数据")
         }
         if (msg == "record") {
+            logf("是因为这里导致的红屏吗")
             this.initRecord(this.state.nowIndex);
         } else if (msg == "stop") {
             this.refs.btnRecord.stopRecord();
         } else if (msg == "error") {
             this.refs.btnRecord.stopRecord();
-            var errKey = date.slice(0,5);
+            var errKey = date.slice(0, 5);
             logf("练习中讯飞返回的错误代码:", errKey);
             var errMessage = app.getErrorMsg(errKey);
             this.showToast(errMessage + '\n' + '\n' + '点击录音按钮重试')
             //弹出一个提示框
             //this.overRecording(msg, num);//如果出现异常,参数这样传
         } else if (msg == "result") {
-            this.recordScore(this.state.nowIndex,date,score);
+            var rndScore = Math.min(95, score) - 3 + parseInt(Math.random() * 6);
+            if (score < 63) { //如果没及格,就别给随机分数了
+                rndScore = score;
+            }
+            this.recordScore(this.state.nowIndex, date, rndScore);
             this.hideBtnRecord();
             //..this.overRecording(num.syllableScore, num.sentenctScore);//这样处理貌似不太合理,先凑合用吧~~
         }
@@ -240,7 +251,7 @@ export default class P_Exam extends Component {
     showToast = (message)=> {
         //let message = '录音时间过短\n请对着麦克风再次朗读';
         //message = '网络出现异常 \n 请稍候再试'
-        if(this.state.blnExamPause) return;
+        if (this.state.blnExamPause) return;
         this.toast && this.toast.destroy();
 
         this.toast = Toast.show(message, {
@@ -249,12 +260,12 @@ export default class P_Exam extends Component {
             shadow: true,
             animation: true,
             hideOnPress: true,
-            padding:fontSize*1.5,
+            padding: fontSize * 1.5,
             delay: 0,
             backgroundColor: 'rgba(0,0,0,88)',
             shadowColor: '#000000',
             textColor: 'white',
-            fontSize:fontSize*1.5,
+            fontSize: fontSize * 1.5,
             onHidden: () => {
                 this.toast.destroy();
                 this.toast = null;
@@ -262,22 +273,22 @@ export default class P_Exam extends Component {
         });
     }
 
-    recordScore = (index,syllScore,sentScore)=>{
+    recordScore = (index, syllScore, sentScore)=> {
         this.sentenceScore[index] = sentScore;
         this.syllableScore[index] = syllScore;
-        app.saveSingleScore(index,1,sentScore,syllScore);
-        logf("this.sentenceScore:",index,this.sentenceScore);
-        logf("this.syllableScore:",index,this.syllableScore);
+        app.saveSingleScore(index, 1, sentScore, syllScore);
+        logf("this.sentenceScore:", index, this.sentenceScore);
+        logf("this.syllableScore:", index, this.syllableScore);
     }
 
-    getLastScore = (arrScore)=>{
-        logf("getLastScore:",arrScore);
+    getLastScore = (arrScore)=> {
+        logf("getLastScore:", arrScore);
         var length = arrScore.length;
         var scoreCount = 0;
-        for(var i=0;i<length;i++){
+        for (var i = 0; i < length; i++) {
             scoreCount += arrScore[i];
         }
-        return parseInt(scoreCount/length);
+        return parseInt(scoreCount / length);
     }
 
     onDialogOver = ()=> {
@@ -285,12 +296,11 @@ export default class P_Exam extends Component {
     }
 
     onNextDialog = ()=> {
-
         if (this.blnShowPoint) {
             this.refs.greenPoint.startAnim();
             return;
         }
-        if(this.state.blnExamPause){
+        if (this.state.blnExamPause) {
             return;
         }
         if (this.state.nowIndex == this.dialogLength) {
@@ -299,7 +309,10 @@ export default class P_Exam extends Component {
             if (this.dialogRole[this.state.nowIndex] != this.examRole) {
                 this.initAudio(this.state.nowIndex);
             } else {
-                this.showBtnRecord();
+                if(!this.state.blnShowBtnRecord){
+                    this.showBtnRecord();
+                }
+
             }
         }
     }
@@ -307,18 +320,18 @@ export default class P_Exam extends Component {
     changeRole = ()=> {
         if (this.examRoleIndex == 0) {
             var Score = this.getLastScore(this.sentenceScore);
-            logf("exam is over:",Score);
+            logf("exam is over:", Score);
             var lessonSave = app.getLessonFromSave(app.temp.lesson.key);
-            var practiceSave = app.getPracticeSave(app.temp.lesson.key,app.temp.courseID);
+            var practiceSave = app.getPracticeSave(app.temp.lesson.key, app.temp.courseID);
             if (Score >= 60) {//分数大于等于60则通过闯关，解锁下一关
-                if (practiceSave.score != undefined && practiceSave.score < Score){
+                if (practiceSave.score != undefined && practiceSave.score < Score) {
                     practiceSave.score = Score;
                 }
                 practiceSave.isPass = true;
                 if (app.temp.courseID + 1 >= lessonSave.practices.length) {
                     //最后一关通过之后，更改lessonSave中的已完成
                     lessonSave.isComplete = true;
-                }else{
+                } else {
                     var nextPS = lessonSave.practices[app.temp.courseID + 1];
                     nextPS.isLock = false;
                     app.menu.setFresh(app.temp.courseID + 1);
@@ -326,7 +339,7 @@ export default class P_Exam extends Component {
                 app.studyView.Refresh(app.temp.lesson.key);
                 app.menu.setFresh(app.temp.courseID);
                 app.saveData();
-            }else{//闯关失败
+            } else {//闯关失败
                 logf('闯关失败');
             }
             app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
@@ -334,7 +347,7 @@ export default class P_Exam extends Component {
                     dialogData: this.props.dialogData,
                     arrSyllableScore: this.syllableScore,
                     arrSentenceScore: this.sentenceScore,
-                    Score:Score,
+                    Score: Score,
                 });
         } else {
             this.setState({blnChangeRole: true});
@@ -389,13 +402,29 @@ export default class P_Exam extends Component {
             }
         }
 
-        if(pStates.blnExamPause != this.state.blnExamPause){
-            if(this.state.blnExamPause){
-
+        if (pStates.blnShowBtnRecord != this.state.blnShowBtnRecord) {
+            if(this.state.blnShowBtnRecord){
+                Animated.timing(this.state.recordAnim, {
+                    toValue: 1,
+                    duration: 300,
+                }).start(this.initRecord(this.state.nowIndex))
             }else{
+                Animated.timing(this.state.recordAnim, {
+                    toValue: 0,
+                    duration: 300,
+                }).start(this.onDialogOver())
+            }
+            return;
+        }
+
+        if (pStates.blnExamPause != this.state.blnExamPause) {
+            if (this.state.blnExamPause) {
+
+            } else {
+
                 this.onNextDialog();
             }
-            return ;
+            return;
         }
 
         if (pStates != this.state) {
@@ -423,7 +452,8 @@ export default class P_Exam extends Component {
         if (this.state.blnCountdown) return;
         return (
             <View style={styles.top}>
-                <RoleIcon ref="roleIcon" isExamRole={()=>this.dialogRole[this.state.nowIndex] == this.examRole} imgSourceName={this.dialogRole}/>
+                <RoleIcon ref="roleIcon" isExamRole={()=>this.dialogRole[this.state.nowIndex] == this.examRole}
+                          imgSourceName={this.dialogRole}/>
             </View>
         );
     }
@@ -489,12 +519,17 @@ export default class P_Exam extends Component {
         if (this.state.blnCountdown) return;
         return (
             <View style={styles.bottom}>
-                <Animated.View style = { {transform:[{scale:1.25}],opacity:this.state.recordAnim}}>
-                    <BtnRecord blnOpacityAnimate={true} ref={'btnRecord'}
-                               btnCallback={this.callbackBtnRecord.bind(this)} nowPage = {'Exam'}/>
+
+                <Animated.View style={ {transform:[{scale:1.25}],opacity:this.state.recordAnim}}>
+                    {
+                        this.state.blnShowBtnRecord && <BtnRecord blnOpacityAnimate={true} ref={'btnRecord'}
+                                                                  btnCallback={this.callbackBtnRecord.bind(this)}
+                                                                  nowPage={'Exam'}/>
+                    }
+
                 </Animated.View>
-                <TouchableOpacity onPress = {this._onPressPause.bind(this)}>
-                    <Image style={styles.btnPause} source={ImageRes.circle_btn_pause_26}/>
+                <TouchableOpacity style={styles.btnPause} onPress={this._onPressPause.bind(this)}>
+                    <Image style={styles.imgPause} source={ImageRes.circle_btn_pause_26}/>
                 </TouchableOpacity>
             </View>
         );
@@ -510,31 +545,30 @@ export default class P_Exam extends Component {
         }
     }
 
-    renderPause = ()=>{
-        if(this.state.blnExamPause){
-            return <ExamPause callback = {this.callBackPause.bind(this)}/>
+    renderPause = ()=> {
+        if (this.state.blnExamPause) {
+            return <ExamPause callback={this.callBackPause.bind(this)}/>
         }
     }
 
-    _onPressPause = ()=>{
+    _onPressPause = ()=> {
         this.toast && this.toast.destroy();
         this.stopAudio();
         this.pauseRecord();
-        this.setState({blnExamPause:true});
+        this.setState({blnExamPause: true});
 
         /*this.stopAudio();
-        this.pauseRecord();
-        app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
-            {
-                dialogData: this.props.dialogData,
-                arrSyllableScore: this.syllableScore,
-                arrSentenceScore: this.sentenceScore,
-                Score:0,
-            });*/
+         this.pauseRecord();
+         app.GotoPage(Consts.NAVI_PUSH, Scenes.EXAMRESULTLIST,
+         {
+         dialogData: this.props.dialogData,
+         arrSyllableScore: this.syllableScore,
+         arrSentenceScore: this.sentenceScore,
+         Score:0,
+         });*/
     }
 
-    restartExam = ()=>{
-        this.blnShowBtnRecord = false;
+    restartExam = ()=> {
         this.examRoleIndex = Math.min((this.Roles.length - 1), 1);
         this.examRole = this.Roles[this.examRoleIndex];//标记当前考试的Role,如果有多个角色,从第1个来
         this.blnShowPoint = false;
@@ -546,17 +580,18 @@ export default class P_Exam extends Component {
             nowIndex: 0,
             blnCountdown: true,//倒计时ing...
             blnChangeRole: false,
-            blnExamPause:false,
+            blnExamPause: false,
+            blnShowBtnRecord: false,
         })
     }
 
-    callBackPause = (id)=>{
-        if(id == 0){//退出
+    callBackPause = (id)=> {
+        if (id == 0) {//退出
             app.PopPage(Consts.POP_ROUTE, Scenes.MENU);
-        }else if(id == 1){//重来
+        } else if (id == 1) {//重来
             this.restartExam();
-        }else if(id == 2){//继续
-            this.setState({blnExamPause:false});
+        } else if (id == 2) {//继续
+            this.setState({blnExamPause: false});
         }
     }
 
@@ -566,6 +601,7 @@ export default class P_Exam extends Component {
                 {this.renderTop()}
                 {this.renderContent()}
                 {this.renderBottom()}
+
                 {this.state.blnCountdown && <Countdown callback={this.endOfCountdown.bind(this)}/>}
                 {this.renderChangeRole()}
                 {this.renderPause()}
@@ -578,7 +614,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        padding: fontSize*1.5,
+        padding: fontSize * 1.5,
         justifyContent: 'space-between',
     },
     top: {
@@ -598,7 +634,7 @@ const styles = StyleSheet.create({
     bottom: {
         //backgroundColor: '#ffff00',
         width: totalWidth - fontSize * 2,
-        height: fontSize * 8,
+        height: fontSize * 9,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -609,19 +645,21 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
     },
     btnPause: {
-        width: fontSize * 3,
-        height: fontSize * 3,
         //borderRadius: fontSize*1.5,
         //backgroundColor: 'gray',
         position: 'absolute',
-        left: (totalWidth) / 2 - fontSize * 4,
-        top: -fontSize * 2,
+        right: fontSize*0.5,
+        top: fontSize*6,
+    },
+    imgPause: {
+        width: fontSize * 3,
+        height: fontSize * 3,
     },
     changeText: {
         fontSize: fontSize * 1.5,
         color: '#434343',
         position: 'absolute',
-        width: 10 * fontSize ,
+        width: 10 * fontSize,
         height: fontSize * 2,
         top: (totalHeight - fontSize * 2) / 2,
         left: (totalWidth - 10 * fontSize) / 2,

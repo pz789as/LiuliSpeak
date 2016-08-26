@@ -42,6 +42,7 @@ export default class ResultItem extends Component {
 
     static propTypes = {
         blnPlay:PropTypes.bool,
+        blnReplay:PropTypes.bool,
         itemIndex: PropTypes.number,
         itemWords: PropTypes.string,
         itemPinyins: PropTypes.string,
@@ -174,7 +175,7 @@ export default class ResultItem extends Component {
     }
 
     componentDidUpdate(pProps,pState) {
-        if(pProps.blnPlay != this.props.blnPlay){
+        /*if(pProps.blnPlay != this.props.blnPlay){
             if(this.props.blnPlay){
                 logf("update player:",this.props.itemIndex);
                 this.InitPcm()
@@ -182,8 +183,29 @@ export default class ResultItem extends Component {
                 logf("update stop:",this.props.itemIndex);
                 this.stopAudio()
             }
+        }else if(pProps.blnReplay != this.props.blnReplay){
+            logf("replay record:",this.props.itemIndex);
+            if(this.props.blnReplay){
+                this.InitPcm();
+            }
+        }*/
+    }
+
+    componentWillReceiveProps(nProps) {
+        if(nProps.blnPlay != this.props.blnPlay){
+            if(nProps.blnPlay){
+                logf("update player:",this.props.itemIndex);
+                this.InitPcm()
+            }else{
+                logf("update stop:",this.props.itemIndex);
+                this.stopAudio()
+            }
+        }else if(nProps.blnReplay != this.props.blnReplay){
+            logf("replay record:",this.props.itemIndex);
+            if(nProps.blnReplay){
+                this.InitPcm();
+            }
         }
-        return true;
     }
 
     getLayout = ()=>{
@@ -196,7 +218,7 @@ export default class ResultItem extends Component {
 
     render() {
         return (
-            <TouchableOpacity  style={[styles.container,{backgroundColor:this.props.blnPlay?'#CBCBCB':'#fff'}]}
+            <TouchableOpacity  style={[styles.container,{backgroundColor:this.props.blnPlay?'#EBEBEB':'#fff'}]}
                                onPress={this._onPress.bind(this)} activeOpacity={1} onLayout={this._onLayout.bind(this)}>
                 <View style={styles.itemContent}>
                     <Sentence words={this.props.itemWords} pinyins={this.props.itemPinyins}

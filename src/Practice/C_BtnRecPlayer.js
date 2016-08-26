@@ -94,15 +94,16 @@ export default class C_BtnRecPlayer extends Component {
             });
         }
     }
+
     _onPress = ()=> {//发送点击事件
         if(practiceInAutoplay)return ;
         logf("C_BtnRecPlayer OnPress");
         if (this.state.playerState != 1) {
             this.props.btnCallback("play");
         } else {
-           // if(this.audioCurrentTime < this.audioTime*0.9){
+            if(this.audioCurrentTime < this.audioTime*0.9){
                 this.props.btnCallback("pause");
-            //}
+            }
         }
     }
 
@@ -119,6 +120,7 @@ export default class C_BtnRecPlayer extends Component {
     async GetCurrentTime() {
         try {
             this.audioCurrentTime = await XFiseBridge.getPcmCurrentTime();
+
             if (this.time == null) return;
             this.setState({progress: this.audioCurrentTime / this.audioTime});
         } catch (error) {
@@ -183,7 +185,6 @@ export default class C_BtnRecPlayer extends Component {
          }*/
     }
 
-
     componentWillUnmount() {
         this.pcmListener.remove();
         clearInterval(this.time);
@@ -241,14 +242,13 @@ export default class C_BtnRecPlayer extends Component {
 
     
     render() {
-
         return (
             <TouchableOpacity style={[styles.container]} onPress={this._onPress.bind(this)} activeOpacity={1}>                
                     {this.state.playerState != 0 &&
                     <Progress.Circle style={styles.progress} thickness={2} borderWidth={0}
                                      progress={this.state.progress} size={btnSize+4} color="#4ACE35"/>
                     }
-                    {this.drawBtnPlayRecord()}               
+                    {this.drawBtnPlayRecord()}
             </TouchableOpacity>            
         );
     }
