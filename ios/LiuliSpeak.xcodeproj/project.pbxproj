@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -21,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		17FCE682374745A78E9B6597 /* libRCTFXBlurView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B667896B0F4848FFAD2300DC /* libRCTFXBlurView.a */; };
 		399B4B81F7C345FBA9409C26 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EEFC89371746958CA45CFB /* libRNBlur.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		902261771D34C4BE0058296E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 902261751D34C4B50058296E /* libRNFS.a */; };
@@ -52,7 +54,6 @@
 		9050114F1D20F6F800DFACF6 /* ISEResultWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011431D20F6F800DFACF6 /* ISEResultWord.m */; };
 		905011501D20F6F800DFACF6 /* ISEResultXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011451D20F6F800DFACF6 /* ISEResultXmlParser.m */; };
 		905011551D20F72200DFACF6 /* PcmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 905011531D20F72200DFACF6 /* PcmPlayer.m */; };
-		17FCE682374745A78E9B6597 /* libRCTFXBlurView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B667896B0F4848FFAD2300DC /* libRCTFXBlurView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,13 @@
 			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
 			remoteInfo = ART;
 		};
+		909A78681D6E77A400D7F1A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA73FDA9AD4545699E3EDD93 /* RCTFXBlurView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F01A1921CF2EE7B004A7AAA;
+			remoteInfo = RCTFXBlurView;
+		};
 		90F607A61D503B480066C189 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A06469797AA342A38F118A64 /* RNBlur.xcodeproj */;
@@ -231,8 +239,8 @@
 		905011541D20F72200DFACF6 /* PcmPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcmPlayerDelegate.h; path = LiuliSpeak/pcmPlayerCode/PcmPlayerDelegate.h; sourceTree = "<group>"; };
 		A06469797AA342A38F118A64 /* RNBlur.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		A1EEFC89371746958CA45CFB /* libRNBlur.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBlur.a; sourceTree = "<group>"; };
-		BA73FDA9AD4545699E3EDD93 /* RCTFXBlurView.xcodeproj */ = {isa = PBXFileReference; name = "RCTFXBlurView.xcodeproj"; path = "../node_modules/react-native-fxblurview/RCTFXBlurView/RCTFXBlurView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		B667896B0F4848FFAD2300DC /* libRCTFXBlurView.a */ = {isa = PBXFileReference; name = "libRCTFXBlurView.a"; path = "libRCTFXBlurView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B667896B0F4848FFAD2300DC /* libRCTFXBlurView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFXBlurView.a; sourceTree = "<group>"; };
+		BA73FDA9AD4545699E3EDD93 /* RCTFXBlurView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFXBlurView.xcodeproj; path = "../node_modules/react-native-fxblurview/RCTFXBlurView/RCTFXBlurView.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -524,6 +532,14 @@
 			name = pcmPlayerCode;
 			sourceTree = "<group>";
 		};
+		909A78631D6E77A300D7F1A0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				909A78691D6E77A400D7F1A0 /* libRCTFXBlurView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		90F607981D503B480066C189 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +624,10 @@
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
+				},
+				{
+					ProductGroup = 909A78631D6E77A300D7F1A0 /* Products */;
+					ProjectRef = BA73FDA9AD4545699E3EDD93 /* RCTFXBlurView.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -756,6 +776,13 @@
 			fileType = archive.ar;
 			path = libART.a;
 			remoteRef = 902BF0F91D26370900F6A9BE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		909A78691D6E77A400D7F1A0 /* libRCTFXBlurView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTFXBlurView.a;
+			remoteRef = 909A78681D6E77A400D7F1A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		90F607A71D503B480066C189 /* libRNBlur.a */ = {

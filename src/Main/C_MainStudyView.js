@@ -66,7 +66,7 @@ export default class C_MainStudyView extends Component {
   }
   Refresh(key) {
     var index = app.main.getIndexForRealList(key);
-    this.cardList[index].Refresh();
+    this.cardList[index] && this.cardList[index].Refresh();
   }
   shouldComponentUpdate(nextProps, nextState) {
     // logf('study view', nextProps != this.props);
