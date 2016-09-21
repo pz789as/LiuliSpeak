@@ -379,7 +379,11 @@ export default class App extends Component {
         configure = Navigator.SceneConfigs.VerticalDownSwipeJump;
         break;
     }
-    return configure;
+    return {
+      ...configure,
+      gestures:{}
+    };
+    // return configure;
   }
   renderScene(route, navigator){
     this._navigator = navigator;
